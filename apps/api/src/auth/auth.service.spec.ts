@@ -9,9 +9,11 @@ import { EmailService } from '../email/email.service';
 import { prismaMock, resetPrismaMock } from '../../test/utils/prisma-mock';
 import { TestDataFactory } from '../../test/utils/test-data-factory';
 import * as bcrypt from 'bcryptjs';
+import * as speakeasy from 'speakeasy';
 import { Role } from '@innovation-lab/database';
 
 jest.mock('bcryptjs');
+jest.mock('speakeasy');
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -444,7 +446,6 @@ describe('AuthService', () => {
       const token = '123456'; // Mock token
 
       // Mock speakeasy verification
-      const speakeasy = require('speakeasy');
       jest.spyOn(speakeasy.totp, 'verify').mockReturnValue(true);
 
       const result = service.verify2FA(secret, token);
@@ -456,7 +457,6 @@ describe('AuthService', () => {
       const secret = 'JBSWY3DPEHPK3PXP';
       const token = 'wrong';
 
-      const speakeasy = require('speakeasy');
       jest.spyOn(speakeasy.totp, 'verify').mockReturnValue(false);
 
       const result = service.verify2FA(secret, token);

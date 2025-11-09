@@ -8,7 +8,7 @@ describe('Authentication (E2E)', () => {
   let app: INestApplication;
   let prisma: PrismaService;
   let authToken: string;
-  let userId: string;
+  let _userId: string;
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
