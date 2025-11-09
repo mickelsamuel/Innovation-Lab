@@ -170,7 +170,7 @@ describe('InvitationsService', () => {
       const fullTeam = {
         ...mockTeam,
         members: [
-          { userId: 'user-1', role: TeamMemberRole.LEAD },
+          { userId: senderId, role: TeamMemberRole.LEAD },
           { userId: 'user-2', role: TeamMemberRole.MEMBER },
           { userId: 'user-3', role: TeamMemberRole.MEMBER },
           { userId: 'user-4', role: TeamMemberRole.MEMBER },

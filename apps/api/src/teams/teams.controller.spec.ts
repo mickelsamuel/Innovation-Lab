@@ -87,7 +87,7 @@ describe('TeamsController', () => {
       const result = await controller.getMyTeams(user as any);
 
       expect(result).toEqual(teams);
-      expect(service.findUserTeams).toHaveBeenCalledWith('user-1');
+      expect(service.findUserTeams).toHaveBeenCalledWith('user-1', undefined);
     });
   });
 
