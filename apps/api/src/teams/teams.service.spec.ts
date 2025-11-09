@@ -8,6 +8,7 @@ import {
 import { TeamsService } from './teams.service';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { GamificationService } from '../gamification/gamification.service';
+import { NotificationsService } from '../notifications/notifications.service';
 import { prismaMock, resetPrismaMock } from '../../test/utils/prisma-mock';
 import { TestDataFactory } from '../../test/utils/test-data-factory';
 import { TeamMemberRole } from '@innovation-lab/database';
@@ -31,6 +32,13 @@ describe('TeamsService', () => {
           provide: GamificationService,
           useValue: {
             awardXp: jest.fn().mockResolvedValue(undefined),
+          },
+        },
+        {
+          provide: NotificationsService,
+          useValue: {
+            create: jest.fn().mockResolvedValue(undefined),
+            createBulk: jest.fn().mockResolvedValue(undefined),
           },
         },
       ],
@@ -336,11 +344,20 @@ describe('TeamsService', () => {
         .mockResolvedValueOnce(team as any)
         .mockResolvedValueOnce(updatedTeam as any);
       prismaMock.teamMember.findFirst.mockResolvedValue(null);
+      prismaMock.teamMember.count.mockResolvedValue(2);
       prismaMock.teamMember.create.mockResolvedValue({} as any);
       prismaMock.auditLog.create.mockResolvedValue({} as any);
 
+      // Mock transaction to execute the callback
+      prismaMock.$transaction.mockImplementation(async (callback: any) => {
+        return callback(prismaMock);
+      });
+
       await service.addMember('team-1', inviteDto, 'user-1');
 
+      expect(prismaMock.teamMember.count).toHaveBeenCalledWith({
+        where: { teamId: 'team-1' },
+      });
       expect(prismaMock.teamMember.create).toHaveBeenCalledWith({
         data: {
           teamId: 'team-1',
@@ -386,14 +403,21 @@ describe('TeamsService', () => {
         members: [
           { userId: 'user-1', role: TeamMemberRole.LEAD },
           { userId: 'user-2', role: TeamMemberRole.MEMBER },
-          { userId: 'user-3', role: TeamMemberRole.MEMBER },
           { userId: 'user-4', role: TeamMemberRole.MEMBER },
           { userId: 'user-5', role: TeamMemberRole.MEMBER },
+          { userId: 'user-6', role: TeamMemberRole.MEMBER },
         ],
         hackathon: { id: 'hackathon-1', maxTeamSize: 5 },
       };
 
       prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.teamMember.findFirst.mockResolvedValue(null);
+      prismaMock.teamMember.count.mockResolvedValue(5);
+
+      // Mock transaction to execute the callback
+      prismaMock.$transaction.mockImplementation(async (callback: any) => {
+        return callback(prismaMock);
+      });
 
       await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow('Team is full');

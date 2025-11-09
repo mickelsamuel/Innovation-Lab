@@ -216,7 +216,7 @@ describe('HackathonsService', () => {
       expect(prismaMock.hackathon.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
           where: expect.objectContaining({
-            location: 'Virtual',
+            location: 'VIRTUAL',
           }),
         })
       );

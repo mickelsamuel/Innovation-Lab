@@ -7,6 +7,7 @@ import {
 import { SubmissionsService } from './submissions.service';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { GamificationService } from '../gamification/gamification.service';
+import { WebSocketService } from '../websocket/websocket.service';
 import { prismaMock, resetPrismaMock } from '../../test/utils/prisma-mock';
 import { TestDataFactory } from '../../test/utils/test-data-factory';
 import { SubmissionStatus, TeamMemberRole } from '@innovation-lab/database';
@@ -30,6 +31,14 @@ describe('SubmissionsService', () => {
           provide: GamificationService,
           useValue: {
             awardXp: jest.fn().mockResolvedValue(undefined),
+          },
+        },
+        {
+          provide: WebSocketService,
+          useValue: {
+            emitToRoom: jest.fn(),
+            emitToUser: jest.fn(),
+            emitNewSubmission: jest.fn(),
           },
         },
       ],

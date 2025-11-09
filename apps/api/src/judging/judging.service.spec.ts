@@ -8,6 +8,7 @@ import {
 import { JudgingService } from './judging.service';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { GamificationService } from '../gamification/gamification.service';
+import { WebSocketService } from '../websocket/websocket.service';
 import { prismaMock, resetPrismaMock } from '../../test/utils/prisma-mock';
 import { TestDataFactory } from '../../test/utils/test-data-factory';
 import { Role } from '@innovation-lab/database';
@@ -31,6 +32,15 @@ describe('JudgingService', () => {
           provide: GamificationService,
           useValue: {
             awardXp: jest.fn().mockResolvedValue(undefined),
+          },
+        },
+        {
+          provide: WebSocketService,
+          useValue: {
+            emitToRoom: jest.fn(),
+            emitToUser: jest.fn(),
+            emitSubmissionScored: jest.fn(),
+            emitLeaderboardUpdate: jest.fn(),
           },
         },
       ],
@@ -703,14 +713,14 @@ describe('JudgingService', () => {
       expect(result.message).toBe('Rankings calculated successfully');
       expect(result.submissionsRanked).toBe(3);
       expect(prismaMock.submission.update).toHaveBeenCalledTimes(3);
-      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(1, {
+      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(1, expect.objectContaining({
         where: { id: 'submission-1' },
         data: { rank: 1 },
-      });
-      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(2, {
+      }));
+      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(2, expect.objectContaining({
         where: { id: 'submission-2' },
         data: { rank: 2 },
-      });
+      }));
       expect(prismaMock.auditLog.create).toHaveBeenCalled();
     });
 

@@ -424,6 +424,12 @@ describe('AuthService', () => {
 
       prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
 
+      // Mock speakeasy.generateSecret
+      jest.spyOn(speakeasy, 'generateSecret').mockReturnValue({
+        base32: 'JBSWY3DPEHPK3PXP',
+        otpauth_url: 'otpauth://totp/Innovation%20Lab%20(test@example.com)?secret=JBSWY3DPEHPK3PXP&issuer=Innovation%20Lab',
+      } as any);
+
       const result = await service.setup2FA(userId);
 
       expect(result).toHaveProperty('secret');
@@ -478,7 +484,7 @@ describe('AuthService', () => {
       expect(prismaMock.user.update).toHaveBeenCalledWith({
         where: { id: userId },
         data: {
-          totpSecret: secret,
+          totpSecret: expect.any(String), // Secret is encrypted before storage
           totpEnabled: true,
         },
       });
