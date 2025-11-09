@@ -1,0 +1,51 @@
+{
+  "name": "innovation-lab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Innovation Lab - Virtual Hackathons & Challenges Platform for National Bank of Canada + Vaultix",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mickelsamuel/Innovation-Lab.git"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.15.0",
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
+    "test:cov": "turbo run test:cov",
+    "test:e2e": "turbo run test:e2e",
+    "test:all": "pnpm test && pnpm test:e2e",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,yml,yaml}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "db:generate": "pnpm --filter @innovation-lab/database generate",
+    "db:push": "pnpm --filter @innovation-lab/database push",
+    "db:migrate": "pnpm --filter @innovation-lab/database migrate",
+    "db:seed": "pnpm --filter @innovation-lab/database seed",
+    "db:studio": "pnpm --filter @innovation-lab/database studio",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:logs": "docker-compose logs -f",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "eslint": "^8.56.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4",
+    "turbo": "^1.12.0",
+    "typescript": "^5.3.3"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}

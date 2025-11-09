@@ -1,0 +1,863 @@
+// Innovation Lab - Prisma Schema
+// Platform for Virtual Hackathons & Challenges
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// AUTHENTICATION & USER MANAGEMENT
+// ============================================
+
+enum Role {
+  BANK_ADMIN
+  ORGANIZER
+  MODERATOR
+  JUDGE
+  MENTOR
+  SPONSOR
+  PROJECT_OWNER
+  PARTICIPANT
+  VIEWER
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  emailVerified DateTime?
+  name          String?
+  handle        String?   @unique
+  avatarUrl     String?
+  bio           String?   @db.Text
+  organization  String?
+  password      String?   // hashed
+  roles         Role[]    @default([VIEWER])
+  totpSecret    String?   // for 2FA
+  totpEnabled   Boolean   @default(false)
+
+  // Password Reset
+  passwordResetToken   String?
+  passwordResetExpires DateTime?
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLoginAt   DateTime?
+  isActive      Boolean   @default(true)
+  isBanned      Boolean   @default(false)
+
+  // Relations
+  accounts                 Account[]
+  sessions                 Session[]
+  apiKeys                  ApiKey[]
+  auditLogs                AuditLog[]
+  teamMemberships          TeamMember[]
+  sentInvitations          TeamInvitation[] @relation("SentInvitations")
+  receivedInvitations      TeamInvitation[] @relation("ReceivedInvitations")
+  mentorProfiles           Mentor[]
+  judgeAssignments         Judge[]
+  challengeSubmissions     ChallengeSubmission[]
+  comments                 Comment[]
+  gamificationProfile      GamificationProfile?
+  xpEvents                 XpEvent[]
+  notifications            Notification[]
+  notificationPreferences  NotificationPreferences?
+  reports                  Report[]
+  uploadedFiles            File[]
+  ownedChallenges          Challenge[]
+  hackathonRegistrations   HackathonParticipant[]
+
+  @@index([email])
+  @@index([handle])
+  @@map("users")
+}
+
+// Auth.js / NextAuth tables
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+  @@map("accounts")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+model ApiKey {
+  id         String    @id @default(cuid())
+  userId     String
+  name       String
+  hashedKey  String    @unique
+  scopes     String[]
+  lastUsedAt DateTime?
+  expiresAt  DateTime?
+  createdAt  DateTime  @default(now())
+  isActive   Boolean   @default(true)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("api_keys")
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  action     String
+  entityType String
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+
+  actor User? @relation(fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([actorId, createdAt])
+  @@index([action, createdAt])
+  @@map("audit_logs")
+}
+
+// ============================================
+// HACKATHONS
+// ============================================
+
+enum HackathonStatus {
+  DRAFT
+  UPCOMING
+  LIVE
+  JUDGING
+  CLOSED
+}
+
+enum HackathonLocation {
+  VIRTUAL
+  HYBRID
+  ONSITE
+}
+
+model Hackathon {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  title       String
+  subtitle    String?
+  description String           @db.Text
+  coverImage  String?
+  bannerUrl   String?
+  logoUrl     String?
+  status      HackathonStatus  @default(DRAFT)
+  location    HackathonLocation @default(VIRTUAL)
+  virtualUrl  String?
+  venue       String?
+  city        String?
+  country     String?
+  timezone    String?
+
+  registrationOpensAt  DateTime?
+  registrationClosesAt DateTime?
+  submissionOpensAt    DateTime?
+  submissionClosesAt   DateTime?
+  startsAt             DateTime
+  endsAt               DateTime
+  judgingEndsAt        DateTime?
+
+  prizePool       Decimal?  @db.Decimal(10, 2)
+  minTeamSize     Int       @default(1)
+  maxTeamSize     Int       @default(4)
+  allowSoloTeams  Boolean   @default(true)
+  requireApproval Boolean   @default(false)
+  isPublished     Boolean   @default(false)
+
+  rules          String?   @db.Text
+  schedule       Json?
+  metadata       Json?
+
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  // Relations
+  tracks        Track[]
+  teams         Team[]
+  mentors       Mentor[]
+  judges        Judge[]
+  criteria      Criteria[]
+  submissions   Submission[]
+  announcements Announcement[]
+  participants  HackathonParticipant[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([startsAt])
+  @@map("hackathons")
+}
+
+model HackathonParticipant {
+  hackathonId  String
+  userId       String
+  registeredAt DateTime @default(now())
+
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([hackathonId, userId])
+  @@index([hackathonId])
+  @@index([userId])
+  @@map("hackathon_participants")
+}
+
+model Track {
+  id          String   @id @default(cuid())
+  hackathonId String
+  title       String
+  description String?  @db.Text
+  order       Int      @default(0)
+
+  createdAt   DateTime @default(now())
+
+  hackathon   Hackathon    @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  submissions Submission[]
+
+  @@index([hackathonId])
+  @@map("tracks")
+}
+
+enum TeamMemberRole {
+  LEAD
+  MEMBER
+}
+
+model Team {
+  id                String   @id @default(cuid())
+  hackathonId       String
+  name              String
+  bio               String?  @db.Text
+  logoUrl           String?
+  repoUrl           String?
+  demoUrl           String?
+  lookingForMembers Boolean  @default(false)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  hackathon   Hackathon    @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  members     TeamMember[]
+  submissions Submission[]
+  challengeSubmissions ChallengeSubmission[]
+  invitations TeamInvitation[]
+
+  @@index([hackathonId])
+  @@map("teams")
+}
+
+model TeamMember {
+  teamId    String
+  userId    String
+  role      TeamMemberRole @default(MEMBER)
+  joinedAt  DateTime       @default(now())
+
+  team Team @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([teamId, userId])
+  @@index([userId])
+  @@map("team_members")
+}
+
+enum InvitationStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+  EXPIRED
+}
+
+model TeamInvitation {
+  id           String           @id @default(cuid())
+  teamId       String
+  invitedById  String
+  inviteeId    String?
+  inviteeEmail String?
+  role         TeamMemberRole   @default(MEMBER)
+  status       InvitationStatus @default(PENDING)
+  expiresAt    DateTime?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  team      Team  @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  invitedBy User  @relation("SentInvitations", fields: [invitedById], references: [id], onDelete: Cascade)
+  invitee   User? @relation("ReceivedInvitations", fields: [inviteeId], references: [id], onDelete: Cascade)
+
+  @@index([teamId])
+  @@index([invitedById])
+  @@index([inviteeId])
+  @@index([inviteeEmail])
+  @@index([status])
+  @@map("team_invitations")
+}
+
+model Mentor {
+  id          String   @id @default(cuid())
+  userId      String
+  hackathonId String
+  bio         String?  @db.Text
+  calendlyUrl String?
+  expertise   String[]
+
+  createdAt   DateTime @default(now())
+
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hackathon Hackathon       @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  sessions  MentorSession[]
+
+  @@unique([userId, hackathonId])
+  @@index([hackathonId])
+  @@map("mentors")
+}
+
+model MentorSession {
+  id        String   @id @default(cuid())
+  mentorId  String
+  title     String?
+  startsAt  DateTime
+  endsAt    DateTime
+  capacity  Int      @default(10)
+  booked    Int      @default(0)
+  meetingUrl String?
+
+  createdAt DateTime @default(now())
+
+  mentor Mentor @relation(fields: [mentorId], references: [id], onDelete: Cascade)
+
+  @@index([mentorId])
+  @@index([startsAt])
+  @@map("mentor_sessions")
+}
+
+model Judge {
+  id          String   @id @default(cuid())
+  userId      String
+  hackathonId String
+  bio         String?  @db.Text
+
+  createdAt   DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  scores    Score[]
+
+  @@unique([userId, hackathonId])
+  @@index([hackathonId])
+  @@map("judges")
+}
+
+model Criteria {
+  id          String  @id @default(cuid())
+  hackathonId String
+  name        String
+  description String? @db.Text
+  maxScore    Int     @default(10)
+  weight      Decimal @default(1.0) @db.Decimal(3, 2)
+  order       Int     @default(0)
+
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  scores    Score[]
+
+  @@index([hackathonId])
+  @@map("criteria")
+}
+
+enum SubmissionStatus {
+  DRAFT
+  SUBMITTED
+  FINAL
+  DISQUALIFIED
+}
+
+model Submission {
+  id          String           @id @default(cuid())
+  hackathonId String
+  teamId      String
+  trackId     String?
+
+  title       String
+  abstract    String           @db.Text
+  repoUrl     String?
+  demoUrl     String?
+  videoUrl    String?
+  files       String[]
+
+  submittedAt DateTime?
+  finalizedAt DateTime?
+  status      SubmissionStatus @default(DRAFT)
+
+  scoreAggregate Decimal?      @db.Decimal(5, 2)
+  rank           Int?
+
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  hackathon Hackathon @relation(fields: [hackathonId], references: [id], onDelete: Cascade)
+  team      Team      @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  track     Track?    @relation(fields: [trackId], references: [id], onDelete: SetNull)
+  scores    Score[]
+
+  @@index([hackathonId])
+  @@index([teamId])
+  @@index([trackId])
+  @@index([status])
+  @@map("submissions")
+}
+
+model Score {
+  id           String   @id @default(cuid())
+  submissionId String
+  judgeId      String
+  criterionId  String
+  score        Int
+  feedback     String?  @db.Text
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  submission Submission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+  judge      Judge      @relation(fields: [judgeId], references: [id], onDelete: Cascade)
+  criterion  Criteria   @relation(fields: [criterionId], references: [id], onDelete: Cascade)
+
+  @@unique([submissionId, judgeId, criterionId])
+  @@index([submissionId])
+  @@index([judgeId])
+  @@map("scores")
+}
+
+// ============================================
+// CHALLENGES & PROJECTS
+// ============================================
+
+enum ChallengeStatus {
+  DRAFT
+  OPEN
+  REVIEW
+  CLOSED
+}
+
+enum RewardType {
+  CASH
+  PRIZE
+  INTERNSHIP
+  RECOGNITION
+}
+
+enum ChallengeVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+model Challenge {
+  id               String              @id @default(cuid())
+  slug             String              @unique
+  title            String
+  problemStatement String              @db.Text
+  ownerId          String
+  ownerOrg         String?
+
+  rewardType       RewardType?
+  rewardValue      String?
+
+  categories       String[]
+  skills           String[]
+  attachments      String[]
+
+  status           ChallengeStatus     @default(DRAFT)
+  visibility       ChallengeVisibility @default(PUBLIC)
+
+  deadlineAt       DateTime?
+
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  owner       User                  @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  submissions ChallengeSubmission[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([ownerId])
+  @@map("challenges")
+}
+
+enum ChallengeSubmissionStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  ACCEPTED
+  REJECTED
+  WINNER
+}
+
+model ChallengeSubmission {
+  id          String                    @id @default(cuid())
+  challengeId String
+  userId      String?
+  teamId      String?
+
+  title       String
+  repoUrl     String?
+  content     String                    @db.Text
+  files       String[]
+
+  status      ChallengeSubmissionStatus @default(SUBMITTED)
+  score       Decimal?                  @db.Decimal(5, 2)
+  feedback    String?                   @db.Text
+
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  user      User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  team      Team?     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@index([challengeId])
+  @@index([userId])
+  @@index([teamId])
+  @@index([status])
+  @@map("challenge_submissions")
+}
+
+// ============================================
+// ANNOUNCEMENTS & COMMUNICATION
+// ============================================
+
+enum AnnouncementScope {
+  GLOBAL
+  HACKATHON
+  CHALLENGE
+}
+
+model Announcement {
+  id          String            @id @default(cuid())
+  scope       AnnouncementScope
+  scopeId     String?
+
+  title       String
+  body        String            @db.Text
+  pinned      Boolean           @default(false)
+
+  publishedAt DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  hackathon Hackathon? @relation(fields: [scopeId], references: [id], onDelete: Cascade)
+
+  @@index([scope, scopeId])
+  @@index([publishedAt])
+  @@index([scope, scopeId, publishedAt])
+  @@map("announcements")
+}
+
+// ============================================
+// COMMENTS & THREADS
+// ============================================
+
+enum CommentEntityType {
+  HACKATHON
+  CHALLENGE
+  SUBMISSION
+  CHALLENGE_SUBMISSION
+}
+
+model CommentThread {
+  id         String            @id @default(cuid())
+  entityType CommentEntityType
+  entityId   String
+
+  createdAt  DateTime          @default(now())
+
+  comments Comment[]
+
+  @@unique([entityType, entityId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("comment_threads")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  threadId  String
+  authorId  String
+  parentId  String?
+  body      String   @db.Text
+  isFlagged Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  thread  CommentThread @relation(fields: [threadId], references: [id], onDelete: Cascade)
+  author  User          @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  parent  Comment?      @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade)
+  replies Comment[]     @relation("CommentReplies")
+
+  @@index([threadId])
+  @@index([authorId])
+  @@index([parentId])
+  @@map("comments")
+}
+
+// ============================================
+// GAMIFICATION
+// ============================================
+
+model GamificationProfile {
+  userId     String   @id
+  xp         Int      @default(0)
+  level      Int      @default(1)
+  streakDays Int      @default(0)
+  vaultKeys  Int      @default(0)
+  badges     String[]
+
+  lastActivityAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([xp])
+  @@index([level])
+  @@map("gamification_profiles")
+}
+
+model Badge {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  description String   @db.Text
+  icon        String
+  xpRequired  Int      @default(0)
+  rarity      String   @default("common")
+
+  createdAt   DateTime @default(now())
+
+  @@index([slug])
+  @@map("badges")
+}
+
+model XpEvent {
+  id        String   @id @default(cuid())
+  userId    String
+  eventType String
+  points    Int
+  refType   String?
+  refId     String?
+  metadata  Json?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@map("xp_events")
+}
+
+enum LeaderboardScope {
+  GLOBAL
+  HACKATHON
+  CHALLENGE
+}
+
+enum LeaderboardPeriod {
+  ALLTIME
+  SEASON
+  MONTH
+  WEEK
+}
+
+model LeaderboardSnapshot {
+  id      String             @id @default(cuid())
+  scope   LeaderboardScope
+  scopeId String?
+  period  LeaderboardPeriod
+  data    Json
+
+  createdAt DateTime         @default(now())
+
+  @@index([scope, scopeId, period])
+  @@index([createdAt])
+  @@map("leaderboard_snapshots")
+}
+
+// ============================================
+// NOTIFICATIONS & REPORTING
+// ============================================
+
+enum NotificationType {
+  HACKATHON_REGISTRATION
+  SUBMISSION_RECEIVED
+  JUDGE_ASSIGNED
+  MENTOR_ASSIGNED
+  JUDGING_COMPLETE
+  WINNER_ANNOUNCEMENT
+  CHALLENGE_SUBMISSION
+  CHALLENGE_REVIEWED
+  CHALLENGE_ACCEPTED
+  CHALLENGE_WINNER
+  TEAM_INVITATION
+  TEAM_INVITATION_ACCEPTED
+  TEAM_JOIN_REQUEST
+  TEAM_JOIN_REQUEST_ACCEPTED
+  LEVEL_UP
+  BADGE_UNLOCKED
+}
+
+model Notification {
+  id     String           @id @default(cuid())
+  userId String
+  type   NotificationType
+  title  String
+  message String          @db.Text
+  data   Json?
+  readAt DateTime?
+  link   String?
+
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt])
+  @@index([createdAt])
+  @@map("notifications")
+}
+
+model NotificationPreferences {
+  userId String @id
+
+  // Email Preferences
+  emailHackathonRegistration Boolean @default(true)
+  emailSubmissionReceived    Boolean @default(true)
+  emailJudgeAssigned         Boolean @default(true)
+  emailMentorAssigned        Boolean @default(true)
+  emailJudgingComplete       Boolean @default(true)
+  emailWinnerAnnouncement    Boolean @default(true)
+  emailChallengeSubmission   Boolean @default(true)
+  emailChallengeReviewed     Boolean @default(true)
+  emailChallengeAccepted     Boolean @default(true)
+  emailChallengeWinner       Boolean @default(true)
+  emailTeamInvitation        Boolean @default(true)
+  emailTeamInvitationAccepted Boolean @default(true)
+  emailLevelUp               Boolean @default(true)
+  emailBadgeUnlocked         Boolean @default(true)
+
+  // In-App Preferences (all enabled by default)
+  inAppHackathonRegistration Boolean @default(true)
+  inAppSubmissionReceived    Boolean @default(true)
+  inAppJudgeAssigned         Boolean @default(true)
+  inAppMentorAssigned        Boolean @default(true)
+  inAppJudgingComplete       Boolean @default(true)
+  inAppWinnerAnnouncement    Boolean @default(true)
+  inAppChallengeSubmission   Boolean @default(true)
+  inAppChallengeReviewed     Boolean @default(true)
+  inAppChallengeAccepted     Boolean @default(true)
+  inAppChallengeWinner       Boolean @default(true)
+  inAppTeamInvitation        Boolean @default(true)
+  inAppTeamInvitationAccepted Boolean @default(true)
+  inAppLevelUp               Boolean @default(true)
+  inAppBadgeUnlocked         Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notification_preferences")
+}
+
+enum ReportStatus {
+  OPEN
+  INVESTIGATING
+  RESOLVED
+  DISMISSED
+}
+
+model Report {
+  id         String       @id @default(cuid())
+  reporterId String
+  entityType String
+  entityId   String
+  reason     String       @db.Text
+  status     ReportStatus @default(OPEN)
+  resolution String?      @db.Text
+
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+
+  reporter User @relation(fields: [reporterId], references: [id], onDelete: Cascade)
+
+  @@index([reporterId])
+  @@index([entityType, entityId])
+  @@index([status])
+  @@map("reports")
+}
+
+// ============================================
+// FILE ASSETS
+// ============================================
+
+model File {
+  id            String    @id @default(cuid())
+  filename      String    // Original filename
+  mimetype      String    // MIME type
+  size          Int       // File size in bytes
+  key           String    // Storage key/path
+  url           String    // Public URL to access file
+  type          String    // FileType: image, video, document, avatar
+  uploadedById  String    // User who uploaded
+  entityId      String?   // Associated entity ID (submissionId, userId, etc.)
+  entityType    String?   // Entity type (submission, user, hackathon, etc.)
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime? // Soft delete
+
+  uploadedBy User @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([uploadedById])
+  @@index([entityType, entityId])
+  @@index([type])
+  @@index([uploadedById, entityType, entityId])
+  @@index([createdAt])
+  @@map("files")
+}

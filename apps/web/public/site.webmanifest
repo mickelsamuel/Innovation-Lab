@@ -1,0 +1,16 @@
+{
+  "name": "Innovation Lab",
+  "short_name": "Innovation Lab",
+  "description": "NBC Innovation Lab - Hackathons, Challenges, and Innovation",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Judge Assignment</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #E4002B 0%, #FF6B6B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h1 {
+            color: #E4002B;
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .judge-icon {
+            text-align: center;
+            font-size: 64px;
+            margin: 20px 0;
+        }
+        .hackathon-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #E4002B;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .hackathon-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #E4002B;
+            margin-bottom: 15px;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-box {
+            background: linear-gradient(135deg, #E4002B 0%, #FF6B6B 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+        }
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        .criteria-list {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        .criteria-list h3 {
+            color: #E4002B;
+            margin-top: 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #E4002B;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Innovation Lab</div>
+        </div>
+
+        <div class="judge-icon">⚖️</div>
+
+        <h1>You've Been Assigned as a Judge!</h1>
+
+        <p>Hi {{name}},</p>
+
+        <p>You've been assigned as a judge for the following hackathon:</p>
+
+        <div class="hackathon-box">
+            <div class="hackathon-title">{{hackathonTitle}}</div>
+            <p>{{hackathonDescription}}</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value">{{submissionCount}}</div>
+                <div class="stat-label">Submissions to Review</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">{{judgesCount}}</div>
+                <div class="stat-label">Total Judges</div>
+            </div>
+        </div>
+
+        <p><strong>Judging Period:</strong></p>
+        <p>{{judgingStartDate}} - {{judgingEndDate}}</p>
+
+        <p><strong>Your Responsibilities:</strong></p>
+        <ul>
+            <li>Review assigned submissions thoroughly</li>
+            <li>Score projects based on the provided criteria</li>
+            <li>Provide constructive feedback to participants</li>
+            <li>Complete all evaluations before the deadline</li>
+        </ul>
+
+        <p>Thank you for contributing your expertise to help evaluate these amazing projects!</p>
+
+        <p style="text-align: center;">
+            <a href="{{judgingUrl}}" class="button">Start Judging</a>
+        </p>
+
+        <div class="footer">
+            <p>© 2025 Innovation Lab. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentor Assignment</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #E4002B 0%, #FF6B6B 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h1 {
+            color: #E4002B;
+            font-size: 26px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .mentor-icon {
+            text-align: center;
+            font-size: 64px;
+            margin: 20px 0;
+        }
+        .hackathon-box {
+            background: linear-gradient(135deg, #E4002B 0%, #FF6B6B 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .hackathon-title {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .info-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #E4002B;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .info-box h3 {
+            color: #E4002B;
+            margin-top: 0;
+        }
+        .button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #E4002B;
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 6px;
+            margin: 20px 0;
+            font-weight: 600;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Innovation Lab</div>
+        </div>
+
+        <div class="mentor-icon">🎓</div>
+
+        <h1>Welcome, Mentor!</h1>
+
+        <p>Hi {{name}},</p>
+
+        <p>Thank you for agreeing to be a mentor! You've been assigned to the following hackathon:</p>
+
+        <div class="hackathon-box">
+            <div class="hackathon-title">{{hackathonTitle}}</div>
+            <p style="margin: 10px 0 0 0; opacity: 0.9;">{{hackathonDescription}}</p>
+        </div>
+
+        <div class="info-box">
+            <h3>Hackathon Schedule</h3>
+            <p><strong>Start:</strong> {{startsAt}}<br>
+            <strong>End:</strong> {{endsAt}}</p>
+        </div>
+
+        <p><strong>As a mentor, you'll:</strong></p>
+        <ul>
+            <li>Guide participants through technical challenges</li>
+            <li>Share your expertise and industry insights</li>
+            <li>Conduct mentorship sessions (virtual or in-person)</li>
+            <li>Help teams stay on track and motivated</li>
+        </ul>
+
+        <p>Participants will be able to book sessions with you through your mentor profile. Make sure to set up your availability!</p>
+
+        <p style="text-align: center;">
+            <a href="{{mentorUrl}}" class="button">Set Up Mentor Profile</a>
+        </p>
+
+        <p style="font-size: 14px; color: #666; text-align: center;">Your contribution makes a huge difference in helping innovators succeed!</p>
+
+        <div class="footer">
+            <p>© 2025 Innovation Lab. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

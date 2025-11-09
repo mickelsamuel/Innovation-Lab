@@ -1,0 +1,14 @@
+import { Module } from '@nestjs/common';
+import { TeamsController } from './teams.controller';
+import { TeamsService } from './teams.service';
+import { AuthModule } from '../auth/auth.module';
+import { GamificationModule } from '../gamification/gamification.module';
+import { NotificationsModule } from '../notifications/notifications.module';
+
+@Module({
+  imports: [AuthModule, GamificationModule, NotificationsModule],
+  controllers: [TeamsController],
+  providers: [TeamsService],
+  exports: [TeamsService],
+})
+export class TeamsModule {}
