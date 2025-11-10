@@ -150,7 +150,9 @@ export function NotificationBell() {
                         .then(() => {
                           setNotifications(
                             notifications.map(n =>
-                              n.id === notification.id ? { ...n, readAt: new Date().toISOString() } : n
+                              n.id === notification.id
+                                ? { ...n, readAt: new Date().toISOString() }
+                                : n
                             )
                           );
                           setUnreadCount(prev => Math.max(0, prev - 1));

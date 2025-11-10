@@ -41,12 +41,7 @@ vi.mock('next/link', async () => {
     };
 
     return (
-      <a
-        ref={ref}
-        href={href}
-        {...restProps}
-        onClick={handleClick}
-      >
+      <a ref={ref} href={href} {...restProps} onClick={handleClick}>
         {children}
       </a>
     );
