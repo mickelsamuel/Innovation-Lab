@@ -49,9 +49,9 @@ export function FileList({
       setError(null);
       const data = await getFilesByEntity(entityType, entityId);
       setFiles(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching files:', err);
-      setError(err.message || 'Failed to load files');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load files');
     } finally {
       setIsLoading(false);
     }
@@ -72,9 +72,9 @@ export function FileList({
       await deleteFile(file.id, token);
       setFiles(prev => prev.filter(f => f.id !== file.id));
       onDelete?.(file);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error deleting file:', err);
-      alert(err.message || 'Failed to delete file');
+      alert(err instanceof Error ? err.message : String(err) || 'Failed to delete file');
     } finally {
       setDeletingIds(prev => {
         const updated = new Set(prev);

@@ -40,9 +40,9 @@ export default function JudgeDashboardPage() {
       setLoading(true);
       const data = await getJudgeAssignments(token);
       setAssignments(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching assignments:', err);
-      setError(err.message || 'Failed to load assignments');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load assignments');
     } finally {
       setLoading(false);
     }

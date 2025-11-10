@@ -102,9 +102,9 @@ export default function ScoreSubmissionPage() {
       );
 
       setScores(scoresByJudge);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load submission');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load submission');
     } finally {
       setIsLoading(false);
     }
@@ -184,9 +184,9 @@ export default function ScoreSubmissionPage() {
       await fetchData();
 
       setTimeout(() => setSuccessMessage(null), 3000);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error saving score:', err);
-      setError(err.message || 'Failed to save score');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to save score');
     } finally {
       setIsSaving(false);
     }
@@ -227,9 +227,9 @@ export default function ScoreSubmissionPage() {
       setTimeout(() => {
         router.push('/judge');
       }, 2000);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error submitting scores:', err);
-      setError(err.message || 'Failed to submit all scores');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to submit all scores');
     } finally {
       setIsSaving(false);
     }

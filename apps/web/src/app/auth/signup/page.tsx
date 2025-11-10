@@ -82,8 +82,12 @@ export default function SignupPage() {
           : '/auth/login?registered=true';
         router.push(loginUrl);
       }
-    } catch (err: any) {
-      setError(err.message || 'Failed to create account. Please try again.');
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : String(err) || 'Failed to create account. Please try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }

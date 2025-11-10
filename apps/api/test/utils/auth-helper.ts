@@ -51,7 +51,7 @@ export class AuthTestHelper {
   /**
    * Decode token (for testing purposes)
    */
-  static decodeToken(token: string): any {
+  static decodeToken(token: string): unknown {
     return this.jwtService.decode(token);
   }
 }

@@ -20,6 +20,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role, ChallengeStatus } from '@prisma/client';
+import { AuthenticatedRequest } from '../common/interfaces/request.interface';
 
 @ApiTags('challenges')
 @Controller('challenges')
@@ -44,7 +45,7 @@ export class ChallengesController {
     status: 403,
     description: 'Forbidden (insufficient permissions)',
   })
-  create(@Req() req: any, @Body() createChallengeDto: CreateChallengeDto) {
+  create(@Req() req: AuthenticatedRequest, @Body() createChallengeDto: CreateChallengeDto) {
     return this.challengesService.create(req.user.id, createChallengeDto);
   }
 
@@ -83,7 +84,7 @@ export class ChallengesController {
   @ApiBearerAuth('JWT')
   @ApiOperation({ summary: "Get current user's submissions" })
   @ApiResponse({ status: 200, description: 'Submissions retrieved' })
-  getUserSubmissions(@Req() req: any) {
+  getUserSubmissions(@Req() req: AuthenticatedRequest) {
     return this.challengesService.getUserSubmissions(req.user.id);
   }
 
@@ -95,7 +96,7 @@ export class ChallengesController {
   @ApiBearerAuth('JWT')
   @ApiOperation({ summary: 'Get completed challenges count' })
   @ApiResponse({ status: 200, description: 'Completed challenges count retrieved' })
-  getCompletedCount(@Req() req: any) {
+  getCompletedCount(@Req() req: AuthenticatedRequest) {
     return this.challengesService.getCompletedCount(req.user.id);
   }
 
@@ -134,7 +135,11 @@ export class ChallengesController {
     status: 403,
     description: 'Forbidden (not owner or admin)',
   })
-  update(@Param('id') id: string, @Req() req: any, @Body() updateChallengeDto: UpdateChallengeDto) {
+  update(
+    @Param('id') id: string,
+    @Req() req: AuthenticatedRequest,
+    @Body() updateChallengeDto: UpdateChallengeDto
+  ) {
     return this.challengesService.update(id, req.user.id, req.user.role, updateChallengeDto);
   }
 
@@ -151,7 +156,7 @@ export class ChallengesController {
     status: 403,
     description: 'Forbidden (not owner or admin)',
   })
-  async remove(@Param('id') id: string, @Req() req: any) {
+  async remove(@Param('id') id: string, @Req() req: AuthenticatedRequest) {
     await this.challengesService.remove(id, req.user.id, req.user.role);
     return { message: 'Challenge deleted successfully' };
   }
@@ -174,7 +179,7 @@ export class ChallengesController {
   })
   submitSolution(
     @Param('id') id: string,
-    @Req() req: any,
+    @Req() req: AuthenticatedRequest,
     @Body() submitSolutionDto: SubmitSolutionDto
   ) {
     return this.challengesService.submitSolution(id, req.user.id, submitSolutionDto);
@@ -224,7 +229,7 @@ export class ChallengesController {
   })
   reviewSubmission(
     @Param('id') id: string,
-    @Req() req: any,
+    @Req() req: AuthenticatedRequest,
     @Body() reviewSolutionDto: ReviewSolutionDto
   ) {
     return this.challengesService.reviewSubmission(

@@ -61,7 +61,7 @@ export default function HackathonsPage() {
       setIsLoading(true);
       setError(null);
 
-      const filters: any = {
+      const filters: Record<string, unknown> = {
         page: currentPage,
         limit,
       };
@@ -83,9 +83,9 @@ export default function HackathonsPage() {
       setHackathons(response.data);
       setTotalPages(response.meta.totalPages);
       setTotal(response.meta.total);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching hackathons:', err);
-      setError(err.message || 'Failed to fetch hackathons');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to fetch hackathons');
     } finally {
       setIsLoading(false);
     }

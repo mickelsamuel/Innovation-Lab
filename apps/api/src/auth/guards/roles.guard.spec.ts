@@ -17,14 +17,14 @@ describe('RolesGuard', () => {
     reflector = module.get<Reflector>(Reflector);
   });
 
-  const mockExecutionContext = (user: any): ExecutionContext =>
+  const mockExecutionContext = (user: { id: string; roles?: string[] } | null): ExecutionContext =>
     ({
       switchToHttp: () => ({
         getRequest: () => ({ user }),
       }),
       getHandler: jest.fn(),
       getClass: jest.fn(),
-    }) as any;
+    }) as ExecutionContext;
 
   afterEach(() => {
     jest.clearAllMocks();

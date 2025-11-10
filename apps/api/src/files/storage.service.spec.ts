@@ -35,7 +35,7 @@ jest.mock('fs', () => {
 // Mock util.promisify to return our async mocks
 jest.mock('util', () => ({
   ...jest.requireActual('util'),
-  promisify: (fn: any) => {
+  promisify: (fn: Record<string, unknown>) => {
     if (!fn) return fn;
     const name = fn.name || '';
     if (name.includes('writeFile') || name === 'mockConstructor') {
@@ -61,7 +61,7 @@ describe('StorageService', () => {
     mimetype: 'image/jpeg',
     buffer: Buffer.from('test file content'),
     size: 1024,
-    stream: null as any,
+    stream: null as unknown as NodeJS.ReadableStream,
     destination: '',
     filename: '',
     path: '',
@@ -84,8 +84,8 @@ describe('StorageService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   STORAGE_TYPE: 'local',
                   LOCAL_STORAGE_PATH: './test-uploads',
                   API_URL: 'http://localhost:4000',
@@ -199,8 +199,8 @@ describe('StorageService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   STORAGE_TYPE: 's3',
                   AWS_S3_BUCKET: 'test-bucket',
                   AWS_REGION: 'us-east-1',
@@ -243,8 +243,8 @@ describe('StorageService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   STORAGE_TYPE: 's3',
                   AWS_S3_BUCKET: 'test-bucket',
                   AWS_REGION: 'us-west-2',
@@ -342,8 +342,8 @@ describe('StorageService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   STORAGE_TYPE: 's3',
                   AWS_S3_BUCKET: 'test-bucket',
                   AWS_REGION: 'us-east-1',

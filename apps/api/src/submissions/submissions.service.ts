@@ -136,7 +136,7 @@ export class SubmissionsService {
    * Find all submissions for a hackathon
    */
   async findAll(hackathonId: string, status?: SubmissionStatus) {
-    const where: any = { hackathonId };
+    const where: Record<string, unknown> = { hackathonId };
     if (status) {
       where.status = status;
     }

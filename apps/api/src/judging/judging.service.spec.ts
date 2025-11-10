@@ -75,11 +75,11 @@ describe('JudgingService', () => {
         },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.user.findUnique.mockResolvedValue(user);
       prismaMock.judge.findUnique.mockResolvedValue(null);
-      prismaMock.judge.create.mockResolvedValue(judge as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.judge.create.mockResolvedValue(judge);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.assignJudge('hackathon-1', assignDto, 'admin-1');
 
@@ -107,7 +107,7 @@ describe('JudgingService', () => {
     it('should throw NotFoundException if user not found', async () => {
       const hackathon = { id: 'hackathon-1', title: 'Test Hack' };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
       prismaMock.user.findUnique.mockResolvedValue(null);
 
       await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
@@ -121,8 +121,8 @@ describe('JudgingService', () => {
       const hackathon = { id: 'hackathon-1', title: 'Test Hack' };
       const user = { id: 'judge-1', roles: [Role.PARTICIPANT] };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.user.findUnique.mockResolvedValue(user);
 
       await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
         BadRequestException
@@ -139,9 +139,9 @@ describe('JudgingService', () => {
       const user = { id: 'judge-1', roles: [Role.JUDGE] };
       const existingJudge = { id: 'assignment-1', hackathonId: 'hackathon-1', userId: 'judge-1' };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
-      prismaMock.judge.findUnique.mockResolvedValue(existingJudge as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.user.findUnique.mockResolvedValue(user);
+      prismaMock.judge.findUnique.mockResolvedValue(existingJudge);
 
       await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
         ConflictException
@@ -166,11 +166,11 @@ describe('JudgingService', () => {
         },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.user.findUnique.mockResolvedValue(user);
       prismaMock.judge.findUnique.mockResolvedValue(null);
-      prismaMock.judge.create.mockResolvedValue(judge as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.judge.create.mockResolvedValue(judge);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.assignJudge('hackathon-1', { userId: 'admin-1' }, 'admin-2');
 
@@ -206,8 +206,8 @@ describe('JudgingService', () => {
         },
       ];
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.judge.findMany.mockResolvedValue(judges as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.judge.findMany.mockResolvedValue(judges);
 
       const result = await service.getJudges('hackathon-1');
 
@@ -229,10 +229,10 @@ describe('JudgingService', () => {
     it('should successfully remove judge without scores', async () => {
       const judge = { id: 'judge-assignment-1', hackathonId: 'hackathon-1', userId: 'judge-1' };
 
-      prismaMock.judge.findUnique.mockResolvedValue(judge as any);
+      prismaMock.judge.findUnique.mockResolvedValue(judge);
       prismaMock.score.count.mockResolvedValue(0);
-      prismaMock.judge.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.judge.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.removeJudge('hackathon-1', 'judge-1', 'admin-1');
 
@@ -256,7 +256,7 @@ describe('JudgingService', () => {
     it('should throw BadRequestException if judge has scored submissions', async () => {
       const judge = { id: 'judge-assignment-1', hackathonId: 'hackathon-1', userId: 'judge-1' };
 
-      prismaMock.judge.findUnique.mockResolvedValue(judge as any);
+      prismaMock.judge.findUnique.mockResolvedValue(judge);
       prismaMock.score.count.mockResolvedValue(5);
 
       await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow(
@@ -302,14 +302,14 @@ describe('JudgingService', () => {
         judge: { id: 'judge-1', user: { id: 'judge-user', name: 'Judge', handle: 'judge' } },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.judge.findUnique.mockResolvedValue(judge as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.judge.findUnique.mockResolvedValue(judge);
       prismaMock.score.findUnique.mockResolvedValue(null);
-      prismaMock.score.create.mockResolvedValue(score as any);
-      prismaMock.score.findMany.mockResolvedValue([score] as any);
-      prismaMock.score.aggregate.mockResolvedValue({ _sum: { score: 80 }, _count: 10 } as any);
-      prismaMock.submission.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.score.create.mockResolvedValue(score);
+      prismaMock.score.findMany.mockResolvedValue([score]);
+      prismaMock.score.aggregate.mockResolvedValue({ _sum: { score: 80 }, _count: 10 });
+      prismaMock.submission.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.createScore('submission-1', createDto, 'judge-user');
 
@@ -348,7 +348,7 @@ describe('JudgingService', () => {
         team: { members: [] },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
         BadRequestException
@@ -371,7 +371,7 @@ describe('JudgingService', () => {
         team: { members: [] },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
         NotFoundException
@@ -394,7 +394,7 @@ describe('JudgingService', () => {
         team: { members: [] },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
         BadRequestException
@@ -417,7 +417,7 @@ describe('JudgingService', () => {
         team: { members: [] },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
       prismaMock.judge.findUnique.mockResolvedValue(null);
 
       await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
@@ -445,8 +445,8 @@ describe('JudgingService', () => {
 
       const judge = { id: 'judge-1', userId: 'judge-user', hackathonId: 'hackathon-1' };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.judge.findUnique.mockResolvedValue(judge as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.judge.findUnique.mockResolvedValue(judge);
 
       await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
         ForbiddenException
@@ -479,9 +479,9 @@ describe('JudgingService', () => {
         criterionId: 'criterion-1',
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.judge.findUnique.mockResolvedValue(judge as any);
-      prismaMock.score.findUnique.mockResolvedValue(existingScore as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.judge.findUnique.mockResolvedValue(judge);
+      prismaMock.score.findUnique.mockResolvedValue(existingScore);
 
       await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
         ConflictException
@@ -509,8 +509,8 @@ describe('JudgingService', () => {
         },
       ];
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.score.findMany.mockResolvedValue(scores as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.score.findMany.mockResolvedValue(scores);
 
       const result = await service.getScores('submission-1');
 
@@ -553,11 +553,11 @@ describe('JudgingService', () => {
         feedback: 'Excellent work!',
       };
 
-      prismaMock.score.findUnique.mockResolvedValue(score as any);
-      prismaMock.score.update.mockResolvedValue(updated as any);
-      prismaMock.score.findMany.mockResolvedValue([updated] as any);
-      prismaMock.submission.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.score.findUnique.mockResolvedValue(score);
+      prismaMock.score.update.mockResolvedValue(updated);
+      prismaMock.score.findMany.mockResolvedValue([updated]);
+      prismaMock.submission.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.updateScore('score-1', updateDto, 'judge-user');
 
@@ -594,7 +594,7 @@ describe('JudgingService', () => {
         criterion: { maxScore: 10 },
       };
 
-      prismaMock.score.findUnique.mockResolvedValue(score as any);
+      prismaMock.score.findUnique.mockResolvedValue(score);
 
       await expect(service.updateScore('score-1', updateDto, 'judge-user')).rejects.toThrow(
         ForbiddenException
@@ -619,7 +619,7 @@ describe('JudgingService', () => {
         },
       };
 
-      prismaMock.score.findUnique.mockResolvedValue(score as any);
+      prismaMock.score.findUnique.mockResolvedValue(score);
 
       await expect(service.updateScore('score-1', { value: 8 }, 'judge-user')).rejects.toThrow(
         BadRequestException
@@ -643,11 +643,11 @@ describe('JudgingService', () => {
         },
       };
 
-      prismaMock.score.findUnique.mockResolvedValue(score as any);
-      prismaMock.score.delete.mockResolvedValue({} as any);
+      prismaMock.score.findUnique.mockResolvedValue(score);
+      prismaMock.score.delete.mockResolvedValue({});
       prismaMock.score.findMany.mockResolvedValue([]);
-      prismaMock.submission.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.submission.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.deleteScore('score-1', 'judge-user');
 
@@ -677,7 +677,7 @@ describe('JudgingService', () => {
         },
       };
 
-      prismaMock.score.findUnique.mockResolvedValue(score as any);
+      prismaMock.score.findUnique.mockResolvedValue(score);
 
       await expect(service.deleteScore('score-1', 'judge-user')).rejects.toThrow(
         ForbiddenException
@@ -717,7 +717,7 @@ describe('JudgingService', () => {
         },
       ];
 
-      prismaMock.judge.findMany.mockResolvedValue(judges as any);
+      prismaMock.judge.findMany.mockResolvedValue(judges);
 
       const result = await service.getJudgeAssignments('judge-user');
 
@@ -743,7 +743,7 @@ describe('JudgingService', () => {
         },
       ];
 
-      prismaMock.judge.findMany.mockResolvedValue(judges as any);
+      prismaMock.judge.findMany.mockResolvedValue(judges);
 
       const result = await service.getJudgeAssignments('judge-user', 'hackathon-1');
 
@@ -767,10 +767,10 @@ describe('JudgingService', () => {
         { id: 'submission-3', scoreAggregate: 92 },
       ];
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.submission.findMany.mockResolvedValue(submissions as any);
-      prismaMock.submission.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.submission.findMany.mockResolvedValue(submissions);
+      prismaMock.submission.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.calculateRankings('hackathon-1', 'admin-1');
 
@@ -808,9 +808,9 @@ describe('JudgingService', () => {
     it('should handle hackathon with no scored submissions', async () => {
       const hackathon = { id: 'hackathon-1', title: 'Test Hack' };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
       prismaMock.submission.findMany.mockResolvedValue([]);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.calculateRankings('hackathon-1', 'admin-1');
 

@@ -59,8 +59,8 @@ export default function ReviewSubmissionPage() {
         }
 
         setSubmission(data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load submission');
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err) || 'Failed to load submission');
       } finally {
         setIsLoading(false);
       }
@@ -100,12 +100,13 @@ export default function ReviewSubmissionPage() {
       } else {
         router.push('/admin/challenges');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Review submission error:', error);
       addToast({
         type: 'error',
         title: 'Error',
-        description: error.message || 'Failed to review submission',
+        description:
+          error instanceof Error ? error.message : String(error) || 'Failed to review submission',
       });
     } finally {
       setIsReviewing(false);

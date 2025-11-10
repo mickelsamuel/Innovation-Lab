@@ -6,6 +6,7 @@ import { apiFetch, buildQueryString } from './api';
 import type { Team } from '@/types/team';
 
 export interface TeamFilters {
+  [key: string]: unknown;
   hackathonId: string;
   lookingForMembers?: boolean;
   search?: string;

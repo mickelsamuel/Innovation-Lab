@@ -69,9 +69,9 @@ export default function LeaderboardPage() {
         limit: 100,
       });
       setLeaderboard(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching leaderboard:', err);
-      setError(err.message || 'Failed to load leaderboard');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load leaderboard');
     } finally {
       setIsLoading(false);
     }
@@ -81,7 +81,7 @@ export default function LeaderboardPage() {
     try {
       const data = await getAllBadges();
       setBadges(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching badges:', err);
     }
   }
@@ -90,7 +90,7 @@ export default function LeaderboardPage() {
     try {
       const response = await getHackathons({ limit: 100 });
       setHackathons(response.data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching hackathons:', err);
     }
   }
@@ -99,7 +99,7 @@ export default function LeaderboardPage() {
     try {
       const data = await getChallenges({});
       setChallenges(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching challenges:', err);
     }
   }

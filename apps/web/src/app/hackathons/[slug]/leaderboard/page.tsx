@@ -81,9 +81,9 @@ export default function HackathonLeaderboardPage() {
         .sort((a: Submission, b: Submission) => (a.rank || 999) - (b.rank || 999));
 
       setSubmissions(rankedSubmissions);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load leaderboard');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load leaderboard');
     } finally {
       setIsLoading(false);
     }

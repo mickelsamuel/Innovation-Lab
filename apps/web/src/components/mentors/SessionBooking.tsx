@@ -74,7 +74,12 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
     } catch (error) {
       toast({
         title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to create session',
+        description:
+          error instanceof Error
+            ? error instanceof Error
+              ? error.message
+              : String(error)
+            : 'Failed to create session',
         variant: 'destructive',
       });
     } finally {

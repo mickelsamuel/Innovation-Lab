@@ -403,7 +403,7 @@ export class MentorsService {
       throw new NotFoundException('Mentor not found');
     }
 
-    const where: any = { mentorId };
+    const where: Record<string, unknown> = { mentorId };
 
     // By default, only show upcoming sessions
     if (!includeAll) {

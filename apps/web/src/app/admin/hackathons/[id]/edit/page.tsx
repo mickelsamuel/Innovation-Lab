@@ -134,12 +134,12 @@ export default function EditHackathonPage() {
             order: criterion.order,
           })) || [],
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching hackathon:', error);
       addToast({
         type: 'error',
         title: 'Failed to load hackathon',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setIsLoading(false);
@@ -185,12 +185,12 @@ export default function EditHackathonPage() {
 
       // Refresh data
       fetchHackathon();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error updating hackathon:', error);
       addToast({
         type: 'error',
         title: 'Failed to update hackathon',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setIsSubmitting(false);

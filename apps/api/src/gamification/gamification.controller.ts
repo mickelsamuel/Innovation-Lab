@@ -12,6 +12,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '@prisma/client';
+import { AuthenticatedRequest } from '../common/interfaces/request.interface';
 import {
   AwardXpDto,
   AwardBadgeDto,
@@ -40,7 +41,7 @@ export class GamificationController {
     description: 'Gamification profile retrieved',
     type: GamificationProfileResponseDto,
   })
-  async getMyProfile(@Req() req: any) {
+  async getMyProfile(@Req() req: AuthenticatedRequest) {
     return this.gamificationService.getUserProfile(req.user.id);
   }
 
@@ -134,7 +135,7 @@ export class GamificationController {
     description: 'XP events retrieved',
     type: [XpEventDto],
   })
-  async getMyXpEvents(@Req() req: any, @Query('limit') limit?: number) {
+  async getMyXpEvents(@Req() req: AuthenticatedRequest, @Query('limit') limit?: number) {
     return this.gamificationService.getUserXpEvents(
       req.user.id,
       limit ? parseInt(limit.toString()) : 50
@@ -222,7 +223,7 @@ export class GamificationController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update daily login streak' })
   @ApiResponse({ status: 200, description: 'Streak updated' })
-  async updateStreak(@Req() req: any) {
+  async updateStreak(@Req() req: AuthenticatedRequest) {
     await this.gamificationService.updateDailyStreak(req.user.id);
     return { message: 'Streak updated' };
   }

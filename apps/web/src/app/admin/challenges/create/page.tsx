@@ -47,7 +47,12 @@ export default function CreateChallengePage() {
       addToast({
         type: 'error',
         title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to create challenge',
+        description:
+          error instanceof Error
+            ? error instanceof Error
+              ? error.message
+              : String(error)
+            : 'Failed to create challenge',
       });
     } finally {
       setIsLoading(false);

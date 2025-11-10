@@ -42,8 +42,14 @@ export default function EditChallengePage() {
         }
 
         setChallenge(data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load challenge');
+      } catch (err) {
+        setError(
+          err instanceof Error
+            ? err instanceof Error
+              ? err.message
+              : String(err)
+            : 'Failed to load challenge'
+        );
       } finally {
         setIsLoading(false);
       }
@@ -80,12 +86,17 @@ export default function EditChallengePage() {
 
       // Redirect to the challenge management dashboard
       router.push('/admin/challenges');
-    } catch (error: any) {
+    } catch (error) {
       console.error('Update challenge error:', error);
       addToast({
         type: 'error',
         title: 'Error',
-        description: error.message || 'Failed to update challenge',
+        description:
+          error instanceof Error
+            ? error instanceof Error
+              ? error.message
+              : String(error)
+            : 'Failed to update challenge',
       });
     } finally {
       setIsSaving(false);

@@ -68,8 +68,8 @@ describe('PrismaService', () => {
       process.env.NODE_ENV = 'development';
 
       // Mock some model methods
-      (service as any).user = { deleteMany: jest.fn().mockResolvedValue({}) };
-      (service as any).hackathon = { deleteMany: jest.fn().mockResolvedValue({}) };
+      service.user = { deleteMany: jest.fn().mockResolvedValue({}) };
+      service.hackathon = { deleteMany: jest.fn().mockResolvedValue({}) };
 
       await service.cleanDatabase();
 
@@ -83,7 +83,7 @@ describe('PrismaService', () => {
       const warnSpy = jest.spyOn(Logger.prototype, 'warn');
 
       // Mock a model that throws an error
-      (service as any).invalidModel = {
+      service.invalidModel = {
         deleteMany: jest.fn().mockRejectedValue(new Error('Delete failed')),
       };
 

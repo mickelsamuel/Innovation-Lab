@@ -74,7 +74,7 @@ describe('HealthService', () => {
         const err = error as HttpException;
         expect(err).toBeInstanceOf(HttpException);
         expect(err.getStatus()).toBe(HttpStatus.SERVICE_UNAVAILABLE);
-        const response = err.getResponse() as any;
+        const response = err.getResponse();
         expect(response.status).toBe('error');
         expect(response.services.database).toBe('down');
       }
@@ -105,7 +105,7 @@ describe('HealthService', () => {
       } catch (error) {
         const err = error as HttpException;
         expect(err).toBeInstanceOf(HttpException);
-        const response = err.getResponse() as any;
+        const response = err.getResponse();
         expect(response.status).toBe('not ready');
         expect(response.ready).toBe(false);
         expect(response.error).toBeDefined();
@@ -227,7 +227,7 @@ describe('HealthService', () => {
       try {
         await service.check();
       } catch (error) {
-        const response = (error as HttpException).getResponse() as any;
+        const response = (error as HttpException).getResponse();
         expect(response.services.database).toBe('down');
         expect(consoleErrorSpy).toHaveBeenCalledWith(
           'Database health check failed:',

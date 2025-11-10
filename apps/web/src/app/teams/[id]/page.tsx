@@ -37,7 +37,7 @@ export default function TeamDetailPage() {
       setIsLoading(true);
       const data = await getTeamById(teamId);
       setTeam(data);
-    } catch (err: any) {
+    } catch (err) {
       setError('Team not found');
     } finally {
       setIsLoading(false);
@@ -245,10 +245,13 @@ export default function TeamDetailPage() {
                         description: 'Team deleted successfully',
                       });
                       router.push('/dashboard');
-                    } catch (err: any) {
+                    } catch (err) {
                       toast({
                         title: 'Delete Failed',
-                        description: err.message || 'Failed to delete team',
+                        description:
+                          err instanceof Error
+                            ? err.message
+                            : String(err) || 'Failed to delete team',
                         variant: 'destructive',
                       });
                     }
@@ -284,10 +287,13 @@ export default function TeamDetailPage() {
                         description: result.message,
                       });
                       await fetchTeam();
-                    } catch (err: any) {
+                    } catch (err) {
                       toast({
                         title: 'Request Failed',
-                        description: err.message || 'Failed to send request',
+                        description:
+                          err instanceof Error
+                            ? err.message
+                            : String(err) || 'Failed to send request',
                         variant: 'destructive',
                       });
                     }

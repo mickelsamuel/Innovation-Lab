@@ -57,9 +57,9 @@ export default function ManageJudgesPage() {
 
       setHackathon(hackathonData);
       setJudges(judgesData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load judges');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load judges');
     } finally {
       setIsLoading(false);
     }
@@ -77,7 +77,7 @@ export default function ManageJudgesPage() {
         return;
       }
 
-      const response = await apiFetch<any[]>(
+      const response = await apiFetch<Array<{ id: string; name: string; email: string }>>(
         `/users/search?email=${encodeURIComponent(newJudgeEmail)}`,
         { token }
       );
@@ -91,9 +91,9 @@ export default function ManageJudgesPage() {
       await assignJudge(hackathonId, user.id, token);
       setNewJudgeEmail('');
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error adding judge:', err);
-      setError(err.message || 'Failed to add judge');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to add judge');
     } finally {
       setIsAdding(false);
     }
@@ -108,9 +108,9 @@ export default function ManageJudgesPage() {
 
       await removeJudge(hackathonId, judge.userId, token);
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error removing judge:', err);
-      setError(err.message || 'Failed to remove judge');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to remove judge');
     }
   }
 

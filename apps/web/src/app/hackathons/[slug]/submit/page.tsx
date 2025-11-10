@@ -93,9 +93,11 @@ export default function SubmitProjectPage() {
         // Check if team already has a submission
         await checkExistingSubmission(hackathonData.id, teamsData[0].id);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load submission form');
+      setError(
+        err instanceof Error ? err.message : String(err) || 'Failed to load submission form'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -162,9 +164,9 @@ export default function SubmitProjectPage() {
       setTimeout(() => {
         router.push(`/hackathons/${slug}/submissions`);
       }, 1500);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error submitting:', err);
-      setError(err.message || 'Failed to submit project');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to submit project');
     } finally {
       setIsSubmitting(false);
     }
@@ -518,7 +520,7 @@ export default function SubmitProjectPage() {
                           setTimeout(() => setSuccessMessage(null), 3000);
                         }}
                         onUploadError={err => {
-                          setError(err.message);
+                          setError(err instanceof Error ? err.message : String(err));
                           setTimeout(() => setError(null), 5000);
                         }}
                       />

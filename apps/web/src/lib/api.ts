@@ -16,7 +16,7 @@ export class ApiError extends Error {
   constructor(
     public status: number,
     public message: string,
-    public data?: any
+    public data?: Record<string, unknown>
   ) {
     super(message);
     this.name = 'ApiError';
@@ -68,14 +68,14 @@ export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}
     }
 
     // Network or other errors
-    throw new ApiError(0, 'Network error occurred', error);
+    throw new ApiError(0, 'Network error occurred', error as Record<string, unknown>);
   }
 }
 
 /**
  * Build query string from params object
  */
-export function buildQueryString(params: Record<string, any>): string {
+export function buildQueryString(params: Record<string, unknown>): string {
   const searchParams = new URLSearchParams();
 
   Object.entries(params).forEach(([key, value]) => {

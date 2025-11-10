@@ -26,7 +26,7 @@ describe('Label', () => {
   });
 
   it('should forward ref', () => {
-    const ref = { current: null } as any;
+    const ref = { current: null };
     render(<Label ref={ref}>Label</Label>);
     expect(ref.current).toBeTruthy();
   });

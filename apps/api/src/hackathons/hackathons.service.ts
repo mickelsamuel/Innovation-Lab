@@ -9,7 +9,8 @@ import { CreateHackathonDto } from './dto/create-hackathon.dto';
 import { UpdateHackathonDto } from './dto/update-hackathon.dto';
 import { QueryHackathonDto } from './dto/query-hackathon.dto';
 import { AnnounceWinnersDto } from './dto/announce-winners.dto';
-import { HackathonStatus } from '@innovation-lab/database';
+import { CreateAnnouncementDto } from './dto/create-announcement.dto';
+import { HackathonStatus, Prisma } from '@innovation-lab/database';
 import { GamificationService, XP_POINTS } from '../gamification/gamification.service';
 
 @Injectable()
@@ -112,7 +113,7 @@ export class HackathonsService {
   async findAll(query: QueryHackathonDto) {
     const { status, location, page = 1, limit = 10, search } = query;
 
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (status) {
       where.status = status;
@@ -598,7 +599,7 @@ export class HackathonsService {
   /**
    * Create a hackathon announcement
    */
-  async createAnnouncement(hackathonId: string, dto: any, userId: string) {
+  async createAnnouncement(hackathonId: string, dto: CreateAnnouncementDto, userId: string) {
     // Verify hackathon exists and user has permission
     const hackathon = await this.prisma.hackathon.findUnique({
       where: { id: hackathonId },
@@ -627,7 +628,7 @@ export class HackathonsService {
         action: 'ANNOUNCEMENT_CREATE',
         entityType: 'Hackathon',
         entityId: hackathonId,
-        metadata: { announcementId: announcement.id, title: dto.title },
+        metadata: { announcementId: announcement.id, title: dto.title } as Prisma.InputJsonValue,
       },
     });
 
@@ -774,7 +775,7 @@ export class HackathonsService {
       throw new NotFoundException('Hackathon not found');
     }
 
-    const where: any = { hackathonId };
+    const where: Record<string, unknown> = { hackathonId };
     if (status) {
       where.status = status;
     }

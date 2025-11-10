@@ -33,7 +33,10 @@ export class ChallengesService {
   /**
    * Create a new challenge
    */
-  async create(ownerId: string, createChallengeDto: CreateChallengeDto): Promise<any> {
+  async create(
+    ownerId: string,
+    createChallengeDto: CreateChallengeDto
+  ): Promise<Record<string, unknown>> {
     // Check if slug already exists
     const existingChallenge = await this.prisma.challenge.findUnique({
       where: { slug: createChallengeDto.slug },
@@ -76,10 +79,10 @@ export class ChallengesService {
   /**
    * Get all challenges with filters
    */
-  async findAll(filters: ChallengeFilters = {}): Promise<any[]> {
+  async findAll(filters: ChallengeFilters = {}): Promise<unknown[]> {
     const { status, category, skill, ownerId, search } = filters;
 
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (status) {
       where.status = status;
@@ -136,7 +139,7 @@ export class ChallengesService {
   /**
    * Get challenge by ID
    */
-  async findOne(id: string): Promise<any> {
+  async findOne(id: string): Promise<Record<string, unknown>> {
     const challenge = await this.prisma.challenge.findUnique({
       where: { id },
       include: {
@@ -187,7 +190,7 @@ export class ChallengesService {
   /**
    * Get challenge by slug
    */
-  async findBySlug(slug: string): Promise<any> {
+  async findBySlug(slug: string): Promise<Record<string, unknown>> {
     const challenge = await this.prisma.challenge.findUnique({
       where: { slug },
       include: {
@@ -222,7 +225,7 @@ export class ChallengesService {
     userId: string,
     userRole: Role,
     updateChallengeDto: UpdateChallengeDto
-  ): Promise<any> {
+  ): Promise<Record<string, unknown>> {
     const challenge = await this.prisma.challenge.findUnique({
       where: { id },
     });
@@ -309,7 +312,7 @@ export class ChallengesService {
     challengeId: string,
     userId: string,
     submitSolutionDto: SubmitSolutionDto
-  ): Promise<any> {
+  ): Promise<Record<string, unknown>> {
     const challenge = await this.prisma.challenge.findUnique({
       where: { id: challengeId },
     });
@@ -396,7 +399,7 @@ export class ChallengesService {
   /**
    * Get all submissions for a challenge
    */
-  async getChallengeSubmissions(challengeId: string): Promise<any[]> {
+  async getChallengeSubmissions(challengeId: string): Promise<unknown[]> {
     const challenge = await this.prisma.challenge.findUnique({
       where: { id: challengeId },
     });
@@ -432,7 +435,7 @@ export class ChallengesService {
   /**
    * Get submission by ID
    */
-  async getSubmissionById(submissionId: string): Promise<any> {
+  async getSubmissionById(submissionId: string): Promise<Record<string, unknown>> {
     const submission = await this.prisma.challengeSubmission.findUnique({
       where: { id: submissionId },
       include: {
@@ -470,7 +473,7 @@ export class ChallengesService {
   /**
    * Get user's submissions
    */
-  async getUserSubmissions(userId: string): Promise<any[]> {
+  async getUserSubmissions(userId: string): Promise<unknown[]> {
     const submissions = await this.prisma.challengeSubmission.findMany({
       where: { userId },
       include: {
@@ -521,7 +524,7 @@ export class ChallengesService {
     userId: string,
     userRole: Role,
     reviewSolutionDto: ReviewSolutionDto
-  ): Promise<any> {
+  ): Promise<Record<string, unknown>> {
     const submission = await this.prisma.challengeSubmission.findUnique({
       where: { id: submissionId },
       include: {

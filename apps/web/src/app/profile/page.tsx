@@ -113,7 +113,7 @@ export default function ProfilePage() {
     } catch (err) {
       console.error('Update error:', err);
       if (err instanceof ApiError) {
-        setError(err.message || 'Failed to update profile');
+        setError(err instanceof Error ? err.message : String(err) || 'Failed to update profile');
       } else {
         setError('Failed to update profile. Please try again.');
       }

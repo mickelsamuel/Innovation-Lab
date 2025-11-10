@@ -30,8 +30,20 @@ const mockHackathon: Hackathon = {
     mentors: 2,
   },
   tracks: [
-    { id: '1', title: 'Frontend', description: 'Frontend track', order: 1, createdAt: '2024-01-01T00:00:00Z' },
-    { id: '2', title: 'Backend', description: 'Backend track', order: 2, createdAt: '2024-01-01T00:00:00Z' },
+    {
+      id: '1',
+      title: 'Frontend',
+      description: 'Frontend track',
+      order: 1,
+      createdAt: '2024-01-01T00:00:00Z',
+    },
+    {
+      id: '2',
+      title: 'Backend',
+      description: 'Backend track',
+      order: 2,
+      createdAt: '2024-01-01T00:00:00Z',
+    },
   ],
 };
 

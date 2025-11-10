@@ -26,6 +26,7 @@ import { FilesService } from './files.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Role } from '@prisma/client';
+import { AuthenticatedRequest } from '../common/interfaces/request.interface';
 import { FileUploadResponseDto, UploadFileQueryDto, FileType } from './dto/upload-file.dto';
 import * as path from 'path';
 import * as fs from 'fs';
@@ -66,7 +67,7 @@ export class FilesController {
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
     @Query() query: UploadFileQueryDto,
-    @Req() req: any
+    @Req() req: AuthenticatedRequest
   ): Promise<FileUploadResponseDto> {
     if (!file) {
       throw new BadRequestException('No file provided');
@@ -120,7 +121,10 @@ export class FilesController {
   @ApiResponse({ status: 200, description: 'File deleted successfully' })
   @ApiResponse({ status: 403, description: 'Forbidden (not owner)' })
   @ApiResponse({ status: 404, description: 'File not found' })
-  async deleteFile(@Param('id') id: string, @Req() req: any): Promise<{ message: string }> {
+  async deleteFile(
+    @Param('id') id: string,
+    @Req() req: AuthenticatedRequest
+  ): Promise<{ message: string }> {
     const userId = req.user.id;
     const isAdmin = req.user.role === Role.BANK_ADMIN;
 

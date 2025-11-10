@@ -43,7 +43,7 @@ export default function CreateTeamPage() {
       setIsLoading(true);
       const data = await getHackathonBySlug(slug);
       setHackathon(data);
-    } catch (err: any) {
+    } catch (err) {
       setError('Failed to load hackathon');
     } finally {
       setIsLoading(false);
@@ -75,8 +75,8 @@ export default function CreateTeamPage() {
 
       // Redirect to teams page
       router.push(`/hackathons/${slug}/teams`);
-    } catch (err: any) {
-      setError(err.message || 'Failed to create team');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to create team');
     } finally {
       setIsSubmitting(false);
     }

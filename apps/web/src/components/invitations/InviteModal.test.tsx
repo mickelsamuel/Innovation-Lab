@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '../../../test/utils/custom-render';
 import { InviteModal } from './InviteModal';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { sendInvitation } from '@/lib/invitations';
+import type { Mock } from 'vitest';
 import { useSession } from 'next-auth/react';
 import userEvent from '@testing-library/user-event';
 
@@ -19,6 +20,10 @@ vi.mock('@/components/ui/use-toast', () => ({
     toast: vi.fn(),
   }),
 }));
+
+// Type the mocks
+const mockSendInvitation = sendInvitation as Mock;
+const mockUseSession = useSession as Mock;
 
 describe('InviteModal', () => {
   const mockOnClose = vi.fn();
@@ -38,7 +43,7 @@ describe('InviteModal', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (useSession as any).mockReturnValue({ data: mockSession });
+    mockUseSession.mockReturnValue({ data: mockSession });
   });
 
   it('should render modal when open', () => {
@@ -86,7 +91,7 @@ describe('InviteModal', () => {
 
   it('should submit invitation with email successfully', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockResolvedValue({ success: true });
+    mockSendInvitation.mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
 
@@ -115,7 +120,7 @@ describe('InviteModal', () => {
 
   it('should submit invitation with user ID successfully', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockResolvedValue({ success: true });
+    mockSendInvitation.mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
 
@@ -148,7 +153,7 @@ describe('InviteModal', () => {
 
   it('should submit invitation with LEAD role', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockResolvedValue({ success: true });
+    mockSendInvitation.mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
 
@@ -179,7 +184,7 @@ describe('InviteModal', () => {
 
   it('should show error when not logged in', async () => {
     const user = userEvent.setup();
-    (useSession as any).mockReturnValue({ data: null });
+    mockUseSession.mockReturnValue({ data: null });
 
     render(<InviteModal {...defaultProps} />);
 
@@ -230,7 +235,7 @@ describe('InviteModal', () => {
 
   it('should handle invitation error', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockRejectedValue(new Error('User already in team'));
+    mockSendInvitation.mockRejectedValue(new Error('User already in team'));
 
     render(<InviteModal {...defaultProps} />);
 
@@ -249,9 +254,7 @@ describe('InviteModal', () => {
 
   it('should disable submit button while loading', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockImplementation(
-      () => new Promise(resolve => setTimeout(resolve, 1000))
-    );
+    mockSendInvitation.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 1000)));
 
     render(<InviteModal {...defaultProps} />);
 
@@ -280,7 +283,7 @@ describe('InviteModal', () => {
 
   it('should reset form after successful submission', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockResolvedValue({ success: true });
+    mockSendInvitation.mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
 
@@ -304,9 +307,7 @@ describe('InviteModal', () => {
 
   it('should disable cancel button while loading', async () => {
     const user = userEvent.setup();
-    (sendInvitation as any).mockImplementation(
-      () => new Promise(resolve => setTimeout(resolve, 1000))
-    );
+    mockSendInvitation.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 1000)));
 
     render(<InviteModal {...defaultProps} />);
 

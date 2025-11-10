@@ -61,8 +61,8 @@ export default function SubmissionDetailPage() {
           setIsOwner(isSubmitter);
           setCanReview(canReviewSubmission);
         }
-      } catch (err: any) {
-        setError(err.message || 'Failed to load submission');
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err) || 'Failed to load submission');
       } finally {
         setIsLoading(false);
       }

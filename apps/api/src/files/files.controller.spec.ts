@@ -77,9 +77,9 @@ describe('FilesController', () => {
       const query = { type: FileType.DOCUMENT };
       const req = { user: { id: 'user-1' } };
 
-      await expect(controller.uploadFile(null as any, query, req)).rejects.toThrow(
-        BadRequestException
-      );
+      await expect(
+        controller.uploadFile(null as unknown as Express.Multer.File, query, req)
+      ).rejects.toThrow(BadRequestException);
     });
 
     it('should use default file type when not provided', async () => {
@@ -88,7 +88,7 @@ describe('FilesController', () => {
         mimetype: 'application/pdf',
         size: 1024,
       } as Express.Multer.File;
-      const query = {} as any;
+      const query = {};
       const req = { user: { id: 'user-1' } };
       const response = { id: 'file-1', url: 'http://example.com/file.pdf' };
       mockFilesService.uploadFile.mockResolvedValue(response);
@@ -165,7 +165,7 @@ describe('FilesController', () => {
         sendFile: jest.fn(),
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
-      } as any;
+      };
 
       // Mock fs and path behavior is tested at integration level
       // For unit tests, we just verify the endpoint exists

@@ -34,7 +34,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     }
 
     // Return safe error to client (no stack traces in production)
-    const errorResponse = {
+    const errorResponse: {
+      statusCode: number;
+      message: string;
+      timestamp: string;
+      path: string;
+      stack?: string;
+    } = {
       statusCode: status,
       message,
       timestamp: new Date().toISOString(),
@@ -43,7 +49,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
 
     // In development, include more details
     if (process.env.NODE_ENV === 'development' && exception instanceof Error) {
-      (errorResponse as any).stack = exception.stack;
+      errorResponse.stack = exception.stack;
     }
 
     response.status(status).json(errorResponse);

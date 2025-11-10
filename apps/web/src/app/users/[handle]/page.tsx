@@ -27,9 +27,9 @@ interface UserProfile {
     rank: number;
     streak: number;
   };
-  badges?: any[];
-  teams?: any[];
-  submissions?: any[];
+  badges?: unknown[];
+  teams?: unknown[];
+  submissions?: unknown[];
 }
 
 export default function PublicUserProfilePage() {
@@ -55,7 +55,12 @@ export default function PublicUserProfilePage() {
 
       // Fetch gamification profile
       try {
-        const gamification = await apiFetch<any>(`/gamification/profile/${userData.id}`);
+        const gamification = await apiFetch<{
+          level: number;
+          xp: number;
+          rank: number;
+          streak: number;
+        }>(`/gamification/profile/${userData.id}`);
         userData.gamificationProfile = gamification;
       } catch (err) {
         console.log('Could not fetch gamification profile');
@@ -63,16 +68,16 @@ export default function PublicUserProfilePage() {
 
       // Fetch user badges
       try {
-        const badges = await apiFetch<any[]>(`/gamification/badges/user/${userData.id}`);
+        const badges = await apiFetch<unknown[]>(`/gamification/badges/user/${userData.id}`);
         userData.badges = badges;
       } catch (err) {
         console.log('Could not fetch badges');
       }
 
       setUser(userData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching user profile:', err);
-      setError(err.message || 'Failed to load user profile');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load user profile');
     } finally {
       setIsLoading(false);
     }
@@ -232,7 +237,7 @@ export default function PublicUserProfilePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-3 gap-3">
-                    {user.badges.slice(0, 9).map((badge: any) => (
+                    {(user.badges as Array<{ id: string; name: string }>).slice(0, 9).map(badge => (
                       <div
                         key={badge.id}
                         className="flex flex-col items-center p-2 rounded-lg hover:bg-slate-50 transition-colors"

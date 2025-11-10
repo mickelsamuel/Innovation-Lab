@@ -144,19 +144,19 @@ export function FileUpload({
             };
             return updated;
           });
-        } catch (error: any) {
+        } catch (error) {
           // Update status to error
           setUploadingFiles(prev => {
             const updated = [...prev];
             updated[fileIndex] = {
               ...updated[fileIndex],
               status: 'error',
-              error: error.message || 'Upload failed',
+              error: error instanceof Error ? error.message : String(error) || 'Upload failed',
             };
             return updated;
           });
 
-          onUploadError?.(error);
+          onUploadError?.(error instanceof Error ? error : new Error(String(error)));
         }
       }
 

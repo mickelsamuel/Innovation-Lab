@@ -32,13 +32,13 @@ export function NotificationBell() {
     if (!socket) return;
 
     // Listen for new notifications
-    const handleNewNotification = (data: { notification: any }) => {
+    const handleNewNotification = (data: { notification: Record<string, unknown> }) => {
       const newNotification: Notification = {
-        id: data.notification.id,
-        title: data.notification.title || 'New Notification',
-        message: data.notification.message || data.notification.content,
-        type: data.notification.type || 'info',
-        timestamp: new Date(data.notification.timestamp),
+        id: String(data.notification.id || ''),
+        title: String(data.notification.title || 'New Notification'),
+        message: String(data.notification.message || data.notification.content || ''),
+        type: (data.notification.type as 'info' | 'success' | 'warning' | 'error') || 'info',
+        timestamp: new Date(String(data.notification.timestamp || Date.now())),
         read: false,
       };
 
@@ -47,7 +47,10 @@ export function NotificationBell() {
     };
 
     // Listen for team invitations
-    const handleTeamInvitation = (data: { invitation: any; timestamp?: string }) => {
+    const handleTeamInvitation = (data: {
+      invitation: Record<string, unknown>;
+      timestamp?: string;
+    }) => {
       const notification: Notification = {
         id: `invitation-${data.invitation.id}`,
         title: 'Team Invitation',
@@ -62,7 +65,10 @@ export function NotificationBell() {
     };
 
     // Listen for submission events
-    const handleSubmissionScored = (data: { submission: any; timestamp?: string }) => {
+    const handleSubmissionScored = (data: {
+      submission: Record<string, unknown>;
+      timestamp?: string;
+    }) => {
       const notification: Notification = {
         id: `score-${data.submission.id}`,
         title: 'Submission Scored',

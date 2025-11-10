@@ -481,7 +481,7 @@ export class JudgingService {
    * Get submissions assigned to a judge
    */
   async getJudgeAssignments(judgeUserId: string, hackathonId?: string) {
-    const where: any = {
+    const where: Record<string, unknown> = {
       userId: judgeUserId,
     };
 

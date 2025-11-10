@@ -20,7 +20,7 @@ export class TestDataFactory {
     challengeIdCounter = 1;
   }
 
-  static createUser(overrides: any = {}) {
+  static createUser(overrides: Record<string, unknown> = {}) {
     const id = `user-${userIdCounter++}`;
     return {
       id,
@@ -43,35 +43,35 @@ export class TestDataFactory {
     };
   }
 
-  static createAdmin(overrides: any = {}) {
+  static createAdmin(overrides: Record<string, unknown> = {}) {
     return this.createUser({
       roles: [Role.BANK_ADMIN],
       ...overrides,
     });
   }
 
-  static createOrganizer(overrides: any = {}) {
+  static createOrganizer(overrides: Record<string, unknown> = {}) {
     return this.createUser({
       roles: [Role.ORGANIZER],
       ...overrides,
     });
   }
 
-  static createJudge(overrides: any = {}) {
+  static createJudge(overrides: Record<string, unknown> = {}) {
     return this.createUser({
       roles: [Role.JUDGE],
       ...overrides,
     });
   }
 
-  static createMentor(overrides: any = {}) {
+  static createMentor(overrides: Record<string, unknown> = {}) {
     return this.createUser({
       roles: [Role.MENTOR],
       ...overrides,
     });
   }
 
-  static createGamificationProfile(userId: string, overrides: any = {}) {
+  static createGamificationProfile(userId: string, overrides: Record<string, unknown> = {}) {
     return {
       id: `gam-${userId}`,
       userId,
@@ -86,7 +86,7 @@ export class TestDataFactory {
     };
   }
 
-  static createHackathon(overrides: any = {}) {
+  static createHackathon(overrides: Record<string, unknown> = {}) {
     const id = `hack-${hackathonIdCounter++}`;
     return {
       id,
@@ -109,7 +109,11 @@ export class TestDataFactory {
     };
   }
 
-  static createTeam(hackathonId: string, leaderId: string, overrides: any = {}) {
+  static createTeam(
+    hackathonId: string,
+    leaderId: string,
+    overrides: Record<string, unknown> = {}
+  ) {
     const id = `team-${teamIdCounter++}`;
     return {
       id,
@@ -136,7 +140,11 @@ export class TestDataFactory {
     };
   }
 
-  static createSubmission(teamId: string, hackathonId: string, overrides: any = {}) {
+  static createSubmission(
+    teamId: string,
+    hackathonId: string,
+    overrides: Record<string, unknown> = {}
+  ) {
     const id = `sub-${submissionIdCounter++}`;
     return {
       id,
@@ -158,7 +166,7 @@ export class TestDataFactory {
     };
   }
 
-  static createChallenge(overrides: any = {}) {
+  static createChallenge(overrides: Record<string, unknown> = {}) {
     const id = `chal-${challengeIdCounter++}`;
     return {
       id,
@@ -180,7 +188,7 @@ export class TestDataFactory {
     };
   }
 
-  static createBadge(overrides: any = {}) {
+  static createBadge(overrides: Record<string, unknown> = {}) {
     return {
       id: `badge-${Date.now()}`,
       name: 'Test Badge',
@@ -195,7 +203,7 @@ export class TestDataFactory {
     };
   }
 
-  static createXpEvent(userId: string, overrides: any = {}) {
+  static createXpEvent(userId: string, overrides: Record<string, unknown> = {}) {
     return {
       id: `xp-${Date.now()}`,
       userId,
@@ -208,7 +216,11 @@ export class TestDataFactory {
     };
   }
 
-  static createHackathonJudge(userId: string, hackathonId: string, overrides: any = {}) {
+  static createHackathonJudge(
+    userId: string,
+    hackathonId: string,
+    overrides: Record<string, unknown> = {}
+  ) {
     return {
       id: `judge-${userId}-${hackathonId}`,
       userId,
@@ -219,7 +231,7 @@ export class TestDataFactory {
     };
   }
 
-  static createCriteria(hackathonId: string, overrides: any = {}) {
+  static createCriteria(hackathonId: string, overrides: Record<string, unknown> = {}) {
     return {
       id: `criteria-${Date.now()}`,
       hackathonId,
@@ -238,7 +250,7 @@ export class TestDataFactory {
     submissionId: string,
     judgeId: string,
     criteriaId: string,
-    overrides: any = {}
+    overrides: Record<string, unknown> = {}
   ) {
     return {
       id: `score-${Date.now()}`,

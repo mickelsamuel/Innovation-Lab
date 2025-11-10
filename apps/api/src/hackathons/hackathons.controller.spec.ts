@@ -49,12 +49,12 @@ describe('HackathonsController', () => {
         title: 'Test Hackathon',
         startsAt: new Date(),
         endsAt: new Date(),
-      } as any;
+      };
       const hackathon = { id: 'h1', ...createDto };
       const user = { id: 'user-1' };
       mockHackathonsService.create.mockResolvedValue(hackathon);
 
-      const result = await controller.create(createDto, user as any);
+      const result = await controller.create(createDto, user);
 
       expect(result).toEqual(hackathon);
       expect(service.create).toHaveBeenCalledWith(createDto, 'user-1');
@@ -104,7 +104,7 @@ describe('HackathonsController', () => {
       const user = { id: 'user-1' };
       mockHackathonsService.findUserHackathons.mockResolvedValue(hackathons);
 
-      const result = await controller.getMyHackathons(user as any);
+      const result = await controller.getMyHackathons(user);
 
       expect(result).toEqual(hackathons);
       expect(service.findUserHackathons).toHaveBeenCalledWith('user-1');
@@ -118,7 +118,7 @@ describe('HackathonsController', () => {
       const user = { id: 'user-1' };
       mockHackathonsService.update.mockResolvedValue(updated);
 
-      const result = await controller.update('h1', updateDto, user as any);
+      const result = await controller.update('h1', updateDto, user);
 
       expect(result).toEqual(updated);
       expect(service.update).toHaveBeenCalledWith('h1', updateDto, 'user-1');
@@ -131,7 +131,7 @@ describe('HackathonsController', () => {
       const user = { id: 'user-1' };
       mockHackathonsService.remove.mockResolvedValue(response);
 
-      const result = await controller.remove('h1', user as any);
+      const result = await controller.remove('h1', user);
 
       expect(result).toEqual(response);
       expect(service.remove).toHaveBeenCalledWith('h1', 'user-1');
@@ -157,7 +157,7 @@ describe('HackathonsController', () => {
       const user = { id: 'admin-1' };
       mockHackathonsService.announceWinners.mockResolvedValue(response);
 
-      const result = await controller.announceWinners('h1', winnersDto, user as any);
+      const result = await controller.announceWinners('h1', winnersDto, user);
 
       expect(result).toEqual(response);
       expect(service.announceWinners).toHaveBeenCalledWith('h1', winnersDto, 'admin-1');

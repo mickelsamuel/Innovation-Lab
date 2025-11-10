@@ -115,9 +115,9 @@ export default function SubmissionDetailPage() {
 
       setSubmission(submissionData);
       setScores(scoresData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching submission:', err);
-      setError(err.message || 'Failed to load submission');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load submission');
     } finally {
       setIsLoading(false);
     }
@@ -533,10 +533,13 @@ export default function SubmissionDetailPage() {
                           description: 'Submission deleted successfully',
                         });
                         router.push('/dashboard');
-                      } catch (err: any) {
+                      } catch (err) {
                         toast({
                           title: 'Delete Failed',
-                          description: err.message || 'Failed to delete submission',
+                          description:
+                            err instanceof Error
+                              ? err.message
+                              : String(err) || 'Failed to delete submission',
                           variant: 'destructive',
                         });
                       }

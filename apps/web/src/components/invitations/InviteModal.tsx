@@ -92,10 +92,11 @@ export function InviteModal({ isOpen, onClose, teamId, teamName, onSuccess }: In
       setUserId('');
       onSuccess?.();
       onClose();
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: 'Error',
-        description: error.message || 'Failed to send invitation',
+        description:
+          error instanceof Error ? error.message : String(error) || 'Failed to send invitation',
         variant: 'destructive',
       });
     } finally {

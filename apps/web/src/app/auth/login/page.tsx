@@ -59,8 +59,12 @@ export default function LoginPage() {
       const params = new URLSearchParams(window.location.search);
       const redirectTo = params.get('redirect') || '/dashboard';
       router.push(redirectTo);
-    } catch (err: any) {
-      setError(err.message || 'Failed to sign in. Please check your credentials and try again.');
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : String(err) || 'Failed to sign in. Please check your credentials and try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }

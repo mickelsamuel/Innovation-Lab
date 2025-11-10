@@ -32,9 +32,9 @@ export default function InvitationsPage() {
         setIsLoading(true);
         const data = await getUserInvitations(token);
         setInvitations(data);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Failed to fetch invitations:', err);
-        setError(err.message || 'Failed to load invitations');
+        setError(err instanceof Error ? err.message : String(err) || 'Failed to load invitations');
       } finally {
         setIsLoading(false);
       }
@@ -50,7 +50,7 @@ export default function InvitationsPage() {
     try {
       const data = await getUserInvitations(token);
       setInvitations(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Failed to refresh invitations:', err);
     }
   };

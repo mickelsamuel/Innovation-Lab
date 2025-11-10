@@ -94,10 +94,10 @@ describe('SubmissionsService', () => {
         track: { id: 'track-1', title: 'AI Track' },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
       prismaMock.submission.findFirst.mockResolvedValue(null);
-      prismaMock.submission.create.mockResolvedValue(createdSubmission as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.submission.create.mockResolvedValue(createdSubmission);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.create(createDto, 'user-1');
 
@@ -130,7 +130,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(ForbiddenException);
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(
@@ -151,7 +151,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(
@@ -172,7 +172,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(
@@ -199,8 +199,8 @@ describe('SubmissionsService', () => {
         teamId: 'team-1',
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.submission.findFirst.mockResolvedValue(existingSubmission as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.submission.findFirst.mockResolvedValue(existingSubmission);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(
@@ -230,7 +230,7 @@ describe('SubmissionsService', () => {
         },
       ];
 
-      prismaMock.submission.findMany.mockResolvedValue(mockSubmissions as any);
+      prismaMock.submission.findMany.mockResolvedValue(mockSubmissions);
 
       const result = await service.findAll('hackathon-1');
 
@@ -269,7 +269,7 @@ describe('SubmissionsService', () => {
         scores: [],
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(mockSubmission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(mockSubmission);
 
       const result = await service.findOne('submission-1');
 
@@ -305,8 +305,8 @@ describe('SubmissionsService', () => {
         },
       ];
 
-      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers as any);
-      prismaMock.submission.findMany.mockResolvedValue(mockSubmissions as any);
+      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers);
+      prismaMock.submission.findMany.mockResolvedValue(mockSubmissions);
 
       const result = await service.findUserSubmissions('user-1');
 
@@ -359,9 +359,9 @@ describe('SubmissionsService', () => {
 
       const updatedSubmission = { ...submission, ...updateDto };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.submission.update.mockResolvedValue(updatedSubmission as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.submission.update.mockResolvedValue(updatedSubmission);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.update('submission-1', updateDto, 'user-1');
 
@@ -397,7 +397,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
         ForbiddenException
@@ -422,7 +422,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
         BadRequestException
@@ -447,7 +447,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
         BadRequestException
@@ -483,9 +483,9 @@ describe('SubmissionsService', () => {
         finalizedAt: new Date(),
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.submission.update.mockResolvedValue(finalizedSubmission as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.submission.update.mockResolvedValue(finalizedSubmission);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.submit('submission-1', 'user-1');
 
@@ -527,7 +527,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.submit('submission-1', 'user-2')).rejects.toThrow(ForbiddenException);
       await expect(service.submit('submission-1', 'user-2')).rejects.toThrow(
@@ -549,7 +549,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(
@@ -571,7 +571,7 @@ describe('SubmissionsService', () => {
         },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(
@@ -595,9 +595,9 @@ describe('SubmissionsService', () => {
         _count: { scores: 0 },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.submission.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.submission.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.remove('submission-1', 'user-1');
 
@@ -628,7 +628,7 @@ describe('SubmissionsService', () => {
         _count: { scores: 0 },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.remove('submission-1', 'user-2')).rejects.toThrow(ForbiddenException);
       await expect(service.remove('submission-1', 'user-2')).rejects.toThrow(
@@ -647,7 +647,7 @@ describe('SubmissionsService', () => {
         _count: { scores: 3 },
       };
 
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(service.remove('submission-1', 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.remove('submission-1', 'user-1')).rejects.toThrow(

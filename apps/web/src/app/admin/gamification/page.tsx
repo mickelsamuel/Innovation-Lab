@@ -110,7 +110,12 @@ export default function AdminGamificationPage() {
       console.error('Error fetching gamification data:', err);
       toast({
         title: 'Error',
-        description: err instanceof Error ? err.message : 'Failed to load gamification data',
+        description:
+          err instanceof Error
+            ? err instanceof Error
+              ? err.message
+              : String(err)
+            : 'Failed to load gamification data',
         variant: 'destructive',
       });
     } finally {
@@ -143,10 +148,10 @@ export default function AdminGamificationPage() {
       setShowCreateBadge(false);
       setNewBadge({ name: '', description: '', imageUrl: '' });
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Creation Failed',
-        description: err.message || 'Failed to create badge',
+        description: err instanceof Error ? err.message : String(err) || 'Failed to create badge',
         variant: 'destructive',
       });
     } finally {
@@ -172,10 +177,10 @@ export default function AdminGamificationPage() {
       });
 
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Deletion Failed',
-        description: err.message || 'Failed to delete badge',
+        description: err instanceof Error ? err.message : String(err) || 'Failed to delete badge',
         variant: 'destructive',
       });
     }

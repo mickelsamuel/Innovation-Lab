@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
-import { LeaderboardScope, LeaderboardPeriod } from '@prisma/client';
+import { LeaderboardScope, LeaderboardPeriod, Prisma } from '@prisma/client';
 
 // XP Points for different actions
 export const XP_POINTS = {
@@ -69,7 +69,7 @@ export interface XpEventSummary {
   points: number;
   refType?: string;
   refId?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
   createdAt: Date;
 }
 
@@ -138,7 +138,7 @@ export class GamificationService {
         points: event.points,
         refType: event.refType || undefined,
         refId: event.refId || undefined,
-        metadata: event.metadata,
+        metadata: event.metadata as Record<string, unknown> | undefined,
         createdAt: event.createdAt,
       })),
     };
@@ -153,7 +153,7 @@ export class GamificationService {
     points: number,
     refType?: string,
     refId?: string,
-    metadata?: any
+    metadata?: Record<string, unknown>
   ): Promise<void> {
     // Create XP event
     await this.prisma.xpEvent.create({
@@ -163,7 +163,7 @@ export class GamificationService {
         points,
         refType,
         refId,
-        metadata,
+        metadata: metadata as Prisma.InputJsonValue | undefined,
       },
     });
 
@@ -453,7 +453,7 @@ export class GamificationService {
   /**
    * Get user's earned badges with full details
    */
-  async getUserBadges(userId: string): Promise<any[]> {
+  async getUserBadges(userId: string): Promise<unknown[]> {
     const profile = await this.prisma.gamificationProfile.findUnique({
       where: { userId },
     });

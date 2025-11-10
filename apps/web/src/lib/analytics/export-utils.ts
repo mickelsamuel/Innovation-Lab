@@ -2,11 +2,11 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { format } from 'date-fns';
 
-export const exportToCSV = (data: any[], filename: string) => {
+export const exportToCSV = (data: unknown[], filename: string) => {
   if (!data || data.length === 0) return;
 
   // Get headers from first object
-  const headers = Object.keys(data[0]);
+  const headers = Object.keys(data[0] as Record<string, unknown>);
 
   // Convert to CSV
   const csvContent = [
@@ -14,7 +14,7 @@ export const exportToCSV = (data: any[], filename: string) => {
     ...data.map(row =>
       headers
         .map(header => {
-          const value = row[header];
+          const value = (row as Record<string, unknown>)[header];
           // Escape values with commas or quotes
           if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
             return `"${value.replace(/"/g, '""')}"`;
@@ -39,7 +39,7 @@ export const exportToCSV = (data: any[], filename: string) => {
 
 export const exportToPDF = (
   title: string,
-  data: any[],
+  data: unknown[],
   columns: { header: string; dataKey: string }[],
   filename: string
 ) => {
@@ -58,7 +58,7 @@ export const exportToPDF = (
   // Add table
   autoTable(doc, {
     head: [columns.map(col => col.header)],
-    body: data.map(row => columns.map(col => row[col.dataKey] ?? '')),
+    body: data.map(row => columns.map(col => (row as Record<string, unknown>)[col.dataKey] ?? '')),
     startY: 35,
     theme: 'grid',
     headStyles: {

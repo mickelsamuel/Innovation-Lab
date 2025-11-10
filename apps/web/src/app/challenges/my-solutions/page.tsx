@@ -41,9 +41,9 @@ export default function MySolutionsPage() {
         setIsLoading(true);
         const data = await getUserSubmissions(token);
         setSubmissions(data);
-      } catch (err: any) {
+      } catch (err) {
         console.error('Error fetching submissions:', err);
-        setError(err.message || 'Failed to load submissions');
+        setError(err instanceof Error ? err.message : String(err) || 'Failed to load submissions');
       } finally {
         setIsLoading(false);
       }
@@ -129,7 +129,7 @@ export default function MySolutionsPage() {
         {submissions.length > 0 ? (
           <div className="grid grid-cols-1 gap-6">
             {submissions.map(submission => {
-              const statusIcons: Record<string, any> = {
+              const statusIcons: Record<string, React.ElementType> = {
                 SUBMITTED: Code,
                 UNDER_REVIEW: Clock,
                 ACCEPTED: CheckCircle,

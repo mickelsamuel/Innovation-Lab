@@ -42,12 +42,12 @@ describe('TeamsController', () => {
 
   describe('create', () => {
     it('should create a team', async () => {
-      const createDto = { hackathonId: 'h1', name: 'Team' } as any;
+      const createDto = { hackathonId: 'h1', name: 'Team' };
       const team = { id: 't1', ...createDto };
       mockTeamsService.create.mockResolvedValue(team);
 
       const user = { id: 'user-1' };
-      const result = await controller.create(createDto, user as any);
+      const result = await controller.create(createDto, user);
 
       expect(result).toEqual(team);
       expect(service.create).toHaveBeenCalledWith(createDto, 'user-1');
@@ -84,7 +84,7 @@ describe('TeamsController', () => {
       mockTeamsService.findUserTeams.mockResolvedValue(teams);
 
       const user = { id: 'user-1' };
-      const result = await controller.getMyTeams(user as any);
+      const result = await controller.getMyTeams(user);
 
       expect(result).toEqual(teams);
       expect(service.findUserTeams).toHaveBeenCalledWith('user-1', undefined);
@@ -98,7 +98,7 @@ describe('TeamsController', () => {
       mockTeamsService.update.mockResolvedValue(updated);
 
       const user = { id: 'user-1' };
-      const result = await controller.update('t1', updateDto, user as any);
+      const result = await controller.update('t1', updateDto, user);
 
       expect(result).toEqual(updated);
       expect(service.update).toHaveBeenCalledWith('t1', updateDto, 'user-1');
@@ -107,12 +107,12 @@ describe('TeamsController', () => {
 
   describe('addMember', () => {
     it('should add a member to team', async () => {
-      const inviteDto = { userId: 'user-2', role: 'MEMBER' } as any;
+      const inviteDto = { userId: 'user-2', role: 'MEMBER' };
       const team = { id: 't1', members: [] };
       mockTeamsService.addMember.mockResolvedValue(team);
 
       const user = { id: 'user-1' };
-      const result = await controller.addMember('t1', inviteDto, user as any);
+      const result = await controller.addMember('t1', inviteDto, user);
 
       expect(result).toEqual(team);
       expect(service.addMember).toHaveBeenCalledWith('t1', inviteDto, 'user-1');
@@ -125,7 +125,7 @@ describe('TeamsController', () => {
       mockTeamsService.removeMember.mockResolvedValue(response);
 
       const user = { id: 'user-1' };
-      const result = await controller.removeMember('t1', 'user-2', user as any);
+      const result = await controller.removeMember('t1', 'user-2', user);
 
       expect(result).toEqual(response);
       expect(service.removeMember).toHaveBeenCalledWith('t1', 'user-2', 'user-1');
@@ -138,7 +138,7 @@ describe('TeamsController', () => {
       mockTeamsService.remove.mockResolvedValue(response);
 
       const user = { id: 'user-1' };
-      const result = await controller.remove('t1', user as any);
+      const result = await controller.remove('t1', user);
 
       expect(result).toEqual(response);
       expect(service.remove).toHaveBeenCalledWith('t1', 'user-1');

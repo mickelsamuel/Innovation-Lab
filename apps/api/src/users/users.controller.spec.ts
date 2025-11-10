@@ -71,7 +71,7 @@ describe('UsersController', () => {
       mockUsersService.updateProfile.mockResolvedValue(updated);
 
       const user = { id: 'user-1' };
-      const result = await controller.updateMe(user as any, updateDto);
+      const result = await controller.updateMe(user, updateDto);
 
       expect(result).toEqual(updated);
       expect(service.updateProfile).toHaveBeenCalledWith('user-1', updateDto);
@@ -85,7 +85,7 @@ describe('UsersController', () => {
       mockUsersService.changePassword.mockResolvedValue(response);
 
       const user = { id: 'user-1' };
-      const result = await controller.changePassword(user as any, changeDto);
+      const result = await controller.changePassword(user, changeDto);
 
       expect(result).toEqual(response);
       expect(service.changePassword).toHaveBeenCalledWith('user-1', changeDto);
@@ -98,7 +98,7 @@ describe('UsersController', () => {
       mockUsersService.findOne.mockResolvedValue(userData);
 
       const user = { id: 'user-1' };
-      const result = await controller.getMe(user as any);
+      const result = await controller.getMe(user);
 
       expect(result).toEqual(userData);
       expect(service.findOne).toHaveBeenCalledWith('user-1');
@@ -111,7 +111,7 @@ describe('UsersController', () => {
       mockUsersService.getStats.mockResolvedValue(stats);
 
       const user = { id: 'user-1' };
-      const result = await controller.getMyStats(user as any);
+      const result = await controller.getMyStats(user);
 
       expect(result).toEqual(stats);
       expect(service.getStats).toHaveBeenCalledWith('user-1');
@@ -136,7 +136,7 @@ describe('UsersController', () => {
       mockUsersService.getActivityFeed.mockResolvedValue(feed);
 
       const user = { id: 'user-1' };
-      const result = await controller.getMyActivity(user as any, 20);
+      const result = await controller.getMyActivity(user, 20);
 
       expect(result).toEqual(feed);
       expect(service.getActivityFeed).toHaveBeenCalledWith('user-1', 20);
@@ -149,7 +149,7 @@ describe('UsersController', () => {
       mockUsersService.deleteAccount.mockResolvedValue(response);
 
       const user = { id: 'user-1' };
-      const result = await controller.deleteMe(user as any);
+      const result = await controller.deleteMe(user);
 
       expect(result).toEqual(response);
       expect(service.deleteAccount).toHaveBeenCalledWith('user-1');

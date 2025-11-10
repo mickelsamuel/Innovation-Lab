@@ -3,6 +3,7 @@ import { JudgeAssignment } from './JudgeAssignment';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { assignJudge, removeJudge } from '@/lib/judging';
 import { getAuthToken } from '@/lib/api';
+import type { Mock } from 'vitest';
 import userEvent from '@testing-library/user-event';
 
 // Mock dependencies
@@ -24,6 +25,13 @@ vi.mock('@/components/ui/use-toast', () => ({
 
 global.fetch = vi.fn();
 global.confirm = vi.fn();
+
+// Type the mocks
+const mockGetAuthToken = getAuthToken as Mock;
+const mockConfirm = confirm as unknown as Mock;
+const mockFetch = fetch as unknown as Mock;
+const mockAssignJudge = assignJudge as Mock;
+const mockRemoveJudge = removeJudge as Mock;
 
 describe('JudgeAssignment', () => {
   const mockOnUpdate = vi.fn();
@@ -68,8 +76,8 @@ describe('JudgeAssignment', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (getAuthToken as any).mockReturnValue('mock-token');
-    (global.confirm as any).mockReturnValue(true);
+    mockGetAuthToken.mockReturnValue('mock-token');
+    mockConfirm.mockReturnValue(true);
   });
 
   it('should render judge assignment interface', () => {
@@ -106,7 +114,7 @@ describe('JudgeAssignment', () => {
       },
     ];
 
-    (global.fetch as any).mockResolvedValue({
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => mockSearchResults,
     });
@@ -139,7 +147,7 @@ describe('JudgeAssignment', () => {
       },
     ];
 
-    (global.fetch as any).mockResolvedValue({
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => mockSearchResults,
     });
@@ -160,8 +168,8 @@ describe('JudgeAssignment', () => {
 
   it('should assign a judge successfully', async () => {
     const user = userEvent.setup();
-    (assignJudge as any).mockResolvedValue({ success: true });
-    (global.fetch as any).mockResolvedValue({
+    mockAssignJudge.mockResolvedValue({ success: true });
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => [
         {
@@ -198,10 +206,8 @@ describe('JudgeAssignment', () => {
 
   it('should show loading state while assigning', async () => {
     const user = userEvent.setup();
-    (assignJudge as any).mockImplementation(
-      () => new Promise(resolve => setTimeout(resolve, 1000))
-    );
-    (global.fetch as any).mockResolvedValue({
+    mockAssignJudge.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 1000)));
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => [
         {
@@ -237,7 +243,7 @@ describe('JudgeAssignment', () => {
 
   it('should remove a judge without scores', async () => {
     const user = userEvent.setup();
-    (removeJudge as any).mockResolvedValue({ success: true });
+    mockRemoveJudge.mockResolvedValue({ success: true });
 
     render(<JudgeAssignment {...defaultProps} />);
 
@@ -262,7 +268,7 @@ describe('JudgeAssignment', () => {
 
   it('should show error when search fails', async () => {
     const user = userEvent.setup();
-    (global.fetch as any).mockRejectedValue(new Error('Network error'));
+    mockFetch.mockRejectedValue(new Error('Network error'));
 
     render(<JudgeAssignment {...defaultProps} />);
 
@@ -299,7 +305,7 @@ describe('JudgeAssignment', () => {
 
   it('should search on Enter key press', async () => {
     const user = userEvent.setup();
-    (global.fetch as any).mockResolvedValue({
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => [],
     });
@@ -316,8 +322,8 @@ describe('JudgeAssignment', () => {
 
   it('should show confirmation dialog before removing judge', async () => {
     const user = userEvent.setup();
-    (global.confirm as any).mockReturnValue(false);
-    (removeJudge as any).mockResolvedValue({ success: true });
+    mockConfirm.mockReturnValue(false);
+    mockRemoveJudge.mockResolvedValue({ success: true });
 
     render(<JudgeAssignment {...defaultProps} />);
 
@@ -330,8 +336,8 @@ describe('JudgeAssignment', () => {
 
   it('should handle authentication error', async () => {
     const user = userEvent.setup();
-    (getAuthToken as any).mockReturnValue(null);
-    (global.fetch as any).mockResolvedValue({
+    mockGetAuthToken.mockReturnValue(null);
+    mockFetch.mockResolvedValue({
       ok: true,
       json: async () => [],
     });

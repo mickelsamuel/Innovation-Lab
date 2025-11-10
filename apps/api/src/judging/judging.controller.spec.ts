@@ -43,12 +43,12 @@ describe('JudgingController', () => {
 
   describe('assignJudge', () => {
     it('should assign a judge to hackathon', async () => {
-      const dto = { userId: 'judge-1' } as any;
+      const dto = { userId: 'judge-1' };
       const assignment = { id: 'a1', hackathonId: 'h1', userId: 'judge-1' };
       const user = { id: 'admin-1' };
       mockJudgingService.assignJudge.mockResolvedValue(assignment);
 
-      const result = await controller.assignJudge('h1', dto, user as any);
+      const result = await controller.assignJudge('h1', dto, user);
 
       expect(result).toEqual(assignment);
       expect(service.assignJudge).toHaveBeenCalledWith('h1', dto, 'admin-1');
@@ -73,7 +73,7 @@ describe('JudgingController', () => {
       const user = { id: 'admin-1' };
       mockJudgingService.removeJudge.mockResolvedValue(response);
 
-      const result = await controller.removeJudge('h1', 'judge-1', user as any);
+      const result = await controller.removeJudge('h1', 'judge-1', user);
 
       expect(result).toEqual(response);
       expect(service.removeJudge).toHaveBeenCalledWith('h1', 'judge-1', 'admin-1');
@@ -86,12 +86,12 @@ describe('JudgingController', () => {
         criterion: 'INNOVATION',
         score: 8,
         comment: 'Good work',
-      } as any;
+      };
       const score = { id: 'sc1', ...dto };
       const user = { id: 'judge-1' };
       mockJudgingService.createScore.mockResolvedValue(score);
 
-      const result = await controller.createScore('s1', dto, user as any);
+      const result = await controller.createScore('s1', dto, user);
 
       expect(result).toEqual(score);
       expect(service.createScore).toHaveBeenCalledWith('s1', dto, 'judge-1');
@@ -112,12 +112,12 @@ describe('JudgingController', () => {
 
   describe('updateScore', () => {
     it('should update a score', async () => {
-      const dto = { score: 9, comment: 'Excellent' } as any;
+      const dto = { score: 9, comment: 'Excellent' };
       const updated = { id: 'sc1', ...dto };
       const user = { id: 'judge-1' };
       mockJudgingService.updateScore.mockResolvedValue(updated);
 
-      const result = await controller.updateScore('sc1', dto, user as any);
+      const result = await controller.updateScore('sc1', dto, user);
 
       expect(result).toEqual(updated);
       expect(service.updateScore).toHaveBeenCalledWith('sc1', dto, 'judge-1');
@@ -130,7 +130,7 @@ describe('JudgingController', () => {
       const user = { id: 'judge-1' };
       mockJudgingService.deleteScore.mockResolvedValue(response);
 
-      const result = await controller.deleteScore('sc1', user as any);
+      const result = await controller.deleteScore('sc1', user);
 
       expect(result).toEqual(response);
       expect(service.deleteScore).toHaveBeenCalledWith('sc1', 'judge-1');
@@ -143,7 +143,7 @@ describe('JudgingController', () => {
       const user = { id: 'judge-1' };
       mockJudgingService.getJudgeAssignments.mockResolvedValue(assignments);
 
-      const result = await controller.getJudgeAssignments(user as any, 'h1');
+      const result = await controller.getJudgeAssignments(user, 'h1');
 
       expect(result).toEqual(assignments);
       expect(service.getJudgeAssignments).toHaveBeenCalledWith('judge-1', 'h1');
@@ -154,7 +154,7 @@ describe('JudgingController', () => {
       const user = { id: 'judge-1' };
       mockJudgingService.getJudgeAssignments.mockResolvedValue(assignments);
 
-      const result = await controller.getJudgeAssignments(user as any);
+      const result = await controller.getJudgeAssignments(user);
 
       expect(result).toEqual(assignments);
       expect(service.getJudgeAssignments).toHaveBeenCalledWith('judge-1', undefined);
@@ -170,7 +170,7 @@ describe('JudgingController', () => {
       const user = { id: 'admin-1' };
       mockJudgingService.calculateRankings.mockResolvedValue(rankings);
 
-      const result = await controller.calculateRankings('h1', user as any);
+      const result = await controller.calculateRankings('h1', user);
 
       expect(result).toEqual(rankings);
       expect(service.calculateRankings).toHaveBeenCalledWith('h1', 'admin-1');

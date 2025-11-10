@@ -50,9 +50,9 @@ export default function HackathonTeamsPage() {
       });
 
       setTeams(teamsData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching teams:', err);
-      setError(err.message || 'Failed to fetch teams');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to fetch teams');
     } finally {
       setIsLoading(false);
     }
@@ -74,11 +74,14 @@ export default function HackathonTeamsPage() {
         description: result.message,
       });
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error requesting to join team:', err);
       toast({
         title: 'Join Request Failed',
-        description: err.message || 'Failed to process join request. Please try again.',
+        description:
+          err instanceof Error
+            ? err.message
+            : String(err) || 'Failed to process join request. Please try again.',
         variant: 'destructive',
       });
     }

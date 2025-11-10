@@ -38,9 +38,9 @@ export default function MentorDashboardPage() {
 
       const data = await getMentorAssignments(token);
       setAssignments(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching assignments:', err);
-      setError(err.message || 'Failed to fetch assignments');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to fetch assignments');
     } finally {
       setIsLoading(false);
     }

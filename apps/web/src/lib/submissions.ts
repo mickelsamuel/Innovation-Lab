@@ -11,6 +11,7 @@ import type {
 } from '@/types/submission';
 
 export interface SubmissionFilters {
+  [key: string]: unknown;
   hackathonId: string;
   status?: SubmissionStatus;
   teamId?: string;

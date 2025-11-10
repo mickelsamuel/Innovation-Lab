@@ -32,7 +32,7 @@ export class AwardXpDto {
   @ApiPropertyOptional({ description: 'Additional metadata', type: 'object' })
   @IsObject()
   @IsOptional()
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 }
 
 /**
@@ -170,7 +170,7 @@ export class GamificationProfileResponseDto {
     type: 'array',
     items: { type: 'object' },
   })
-  recentXpEvents: any[];
+  recentXpEvents: Record<string, unknown>[];
 }
 
 /**
@@ -231,7 +231,7 @@ export class XpEventDto {
   refId?: string;
 
   @ApiPropertyOptional({ description: 'Additional metadata' })
-  metadata?: any;
+  metadata?: Record<string, unknown>;
 
   @ApiProperty({ description: 'Event timestamp' })
   createdAt: Date;

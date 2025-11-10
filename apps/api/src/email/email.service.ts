@@ -9,7 +9,7 @@ interface EmailOptions {
   to: string;
   subject: string;
   template: string;
-  context: Record<string, any>;
+  context: Record<string, unknown>;
 }
 
 @Injectable()
@@ -73,13 +73,13 @@ export class EmailService {
     }
   }
 
-  private replaceTemplateVariables(template: string, context: Record<string, any>): string {
+  private replaceTemplateVariables(template: string, context: Record<string, unknown>): string {
     let result = template;
 
     // Replace all {{variable}} with actual values
     Object.keys(context).forEach(key => {
       const regex = new RegExp(`{{${key}}}`, 'g');
-      result = result.replace(regex, context[key]);
+      result = result.replace(regex, String(context[key]));
     });
 
     // Add base URL if not provided

@@ -49,7 +49,7 @@ describe('ChallengesController', () => {
         slug: 'test-challenge',
         title: 'Test Challenge',
         difficulty: 'EASY',
-      } as any;
+      };
       const challenge = { id: 'c1', ...createDto };
       const req = { user: { id: 'user-1' } };
       mockChallengesService.create.mockResolvedValue(challenge);
@@ -83,7 +83,7 @@ describe('ChallengesController', () => {
       mockChallengesService.findAll.mockResolvedValue(challenges);
 
       const result = await controller.findAll(
-        'ACTIVE' as any,
+        'ACTIVE',
         'algorithms',
         'javascript',
         'owner-1',
@@ -156,7 +156,7 @@ describe('ChallengesController', () => {
       const submitDto = {
         code: 'console.log("solution")',
         language: 'javascript',
-      } as any;
+      };
       const submission = { id: 's1', ...submitDto };
       const req = { user: { id: 'user-1' } };
       mockChallengesService.submitSolution.mockResolvedValue(submission);
@@ -211,7 +211,7 @@ describe('ChallengesController', () => {
       const reviewDto = {
         status: 'ACCEPTED',
         feedback: 'Good solution',
-      } as any;
+      };
       const reviewed = { id: 's1', ...reviewDto };
       const req = { user: { id: 'user-1', role: 'BANK_ADMIN' } };
       mockChallengesService.reviewSubmission.mockResolvedValue(reviewed);

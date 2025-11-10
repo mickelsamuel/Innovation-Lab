@@ -142,7 +142,13 @@ export default function ActivityFeedPage() {
       setActivities(activityEvents);
     } catch (err) {
       console.error('Error fetching activity:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load activity feed');
+      setError(
+        err instanceof Error
+          ? err instanceof Error
+            ? err.message
+            : String(err)
+          : 'Failed to load activity feed'
+      );
     } finally {
       setIsLoading(false);
     }

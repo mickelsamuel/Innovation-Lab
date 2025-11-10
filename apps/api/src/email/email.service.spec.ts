@@ -10,7 +10,7 @@ const mockCreateTransport = jest.fn().mockReturnValue({
 });
 
 jest.mock('nodemailer', () => ({
-  createTransport: (...args: any[]) => mockCreateTransport(...args),
+  createTransport: (...args: unknown[]) => mockCreateTransport(...args),
 }));
 
 // Mock fs
@@ -34,8 +34,8 @@ describe('EmailService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   EMAIL_SERVICE: 'gmail',
                   EMAIL_FROM: 'test@gmail.com',
                   EMAIL_USER: 'test@gmail.com',
@@ -75,8 +75,8 @@ describe('EmailService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   EMAIL_HOST: 'smtp.example.com',
                   EMAIL_PORT: 587,
                   EMAIL_USER: 'user@example.com',
@@ -113,8 +113,8 @@ describe('EmailService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   EMAIL_HOST: 'smtp.example.com',
                   EMAIL_PORT: 465,
                   EMAIL_USER: 'user@example.com',
@@ -149,7 +149,7 @@ describe('EmailService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((_key: string, defaultValue?: any) => {
+              get: jest.fn((_key: string, defaultValue?: unknown) => {
                 return defaultValue;
               }),
             },
@@ -177,8 +177,8 @@ describe('EmailService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   EMAIL_FROM: 'test@example.com',
                   FRONTEND_URL: 'https://example.com',
                 };
@@ -262,8 +262,8 @@ describe('EmailService', () => {
           {
             provide: ConfigService,
             useValue: {
-              get: jest.fn((key: string, defaultValue?: any) => {
-                const config: Record<string, any> = {
+              get: jest.fn((key: string, defaultValue?: unknown) => {
+                const config: Record<string, unknown> = {
                   EMAIL_FROM: 'test@example.com',
                   FRONTEND_URL: 'https://example.com',
                 };

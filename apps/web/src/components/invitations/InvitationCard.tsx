@@ -40,10 +40,11 @@ export function InvitationCard({ invitation, variant = 'user', onUpdate }: Invit
         description: `You have joined ${invitation.team?.name}!`,
       });
       onUpdate?.();
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: 'Error',
-        description: error.message || 'Failed to accept invitation',
+        description:
+          error instanceof Error ? error.message : String(error) || 'Failed to accept invitation',
         variant: 'destructive',
       });
     } finally {
@@ -69,10 +70,11 @@ export function InvitationCard({ invitation, variant = 'user', onUpdate }: Invit
         description: 'Invitation rejected',
       });
       onUpdate?.();
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: 'Error',
-        description: error.message || 'Failed to reject invitation',
+        description:
+          error instanceof Error ? error.message : String(error) || 'Failed to reject invitation',
         variant: 'destructive',
       });
     } finally {
@@ -98,10 +100,11 @@ export function InvitationCard({ invitation, variant = 'user', onUpdate }: Invit
         description: 'Invitation cancelled',
       });
       onUpdate?.();
-    } catch (error: any) {
+    } catch (error) {
       toast({
         title: 'Error',
-        description: error.message || 'Failed to cancel invitation',
+        description:
+          error instanceof Error ? error.message : String(error) || 'Failed to cancel invitation',
         variant: 'destructive',
       });
     } finally {

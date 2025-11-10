@@ -43,18 +43,18 @@ export default function HackathonsAdminPage() {
   async function fetchHackathons() {
     try {
       setIsLoading(true);
-      const filters: any = {};
+      const filters: Record<string, unknown> = {};
       if (statusFilter) filters.status = statusFilter;
       if (locationFilter) filters.location = locationFilter;
 
       const response = await getHackathons(filters);
       setHackathons(response.data);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching hackathons:', error);
       addToast({
         type: 'error',
         title: 'Failed to load hackathons',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setIsLoading(false);
@@ -77,12 +77,12 @@ export default function HackathonsAdminPage() {
       });
       fetchHackathons();
       setDeleteConfirm(null);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error deleting hackathon:', error);
       addToast({
         type: 'error',
         title: 'Failed to delete hackathon',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     }
   }

@@ -201,9 +201,9 @@ const authConfig = NextAuth({
   debug: process.env.NODE_ENV === 'development',
 });
 
-export const handlers = authConfig.handlers;
-export const signIn = authConfig.signIn;
-export const signOut = authConfig.signOut;
+export const handlers: typeof authConfig.handlers = authConfig.handlers;
+export const signIn: typeof authConfig.signIn = authConfig.signIn;
+export const signOut: typeof authConfig.signOut = authConfig.signOut;
 export const auth: typeof authConfig.auth = authConfig.auth;
 
 // Helper function to get session on server
@@ -214,12 +214,14 @@ export async function getSession() {
 // Helper to check if user has role
 export function hasRole(session: DefaultSession | null, role: string): boolean {
   if (!session?.user) return false;
-  return (session.user as any).roles?.includes(role) || false;
+  const user = session.user as { roles?: string[] };
+  return user.roles?.includes(role) || false;
 }
 
 // Helper to check if user has any of the roles
 export function hasAnyRole(session: DefaultSession | null, roles: string[]): boolean {
   if (!session?.user) return false;
-  const userRoles = (session.user as any).roles || [];
+  const user = session.user as { roles?: string[] };
+  const userRoles = user.roles || [];
   return roles.some(role => userRoles.includes(role));
 }

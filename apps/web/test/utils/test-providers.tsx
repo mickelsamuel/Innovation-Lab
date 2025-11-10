@@ -1,6 +1,7 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SessionProvider } from 'next-auth/react';
+import type { Session } from 'next-auth';
 
 /**
  * Wrapper component that provides all necessary context providers for testing
@@ -15,7 +16,7 @@ export function TestProviders({ children }: { children: React.ReactNode }) {
     },
   });
 
-  const mockSession = {
+  const mockSession: Session = {
     user: {
       id: 'test-user-id',
       email: 'test@example.com',
@@ -35,7 +36,7 @@ export function TestProviders({ children }: { children: React.ReactNode }) {
 /**
  * Create a wrapper with custom session
  */
-export function createTestProvidersWithSession(session: any) {
+export function createTestProvidersWithSession(session: Session) {
   return function TestProvidersWithSession({ children }: { children: React.ReactNode }) {
     const queryClient = new QueryClient({
       defaultOptions: {

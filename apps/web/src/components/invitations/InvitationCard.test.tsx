@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '../../../test/utils/custom-render';
 import { InvitationCard } from './InvitationCard';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { acceptInvitation, rejectInvitation, cancelInvitation } from '@/lib/invitations';
+import type { Mock } from 'vitest';
 import { useSession } from 'next-auth/react';
 import { InvitationStatus } from '@/types/invitation';
 import userEvent from '@testing-library/user-event';
@@ -22,6 +23,12 @@ vi.mock('@/components/ui/use-toast', () => ({
     toast: vi.fn(),
   }),
 }));
+
+// Type the mocks
+const mockAcceptInvitation = acceptInvitation as Mock;
+const mockRejectInvitation = rejectInvitation as Mock;
+const mockCancelInvitation = cancelInvitation as Mock;
+const mockUseSession = useSession as Mock;
 
 describe('InvitationCard', () => {
   const mockOnUpdate = vi.fn();
@@ -69,7 +76,7 @@ describe('InvitationCard', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    (useSession as any).mockReturnValue({ data: mockSession });
+    mockUseSession.mockReturnValue({ data: mockSession });
   });
 
   describe('Rendering - User Variant', () => {
@@ -197,7 +204,7 @@ describe('InvitationCard', () => {
   describe('Accept Invitation', () => {
     it('should accept invitation successfully', async () => {
       const user = userEvent.setup();
-      (acceptInvitation as any).mockResolvedValue({ success: true });
+      mockAcceptInvitation.mockResolvedValue({ success: true });
 
       render(<InvitationCard invitation={mockInvitation} variant="user" onUpdate={mockOnUpdate} />);
 
@@ -212,7 +219,7 @@ describe('InvitationCard', () => {
 
     it('should show loading state while accepting', async () => {
       const user = userEvent.setup();
-      (acceptInvitation as any).mockImplementation(
+      mockAcceptInvitation.mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
@@ -228,7 +235,7 @@ describe('InvitationCard', () => {
 
     it('should handle accept error', async () => {
       const user = userEvent.setup();
-      (acceptInvitation as any).mockRejectedValue(new Error('Team is full'));
+      mockAcceptInvitation.mockRejectedValue(new Error('Team is full'));
 
       render(<InvitationCard invitation={mockInvitation} variant="user" />);
 
@@ -243,7 +250,7 @@ describe('InvitationCard', () => {
 
     it('should show error when not logged in', async () => {
       const user = userEvent.setup();
-      (useSession as any).mockReturnValue({ data: null });
+      mockUseSession.mockReturnValue({ data: null });
 
       render(<InvitationCard invitation={mockInvitation} variant="user" />);
 
@@ -259,7 +266,7 @@ describe('InvitationCard', () => {
   describe('Reject Invitation', () => {
     it('should reject invitation successfully', async () => {
       const user = userEvent.setup();
-      (rejectInvitation as any).mockResolvedValue({ success: true });
+      mockRejectInvitation.mockResolvedValue({ success: true });
 
       render(<InvitationCard invitation={mockInvitation} variant="user" onUpdate={mockOnUpdate} />);
 
@@ -274,7 +281,7 @@ describe('InvitationCard', () => {
 
     it('should show loading state while rejecting', async () => {
       const user = userEvent.setup();
-      (rejectInvitation as any).mockImplementation(
+      mockRejectInvitation.mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
@@ -290,7 +297,7 @@ describe('InvitationCard', () => {
 
     it('should handle reject error', async () => {
       const user = userEvent.setup();
-      (rejectInvitation as any).mockRejectedValue(new Error('Failed to reject'));
+      mockRejectInvitation.mockRejectedValue(new Error('Failed to reject'));
 
       render(<InvitationCard invitation={mockInvitation} variant="user" />);
 
@@ -307,7 +314,7 @@ describe('InvitationCard', () => {
   describe('Cancel Invitation', () => {
     it('should cancel invitation successfully', async () => {
       const user = userEvent.setup();
-      (cancelInvitation as any).mockResolvedValue({ success: true });
+      mockCancelInvitation.mockResolvedValue({ success: true });
 
       render(<InvitationCard invitation={mockInvitation} variant="team" onUpdate={mockOnUpdate} />);
 
@@ -322,7 +329,7 @@ describe('InvitationCard', () => {
 
     it('should show loading state while cancelling', async () => {
       const user = userEvent.setup();
-      (cancelInvitation as any).mockImplementation(
+      mockCancelInvitation.mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
@@ -338,7 +345,7 @@ describe('InvitationCard', () => {
 
     it('should handle cancel error', async () => {
       const user = userEvent.setup();
-      (cancelInvitation as any).mockRejectedValue(new Error('Failed to cancel'));
+      mockCancelInvitation.mockRejectedValue(new Error('Failed to cancel'));
 
       render(<InvitationCard invitation={mockInvitation} variant="team" />);
 
@@ -379,7 +386,7 @@ describe('InvitationCard', () => {
         ...mockInvitation,
         invitedBy: {
           ...mockInvitation.invitedBy,
-          name: '' as any,
+          name: '',
           avatarUrl: undefined,
         },
       };
@@ -416,7 +423,7 @@ describe('InvitationCard', () => {
 
     it('should disable buttons during loading', async () => {
       const user = userEvent.setup();
-      (acceptInvitation as any).mockImplementation(
+      mockAcceptInvitation.mockImplementation(
         () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 

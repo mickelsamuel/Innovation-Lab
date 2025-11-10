@@ -96,12 +96,12 @@ export default function CreateHackathonPage() {
       });
 
       router.push(`/admin/hackathons/${hackathon.id}/edit`);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating hackathon:', error);
       addToast({
         type: 'error',
         title: 'Failed to create hackathon',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setIsSubmitting(false);

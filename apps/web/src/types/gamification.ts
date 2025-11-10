@@ -35,7 +35,7 @@ export interface XpEvent {
   points: number;
   refType?: string;
   refId?: string;
-  metadata?: any;
+  metadata?: Record<string, unknown>;
   createdAt: string;
 }
 
@@ -67,6 +67,7 @@ export interface Badge {
 }
 
 export interface LeaderboardFilters {
+  [key: string]: unknown;
   scope?: LeaderboardScope;
   period?: LeaderboardPeriod;
   scopeId?: string;

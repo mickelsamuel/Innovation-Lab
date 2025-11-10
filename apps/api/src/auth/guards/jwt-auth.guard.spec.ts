@@ -24,7 +24,7 @@ describe('JwtAuthGuard', () => {
       }),
       getHandler: jest.fn(),
       getClass: jest.fn(),
-    }) as any;
+    }) as ExecutionContext;
 
   afterEach(() => {
     jest.clearAllMocks();

@@ -43,7 +43,7 @@ describe('GamificationController', () => {
       mockGamificationService.getUserProfile.mockResolvedValue(profile);
 
       const req = { user: { id: 'user-1' } };
-      const result = await controller.getMyProfile(req as any);
+      const result = await controller.getMyProfile(req);
 
       expect(result).toEqual(profile);
       expect(service.getUserProfile).toHaveBeenCalledWith('user-1');
@@ -68,7 +68,7 @@ describe('GamificationController', () => {
       const query = { scope: 'GLOBAL', period: 'ALLTIME', scopeId: undefined, limit: 100 };
       mockGamificationService.getLeaderboard.mockResolvedValue(leaderboard);
 
-      const result = await controller.getLeaderboard(query as any);
+      const result = await controller.getLeaderboard(query);
 
       expect(result).toEqual(leaderboard);
       expect(service.getLeaderboard).toHaveBeenCalledWith('GLOBAL', 'ALLTIME', undefined, 100);
@@ -79,7 +79,7 @@ describe('GamificationController', () => {
       const query = {};
       mockGamificationService.getLeaderboard.mockResolvedValue(leaderboard);
 
-      const result = await controller.getLeaderboard(query as any);
+      const result = await controller.getLeaderboard(query);
 
       expect(result).toEqual(leaderboard);
       expect(service.getLeaderboard).toHaveBeenCalledWith(
@@ -105,7 +105,7 @@ describe('GamificationController', () => {
 
   describe('createBadge', () => {
     it('should create a badge', async () => {
-      const createDto = { slug: 'new-badge', name: 'New Badge' } as any;
+      const createDto = { slug: 'new-badge', name: 'New Badge' };
       const badge = { id: 'b1', ...createDto };
       mockGamificationService.createBadge.mockResolvedValue(badge);
 

@@ -72,10 +72,10 @@ export default function SecuritySettingsPage() {
         title: '2FA Setup Initiated',
         description: 'Scan the QR code with your authenticator app.',
       });
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Setup Failed',
-        description: err.message || 'Failed to setup 2FA',
+        description: err instanceof Error ? err.message : String(err) || 'Failed to setup 2FA',
         variant: 'destructive',
       });
     }
@@ -107,10 +107,10 @@ export default function SecuritySettingsPage() {
           variant: 'destructive',
         });
       }
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Enable Failed',
-        description: err.message || 'Failed to enable 2FA',
+        description: err instanceof Error ? err.message : String(err) || 'Failed to enable 2FA',
         variant: 'destructive',
       });
     }
@@ -131,10 +131,10 @@ export default function SecuritySettingsPage() {
         title: '2FA Disabled',
         description: 'Two-factor authentication has been disabled.',
       });
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Disable Failed',
-        description: err.message || 'Failed to disable 2FA',
+        description: err instanceof Error ? err.message : String(err) || 'Failed to disable 2FA',
         variant: 'destructive',
       });
     }
@@ -180,10 +180,11 @@ export default function SecuritySettingsPage() {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Change Failed',
-        description: err.message || 'Failed to change password',
+        description:
+          err instanceof Error ? err.message : String(err) || 'Failed to change password',
         variant: 'destructive',
       });
     } finally {
@@ -219,10 +220,10 @@ export default function SecuritySettingsPage() {
 
       localStorage.removeItem('auth_token');
       router.push('/');
-    } catch (err: any) {
+    } catch (err) {
       toast({
         title: 'Deletion Failed',
-        description: err.message || 'Failed to delete account',
+        description: err instanceof Error ? err.message : String(err) || 'Failed to delete account',
         variant: 'destructive',
       });
       setIsDeleting(false);

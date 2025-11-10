@@ -83,10 +83,10 @@ describe('TeamsService', () => {
         hackathon: { id: 'hackathon-1', title: 'Test Hackathon', slug: 'test-hack' },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
       prismaMock.teamMember.findFirst.mockResolvedValue(null);
-      prismaMock.team.create.mockResolvedValue(createdTeam as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.create.mockResolvedValue(createdTeam);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.create(createDto, 'user-1');
 
@@ -137,8 +137,8 @@ describe('TeamsService', () => {
         teamId: 'existing-team',
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.teamMember.findFirst.mockResolvedValue(existingTeamMember as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.teamMember.findFirst.mockResolvedValue(existingTeamMember);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(ConflictException);
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(
@@ -164,7 +164,7 @@ describe('TeamsService', () => {
         },
       ];
 
-      prismaMock.team.findMany.mockResolvedValue(mockTeams as any);
+      prismaMock.team.findMany.mockResolvedValue(mockTeams);
 
       const result = await service.findAll('hackathon-1');
 
@@ -203,7 +203,7 @@ describe('TeamsService', () => {
         submissions: [],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(mockTeam as any);
+      prismaMock.team.findUnique.mockResolvedValue(mockTeam);
 
       const result = await service.findOne('team-1');
 
@@ -247,7 +247,7 @@ describe('TeamsService', () => {
         },
       ];
 
-      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers as any);
+      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers);
 
       const result = await service.findUserTeams('user-1');
 
@@ -277,9 +277,9 @@ describe('TeamsService', () => {
 
       const updatedTeam = { ...team, ...updateDto };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.team.update.mockResolvedValue(updatedTeam as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.team.update.mockResolvedValue(updatedTeam);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.update('team-1', updateDto, 'user-1');
 
@@ -311,7 +311,7 @@ describe('TeamsService', () => {
         ],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.update('team-1', updateDto, 'user-2')).rejects.toThrow(
         ForbiddenException
@@ -345,16 +345,14 @@ describe('TeamsService', () => {
         members: [...team.members, { userId: 'user-3', role: TeamMemberRole.MEMBER }],
       };
 
-      prismaMock.team.findUnique
-        .mockResolvedValueOnce(team as any)
-        .mockResolvedValueOnce(updatedTeam as any);
+      prismaMock.team.findUnique.mockResolvedValueOnce(team).mockResolvedValueOnce(updatedTeam);
       prismaMock.teamMember.findFirst.mockResolvedValue(null);
       prismaMock.teamMember.count.mockResolvedValue(2);
-      prismaMock.teamMember.create.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.teamMember.create.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       // Mock transaction to execute the callback
-      prismaMock.$transaction.mockImplementation(async (callback: any) => {
+      prismaMock.$transaction.mockImplementation(async (callback: Record<string, unknown>) => {
         return callback(prismaMock);
       });
 
@@ -396,7 +394,7 @@ describe('TeamsService', () => {
         hackathon: { id: 'hackathon-1', maxTeamSize: 5 },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.addMember('team-1', inviteDto, 'user-2')).rejects.toThrow(
         ForbiddenException
@@ -421,12 +419,12 @@ describe('TeamsService', () => {
         hackathon: { id: 'hackathon-1', maxTeamSize: 5 },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
       prismaMock.teamMember.findFirst.mockResolvedValue(null);
       prismaMock.teamMember.count.mockResolvedValue(5);
 
       // Mock transaction to execute the callback
-      prismaMock.$transaction.mockImplementation(async (callback: any) => {
+      prismaMock.$transaction.mockImplementation(async (callback: Record<string, unknown>) => {
         return callback(prismaMock);
       });
 
@@ -450,7 +448,7 @@ describe('TeamsService', () => {
         hackathon: { id: 'hackathon-1', maxTeamSize: 5 },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
         ConflictException
@@ -474,8 +472,8 @@ describe('TeamsService', () => {
         teamId: 'other-team',
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.teamMember.findFirst.mockResolvedValue(otherTeamMember as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.teamMember.findFirst.mockResolvedValue(otherTeamMember);
 
       await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
         ConflictException
@@ -498,9 +496,9 @@ describe('TeamsService', () => {
         ],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.teamMember.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.teamMember.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.removeMember('team-1', 'user-2', 'user-1');
 
@@ -525,9 +523,9 @@ describe('TeamsService', () => {
         ],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.teamMember.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.teamMember.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.removeMember('team-1', 'user-2', 'user-2');
 
@@ -554,7 +552,7 @@ describe('TeamsService', () => {
         ],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.removeMember('team-1', 'user-3', 'user-2')).rejects.toThrow(
         ForbiddenException
@@ -572,7 +570,7 @@ describe('TeamsService', () => {
         members: [{ userId: 'user-1', role: TeamMemberRole.LEAD }],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.removeMember('team-1', 'user-1', 'user-2')).rejects.toThrow(
         ForbiddenException
@@ -593,10 +591,10 @@ describe('TeamsService', () => {
         ],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.teamMember.delete.mockResolvedValue({} as any);
-      prismaMock.teamMember.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.teamMember.delete.mockResolvedValue({});
+      prismaMock.teamMember.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.removeMember('team-1', 'user-1', 'user-1');
 
@@ -619,10 +617,10 @@ describe('TeamsService', () => {
         members: [{ userId: 'user-1', role: TeamMemberRole.LEAD }],
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.teamMember.delete.mockResolvedValue({} as any);
-      prismaMock.team.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.teamMember.delete.mockResolvedValue({});
+      prismaMock.team.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.removeMember('team-1', 'user-1', 'user-1');
 
@@ -644,9 +642,9 @@ describe('TeamsService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
-      prismaMock.team.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
+      prismaMock.team.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.remove('team-1', 'user-1');
 
@@ -675,7 +673,7 @@ describe('TeamsService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.remove('team-1', 'user-2')).rejects.toThrow(ForbiddenException);
       await expect(service.remove('team-1', 'user-2')).rejects.toThrow(
@@ -692,7 +690,7 @@ describe('TeamsService', () => {
         _count: { submissions: 2 },
       };
 
-      prismaMock.team.findUnique.mockResolvedValue(team as any);
+      prismaMock.team.findUnique.mockResolvedValue(team);
 
       await expect(service.remove('team-1', 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.remove('team-1', 'user-1')).rejects.toThrow(

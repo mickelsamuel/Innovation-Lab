@@ -51,7 +51,16 @@ export default function ManageHackathonPage() {
   // Announcement
   const [announcementTitle, setAnnouncementTitle] = useState('');
   const [announcementContent, setAnnouncementContent] = useState('');
-  const [announcements, setAnnouncements] = useState<any[]>([]);
+  const [announcements, setAnnouncements] = useState<
+    Array<{
+      id: string;
+      title: string;
+      content: string;
+      body: string;
+      createdAt: string;
+      publishedAt: string;
+    }>
+  >([]);
   const [isLoadingAnnouncements, setIsLoadingAnnouncements] = useState(false);
 
   useEffect(() => {
@@ -64,12 +73,12 @@ export default function ManageHackathonPage() {
       setIsLoading(true);
       const data = await getHackathonById(hackathonId);
       setHackathon(data);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error fetching hackathon:', error);
       addToast({
         type: 'error',
         title: 'Failed to load hackathon',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setIsLoading(false);
@@ -91,12 +100,12 @@ export default function ManageHackathonPage() {
         title: 'Rankings calculated',
         description: 'Submission rankings have been successfully calculated.',
       });
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error calculating rankings:', error);
       addToast({
         type: 'error',
         title: 'Failed to calculate rankings',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     } finally {
       setIsCalculating(false);
@@ -112,8 +121,8 @@ export default function ManageHackathonPage() {
     try {
       setIsLoadingAnnouncements(true);
       const data = await getAnnouncements(hackathonId);
-      setAnnouncements(data);
-    } catch (error: any) {
+      setAnnouncements(data.map(a => ({ ...a, body: a.content, publishedAt: a.createdAt })));
+    } catch (error) {
       console.error('Error fetching announcements:', error);
     } finally {
       setIsLoadingAnnouncements(false);
@@ -152,12 +161,12 @@ export default function ManageHackathonPage() {
       setAnnouncementTitle('');
       setAnnouncementContent('');
       await fetchAnnouncements();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error creating announcement:', error);
       addToast({
         type: 'error',
         title: 'Failed to post announcement',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     }
   }
@@ -175,12 +184,12 @@ export default function ManageHackathonPage() {
         title: 'Announcement deleted',
       });
       await fetchAnnouncements();
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error deleting announcement:', error);
       addToast({
         type: 'error',
         title: 'Failed to delete announcement',
-        description: error.message,
+        description: error instanceof Error ? error.message : String(error),
       });
     }
   }

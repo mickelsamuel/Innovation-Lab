@@ -232,7 +232,7 @@ describe('Files Utility Functions', () => {
         responseText: JSON.stringify(mockResponse),
       };
 
-      global.XMLHttpRequest = vi.fn(() => mockXHR as any) as any;
+      global.XMLHttpRequest = vi.fn(() => mockXHR) as unknown as typeof XMLHttpRequest;
 
       const uploadPromise = uploadFile(file, 'token-123', {
         onProgress: progressCallback,
@@ -244,7 +244,7 @@ describe('Files Utility Functions', () => {
       )?.[1];
 
       if (progressHandler) {
-        progressHandler({ lengthComputable: true, loaded: 50, total: 100 } as any);
+        progressHandler({ lengthComputable: true, loaded: 50, total: 100 } as ProgressEvent);
       }
 
       // Simulate load event
@@ -279,7 +279,7 @@ describe('Files Utility Functions', () => {
         responseText: JSON.stringify(mockResponse),
       };
 
-      global.XMLHttpRequest = vi.fn(() => mockXHR as any) as any;
+      global.XMLHttpRequest = vi.fn(() => mockXHR) as unknown as typeof XMLHttpRequest;
 
       const uploadPromise = uploadFile(file, 'token-123', {
         onProgress: progressCallback,
@@ -291,7 +291,7 @@ describe('Files Utility Functions', () => {
       )?.[1];
 
       if (progressHandler) {
-        progressHandler({ lengthComputable: false, loaded: 50, total: 100 } as any);
+        progressHandler({ lengthComputable: false, loaded: 50, total: 100 } as ProgressEvent);
       }
 
       // Simulate load event
@@ -320,7 +320,7 @@ describe('Files Utility Functions', () => {
         send: vi.fn(),
       };
 
-      global.XMLHttpRequest = vi.fn(() => mockXHR as any) as any;
+      global.XMLHttpRequest = vi.fn(() => mockXHR) as unknown as typeof XMLHttpRequest;
 
       const uploadPromise = uploadFile(file, 'token-123', {
         onProgress: progressCallback,
@@ -354,7 +354,7 @@ describe('Files Utility Functions', () => {
         responseText: JSON.stringify({ message: 'Bad request' }),
       };
 
-      global.XMLHttpRequest = vi.fn(() => mockXHR as any) as any;
+      global.XMLHttpRequest = vi.fn(() => mockXHR) as unknown as typeof XMLHttpRequest;
 
       const uploadPromise = uploadFile(file, 'token-123', {
         onProgress: progressCallback,
@@ -386,7 +386,7 @@ describe('Files Utility Functions', () => {
         responseText: 'Invalid JSON',
       };
 
-      global.XMLHttpRequest = vi.fn(() => mockXHR as any) as any;
+      global.XMLHttpRequest = vi.fn(() => mockXHR) as unknown as typeof XMLHttpRequest;
 
       const uploadPromise = uploadFile(file, 'token-123', {
         onProgress: progressCallback,
@@ -418,7 +418,7 @@ describe('Files Utility Functions', () => {
         responseText: 'Invalid JSON',
       };
 
-      global.XMLHttpRequest = vi.fn(() => mockXHR as any) as any;
+      global.XMLHttpRequest = vi.fn(() => mockXHR) as unknown as typeof XMLHttpRequest;
 
       const uploadPromise = uploadFile(file, 'token-123', {
         onProgress: progressCallback,

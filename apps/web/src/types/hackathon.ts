@@ -83,6 +83,7 @@ export interface HackathonsResponse {
 }
 
 export interface HackathonFilters {
+  [key: string]: unknown;
   status?: HackathonStatus;
   location?: HackathonLocation;
   search?: string;

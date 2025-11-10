@@ -68,7 +68,6 @@ export default function HackathonDetailPage() {
   const { toast } = useToast();
 
   const [hackathon, setHackathon] = useState<Hackathon | null>(null);
-  const [_stats, setStats] = useState<any>(null);
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -105,13 +104,12 @@ export default function HackathonDetailPage() {
       setIsLoading(true);
       setError(null);
 
-      const [hackathonData, statsData] = await Promise.all([
+      const [hackathonData] = await Promise.all([
         getHackathonBySlug(slug),
         getHackathonStats(slug).catch(() => null), // Stats might fail if endpoint expects ID
       ]);
 
       setHackathon(hackathonData);
-      setStats(statsData);
 
       // Fetch announcements using hackathon ID
       if (hackathonData?.id) {
@@ -130,9 +128,11 @@ export default function HackathonDetailPage() {
       } else if (hackathonData.status === 'UPCOMING') {
         updateTimeRemaining(hackathonData.startsAt);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching hackathon:', err);
-      setError(err.message || 'Failed to fetch hackathon details');
+      setError(
+        err instanceof Error ? err.message : String(err) || 'Failed to fetch hackathon details'
+      );
     } finally {
       setIsLoading(false);
     }
@@ -190,11 +190,14 @@ export default function HackathonDetailPage() {
 
       // Refresh hackathon data to update participant count
       await fetchHackathonData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Registration error:', err);
       toast({
         title: 'Registration Failed',
-        description: err.message || 'Failed to register for hackathon. Please try again.',
+        description:
+          err instanceof Error
+            ? err.message
+            : String(err) || 'Failed to register for hackathon. Please try again.',
         variant: 'destructive',
       });
     } finally {

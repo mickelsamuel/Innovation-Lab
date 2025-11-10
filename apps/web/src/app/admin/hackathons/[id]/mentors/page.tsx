@@ -60,9 +60,9 @@ export default function ManageMentorsPage() {
 
       setHackathon(hackathonData);
       setMentors(mentorsData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load mentors');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load mentors');
     } finally {
       setIsLoading(false);
     }
@@ -80,7 +80,7 @@ export default function ManageMentorsPage() {
         return;
       }
 
-      const response = await apiFetch<any[]>(
+      const response = await apiFetch<Array<{ id: string; name: string; email: string }>>(
         `/users/search?email=${encodeURIComponent(newMentorEmail)}`,
         { token }
       );
@@ -94,9 +94,9 @@ export default function ManageMentorsPage() {
       await assignMentor(hackathonId, user.id, token);
       setNewMentorEmail('');
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error adding mentor:', err);
-      setError(err.message || 'Failed to add mentor');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to add mentor');
     } finally {
       setIsAdding(false);
     }
@@ -111,9 +111,9 @@ export default function ManageMentorsPage() {
 
       await removeMentor(hackathonId, mentor.userId, token);
       await fetchData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error removing mentor:', err);
-      setError(err.message || 'Failed to remove mentor');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to remove mentor');
     }
   }
 

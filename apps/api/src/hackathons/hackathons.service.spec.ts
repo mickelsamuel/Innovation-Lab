@@ -85,8 +85,8 @@ describe('HackathonsService', () => {
       };
 
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
-      prismaMock.hackathon.create.mockResolvedValue(createdHackathon as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.hackathon.create.mockResolvedValue(createdHackathon);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.create(createDto, 'user-1');
 
@@ -106,7 +106,7 @@ describe('HackathonsService', () => {
 
     it('should throw ConflictException if slug already exists', async () => {
       const existingHackathon = TestDataFactory.createHackathon({ slug: createDto.slug });
-      prismaMock.hackathon.findUnique.mockResolvedValue(existingHackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(existingHackathon);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(ConflictException);
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(
@@ -153,8 +153,8 @@ describe('HackathonsService', () => {
       };
 
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
-      prismaMock.hackathon.create.mockResolvedValue(createdHackathon as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.hackathon.create.mockResolvedValue(createdHackathon);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.create(minimalDto, 'user-1');
 
@@ -170,7 +170,7 @@ describe('HackathonsService', () => {
         TestDataFactory.createHackathon({ title: 'Hackathon 2' }),
       ];
 
-      prismaMock.hackathon.findMany.mockResolvedValue(mockHackathons as any);
+      prismaMock.hackathon.findMany.mockResolvedValue(mockHackathons);
       prismaMock.hackathon.count.mockResolvedValue(2);
 
       const result = await service.findAll({});
@@ -194,10 +194,10 @@ describe('HackathonsService', () => {
     it('should filter hackathons by status', async () => {
       const activeHackathons = [TestDataFactory.createHackathon({ status: HackathonStatus.LIVE })];
 
-      prismaMock.hackathon.findMany.mockResolvedValue(activeHackathons as any);
+      prismaMock.hackathon.findMany.mockResolvedValue(activeHackathons);
       prismaMock.hackathon.count.mockResolvedValue(1);
 
-      const result = await service.findAll({ status: 'LIVE' as any });
+      const result = await service.findAll({ status: 'LIVE' });
 
       expect(result.data).toHaveLength(1);
       expect(prismaMock.hackathon.findMany).toHaveBeenCalledWith(
@@ -213,7 +213,7 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.findMany.mockResolvedValue([]);
       prismaMock.hackathon.count.mockResolvedValue(0);
 
-      await service.findAll({ location: 'VIRTUAL' as any });
+      await service.findAll({ location: 'VIRTUAL' });
 
       expect(prismaMock.hackathon.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -275,7 +275,7 @@ describe('HackathonsService', () => {
         _count: { teams: 5, submissions: 10 },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(mockHackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(mockHackathon);
 
       const result = await service.findOne('hackathon-1');
 
@@ -306,7 +306,7 @@ describe('HackathonsService', () => {
         _count: { teams: 0, submissions: 0 },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(mockHackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(mockHackathon);
 
       const result = await service.findBySlug('test-hack');
 
@@ -347,7 +347,7 @@ describe('HackathonsService', () => {
         },
       ];
 
-      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers as any);
+      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers);
 
       const result = await service.findUserHackathons('user-1');
 
@@ -364,7 +364,7 @@ describe('HackathonsService', () => {
         { team: { id: 'team-2', hackathon } },
       ];
 
-      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers as any);
+      prismaMock.teamMember.findMany.mockResolvedValue(mockTeamMembers);
 
       const result = await service.findUserHackathons('user-1');
 
@@ -384,9 +384,9 @@ describe('HackathonsService', () => {
       const existingHackathon = TestDataFactory.createHackathon();
       const updatedHackathon = { ...existingHackathon, ...updateDto };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(existingHackathon as any);
-      prismaMock.hackathon.update.mockResolvedValue(updatedHackathon as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(existingHackathon);
+      prismaMock.hackathon.update.mockResolvedValue(updatedHackathon);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.update('hackathon-1', updateDto, 'user-1');
 
@@ -417,8 +417,8 @@ describe('HackathonsService', () => {
       const slugConflict = TestDataFactory.createHackathon({ slug: 'new-slug' });
 
       prismaMock.hackathon.findUnique
-        .mockResolvedValueOnce(existingHackathon as any)
-        .mockResolvedValueOnce(slugConflict as any);
+        .mockResolvedValueOnce(existingHackathon)
+        .mockResolvedValueOnce(slugConflict);
 
       await expect(service.update('hackathon-1', { slug: 'new-slug' }, 'user-1')).rejects.toThrow(
         ConflictException
@@ -435,9 +435,9 @@ describe('HackathonsService', () => {
         _count: { teams: 0, submissions: 0 },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.hackathon.delete.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.hackathon.delete.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.remove('hackathon-1', 'user-1');
 
@@ -462,7 +462,7 @@ describe('HackathonsService', () => {
         _count: { teams: 5, submissions: 0 },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
 
       await expect(service.remove('hackathon-1', 'user-1')).rejects.toThrow(BadRequestException);
       await expect(service.remove('hackathon-1', 'user-1')).rejects.toThrow(
@@ -478,7 +478,7 @@ describe('HackathonsService', () => {
         _count: { teams: 0, submissions: 3 },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
 
       await expect(service.remove('hackathon-1', 'user-1')).rejects.toThrow(BadRequestException);
 
@@ -504,8 +504,8 @@ describe('HackathonsService', () => {
         { status: 'FINAL', _count: 10 },
       ];
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.submission.groupBy.mockResolvedValue(submissionsByStatus as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.submission.groupBy.mockResolvedValue(submissionsByStatus);
       prismaMock.teamMember.count.mockResolvedValue(75);
 
       const result = await service.getStats('hackathon-1');
@@ -553,11 +553,11 @@ describe('HackathonsService', () => {
         },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
-      prismaMock.submission.update.mockResolvedValue({} as any);
-      prismaMock.hackathon.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
+      prismaMock.submission.update.mockResolvedValue({});
+      prismaMock.hackathon.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.announceWinners(
         'hackathon-1',
@@ -596,7 +596,7 @@ describe('HackathonsService', () => {
     it('should throw BadRequestException if hackathon not in JUDGING or CLOSED status', async () => {
       const hackathon = TestDataFactory.createHackathon({ status: HackathonStatus.LIVE });
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
 
       await expect(service.announceWinners('hackathon-1', winnersDto, 'admin-1')).rejects.toThrow(
         BadRequestException
@@ -609,7 +609,7 @@ describe('HackathonsService', () => {
     it('should throw NotFoundException if submission not found', async () => {
       const hackathon = TestDataFactory.createHackathon({ status: HackathonStatus.JUDGING });
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
       prismaMock.submission.findUnique.mockResolvedValue(null);
 
       await expect(
@@ -625,8 +625,8 @@ describe('HackathonsService', () => {
         team: { members: [] },
       };
 
-      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
-      prismaMock.submission.findUnique.mockResolvedValue(submission as any);
+      prismaMock.hackathon.findUnique.mockResolvedValue(hackathon);
+      prismaMock.submission.findUnique.mockResolvedValue(submission);
 
       await expect(
         service.announceWinners('hackathon-1', { winners: [winnersDto.winners[0]] }, 'admin-1')

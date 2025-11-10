@@ -7,7 +7,7 @@ export interface CreateNotificationDto {
   type: NotificationType;
   title: string;
   message: string;
-  data?: any;
+  data?: Record<string, unknown>;
   link?: string;
 }
 
@@ -57,7 +57,7 @@ export class NotificationsService {
       const preferences = await this.getUserPreferences(dto.userId);
       const prefKey = this.getPreferenceKey(dto.type, 'inApp');
 
-      if (!(preferences as any)[prefKey]) {
+      if (!preferences[prefKey as keyof typeof preferences]) {
         this.logger.log(`User ${dto.userId} has disabled in-app notifications for ${dto.type}`);
         return null;
       }
@@ -68,7 +68,7 @@ export class NotificationsService {
           type: dto.type,
           title: dto.title,
           message: dto.message,
-          data: dto.data,
+          data: dto.data ? (dto.data as Record<string, never>) : undefined,
           link: dto.link,
         },
       });
@@ -84,20 +84,27 @@ export class NotificationsService {
    */
   async createBulkNotifications(notifications: CreateNotificationDto[]) {
     try {
-      const validNotifications = [];
+      const validNotifications: Array<{
+        userId: string;
+        type: NotificationType;
+        title: string;
+        message: string;
+        data?: Record<string, never>;
+        link?: string;
+      }> = [];
 
       for (const notification of notifications) {
         const preferences = await this.getUserPreferences(notification.userId);
         const prefKey = this.getPreferenceKey(notification.type, 'inApp');
 
-        if ((preferences as any)[prefKey]) {
+        if (preferences[prefKey as keyof typeof preferences]) {
           validNotifications.push({
             userId: notification.userId,
             type: notification.type,
             title: notification.title,
             message: notification.message,
-            data: notification.data,
-            link: notification.link,
+            ...(notification.data && { data: notification.data as Record<string, never> }),
+            ...(notification.link && { link: notification.link }),
           });
         }
       }
@@ -131,7 +138,7 @@ export class NotificationsService {
   ) {
     const { unreadOnly = false, limit = 20, offset = 0 } = options;
 
-    const where: any = { userId };
+    const where: Record<string, unknown> = { userId };
     if (unreadOnly) {
       where.readAt = null;
     }
@@ -235,7 +242,8 @@ export class NotificationsService {
   async shouldSendEmail(userId: string, type: NotificationType): Promise<boolean> {
     const preferences = await this.getUserPreferences(userId);
     const prefKey = this.getPreferenceKey(type, 'email');
-    return (preferences as any)[prefKey] ?? true;
+    const value = preferences[prefKey as keyof typeof preferences];
+    return typeof value === 'boolean' ? value : true;
   }
 
   /**

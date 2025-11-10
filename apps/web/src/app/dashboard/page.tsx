@@ -44,7 +44,7 @@ interface GamificationProfile {
   xpToNextLevel: number;
   currentLevelXp: number;
   nextLevelXp: number;
-  recentXpEvents: any[];
+  recentXpEvents: unknown[];
 }
 
 interface Hackathon {
@@ -128,15 +128,15 @@ export default function DashboardPage() {
         setGamification(gamificationData);
 
         // Fetch user's hackathons
-        const hackathonsData = await apiFetch<any[]>('/hackathons/my', { token });
+        const hackathonsData = await apiFetch<Hackathon[]>('/hackathons/my', { token });
         setHackathons(hackathonsData);
 
         // Fetch user's teams
-        const teamsData = await apiFetch<any[]>('/teams/my', { token });
+        const teamsData = await apiFetch<Team[]>('/teams/my', { token });
         setTeams(teamsData);
 
         // Fetch user's submissions
-        const submissionsData = await apiFetch<any[]>('/submissions/my', { token });
+        const submissionsData = await apiFetch<Submission[]>('/submissions/my', { token });
         setSubmissions(submissionsData);
 
         // Fetch completed challenges count
@@ -647,13 +647,20 @@ export default function DashboardPage() {
 
               {gamification.recentXpEvents && gamification.recentXpEvents.length > 0 ? (
                 <div className="space-y-4">
-                  {gamification.recentXpEvents.map((activity: any) => (
+                  {(
+                    gamification.recentXpEvents as Array<{
+                      id: string;
+                      eventType: string;
+                      points: number;
+                      createdAt: string;
+                    }>
+                  ).map(activity => (
                     <div
                       key={activity.id}
                       className="border-l-4 border-accent pl-4 group hover:border-primary transition-colors"
                     >
                       <p className="text-sm text-slate-700 font-semibold group-hover:text-primary transition-colors">
-                        {activity.eventType.replace(/_/g, ' ')}
+                        {String(activity.eventType).replace(/_/g, ' ')}
                       </p>
                       <div className="flex items-center gap-2 mt-2">
                         <span className="text-xs font-black px-3 py-1 bg-green-100 text-green-700 rounded-full">

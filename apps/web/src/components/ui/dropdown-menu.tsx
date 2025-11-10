@@ -60,7 +60,7 @@ export function DropdownMenuTrigger({ children, asChild, className }: DropdownMe
       },
       'aria-expanded': open,
       'aria-haspopup': true,
-    } as any);
+    } as React.HTMLAttributes<HTMLElement>);
   }
 
   return (
@@ -185,7 +185,7 @@ export function DropdownMenuItem({
       ),
       onClick: handleClick,
       role: 'menuitem',
-    } as any);
+    } as React.HTMLAttributes<HTMLElement>);
   }
 
   return (

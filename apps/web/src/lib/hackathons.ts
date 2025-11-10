@@ -30,14 +30,17 @@ export async function getHackathonBySlug(slug: string): Promise<Hackathon> {
 /**
  * Get hackathon statistics
  */
-export async function getHackathonStats(id: string): Promise<any> {
-  return apiFetch<any>(`/hackathons/${id}/stats`);
+export async function getHackathonStats(id: string): Promise<Record<string, unknown>> {
+  return apiFetch<Record<string, unknown>>(`/hackathons/${id}/stats`);
 }
 
 /**
  * Create a new hackathon
  */
-export async function createHackathon(data: any, token: string): Promise<Hackathon> {
+export async function createHackathon(
+  data: Record<string, unknown>,
+  token: string
+): Promise<Hackathon> {
   return apiFetch<Hackathon>('/hackathons', {
     method: 'POST',
     body: JSON.stringify(data),
@@ -48,7 +51,11 @@ export async function createHackathon(data: any, token: string): Promise<Hackath
 /**
  * Update a hackathon
  */
-export async function updateHackathon(id: string, data: any, token: string): Promise<Hackathon> {
+export async function updateHackathon(
+  id: string,
+  data: Record<string, unknown>,
+  token: string
+): Promise<Hackathon> {
   return apiFetch<Hackathon>(`/hackathons/${id}`, {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -140,11 +147,17 @@ export async function removeMentor(
 /**
  * Calculate rankings for a hackathon
  */
-export async function calculateRankings(hackathonId: string, token: string): Promise<any> {
-  return apiFetch<any>(`/hackathons/${hackathonId}/calculate-rankings`, {
-    method: 'POST',
-    token,
-  });
+export async function calculateRankings(
+  hackathonId: string,
+  token: string
+): Promise<Array<{ submissionId: string; rank: number; totalScore: number }>> {
+  return apiFetch<Array<{ submissionId: string; rank: number; totalScore: number }>>(
+    `/hackathons/${hackathonId}/calculate-rankings`,
+    {
+      method: 'POST',
+      token,
+    }
+  );
 }
 
 /**
@@ -152,10 +165,10 @@ export async function calculateRankings(hackathonId: string, token: string): Pro
  */
 export async function announceWinners(
   hackathonId: string,
-  winners: any[],
+  winners: unknown[],
   token: string
-): Promise<any> {
-  return apiFetch<any>(`/hackathons/${hackathonId}/winners`, {
+): Promise<{ success: boolean; message: string }> {
+  return apiFetch<{ success: boolean; message: string }>(`/hackathons/${hackathonId}/winners`, {
     method: 'POST',
     body: JSON.stringify({ winners }),
     token,
@@ -169,19 +182,26 @@ export async function createAnnouncement(
   hackathonId: string,
   data: { title: string; body: string; pinned?: boolean },
   token: string
-): Promise<any> {
-  return apiFetch<any>(`/hackathons/${hackathonId}/announcements`, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    token,
-  });
+): Promise<{ id: string; title: string; content: string; createdAt: string }> {
+  return apiFetch<{ id: string; title: string; content: string; createdAt: string }>(
+    `/hackathons/${hackathonId}/announcements`,
+    {
+      method: 'POST',
+      body: JSON.stringify(data),
+      token,
+    }
+  );
 }
 
 /**
  * Get all announcements for a hackathon
  */
-export async function getAnnouncements(hackathonId: string): Promise<any[]> {
-  return apiFetch<any[]>(`/hackathons/${hackathonId}/announcements`);
+export async function getAnnouncements(
+  hackathonId: string
+): Promise<Array<{ id: string; title: string; content: string; createdAt: string }>> {
+  return apiFetch<Array<{ id: string; title: string; content: string; createdAt: string }>>(
+    `/hackathons/${hackathonId}/announcements`
+  );
 }
 
 /**
@@ -191,9 +211,12 @@ export async function deleteAnnouncement(
   hackathonId: string,
   announcementId: string,
   token: string
-): Promise<any> {
-  return apiFetch<any>(`/hackathons/${hackathonId}/announcements/${announcementId}`, {
-    method: 'DELETE',
-    token,
-  });
+): Promise<{ message: string }> {
+  return apiFetch<{ message: string }>(
+    `/hackathons/${hackathonId}/announcements/${announcementId}`,
+    {
+      method: 'DELETE',
+      token,
+    }
+  );
 }

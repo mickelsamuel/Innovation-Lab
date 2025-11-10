@@ -59,16 +59,16 @@ export default function ChallengesPage() {
       setIsLoading(true);
       setError(null);
 
-      const filters: any = {};
+      const filters: Record<string, unknown> = {};
       if (selectedStatus !== 'ALL') {
         filters.status = selectedStatus;
       }
 
       const data = await getChallenges(filters);
       setChallenges(data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching challenges:', err);
-      setError(err.message || 'Failed to load challenges');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load challenges');
     } finally {
       setIsLoading(false);
       setIsInitialLoad(false);

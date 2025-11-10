@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { exportToCSV, exportToPDF } from '@/lib/analytics';
 
 interface ExportButtonProps {
-  data: any[];
+  data: unknown[];
   filename: string;
   title?: string;
   columns?: { header: string; dataKey: string }[];

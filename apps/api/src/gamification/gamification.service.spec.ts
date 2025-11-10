@@ -53,8 +53,8 @@ describe('GamificationService', () => {
         },
       ];
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(mockProfile as any);
-      prismaMock.xpEvent.findMany.mockResolvedValue(mockEvents as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(mockProfile);
+      prismaMock.xpEvent.findMany.mockResolvedValue(mockEvents);
 
       const result = await service.getUserProfile('user-1');
 
@@ -82,7 +82,7 @@ describe('GamificationService', () => {
       };
 
       prismaMock.gamificationProfile.findUnique.mockResolvedValue(null);
-      prismaMock.gamificationProfile.create.mockResolvedValue(newProfile as any);
+      prismaMock.gamificationProfile.create.mockResolvedValue(newProfile);
       prismaMock.xpEvent.findMany.mockResolvedValue([]);
 
       const result = await service.getUserProfile('user-1');
@@ -115,9 +115,9 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
+      prismaMock.xpEvent.create.mockResolvedValue({});
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
 
       await service.awardXp('user-1', 'CHALLENGE_COMPLETE', 100, 'CHALLENGE', 'challenge-1');
 
@@ -153,9 +153,9 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
+      prismaMock.xpEvent.create.mockResolvedValue({});
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
 
       await service.awardXp('user-1', 'DAILY_LOGIN', 50);
 
@@ -180,10 +180,10 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
+      prismaMock.xpEvent.create.mockResolvedValue({});
       prismaMock.gamificationProfile.findUnique.mockResolvedValue(null);
-      prismaMock.gamificationProfile.create.mockResolvedValue(newProfile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
+      prismaMock.gamificationProfile.create.mockResolvedValue(newProfile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
 
       await service.awardXp('user-1', 'TEST', 100);
 
@@ -204,8 +204,8 @@ describe('GamificationService', () => {
         badges: ['existing-badge'],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
 
       await service.awardBadge('user-1', 'new-badge');
 
@@ -230,7 +230,7 @@ describe('GamificationService', () => {
         badges: ['badge-1', 'existing-badge'],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
 
       await service.awardBadge('user-1', 'existing-badge');
 
@@ -272,7 +272,7 @@ describe('GamificationService', () => {
         },
       ];
 
-      prismaMock.gamificationProfile.findMany.mockResolvedValue(profiles as any);
+      prismaMock.gamificationProfile.findMany.mockResolvedValue(profiles);
 
       const result = await service.getLeaderboard('GLOBAL', 'ALLTIME', undefined, 100);
 
@@ -305,7 +305,7 @@ describe('GamificationService', () => {
         { id: 'badge-2', slug: 'badge-2', name: 'Badge 2', xpRequired: 200 },
       ];
 
-      prismaMock.badge.findMany.mockResolvedValue(badges as any);
+      prismaMock.badge.findMany.mockResolvedValue(badges);
 
       const result = await service.getAllBadges();
 
@@ -329,7 +329,7 @@ describe('GamificationService', () => {
 
       const createdBadge = { id: 'badge-1', ...badgeData };
 
-      prismaMock.badge.create.mockResolvedValue(createdBadge as any);
+      prismaMock.badge.create.mockResolvedValue(createdBadge);
 
       const result = await service.createBadge(badgeData);
 
@@ -359,7 +359,7 @@ describe('GamificationService', () => {
         },
       ];
 
-      prismaMock.xpEvent.findMany.mockResolvedValue(events as any);
+      prismaMock.xpEvent.findMany.mockResolvedValue(events);
 
       const result = await service.getUserXpEvents('user-1', 50);
 
@@ -384,9 +384,9 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
+      prismaMock.xpEvent.create.mockResolvedValue({});
 
       await service.updateDailyStreak('user-1');
 
@@ -413,9 +413,9 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
+      prismaMock.xpEvent.create.mockResolvedValue({});
 
       await service.updateDailyStreak('user-1');
 
@@ -442,9 +442,9 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
+      prismaMock.xpEvent.create.mockResolvedValue({});
 
       await service.updateDailyStreak('user-1');
 
@@ -470,7 +470,7 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
 
       await service.updateDailyStreak('user-1');
 
@@ -491,9 +491,9 @@ describe('GamificationService', () => {
         badges: [],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile as any);
-      prismaMock.gamificationProfile.update.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(profile);
+      prismaMock.gamificationProfile.update.mockResolvedValue({});
+      prismaMock.xpEvent.create.mockResolvedValue({});
 
       await service.updateDailyStreak('user-1');
 

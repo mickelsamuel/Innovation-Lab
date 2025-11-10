@@ -41,12 +41,12 @@ describe('SubmissionsController', () => {
 
   describe('create', () => {
     it('should create a submission', async () => {
-      const createDto = { hackathonId: 'h1', teamId: 't1', title: 'Project' } as any;
+      const createDto = { hackathonId: 'h1', teamId: 't1', title: 'Project' };
       const submission = { id: 's1', ...createDto };
       mockSubmissionsService.create.mockResolvedValue(submission);
 
       const user = { id: 'user-1' };
-      const result = await controller.create(createDto, user as any);
+      const result = await controller.create(createDto, user);
 
       expect(result).toEqual(submission);
       expect(service.create).toHaveBeenCalledWith(createDto, 'user-1');
@@ -68,7 +68,7 @@ describe('SubmissionsController', () => {
       const submissions = [{ id: 's1', status: 'FINAL' }];
       mockSubmissionsService.findAll.mockResolvedValue(submissions);
 
-      const result = await controller.findAll('h1', 'FINAL' as any);
+      const result = await controller.findAll('h1', 'FINAL');
 
       expect(result).toEqual(submissions);
       expect(service.findAll).toHaveBeenCalledWith('h1', 'FINAL');
@@ -93,7 +93,7 @@ describe('SubmissionsController', () => {
       mockSubmissionsService.findUserSubmissions.mockResolvedValue(submissions);
 
       const user = { id: 'user-1' };
-      const result = await controller.getMySubmissions(user as any);
+      const result = await controller.getMySubmissions(user);
 
       expect(result).toEqual(submissions);
       expect(service.findUserSubmissions).toHaveBeenCalledWith('user-1');
@@ -107,7 +107,7 @@ describe('SubmissionsController', () => {
       mockSubmissionsService.update.mockResolvedValue(updated);
 
       const user = { id: 'user-1' };
-      const result = await controller.update('s1', updateDto, user as any);
+      const result = await controller.update('s1', updateDto, user);
 
       expect(result).toEqual(updated);
       expect(service.update).toHaveBeenCalledWith('s1', updateDto, 'user-1');
@@ -120,7 +120,7 @@ describe('SubmissionsController', () => {
       mockSubmissionsService.submit.mockResolvedValue(finalized);
 
       const user = { id: 'user-1' };
-      const result = await controller.submit('s1', user as any);
+      const result = await controller.submit('s1', user);
 
       expect(result).toEqual(finalized);
       expect(service.submit).toHaveBeenCalledWith('s1', 'user-1');
@@ -133,7 +133,7 @@ describe('SubmissionsController', () => {
       mockSubmissionsService.remove.mockResolvedValue(response);
 
       const user = { id: 'user-1' };
-      const result = await controller.remove('s1', user as any);
+      const result = await controller.remove('s1', user);
 
       expect(result).toEqual(response);
       expect(service.remove).toHaveBeenCalledWith('s1', 'user-1');

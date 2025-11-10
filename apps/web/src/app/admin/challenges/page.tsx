@@ -45,7 +45,13 @@ export default function ChallengeManagementPage() {
         const data = await getChallenges({ ownerId: payload.id });
         setChallenges(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to load challenges');
+        setError(
+          err instanceof Error
+            ? err instanceof Error
+              ? err.message
+              : String(err)
+            : 'Failed to load challenges'
+        );
       } finally {
         setIsLoading(false);
       }

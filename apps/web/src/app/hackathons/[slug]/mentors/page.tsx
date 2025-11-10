@@ -48,9 +48,9 @@ export default function HackathonMentorsPage() {
 
       setMentors(mentorsData);
       setSessions(sessionsData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load mentors');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load mentors');
     } finally {
       setIsLoading(false);
     }

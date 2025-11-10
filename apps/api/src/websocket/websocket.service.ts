@@ -58,7 +58,7 @@ export class WebSocketService {
   /**
    * Broadcast event to all clients in a hackathon room
    */
-  broadcastToHackathon(hackathonId: string, event: string, data: any): void {
+  broadcastToHackathon(hackathonId: string, event: string, data: Record<string, unknown>): void {
     const room = `hackathon:${hackathonId}`;
     this.server.to(room).emit(event, data);
     this.logger.debug(`Broadcast to ${room}: ${event}`);
@@ -67,7 +67,7 @@ export class WebSocketService {
   /**
    * Broadcast event to all clients in a team room
    */
-  broadcastToTeam(teamId: string, event: string, data: any): void {
+  broadcastToTeam(teamId: string, event: string, data: Record<string, unknown>): void {
     const room = `team:${teamId}`;
     this.server.to(room).emit(event, data);
     this.logger.debug(`Broadcast to ${room}: ${event}`);
@@ -76,7 +76,7 @@ export class WebSocketService {
   /**
    * Send event to a specific user
    */
-  sendToUser(userId: string, event: string, data: any): void {
+  sendToUser(userId: string, event: string, data: Record<string, unknown>): void {
     const room = `user:${userId}`;
     this.server.to(room).emit(event, data);
     this.logger.debug(`Send to ${room}: ${event}`);
@@ -85,7 +85,7 @@ export class WebSocketService {
   /**
    * Send event to multiple users
    */
-  sendToUsers(userIds: string[], event: string, data: any): void {
+  sendToUsers(userIds: string[], event: string, data: Record<string, unknown>): void {
     userIds.forEach(userId => {
       this.sendToUser(userId, event, data);
     });
@@ -94,7 +94,7 @@ export class WebSocketService {
   /**
    * Broadcast event to all connected clients
    */
-  broadcastToAll(event: string, data: any): void {
+  broadcastToAll(event: string, data: Record<string, unknown>): void {
     this.server.emit(event, data);
     this.logger.debug(`Broadcast to all: ${event}`);
   }
@@ -102,7 +102,7 @@ export class WebSocketService {
   /**
    * Emit hackathon status update
    */
-  emitHackathonUpdate(hackathonId: string, data: any): void {
+  emitHackathonUpdate(hackathonId: string, data: Record<string, unknown>): void {
     this.broadcastToHackathon(hackathonId, 'hackathon:update', {
       hackathonId,
       ...data,
@@ -113,7 +113,7 @@ export class WebSocketService {
   /**
    * Emit new submission notification
    */
-  emitNewSubmission(hackathonId: string, submission: any): void {
+  emitNewSubmission(hackathonId: string, submission: Record<string, unknown>): void {
     this.broadcastToHackathon(hackathonId, 'submission:new', {
       hackathonId,
       submission,
@@ -124,7 +124,11 @@ export class WebSocketService {
   /**
    * Emit submission score update
    */
-  emitSubmissionScored(hackathonId: string, teamId: string, submission: any): void {
+  emitSubmissionScored(
+    hackathonId: string,
+    teamId: string,
+    submission: Record<string, unknown>
+  ): void {
     // Notify hackathon room
     this.broadcastToHackathon(hackathonId, 'submission:scored', {
       hackathonId,
@@ -142,7 +146,7 @@ export class WebSocketService {
   /**
    * Emit leaderboard update
    */
-  emitLeaderboardUpdate(hackathonId: string, leaderboard: any[]): void {
+  emitLeaderboardUpdate(hackathonId: string, leaderboard: unknown[]): void {
     this.broadcastToHackathon(hackathonId, 'leaderboard:update', {
       hackathonId,
       leaderboard,
@@ -153,7 +157,7 @@ export class WebSocketService {
   /**
    * Emit team update
    */
-  emitTeamUpdate(teamId: string, data: any): void {
+  emitTeamUpdate(teamId: string, data: Record<string, unknown>): void {
     this.broadcastToTeam(teamId, 'team:update', {
       teamId,
       ...data,
@@ -164,7 +168,7 @@ export class WebSocketService {
   /**
    * Emit new team member
    */
-  emitNewTeamMember(teamId: string, member: any): void {
+  emitNewTeamMember(teamId: string, member: Record<string, unknown>): void {
     this.broadcastToTeam(teamId, 'team:member:new', {
       teamId,
       member,
@@ -186,7 +190,7 @@ export class WebSocketService {
   /**
    * Emit notification to user
    */
-  emitNotification(userId: string, notification: any): void {
+  emitNotification(userId: string, notification: Record<string, unknown>): void {
     this.sendToUser(userId, 'notification:new', {
       notification,
       timestamp: new Date(),
@@ -196,7 +200,7 @@ export class WebSocketService {
   /**
    * Emit team invitation
    */
-  emitTeamInvitation(userId: string, invitation: any): void {
+  emitTeamInvitation(userId: string, invitation: Record<string, unknown>): void {
     this.sendToUser(userId, 'invitation:new', {
       invitation,
       timestamp: new Date(),

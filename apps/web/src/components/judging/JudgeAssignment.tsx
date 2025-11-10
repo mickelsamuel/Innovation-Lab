@@ -86,7 +86,12 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
     } catch (error) {
       toast({
         title: 'Search failed',
-        description: error instanceof Error ? error.message : 'Failed to search users',
+        description:
+          error instanceof Error
+            ? error instanceof Error
+              ? error.message
+              : String(error)
+            : 'Failed to search users',
         variant: 'destructive',
       });
     } finally {
@@ -112,7 +117,12 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
     } catch (error) {
       toast({
         title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to assign judge',
+        description:
+          error instanceof Error
+            ? error instanceof Error
+              ? error.message
+              : String(error)
+            : 'Failed to assign judge',
         variant: 'destructive',
       });
     } finally {
@@ -150,7 +160,12 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
     } catch (error) {
       toast({
         title: 'Error',
-        description: error instanceof Error ? error.message : 'Failed to remove judge',
+        description:
+          error instanceof Error
+            ? error instanceof Error
+              ? error.message
+              : String(error)
+            : 'Failed to remove judge',
         variant: 'destructive',
       });
     } finally {

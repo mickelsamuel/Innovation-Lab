@@ -37,7 +37,7 @@ describe('Progress', () => {
   });
 
   it('should forward ref', () => {
-    const ref = { current: null } as any;
+    const ref = { current: null };
     render(<Progress ref={ref} value={50} />);
     expect(ref.current).toBeTruthy();
   });

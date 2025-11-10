@@ -14,6 +14,7 @@ import type {
 } from '@/types/challenge';
 
 export interface ChallengeFilters {
+  [key: string]: unknown;
   status?: ChallengeStatus;
   category?: string;
   skill?: string;

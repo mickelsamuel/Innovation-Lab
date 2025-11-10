@@ -50,16 +50,16 @@ export default function HackathonSubmissionsPage() {
       setHackathon(hackathonData);
 
       // Fetch submissions
-      const filters: any = { hackathonId: hackathonData.id };
-      if (selectedStatus !== 'ALL') {
-        filters.status = selectedStatus;
-      }
+      const filters = {
+        hackathonId: hackathonData.id,
+        ...(selectedStatus !== 'ALL' ? { status: selectedStatus } : {}),
+      };
 
       const submissionsData = await getSubmissions(filters);
       setSubmissions(submissionsData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching submissions:', err);
-      setError(err.message || 'Failed to fetch submissions');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to fetch submissions');
     } finally {
       setIsLoading(false);
     }

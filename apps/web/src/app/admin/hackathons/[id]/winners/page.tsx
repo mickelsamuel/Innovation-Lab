@@ -70,9 +70,9 @@ export default function AnnounceWinnersPage() {
         .sort((a, b) => (a.rank || 999) - (b.rank || 999));
 
       setSubmissions(rankedSubmissions);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching data:', err);
-      setError(err.message || 'Failed to load submissions');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load submissions');
     } finally {
       setIsLoading(false);
     }
@@ -130,9 +130,9 @@ export default function AnnounceWinnersPage() {
         description: 'Winners announced successfully! Notifications sent to winning teams.',
       });
       router.push(`/admin/hackathons/${hackathonId}/manage`);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error announcing winners:', err);
-      setError(err.message || 'Failed to announce winners');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to announce winners');
     } finally {
       setIsAnnouncing(false);
     }

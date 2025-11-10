@@ -58,7 +58,7 @@ describe('UsersService', () => {
         },
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
 
       const result = await service.findOne('user-1');
 
@@ -95,7 +95,7 @@ describe('UsersService', () => {
         },
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
 
       const result = await service.findByHandle('johndoe');
 
@@ -123,7 +123,7 @@ describe('UsersService', () => {
         },
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
 
       await service.findByHandle('JohnDoe');
 
@@ -152,8 +152,8 @@ describe('UsersService', () => {
       const existingUser = TestDataFactory.createUser({ id: 'user-1' });
       const updatedUser = { ...existingUser, ...updateDto };
 
-      prismaMock.user.update.mockResolvedValue(updatedUser as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue(updatedUser);
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.updateProfile('user-1', updateDto);
 
@@ -177,8 +177,8 @@ describe('UsersService', () => {
       prismaMock.user.update.mockResolvedValue({
         id: 'user-1',
         ...updateWithHandle,
-      } as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      });
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.updateProfile('user-1', updateWithHandle);
 
@@ -194,7 +194,7 @@ describe('UsersService', () => {
         handle: 'existinghandle',
       });
 
-      prismaMock.user.findUnique.mockResolvedValue(conflictingUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(conflictingUser);
 
       await expect(service.updateProfile('user-1', updateWithHandle)).rejects.toThrow(
         ConflictException
@@ -219,9 +219,9 @@ describe('UsersService', () => {
         password: hashedOldPassword,
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
-      prismaMock.user.update.mockResolvedValue({ password: 'new-hash' } as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.findUnique.mockResolvedValue(user);
+      prismaMock.user.update.mockResolvedValue({ password: 'new-hash' });
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.changePassword('user-1', changePasswordDto);
 
@@ -248,7 +248,7 @@ describe('UsersService', () => {
         password: hashedPassword,
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
+      prismaMock.user.findUnique.mockResolvedValue(user);
 
       await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(
         BadRequestException
@@ -278,7 +278,7 @@ describe('UsersService', () => {
         password: null,
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(user as any);
+      prismaMock.user.findUnique.mockResolvedValue(user);
 
       await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(
         BadRequestException
@@ -301,7 +301,7 @@ describe('UsersService', () => {
         badges: [],
       };
 
-      prismaMock.gamificationProfile.findUnique.mockResolvedValue(mockProfile as any);
+      prismaMock.gamificationProfile.findUnique.mockResolvedValue(mockProfile);
       prismaMock.teamMember.count.mockResolvedValue(3);
       prismaMock.submission.count.mockResolvedValue(8);
       prismaMock.challengeSubmission.count.mockResolvedValue(12);
@@ -341,7 +341,7 @@ describe('UsersService', () => {
         TestDataFactory.createUser({ name: 'Jane Doe', handle: 'janedoe' }),
       ];
 
-      prismaMock.user.findMany.mockResolvedValue(mockUsers as any);
+      prismaMock.user.findMany.mockResolvedValue(mockUsers);
 
       const result = await service.search('doe', 10);
 
@@ -403,7 +403,7 @@ describe('UsersService', () => {
         },
       ];
 
-      prismaMock.xpEvent.findMany.mockResolvedValue(mockEvents as any);
+      prismaMock.xpEvent.findMany.mockResolvedValue(mockEvents);
 
       const result = await service.getActivityFeed('user-1', 20);
 
@@ -431,8 +431,8 @@ describe('UsersService', () => {
 
   describe('deleteAccount', () => {
     it('should successfully delete user account (soft delete)', async () => {
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.deleteAccount('user-1');
 

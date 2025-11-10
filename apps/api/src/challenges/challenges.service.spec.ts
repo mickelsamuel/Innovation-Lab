@@ -60,7 +60,7 @@ describe('ChallengesService', () => {
       };
 
       prismaMock.challenge.findUnique.mockResolvedValue(null);
-      prismaMock.challenge.create.mockResolvedValue(createdChallenge as any);
+      prismaMock.challenge.create.mockResolvedValue(createdChallenge);
 
       const result = await service.create('user-1', createDto);
 
@@ -80,7 +80,7 @@ describe('ChallengesService', () => {
     it('should throw BadRequestException if slug already exists', async () => {
       const existingChallenge = { id: 'existing', slug: 'test-challenge' };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(existingChallenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(existingChallenge);
 
       await expect(service.create('user-1', createDto)).rejects.toThrow(BadRequestException);
       await expect(service.create('user-1', createDto)).rejects.toThrow(
@@ -111,7 +111,7 @@ describe('ChallengesService', () => {
       };
 
       prismaMock.challenge.findUnique.mockResolvedValue(null);
-      prismaMock.challenge.create.mockResolvedValue(createdChallenge as any);
+      prismaMock.challenge.create.mockResolvedValue(createdChallenge);
 
       const result = await service.create('user-1', minimalDto);
 
@@ -137,7 +137,7 @@ describe('ChallengesService', () => {
         },
       ];
 
-      prismaMock.challenge.findMany.mockResolvedValue(challenges as any);
+      prismaMock.challenge.findMany.mockResolvedValue(challenges);
 
       const result = await service.findAll({});
 
@@ -233,7 +233,7 @@ describe('ChallengesService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
 
       const result = await service.findOne('challenge-1');
 
@@ -261,7 +261,7 @@ describe('ChallengesService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
 
       const result = await service.findBySlug('test-challenge');
 
@@ -295,8 +295,8 @@ describe('ChallengesService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
-      prismaMock.challenge.update.mockResolvedValue(updatedChallenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
+      prismaMock.challenge.update.mockResolvedValue(updatedChallenge);
 
       const result = await service.update('challenge-1', 'user-1', Role.PARTICIPANT, updateDto);
 
@@ -317,8 +317,8 @@ describe('ChallengesService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
-      prismaMock.challenge.update.mockResolvedValue(updatedChallenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
+      prismaMock.challenge.update.mockResolvedValue(updatedChallenge);
 
       const result = await service.update('challenge-1', 'admin-1', Role.BANK_ADMIN, updateDto);
 
@@ -338,7 +338,7 @@ describe('ChallengesService', () => {
     it('should throw ForbiddenException if user is not owner or admin', async () => {
       const challenge = { id: 'challenge-1', ownerId: 'user-2', slug: 'test' };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
 
       await expect(
         service.update('challenge-1', 'user-1', Role.PARTICIPANT, updateDto)
@@ -355,8 +355,8 @@ describe('ChallengesService', () => {
       const existingChallenge = { id: 'challenge-2', slug: 'new-slug' };
 
       prismaMock.challenge.findUnique
-        .mockResolvedValueOnce(challenge as any)
-        .mockResolvedValueOnce(existingChallenge as any);
+        .mockResolvedValueOnce(challenge)
+        .mockResolvedValueOnce(existingChallenge);
 
       await expect(
         service.update('challenge-1', 'user-1', Role.PARTICIPANT, { slug: 'new-slug' })
@@ -374,8 +374,8 @@ describe('ChallengesService', () => {
         _count: { submissions: 0 },
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
-      prismaMock.challenge.update.mockResolvedValue(updatedChallenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
+      prismaMock.challenge.update.mockResolvedValue(updatedChallenge);
 
       const result = await service.update('challenge-1', 'user-1', Role.PARTICIPANT, {
         slug: 'same-slug',
@@ -390,8 +390,8 @@ describe('ChallengesService', () => {
     it('should successfully delete challenge when user is owner', async () => {
       const challenge = { id: 'challenge-1', ownerId: 'user-1' };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
-      prismaMock.challenge.delete.mockResolvedValue({} as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
+      prismaMock.challenge.delete.mockResolvedValue({});
 
       await service.remove('challenge-1', 'user-1', Role.PARTICIPANT);
 
@@ -403,8 +403,8 @@ describe('ChallengesService', () => {
     it('should successfully delete challenge when user is BANK_ADMIN', async () => {
       const challenge = { id: 'challenge-1', ownerId: 'user-2' };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
-      prismaMock.challenge.delete.mockResolvedValue({} as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
+      prismaMock.challenge.delete.mockResolvedValue({});
 
       await service.remove('challenge-1', 'admin-1', Role.BANK_ADMIN);
 
@@ -424,7 +424,7 @@ describe('ChallengesService', () => {
     it('should throw ForbiddenException if user is not owner or admin', async () => {
       const challenge = { id: 'challenge-1', ownerId: 'user-2' };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
 
       await expect(service.remove('challenge-1', 'user-1', Role.PARTICIPANT)).rejects.toThrow(
         ForbiddenException
@@ -461,9 +461,9 @@ describe('ChallengesService', () => {
         status: ChallengeSubmissionStatus.SUBMITTED,
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
       prismaMock.challengeSubmission.findFirst.mockResolvedValue(null);
-      prismaMock.challengeSubmission.create.mockResolvedValue(submission as any);
+      prismaMock.challengeSubmission.create.mockResolvedValue(submission);
 
       const result = await service.submitSolution('challenge-1', 'user-1', submitDto);
 
@@ -491,7 +491,7 @@ describe('ChallengesService', () => {
         deadlineAt: new Date('2025-12-31'),
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
 
       await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(
         BadRequestException
@@ -510,7 +510,7 @@ describe('ChallengesService', () => {
         deadlineAt: new Date('2020-01-01'),
       };
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
 
       await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(
         BadRequestException
@@ -539,8 +539,8 @@ describe('ChallengesService', () => {
         },
       ];
 
-      prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
-      prismaMock.challengeSubmission.findMany.mockResolvedValue(submissions as any);
+      prismaMock.challenge.findUnique.mockResolvedValue(challenge);
+      prismaMock.challengeSubmission.findMany.mockResolvedValue(submissions);
 
       const result = await service.getChallengeSubmissions('challenge-1');
 
@@ -568,7 +568,7 @@ describe('ChallengesService', () => {
         },
       ];
 
-      prismaMock.challengeSubmission.findMany.mockResolvedValue(submissions as any);
+      prismaMock.challengeSubmission.findMany.mockResolvedValue(submissions);
 
       const result = await service.getUserSubmissions('user-1');
 

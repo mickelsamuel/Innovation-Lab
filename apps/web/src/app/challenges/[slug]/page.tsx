@@ -70,9 +70,9 @@ export default function ChallengeDetailPage() {
 
       const submissionsData = await getChallengeSubmissions(challengeData.id);
       setSubmissions(submissionsData);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching challenge:', err);
-      setError(err.message || 'Failed to load challenge');
+      setError(err instanceof Error ? err.message : String(err) || 'Failed to load challenge');
     } finally {
       setIsLoading(false);
     }
@@ -110,9 +110,11 @@ export default function ChallengeDetailPage() {
 
       // Refresh submissions
       await fetchChallengeData();
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error submitting solution:', err);
-      setSubmitError(err.message || 'Failed to submit solution');
+      setSubmitError(
+        err instanceof Error ? err.message : String(err) || 'Failed to submit solution'
+      );
     } finally {
       setIsSubmitting(false);
     }

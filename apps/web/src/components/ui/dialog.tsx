@@ -44,7 +44,7 @@ export function DialogTrigger({ children, asChild }: DialogTriggerProps) {
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children, {
       onClick: () => setOpen(true),
-    } as any);
+    } as React.HTMLAttributes<HTMLElement>);
   }
 
   return (

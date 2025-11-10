@@ -18,18 +18,18 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
     // Log queries in development
     if (process.env.NODE_ENV === 'development') {
       // @ts-expect-error - Prisma event types
-      this.$on('query' as any, (e: any) => {
+      this.$on('query', (e: { query: string; duration: number }) => {
         this.logger.debug(`Query: ${e.query} - Duration: ${e.duration}ms`);
       });
     }
 
     // @ts-expect-error - Prisma event types
-    this.$on('error' as any, (e: any) => {
+    this.$on('error', (e: { message: string }) => {
       this.logger.error(`Prisma error: ${e.message}`);
     });
 
     // @ts-expect-error - Prisma event types
-    this.$on('warn' as any, (e: any) => {
+    this.$on('warn', (e: { message: string }) => {
       this.logger.warn(`Prisma warning: ${e.message}`);
     });
   }
@@ -69,7 +69,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   /**
    * Execute raw query with safety checks
    */
-  async executeRaw(query: string, ...args: any[]) {
+  async executeRaw(query: string, ...args: unknown[]) {
     if (process.env.NODE_ENV === 'production') {
       this.logger.warn('Executing raw query in production', { query });
     }

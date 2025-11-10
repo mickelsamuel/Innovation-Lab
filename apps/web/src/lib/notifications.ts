@@ -6,7 +6,7 @@ export interface Notification {
   type: string;
   title: string;
   message: string;
-  data?: any;
+  data?: Record<string, unknown>;
   link?: string;
   readAt: string | null;
   createdAt: string;

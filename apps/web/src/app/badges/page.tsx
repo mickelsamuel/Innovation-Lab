@@ -23,7 +23,7 @@ export default function BadgesPage() {
       setIsLoading(true);
       const data = await getAllBadges();
       setBadges(data);
-    } catch (err: any) {
+    } catch (err) {
       setError('Failed to load badges');
     } finally {
       setIsLoading(false);
