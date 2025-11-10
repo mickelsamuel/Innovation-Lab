@@ -38,11 +38,15 @@ const mockFiles: FileUploadResponse[] = [
 ];
 
 // Mock file operations
-vi.mock('@/lib/files', () => ({
-  getFilesByEntity: vi.fn(),
-  deleteFile: vi.fn(),
-  formatFileSize: vi.fn(size => `${size} bytes`),
-}));
+vi.mock('@/lib/files', async importOriginal => {
+  const actual = await importOriginal<typeof import('@/lib/files')>();
+  return {
+    ...actual,
+    getFilesByEntity: vi.fn(),
+    deleteFile: vi.fn(),
+    formatFileSize: vi.fn(size => `${size} bytes`),
+  };
+});
 
 vi.mock('@/lib/api', () => ({
   getAuthToken: vi.fn(() => 'fake-token'),

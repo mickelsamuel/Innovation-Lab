@@ -18,6 +18,13 @@ vi.mock('@/lib/api', () => ({
   apiFetch: vi.fn(),
 }));
 
+// Mock notifications
+vi.mock('@/lib/notifications', () => ({
+  getNotifications: vi.fn(async () => ({ notifications: [], unreadCount: 0 })),
+  markAsRead: vi.fn(),
+  markAllAsRead: vi.fn(),
+}));
+
 import { usePathname } from 'next/navigation';
 import { getAuthToken, apiFetch } from '@/lib/api';
 

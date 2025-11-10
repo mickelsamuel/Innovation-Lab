@@ -74,9 +74,7 @@ export async function uploadFile(
         } else {
           try {
             const error = JSON.parse(xhr.responseText);
-            reject(
-              new Error(error instanceof Error ? error.message : String(error) || 'Upload failed')
-            );
+            reject(new Error(error?.message || 'Upload failed'));
           } catch {
             reject(new Error('Upload failed'));
           }
@@ -107,7 +105,7 @@ export async function uploadFile(
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: 'Upload failed' }));
-    throw new Error(error instanceof Error ? error.message : String(error) || 'Upload failed');
+    throw new Error(error?.message || 'Upload failed');
   }
 
   return response.json();

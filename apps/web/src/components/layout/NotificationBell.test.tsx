@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '../../../test/utils/custom-render';
 import { NotificationBell } from './NotificationBell';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import type { Mock } from 'vitest';
 import { getNotifications, markAsRead, markAllAsRead } from '@/lib/notifications';
 import { getAuthToken } from '@/lib/api';
@@ -51,12 +51,11 @@ describe('NotificationBell', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
-    vi.useFakeTimers();
     mockGetAuthToken.mockReturnValue('mock-token');
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
+    mockGetNotifications.mockResolvedValue({
+      notifications: [],
+      unreadCount: 0,
+    });
   });
 
   it('should show loading state initially', () => {
@@ -276,6 +275,7 @@ describe('NotificationBell', () => {
   });
 
   it('should poll for new notifications every 30 seconds', async () => {
+    vi.useFakeTimers();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -283,17 +283,22 @@ describe('NotificationBell', () => {
 
     render(<NotificationBell />);
 
+    await vi.runAllTimersAsync();
     expect(mockGetNotifications).toHaveBeenCalledTimes(1);
 
     vi.advanceTimersByTime(30000);
+    await vi.runAllTimersAsync();
     await waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(2);
     });
 
     vi.advanceTimersByTime(30000);
+    await vi.runAllTimersAsync();
     await waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(3);
     });
+
+    vi.useRealTimers();
   });
 
   it('should handle fetch error gracefully', async () => {
