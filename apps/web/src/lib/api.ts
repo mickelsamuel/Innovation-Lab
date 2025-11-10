@@ -33,7 +33,7 @@ interface RequestOptions extends RequestInit {
 export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { token, headers: customHeaders, ...fetchOptions } = options;
 
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...customHeaders,
   };

@@ -10,6 +10,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { getHackathonBySlug, getHackathonStats, registerForHackathon } from '@/lib/hackathons';
 import { getHackathonAnnouncements } from '@/lib/announcements';
 import type { Hackathon, HackathonStatus } from '@/types/hackathon';
+import { HackathonLocation } from '@/types/hackathon';
 import type { Announcement } from '@/types/announcement';
 import {
   Calendar,
@@ -95,6 +96,8 @@ export default function HackathonDetailPage() {
 
       return () => clearInterval(interval);
     }
+
+    return;
   }, [hackathon]);
 
   async function fetchHackathonData() {
@@ -239,9 +242,9 @@ export default function HackathonDetailPage() {
   }
 
   const locationLabel =
-    hackathon.location === 'VIRTUAL'
+    hackathon.location === HackathonLocation.VIRTUAL
       ? 'Virtual Event'
-      : hackathon.location === 'IN_PERSON'
+      : hackathon.location === HackathonLocation.ONSITE
         ? `${hackathon.city || 'In Person'}, ${hackathon.country || ''}`
         : 'Hybrid Event';
 

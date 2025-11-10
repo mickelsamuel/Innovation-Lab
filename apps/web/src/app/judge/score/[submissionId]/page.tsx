@@ -92,7 +92,7 @@ export default function ScoreSubmissionPage() {
         (acc, score) => {
           acc[score.criterionId] = {
             criterionId: score.criterionId,
-            value: Number(score.score),
+            value: Number(score.value),
             feedback: score.feedback || '',
             scoreId: score.id,
           };

@@ -157,7 +157,7 @@ export default function MySolutionsPage() {
                         </CardTitle>
                         <CardDescription className="flex items-center gap-2 mt-2">
                           <Calendar className="w-4 h-4" />
-                          Submitted {new Date(submission.submittedAt).toLocaleDateString()}
+                          Submitted {new Date(submission.createdAt).toLocaleDateString()}
                         </CardDescription>
                       </div>
                     </div>
@@ -165,33 +165,33 @@ export default function MySolutionsPage() {
 
                   <CardContent className="space-y-4">
                     {/* Solution URL */}
-                    {submission.solutionUrl && (
+                    {submission.repoUrl && (
                       <div>
                         <p className="text-sm font-medium text-slate-700 mb-1">Solution Link:</p>
                         <a
-                          href={submission.solutionUrl}
+                          href={submission.repoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="text-primary hover:underline text-sm break-all"
                         >
-                          {submission.solutionUrl}
+                          {submission.repoUrl}
                         </a>
                       </div>
                     )}
 
                     {/* Description */}
-                    {submission.description && (
+                    {submission.content && (
                       <div>
                         <p className="text-sm font-medium text-slate-700 mb-1">Description:</p>
-                        <p className="text-sm text-slate-600">{submission.description}</p>
+                        <p className="text-sm text-slate-600">{submission.content}</p>
                       </div>
                     )}
 
                     {/* Review Feedback */}
-                    {submission.reviewNotes && (
+                    {submission.feedback && (
                       <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
                         <p className="text-sm font-medium text-slate-700 mb-2">Review Feedback:</p>
-                        <p className="text-sm text-slate-600">{submission.reviewNotes}</p>
+                        <p className="text-sm text-slate-600">{submission.feedback}</p>
                       </div>
                     )}
 

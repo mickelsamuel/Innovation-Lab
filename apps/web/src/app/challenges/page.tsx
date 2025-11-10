@@ -14,7 +14,8 @@ import {
   formatDeadline,
   isAcceptingSubmissions,
 } from '@/lib/challenges';
-import type { Challenge, ChallengeStatus } from '@/types/challenge';
+import type { Challenge } from '@/types/challenge';
+import { ChallengeStatus } from '@/types/challenge';
 import {
   Search,
   Trophy,
@@ -33,9 +34,9 @@ import { getInitials } from '@/lib/utils';
 
 const STATUS_OPTIONS: { value: ChallengeStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'All Bosses' },
-  { value: 'OPEN', label: '🎯 Open' },
-  { value: 'REVIEW', label: 'Judging' },
-  { value: 'CLOSED', label: 'Defeated' },
+  { value: ChallengeStatus.OPEN, label: '🎯 Open' },
+  { value: ChallengeStatus.REVIEW, label: 'Judging' },
+  { value: ChallengeStatus.CLOSED, label: 'Defeated' },
 ];
 
 export default function ChallengesPage() {

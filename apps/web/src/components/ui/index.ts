@@ -10,5 +10,5 @@ export * from './label';
 export * from './progress';
 export * from './select';
 export * from './textarea';
-export * from './theme-toggle';
+// export * from './theme-toggle'; // TODO: Create theme-toggle component
 export * from './toast';

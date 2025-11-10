@@ -9,6 +9,7 @@ import { z } from 'zod';
 // Extend the built-in session types
 declare module 'next-auth' {
   interface Session {
+    accessToken?: string;
     user: {
       id: string;
       roles: string[];
@@ -121,7 +122,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           AzureADProvider({
             clientId: process.env.MICROSOFT_CLIENT_ID,
             clientSecret: process.env.MICROSOFT_CLIENT_SECRET!,
-            tenantId: process.env.MICROSOFT_TENANT_ID,
+            issuer: `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID || 'common'}/v2.0`,
             authorization: {
               params: {
                 scope: 'openid profile email User.Read',
@@ -155,17 +156,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
       return session;
     },
-    async signIn({ user, account }) {
+    async signIn({ account }) {
       // Allow OAuth without email verification
       if (account?.provider !== 'credentials') {
         return true;
       }
-
-      // For credentials, check email verification
-      const _dbUser = await prisma.user.findUnique({
-        where: { id: user.id },
-        select: { emailVerified: true },
-      });
 
       // Allow login even without verification (can add verification requirement later)
       return true;

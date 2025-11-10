@@ -51,7 +51,7 @@ export default function ManageMentorsPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const token = getAuthToken();
+      const token = getAuthToken() || undefined;
 
       const [hackathonData, mentorsData] = await Promise.all([
         apiFetch<Hackathon>(`/hackathons/${hackathonId}`, { token }),

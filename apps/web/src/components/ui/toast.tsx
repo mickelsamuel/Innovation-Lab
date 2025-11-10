@@ -13,6 +13,15 @@ export interface Toast {
   duration?: number;
 }
 
+// Additional types for compatibility with shadcn/ui toast
+export type ToastProps = {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  variant?: 'default' | 'destructive';
+};
+
+export type ToastActionElement = React.ReactElement;
+
 interface ToastContextValue {
   toasts: Toast[];
   addToast: (toast: Omit<Toast, 'id'>) => void;

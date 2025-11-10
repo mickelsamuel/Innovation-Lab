@@ -47,8 +47,8 @@ export default function MentorDashboardPage() {
   }
 
   const totalHackathons = assignments.length;
-  const totalSessions = assignments.reduce((sum, a) => a._count.sessions, 0);
-  const upcomingSessions = assignments.reduce((sum, a) => a.sessions.length, 0);
+  const totalSessions = assignments.reduce((sum, a) => sum + a._count.sessions, 0);
+  const upcomingSessions = assignments.reduce((sum, a) => sum + a.sessions.length, 0);
 
   if (isLoading) {
     return (

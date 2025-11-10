@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import type { Hackathon, HackathonStatus } from '@/types/hackathon';
+import type { Hackathon } from '@/types/hackathon';
+import { HackathonStatus, HackathonLocation } from '@/types/hackathon';
 import { Calendar, MapPin, Users, Trophy, Clock } from 'lucide-react';
 
 interface HackathonCardProps {
@@ -50,11 +51,11 @@ function getTimeRemaining(endDate: string): string {
 }
 
 export function HackathonCard({ hackathon }: HackathonCardProps) {
-  const isLive = hackathon.status === 'LIVE';
+  const isLive = hackathon.status === HackathonStatus.LIVE;
   const locationLabel =
-    hackathon.location === 'VIRTUAL'
+    hackathon.location === HackathonLocation.VIRTUAL
       ? 'Virtual'
-      : hackathon.location === 'IN_PERSON'
+      : hackathon.location === HackathonLocation.ONSITE
         ? hackathon.city || 'In Person'
         : 'Hybrid';
 

@@ -5,12 +5,8 @@ import { HackathonCard } from '@/components/hackathons/hackathon-card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { getHackathons } from '@/lib/hackathons';
-import type {
-  Hackathon,
-  HackathonsResponse,
-  HackathonStatus,
-  HackathonLocation,
-} from '@/types/hackathon';
+import type { Hackathon, HackathonsResponse } from '@/types/hackathon';
+import { HackathonStatus, HackathonLocation } from '@/types/hackathon';
 import {
   Search,
   Filter,
@@ -25,10 +21,10 @@ import {
 
 const STATUS_OPTIONS: { value: HackathonStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'All Raids' },
-  { value: 'UPCOMING', label: 'Soon™' },
-  { value: 'LIVE', label: '🔥 Live Now' },
-  { value: 'JUDGING', label: 'Scoring' },
-  { value: 'CLOSED', label: 'Completed' },
+  { value: HackathonStatus.UPCOMING, label: 'Soon™' },
+  { value: HackathonStatus.LIVE, label: '🔥 Live Now' },
+  { value: HackathonStatus.JUDGING, label: 'Scoring' },
+  { value: HackathonStatus.CLOSED, label: 'Completed' },
 ];
 
 const LOCATION_OPTIONS: {
@@ -36,9 +32,9 @@ const LOCATION_OPTIONS: {
   label: 'All Locations' | 'Virtual' | 'In Person' | 'Hybrid';
 }[] = [
   { value: 'ALL', label: 'All Locations' },
-  { value: 'VIRTUAL', label: 'Virtual' },
-  { value: 'ONSITE', label: 'In Person' },
-  { value: 'HYBRID', label: 'Hybrid' },
+  { value: HackathonLocation.VIRTUAL, label: 'Virtual' },
+  { value: HackathonLocation.ONSITE, label: 'In Person' },
+  { value: HackathonLocation.HYBRID, label: 'Hybrid' },
 ];
 
 export default function HackathonsPage() {

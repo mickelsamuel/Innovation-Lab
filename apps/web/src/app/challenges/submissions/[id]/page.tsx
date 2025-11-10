@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { getAuthToken } from '@/lib/api';
 import { getSubmissionById } from '@/lib/challenges';
@@ -28,7 +28,6 @@ import { getSubmissionStatusVariant } from '@/lib/challenges';
 import { cn } from '@/lib/utils';
 
 export default function SubmissionDetailPage() {
-  const _router = useRouter();
   const params = useParams();
   const id = params.id as string;
 
@@ -53,7 +52,7 @@ export default function SubmissionDetailPage() {
           const userRoles = payload.roles || [];
 
           // Check if user is the submitter
-          const isSubmitter = data.userId === userId || (data.team && data.teamId); // Add team member check if needed
+          const isSubmitter = data.userId === userId || Boolean(data.team && data.teamId); // Add team member check if needed
 
           // Check if user can review (challenge owner or admin)
           const canReviewSubmission =

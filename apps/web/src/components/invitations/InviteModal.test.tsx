@@ -62,7 +62,7 @@ describe('InviteModal', () => {
   });
 
   it('should switch to user ID input when selected', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     render(<InviteModal {...defaultProps} />);
 
     // Click on the select trigger
@@ -85,7 +85,7 @@ describe('InviteModal', () => {
   });
 
   it('should submit invitation with email successfully', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
@@ -114,7 +114,7 @@ describe('InviteModal', () => {
   });
 
   it('should submit invitation with user ID successfully', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
@@ -147,7 +147,7 @@ describe('InviteModal', () => {
   });
 
   it('should submit invitation with LEAD role', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
@@ -178,7 +178,7 @@ describe('InviteModal', () => {
   });
 
   it('should show error when not logged in', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (useSession as any).mockReturnValue({ data: null });
 
     render(<InviteModal {...defaultProps} />);
@@ -195,7 +195,7 @@ describe('InviteModal', () => {
   });
 
   it('should show error when email is empty', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
 
     render(<InviteModal {...defaultProps} />);
 
@@ -209,7 +209,7 @@ describe('InviteModal', () => {
   });
 
   it('should show error when user ID is empty', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
 
     render(<InviteModal {...defaultProps} />);
 
@@ -229,7 +229,7 @@ describe('InviteModal', () => {
   });
 
   it('should handle invitation error', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockRejectedValue(new Error('User already in team'));
 
     render(<InviteModal {...defaultProps} />);
@@ -248,7 +248,7 @@ describe('InviteModal', () => {
   });
 
   it('should disable submit button while loading', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockImplementation(
       () => new Promise(resolve => setTimeout(resolve, 1000))
     );
@@ -268,7 +268,7 @@ describe('InviteModal', () => {
   });
 
   it('should call onClose when cancel button is clicked', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
 
     render(<InviteModal {...defaultProps} />);
 
@@ -279,7 +279,7 @@ describe('InviteModal', () => {
   });
 
   it('should reset form after successful submission', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockResolvedValue({ success: true });
 
     render(<InviteModal {...defaultProps} />);
@@ -296,8 +296,6 @@ describe('InviteModal', () => {
   });
 
   it('should validate email format', async () => {
-    const _user = userEvent.setup();
-
     render(<InviteModal {...defaultProps} />);
 
     const emailInput = screen.getByLabelText(/Email Address/i);
@@ -305,7 +303,7 @@ describe('InviteModal', () => {
   });
 
   it('should disable cancel button while loading', async () => {
-    const _user = userEvent.setup();
+    const user = userEvent.setup();
     (sendInvitation as any).mockImplementation(
       () => new Promise(resolve => setTimeout(resolve, 1000))
     );

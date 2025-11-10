@@ -48,7 +48,7 @@ export default function ManageJudgesPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const token = getAuthToken();
+      const token = getAuthToken() || undefined;
 
       const [hackathonData, judgesData] = await Promise.all([
         apiFetch<Hackathon>(`/hackathons/${hackathonId}`, { token }),

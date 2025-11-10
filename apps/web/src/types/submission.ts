@@ -51,6 +51,14 @@ export interface Submission {
     title: string;
     slug: string;
     status: string;
+    criteria?: Array<{
+      id: string;
+      name: string;
+      description?: string;
+      maxScore: number;
+      weight?: number;
+      order?: number;
+    }>;
   };
   scores?: Array<{
     id: string;

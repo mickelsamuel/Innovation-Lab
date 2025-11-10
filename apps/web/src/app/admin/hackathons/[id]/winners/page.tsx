@@ -55,7 +55,7 @@ export default function AnnounceWinnersPage() {
     try {
       setIsLoading(true);
       setError(null);
-      const token = getAuthToken();
+      const token = getAuthToken() || undefined;
 
       const [hackathonData, submissionsData] = await Promise.all([
         apiFetch<Hackathon>(`/hackathons/${hackathonId}`, { token }),

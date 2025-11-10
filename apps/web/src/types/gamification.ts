@@ -61,6 +61,9 @@ export interface Badge {
   xpRequired: number;
   rarity: string;
   createdAt: string;
+  _count?: {
+    userBadges: number;
+  };
 }
 
 export interface LeaderboardFilters {

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -39,7 +39,6 @@ import {
 import { getInitials } from '@/lib/utils';
 
 export default function ChallengeDetailPage() {
-  const _router = useRouter();
   const params = useParams();
   const slug = params.slug as string;
   const { data: session } = useSession();
@@ -151,7 +150,6 @@ export default function ChallengeDetailPage() {
   }
 
   const canSubmit = isAcceptingSubmissions(challenge);
-  const _isOwner = session?.user?.id === challenge.ownerId;
   const userSubmission = submissions.find(s => s.userId === session?.user?.id);
 
   return (

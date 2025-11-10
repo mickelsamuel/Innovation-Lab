@@ -83,10 +83,6 @@ interface Submission {
   };
 }
 
-function _getXPForNextLevel(currentLevel: number): number {
-  return currentLevel * 100;
-}
-
 function getProgressToNextLevel(
   currentXP: number,
   currentLevelXp: number,

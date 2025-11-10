@@ -11,14 +11,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { getHackathonBySlug } from '@/lib/hackathons';
 import { getSubmissions } from '@/lib/submissions';
 import type { Hackathon } from '@/types/hackathon';
-import type { Submission, SubmissionStatus } from '@/types/submission';
+import type { Submission } from '@/types/submission';
+import { SubmissionStatus } from '@/types/submission';
 import { Search, FileText, ArrowLeft, Trophy, Upload, Plus } from 'lucide-react';
 
 const STATUS_OPTIONS: { value: SubmissionStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'All Status' },
-  { value: 'DRAFT', label: 'Draft' },
-  { value: 'SUBMITTED', label: 'Submitted' },
-  { value: 'FINAL', label: 'Final' },
+  { value: SubmissionStatus.DRAFT, label: 'Draft' },
+  { value: SubmissionStatus.SUBMITTED, label: 'Submitted' },
+  { value: SubmissionStatus.FINAL, label: 'Final' },
 ];
 
 export default function HackathonSubmissionsPage() {
