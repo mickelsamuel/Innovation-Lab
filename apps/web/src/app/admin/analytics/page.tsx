@@ -255,7 +255,10 @@ export default function PlatformAnalyticsPage() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={({ department, percentage }) => `${department}: ${percentage.toFixed(1)}%`}
+                  label={(props) => {
+                    const { department, percentage } = props.payload as { department: string; percentage: number };
+                    return `${department}: ${percentage.toFixed(1)}%`;
+                  }}
                   outerRadius={100}
                   fill="#8884d8"
                   dataKey="count"
