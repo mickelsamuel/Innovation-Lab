@@ -56,26 +56,6 @@ export function NotificationBell() {
     }
   }
 
-  async function handleMarkAsRead(notificationId: string, event: React.MouseEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const token = getAuthToken();
-    if (!token) return;
-
-    try {
-      await markAsRead(notificationId, token);
-      setNotifications(
-        notifications.map(n =>
-          n.id === notificationId ? { ...n, readAt: new Date().toISOString() } : n
-        )
-      );
-      setUnreadCount(prev => Math.max(0, prev - 1));
-    } catch (error) {
-      console.error('Failed to mark notification as read:', error);
-    }
-  }
-
   async function handleMarkAllAsRead() {
     const token = getAuthToken();
     if (!token) return;
@@ -162,33 +142,46 @@ export function NotificationBell() {
                   'flex flex-col items-start gap-1 p-3 cursor-pointer',
                   !notification.readAt && 'bg-primary/5'
                 )}
-                asChild
-              >
-                <Link
-                  href={notification.link || '/notifications'}
-                  onClick={e => {
-                    if (!notification.readAt) {
-                      handleMarkAsRead(notification.id, e);
+                onClick={() => {
+                  if (!notification.readAt) {
+                    const token = getAuthToken();
+                    if (token) {
+                      markAsRead(notification.id, token)
+                        .then(() => {
+                          setNotifications(
+                            notifications.map(n =>
+                              n.id === notification.id ? { ...n, readAt: new Date().toISOString() } : n
+                            )
+                          );
+                          setUnreadCount(prev => Math.max(0, prev - 1));
+                        })
+                        .catch(error => {
+                          console.error('Failed to mark notification as read:', error);
+                        });
                     }
-                    setIsOpen(false);
-                  }}
-                >
-                  <div className="flex items-start gap-2 w-full">
-                    <span className="text-lg flex-shrink-0">
-                      {getNotificationIcon(notification.type)}
-                    </span>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm line-clamp-1">{notification.title}</p>
-                      <p className="text-xs text-slate-500 line-clamp-2">{notification.message}</p>
-                      <p className="text-xs text-slate-400 mt-1">
-                        {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
-                      </p>
-                    </div>
-                    {!notification.readAt && (
-                      <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1" />
-                    )}
+                  }
+                  setIsOpen(false);
+                  // Navigate programmatically
+                  if (notification.link) {
+                    window.location.href = notification.link;
+                  }
+                }}
+              >
+                <div className="flex items-start gap-2 w-full">
+                  <span className="text-lg flex-shrink-0">
+                    {getNotificationIcon(notification.type)}
+                  </span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-sm line-clamp-1">{notification.title}</p>
+                    <p className="text-xs text-slate-500 line-clamp-2">{notification.message}</p>
+                    <p className="text-xs text-slate-400 mt-1">
+                      {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
+                    </p>
                   </div>
-                </Link>
+                  {!notification.readAt && (
+                    <div className="w-2 h-2 bg-primary rounded-full flex-shrink-0 mt-1" />
+                  )}
+                </div>
               </DropdownMenuItem>
             ))}
           </ScrollArea>

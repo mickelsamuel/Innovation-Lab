@@ -21,23 +21,41 @@ vi.mock('date-fns', () => ({
   formatDistanceToNow: () => '5 minutes ago',
 }));
 
-// Mock Next.js Link to prevent navigation errors in JSDOM
-vi.mock('next/link', () => ({
-  default: ({ children, href, onClick, ...props }: any) => {
+// Mock Next.js Link to prevent navigation errors in JSDOM and work with Radix UI's asChild
+vi.mock('next/link', async () => {
+  const React = await import('react');
+  const MockLink = React.forwardRef((allProps: any, ref: any) => {
+    const { children, href, onClick, onSelect, ...restProps } = allProps;
+
+    // Create onClick handler that prevents default navigation and handles Radix UI's onSelect
+    const handleClick = (e: any) => {
+      e.preventDefault();
+      // Call Radix UI's onSelect if it exists (for DropdownMenuItem compatibility)
+      if (onSelect) {
+        onSelect(e);
+      }
+      // Call the Link's onClick if it exists
+      if (onClick) {
+        onClick(e);
+      }
+    };
+
     return (
       <a
+        ref={ref}
         href={href}
-        onClick={(e) => {
-          e.preventDefault();
-          onClick?.(e);
-        }}
-        {...props}
+        {...restProps}
+        onClick={handleClick}
       >
         {children}
       </a>
     );
-  },
-}));
+  });
+  MockLink.displayName = 'Link';
+  return {
+    default: MockLink,
+  };
+});
 
 // Type the mocks
 const mockGetNotifications = getNotifications as Mock;
@@ -219,8 +237,12 @@ describe('NotificationBell', () => {
       expect(screen.getByText('Hackathon Registration')).toBeInTheDocument();
     });
 
-    const notificationLink = screen.getByText('Hackathon Registration').closest('a');
-    await user.click(notificationLink!);
+    const notificationItems = screen.getAllByRole('menuitem');
+    // Find the first notification item (Hackathon Registration)
+    const hackathonNotification = notificationItems.find(item =>
+      item.textContent?.includes('Hackathon Registration')
+    );
+    await user.click(hackathonNotification!);
 
     await waitFor(() => {
       expect(mockMarkAsRead).toHaveBeenCalledWith('notif-1', 'mock-token');
@@ -307,20 +329,20 @@ describe('NotificationBell', () => {
 
     render(<NotificationBell />);
 
-    // Wait for initial fetch
-    await waitFor(() => {
+    // Wait for initial fetch (happens on mount)
+    await vi.waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(1);
     });
 
     // Advance 30 seconds and check second call
     await vi.advanceTimersByTimeAsync(30000);
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(2);
     });
 
     // Advance another 30 seconds and check third call
     await vi.advanceTimersByTimeAsync(30000);
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(3);
     });
 
@@ -362,8 +384,11 @@ describe('NotificationBell', () => {
       expect(screen.getByText('Hackathon Registration')).toBeInTheDocument();
     });
 
-    const notificationLink = screen.getByText('Hackathon Registration').closest('a');
-    await user.click(notificationLink!);
+    const notificationItems = screen.getAllByRole('menuitem');
+    const hackathonNotification = notificationItems.find(item =>
+      item.textContent?.includes('Hackathon Registration')
+    );
+    await user.click(hackathonNotification!);
 
     await waitFor(() => {
       expect(consoleErrorSpy).toHaveBeenCalled();
@@ -448,8 +473,11 @@ describe('NotificationBell', () => {
       expect(screen.getByText('Hackathon Registration')).toBeInTheDocument();
     });
 
-    const notificationLink = screen.getByText('Hackathon Registration').closest('a');
-    await user.click(notificationLink!);
+    const notificationItems = screen.getAllByRole('menuitem');
+    const hackathonNotification = notificationItems.find(item =>
+      item.textContent?.includes('Hackathon Registration')
+    );
+    await user.click(hackathonNotification!);
 
     // Dropdown should close (Notifications label should disappear)
     await waitFor(() => {
