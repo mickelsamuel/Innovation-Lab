@@ -11,7 +11,7 @@ vi.mock('@/lib/invitations', () => ({
   sendInvitation: vi.fn(),
 }));
 
-vi.mock('next-auth/react', async (importOriginal) => {
+vi.mock('next-auth/react', async importOriginal => {
   const actual = await importOriginal<typeof import('next-auth/react')>();
   return {
     ...actual,

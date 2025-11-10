@@ -122,7 +122,7 @@ export function InviteModal({ isOpen, onClose, teamId, teamName, onSuccess }: In
                 value={inviteType}
                 onValueChange={value => setInviteType(value as 'email' | 'userId')}
               >
-                <SelectTrigger id="inviteBy" aria-label="Invite By">
+                <SelectTrigger aria-label="Invite By">
                   <SelectValue placeholder="Select invite method" />
                 </SelectTrigger>
                 <SelectContent>
@@ -161,7 +161,7 @@ export function InviteModal({ isOpen, onClose, teamId, teamName, onSuccess }: In
             <div className="space-y-2">
               <Label htmlFor="role">Role</Label>
               <Select value={role} onValueChange={value => setRole(value as 'MEMBER' | 'LEAD')}>
-                <SelectTrigger id="role" aria-label="Role">
+                <SelectTrigger aria-label="Role">
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>
                 <SelectContent>
