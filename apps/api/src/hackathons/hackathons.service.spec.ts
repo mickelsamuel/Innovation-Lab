@@ -109,7 +109,9 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(existingHackathon as any);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(ConflictException);
-      await expect(service.create(createDto, 'user-1')).rejects.toThrow('Hackathon slug already exists');
+      await expect(service.create(createDto, 'user-1')).rejects.toThrow(
+        'Hackathon slug already exists'
+      );
 
       expect(prismaMock.hackathon.create).not.toHaveBeenCalled();
     });
@@ -124,7 +126,9 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
 
       await expect(service.create(invalidDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.create(invalidDto, 'user-1')).rejects.toThrow('Start date must be before end date');
+      await expect(service.create(invalidDto, 'user-1')).rejects.toThrow(
+        'Start date must be before end date'
+      );
 
       expect(prismaMock.hackathon.create).not.toHaveBeenCalled();
     });
@@ -188,9 +192,7 @@ describe('HackathonsService', () => {
     });
 
     it('should filter hackathons by status', async () => {
-      const activeHackathons = [
-        TestDataFactory.createHackathon({ status: HackathonStatus.LIVE }),
-      ];
+      const activeHackathons = [TestDataFactory.createHackathon({ status: HackathonStatus.LIVE })];
 
       prismaMock.hackathon.findMany.mockResolvedValue(activeHackathons as any);
       prismaMock.hackathon.count.mockResolvedValue(1);
@@ -403,7 +405,9 @@ describe('HackathonsService', () => {
     it('should throw NotFoundException if hackathon not found', async () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
 
-      await expect(service.update('non-existent', updateDto, 'user-1')).rejects.toThrow(NotFoundException);
+      await expect(service.update('non-existent', updateDto, 'user-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.hackathon.update).not.toHaveBeenCalled();
     });
@@ -416,7 +420,9 @@ describe('HackathonsService', () => {
         .mockResolvedValueOnce(existingHackathon as any)
         .mockResolvedValueOnce(slugConflict as any);
 
-      await expect(service.update('hackathon-1', { slug: 'new-slug' }, 'user-1')).rejects.toThrow(ConflictException);
+      await expect(service.update('hackathon-1', { slug: 'new-slug' }, 'user-1')).rejects.toThrow(
+        ConflictException
+      );
 
       expect(prismaMock.hackathon.update).not.toHaveBeenCalled();
     });
@@ -459,7 +465,9 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
 
       await expect(service.remove('hackathon-1', 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.remove('hackathon-1', 'user-1')).rejects.toThrow('Cannot delete hackathon with existing teams or submissions');
+      await expect(service.remove('hackathon-1', 'user-1')).rejects.toThrow(
+        'Cannot delete hackathon with existing teams or submissions'
+      );
 
       expect(prismaMock.hackathon.delete).not.toHaveBeenCalled();
     });
@@ -551,7 +559,11 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.update.mockResolvedValue({} as any);
       prismaMock.auditLog.create.mockResolvedValue({} as any);
 
-      const result = await service.announceWinners('hackathon-1', { winners: [winnersDto.winners[0]] }, 'admin-1');
+      const result = await service.announceWinners(
+        'hackathon-1',
+        { winners: [winnersDto.winners[0]] },
+        'admin-1'
+      );
 
       expect(result.success).toBe(true);
       expect(result.message).toBe('Winners announced successfully');
@@ -576,7 +588,9 @@ describe('HackathonsService', () => {
     it('should throw NotFoundException if hackathon not found', async () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
 
-      await expect(service.announceWinners('non-existent', winnersDto, 'admin-1')).rejects.toThrow(NotFoundException);
+      await expect(service.announceWinners('non-existent', winnersDto, 'admin-1')).rejects.toThrow(
+        NotFoundException
+      );
     });
 
     it('should throw BadRequestException if hackathon not in JUDGING or CLOSED status', async () => {
@@ -584,8 +598,12 @@ describe('HackathonsService', () => {
 
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
 
-      await expect(service.announceWinners('hackathon-1', winnersDto, 'admin-1')).rejects.toThrow(BadRequestException);
-      await expect(service.announceWinners('hackathon-1', winnersDto, 'admin-1')).rejects.toThrow('Hackathon must be in JUDGING or COMPLETED status to announce winners');
+      await expect(service.announceWinners('hackathon-1', winnersDto, 'admin-1')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.announceWinners('hackathon-1', winnersDto, 'admin-1')).rejects.toThrow(
+        'Hackathon must be in JUDGING or COMPLETED status to announce winners'
+      );
     });
 
     it('should throw NotFoundException if submission not found', async () => {
@@ -594,7 +612,9 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
       prismaMock.submission.findUnique.mockResolvedValue(null);
 
-      await expect(service.announceWinners('hackathon-1', { winners: [winnersDto.winners[0]] }, 'admin-1')).rejects.toThrow(NotFoundException);
+      await expect(
+        service.announceWinners('hackathon-1', { winners: [winnersDto.winners[0]] }, 'admin-1')
+      ).rejects.toThrow(NotFoundException);
     });
 
     it('should throw BadRequestException if submission not from this hackathon', async () => {
@@ -608,7 +628,9 @@ describe('HackathonsService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.announceWinners('hackathon-1', { winners: [winnersDto.winners[0]] }, 'admin-1')).rejects.toThrow(BadRequestException);
+      await expect(
+        service.announceWinners('hackathon-1', { winners: [winnersDto.winners[0]] }, 'admin-1')
+      ).rejects.toThrow(BadRequestException);
     });
   });
 });

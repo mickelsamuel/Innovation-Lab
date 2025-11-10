@@ -65,7 +65,7 @@ export default function HackathonSubmissionsPage() {
   }
 
   // Filter submissions based on search and track
-  const filteredSubmissions = submissions.filter((submission) => {
+  const filteredSubmissions = submissions.filter(submission => {
     // Search filter
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
@@ -139,7 +139,7 @@ export default function HackathonSubmissionsPage() {
     );
   }
 
-  const finalSubmissions = submissions.filter((s) => s.status === 'FINAL').length;
+  const finalSubmissions = submissions.filter(s => s.status === 'FINAL').length;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -197,7 +197,7 @@ export default function HackathonSubmissionsPage() {
               type="text"
               placeholder="Search by project title, description, or team..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="pl-10 h-12 text-base"
             />
           </div>
@@ -206,7 +206,7 @@ export default function HackathonSubmissionsPage() {
           <div>
             <label className="text-sm font-medium text-slate-700 mb-2 block">Status</label>
             <div className="flex flex-wrap gap-2">
-              {STATUS_OPTIONS.map((option) => (
+              {STATUS_OPTIONS.map(option => (
                 <Badge
                   key={option.value}
                   variant={selectedStatus === option.value ? 'default' : 'outline'}
@@ -231,7 +231,7 @@ export default function HackathonSubmissionsPage() {
                 >
                   All Tracks
                 </Badge>
-                {hackathon.tracks.map((track) => (
+                {hackathon.tracks.map(track => (
                   <Badge
                     key={track.id}
                     variant={selectedTrack === track.id ? 'default' : 'outline'}
@@ -263,7 +263,8 @@ export default function HackathonSubmissionsPage() {
               'No submissions found'
             ) : (
               <>
-                Showing {sortedSubmissions.length} submission{sortedSubmissions.length !== 1 ? 's' : ''}
+                Showing {sortedSubmissions.length} submission
+                {sortedSubmissions.length !== 1 ? 's' : ''}
                 {searchTerm || selectedStatus !== 'ALL' || selectedTrack !== 'ALL' ? (
                   <> of {submissions.length} total</>
                 ) : null}
@@ -275,7 +276,7 @@ export default function HackathonSubmissionsPage() {
         {/* Submissions Grid */}
         {sortedSubmissions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedSubmissions.map((submission) => (
+            {sortedSubmissions.map(submission => (
               <SubmissionCard key={submission.id} submission={submission} />
             ))}
           </div>

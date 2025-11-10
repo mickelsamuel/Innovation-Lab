@@ -34,10 +34,7 @@ export class StorageService {
     this.useS3 = this.configService.get<string>('STORAGE_TYPE') === 's3';
     this.bucketName = this.configService.get<string>('AWS_S3_BUCKET', 'innovation-lab');
     this.region = this.configService.get<string>('AWS_REGION', 'us-east-1');
-    this.localStoragePath = this.configService.get<string>(
-      'LOCAL_STORAGE_PATH',
-      './uploads'
-    );
+    this.localStoragePath = this.configService.get<string>('LOCAL_STORAGE_PATH', './uploads');
     this.cdnUrl = this.configService.get<string>('CDN_URL', '');
 
     if (this.useS3) {
@@ -55,9 +52,7 @@ export class StorageService {
     const secretAccessKey = this.configService.get<string>('AWS_SECRET_ACCESS_KEY');
 
     if (!accessKeyId || !secretAccessKey) {
-      this.logger.warn(
-        'AWS credentials not found. Falling back to local storage.'
-      );
+      this.logger.warn('AWS credentials not found. Falling back to local storage.');
       this.useS3 = false;
       this.initializeLocalStorage();
       return;
@@ -80,9 +75,7 @@ export class StorageService {
       if (!fs.existsSync(this.localStoragePath)) {
         await mkdir(this.localStoragePath, { recursive: true });
       }
-      this.logger.log(
-        `Local storage initialized at: ${this.localStoragePath}`
-      );
+      this.logger.log(`Local storage initialized at: ${this.localStoragePath}`);
     } catch (error) {
       this.logger.error('Failed to initialize local storage:', error);
     }
@@ -91,10 +84,7 @@ export class StorageService {
   /**
    * Upload a file
    */
-  async uploadFile(
-    file: Express.Multer.File,
-    folder: string = 'files'
-  ): Promise<UploadResult> {
+  async uploadFile(file: Express.Multer.File, folder: string = 'files'): Promise<UploadResult> {
     const fileId = randomUUID();
     const ext = path.extname(file.originalname);
     const key = `${folder}/${fileId}${ext}`;
@@ -109,10 +99,7 @@ export class StorageService {
   /**
    * Upload to S3
    */
-  private async uploadToS3(
-    file: Express.Multer.File,
-    key: string
-  ): Promise<UploadResult> {
+  private async uploadToS3(file: Express.Multer.File, key: string): Promise<UploadResult> {
     try {
       const params: AWS.S3.PutObjectRequest = {
         Bucket: this.bucketName,
@@ -144,10 +131,7 @@ export class StorageService {
   /**
    * Upload to local storage
    */
-  private async uploadToLocal(
-    file: Express.Multer.File,
-    key: string
-  ): Promise<UploadResult> {
+  private async uploadToLocal(file: Express.Multer.File, key: string): Promise<UploadResult> {
     try {
       const filePath = path.join(this.localStoragePath, key);
       const directory = path.dirname(filePath);
@@ -159,10 +143,7 @@ export class StorageService {
 
       await writeFile(filePath, file.buffer);
 
-      const baseUrl = this.configService.get<string>(
-        'API_URL',
-        'http://localhost:4000'
-      );
+      const baseUrl = this.configService.get<string>('API_URL', 'http://localhost:4000');
       const url = `${baseUrl}/v1/files/${key}`;
 
       this.logger.log(`File uploaded locally: ${key}`);
@@ -194,12 +175,10 @@ export class StorageService {
    */
   private async deleteFromS3(key: string): Promise<void> {
     try {
-      await this.s3!
-        .deleteObject({
-          Bucket: this.bucketName,
-          Key: key,
-        })
-        .promise();
+      await this.s3!.deleteObject({
+        Bucket: this.bucketName,
+        Key: key,
+      }).promise();
 
       this.logger.log(`File deleted from S3: ${key}`);
     } catch (error) {
@@ -236,10 +215,7 @@ export class StorageService {
       });
     } else {
       // For local storage, return direct URL
-      const baseUrl = this.configService.get<string>(
-        'API_URL',
-        'http://localhost:4000'
-      );
+      const baseUrl = this.configService.get<string>('API_URL', 'http://localhost:4000');
       return `${baseUrl}/v1/files/${key}`;
     }
   }
@@ -250,10 +226,12 @@ export class StorageService {
   async fileExists(key: string): Promise<boolean> {
     if (this.useS3 && this.s3) {
       try {
-        await this.s3.headObject({
-          Bucket: this.bucketName,
-          Key: key,
-        }).promise();
+        await this.s3
+          .headObject({
+            Bucket: this.bucketName,
+            Key: key,
+          })
+          .promise();
         return true;
       } catch {
         return false;

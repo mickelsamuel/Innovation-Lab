@@ -160,7 +160,10 @@ describe('AuthService', () => {
       expect(result).toHaveProperty('email', 'john@test.com');
       expect(result).toHaveProperty('name', 'John Doe');
       expect(result).toHaveProperty('handle', 'johndoe');
-      expect(result).toHaveProperty('message', 'Registration successful! Welcome to Innovation Lab.');
+      expect(result).toHaveProperty(
+        'message',
+        'Registration successful! Welcome to Innovation Lab.'
+      );
 
       expect(prismaMock.user.findUnique).toHaveBeenCalledTimes(2); // Check email and handle
       expect(prismaMock.user.create).toHaveBeenCalledWith({
@@ -470,7 +473,8 @@ describe('AuthService', () => {
       // Mock speakeasy.generateSecret
       jest.spyOn(speakeasy, 'generateSecret').mockReturnValue({
         base32: 'JBSWY3DPEHPK3PXP',
-        otpauth_url: 'otpauth://totp/Innovation%20Lab%20(test@example.com)?secret=JBSWY3DPEHPK3PXP&issuer=Innovation%20Lab',
+        otpauth_url:
+          'otpauth://totp/Innovation%20Lab%20(test@example.com)?secret=JBSWY3DPEHPK3PXP&issuer=Innovation%20Lab',
       });
 
       const result = await service.setup2FA(userId);
@@ -709,7 +713,9 @@ describe('AuthService', () => {
       prismaMock.user.findMany.mockResolvedValue([mockUser]);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
-      await expect(service.resetPassword(dto)).rejects.toThrow('Invalid or expired password reset token');
+      await expect(service.resetPassword(dto)).rejects.toThrow(
+        'Invalid or expired password reset token'
+      );
     });
 
     it('should throw error for expired token', async () => {
@@ -721,7 +727,9 @@ describe('AuthService', () => {
       // No users with valid expiry
       prismaMock.user.findMany.mockResolvedValue([]);
 
-      await expect(service.resetPassword(dto)).rejects.toThrow('Invalid or expired password reset token');
+      await expect(service.resetPassword(dto)).rejects.toThrow(
+        'Invalid or expired password reset token'
+      );
     });
 
     it('should send confirmation email after password reset', async () => {

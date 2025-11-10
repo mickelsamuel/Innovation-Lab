@@ -270,7 +270,9 @@ describe('StorageService', () => {
         promise: jest.fn().mockRejectedValue(new Error('S3 error')),
       });
 
-      await expect(service.uploadFile(mockFile, 'test')).rejects.toThrow('Failed to upload file to S3');
+      await expect(service.uploadFile(mockFile, 'test')).rejects.toThrow(
+        'Failed to upload file to S3'
+      );
     });
 
     it('should delete file from S3', async () => {

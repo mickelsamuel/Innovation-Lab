@@ -86,7 +86,7 @@ export class WebSocketService {
    * Send event to multiple users
    */
   sendToUsers(userIds: string[], event: string, data: any): void {
-    userIds.forEach((userId) => {
+    userIds.forEach(userId => {
       this.sendToUser(userId, event, data);
     });
   }

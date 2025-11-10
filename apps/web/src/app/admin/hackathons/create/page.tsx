@@ -208,7 +208,7 @@ export default function CreateHackathonPage() {
                   <Label htmlFor="isPublished">Visibility</Label>
                   <select
                     id="isPublished"
-                    {...register('isPublished', { setValueAs: (v) => v === 'true' })}
+                    {...register('isPublished', { setValueAs: v => v === 'true' })}
                     className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     <option value="false">Unpublished (Draft)</option>
@@ -245,7 +245,8 @@ export default function CreateHackathonPage() {
                 )}
               </div>
 
-              {(location === HackathonLocation.VIRTUAL || location === HackathonLocation.HYBRID) && (
+              {(location === HackathonLocation.VIRTUAL ||
+                location === HackathonLocation.HYBRID) && (
                 <div>
                   <Label htmlFor="virtualUrl">Virtual Meeting URL</Label>
                   <Input
@@ -369,7 +370,9 @@ export default function CreateHackathonPage() {
                     className="mt-1.5"
                   />
                   {errors.registrationOpensAt && (
-                    <p className="text-sm text-red-600 mt-1">{errors.registrationOpensAt.message}</p>
+                    <p className="text-sm text-red-600 mt-1">
+                      {errors.registrationOpensAt.message}
+                    </p>
                   )}
                 </div>
 
@@ -382,7 +385,9 @@ export default function CreateHackathonPage() {
                     className="mt-1.5"
                   />
                   {errors.registrationClosesAt && (
-                    <p className="text-sm text-red-600 mt-1">{errors.registrationClosesAt.message}</p>
+                    <p className="text-sm text-red-600 mt-1">
+                      {errors.registrationClosesAt.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -540,7 +545,7 @@ export default function CreateHackathonPage() {
                   {...register('bannerUrl')}
                   className="mt-1.5"
                   value={bannerUrl}
-                  onChange={(e) => setBannerUrl(e.target.value)}
+                  onChange={e => setBannerUrl(e.target.value)}
                 />
                 {errors.bannerUrl && (
                   <p className="text-sm text-red-600 mt-1">{errors.bannerUrl.message}</p>
@@ -559,7 +564,7 @@ export default function CreateHackathonPage() {
                   {...register('logoUrl')}
                   className="mt-1.5"
                   value={logoUrl}
-                  onChange={(e) => setLogoUrl(e.target.value)}
+                  onChange={e => setLogoUrl(e.target.value)}
                 />
                 {errors.logoUrl && (
                   <p className="text-sm text-red-600 mt-1">{errors.logoUrl.message}</p>
@@ -585,7 +590,8 @@ export default function CreateHackathonPage() {
                 <div className="flex-1">
                   <p className="text-sm text-blue-900 font-medium">Add Tracks Later</p>
                   <p className="text-sm text-blue-700 mt-1">
-                    You can add and configure tracks after creating the hackathon from the edit page.
+                    You can add and configure tracks after creating the hackathon from the edit
+                    page.
                   </p>
                 </div>
               </div>
@@ -606,7 +612,8 @@ export default function CreateHackathonPage() {
                 <div className="flex-1">
                   <p className="text-sm text-blue-900 font-medium">Add Criteria Later</p>
                   <p className="text-sm text-blue-700 mt-1">
-                    You can add and configure judging criteria after creating the hackathon from the edit page.
+                    You can add and configure judging criteria after creating the hackathon from the
+                    edit page.
                   </p>
                 </div>
               </div>
@@ -616,12 +623,7 @@ export default function CreateHackathonPage() {
           {/* Submit Button */}
           <Card className="game-card">
             <CardContent className="pt-6">
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full btn-game"
-                size="lg"
-              >
+              <Button type="submit" disabled={isSubmitting} className="w-full btn-game" size="lg">
                 {isSubmitting ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />

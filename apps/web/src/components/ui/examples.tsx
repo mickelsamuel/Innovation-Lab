@@ -50,7 +50,8 @@ export function DialogExample() {
         <DialogHeader>
           <DialogTitle>Are you sure?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your account and remove your data from our servers.
+            This action cannot be undone. This will permanently delete your account and remove your
+            data from our servers.
           </DialogDescription>
         </DialogHeader>
 
@@ -240,7 +241,7 @@ export function XpAwardExample() {
                 type="text"
                 className="mt-1 w-full px-3 py-2 border rounded-md"
                 value={userId}
-                onChange={(e) => setUserId(e.target.value)}
+                onChange={e => setUserId(e.target.value)}
                 placeholder="Enter user ID"
               />
             </div>
@@ -265,7 +266,7 @@ export function XpAwardExample() {
                 type="number"
                 className="mt-1 w-full px-3 py-2 border rounded-md"
                 value={points}
-                onChange={(e) => setPoints(e.target.value)}
+                onChange={e => setPoints(e.target.value)}
                 placeholder="Enter XP amount"
               />
             </div>

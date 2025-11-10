@@ -10,7 +10,6 @@ import { getJudgeAssignments } from '@/lib/judging';
 import { getAuthToken } from '@/lib/api';
 import type { JudgeAssignment } from '@/types/judging';
 import {
-  
   Users,
   Star,
   ArrowRight,
@@ -101,7 +100,7 @@ export default function JudgeDashboardPage() {
           </Card>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {assignments.map((assignment) => {
+            {assignments.map(assignment => {
               const submissions = assignment.hackathon.submissions || [];
               const scoredSubmissions = submissions.filter(s => {
                 // Check if current judge has scored this submission
@@ -116,16 +115,18 @@ export default function JudgeDashboardPage() {
                   <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex-1">
-                        <CardTitle className="text-xl mb-2">
-                          {assignment.hackathon.title}
-                        </CardTitle>
+                        <CardTitle className="text-xl mb-2">{assignment.hackathon.title}</CardTitle>
                         <CardDescription className="flex items-center gap-2">
                           <Calendar className="w-4 h-4" />
                           {new Date(assignment.hackathon.startsAt).toLocaleDateString()} -
                           {new Date(assignment.hackathon.endsAt).toLocaleDateString()}
                         </CardDescription>
                       </div>
-                      <Badge variant={assignment.hackathon.status === 'JUDGING' ? 'warning' : 'secondary'}>
+                      <Badge
+                        variant={
+                          assignment.hackathon.status === 'JUDGING' ? 'warning' : 'secondary'
+                        }
+                      >
                         {assignment.hackathon.status}
                       </Badge>
                     </div>
@@ -150,7 +151,7 @@ export default function JudgeDashboardPage() {
                     {/* Submissions List */}
                     {submissions.length > 0 ? (
                       <div className="space-y-2">
-                        {submissions.slice(0, 3).map((submission) => {
+                        {submissions.slice(0, 3).map(submission => {
                           const hasScored = submission._count.scores > 0;
 
                           return (

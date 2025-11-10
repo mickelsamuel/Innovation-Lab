@@ -49,21 +49,27 @@ test.describe('Team Invitation Flow', () => {
       await expect(page.locator('text=/Invite Member/i')).toBeVisible({ timeout: 5000 });
 
       // Select email invite method
-      await page.click('button[role="combobox"]:has-text("Email Address"), button[role="combobox"]:has-text("Select invite method")');
+      await page.click(
+        'button[role="combobox"]:has-text("Email Address"), button[role="combobox"]:has-text("Select invite method")'
+      );
       await page.click('text=Email Address');
 
       // Fill in invitee email
       await page.fill('input[type="email"], input[name="email"]', teamMember.email);
 
       // Select role
-      await page.click('button[role="combobox"]:has-text("Member"), button[role="combobox"]:has-text("Select role")');
+      await page.click(
+        'button[role="combobox"]:has-text("Member"), button[role="combobox"]:has-text("Select role")'
+      );
       await page.click('text=Member');
 
       // Send invitation
       await page.click('button:has-text("Send Invitation")');
 
       // Verify success message
-      await expect(page.locator('text=/Invitation sent/i, text=/Success/i')).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('text=/Invitation sent/i, text=/Success/i')).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should send invitation by user ID', async ({ page }) => {
@@ -90,7 +96,9 @@ test.describe('Team Invitation Flow', () => {
       await page.click('button:has-text("Send Invitation")');
 
       // Should show success or error based on user ID validity
-      await page.waitForSelector('text=/sent/i, text=/failed/i, text=/not found/i', { timeout: 10000 });
+      await page.waitForSelector('text=/sent/i, text=/failed/i, text=/not found/i', {
+        timeout: 10000,
+      });
     });
 
     test('should validate invitation form', async ({ page }) => {
@@ -126,7 +134,9 @@ test.describe('Team Invitation Flow', () => {
       await page.goto('/invitations');
 
       // Should see invitations list
-      await expect(page.locator('text=/Invitations/i, text=/Team Invitation/i')).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('text=/Invitations/i, text=/Team Invitation/i')).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should accept team invitation', async ({ page }) => {
@@ -147,7 +157,9 @@ test.describe('Team Invitation Flow', () => {
         await acceptButton.click();
 
         // Verify success
-        await expect(page.locator('text=/joined/i, text=/accepted/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/joined/i, text=/accepted/i')).toBeVisible({
+          timeout: 10000,
+        });
 
         // Verify team appears in user's teams
         await page.goto('/teams');
@@ -173,7 +185,9 @@ test.describe('Team Invitation Flow', () => {
         await rejectButton.click();
 
         // Verify success
-        await expect(page.locator('text=/rejected/i, text=/declined/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/rejected/i, text=/declined/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
   });
@@ -200,7 +214,9 @@ test.describe('Team Invitation Flow', () => {
         await cancelButton.click();
 
         // Verify success
-        await expect(page.locator('text=/cancelled/i, text=/canceled/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/cancelled/i, text=/canceled/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
   });
@@ -214,14 +230,19 @@ test.describe('Team Invitation Flow', () => {
       await page.click('button[type="submit"]');
 
       // Check notification bell
-      const notificationBell = page.locator('button[aria-label*="notification"], button:has(svg)').filter({ hasText: /\d+/ }).first();
+      const notificationBell = page
+        .locator('button[aria-label*="notification"], button:has(svg)')
+        .filter({ hasText: /\d+/ })
+        .first();
 
       if (await notificationBell.isVisible({ timeout: 5000 })) {
         // Open notifications
         await notificationBell.click();
 
         // Should see team invitation notification
-        await expect(page.locator('text=/Team Invitation/i, text=/invited.*team/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/Team Invitation/i, text=/invited.*team/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
 
@@ -265,7 +286,9 @@ test.describe('Team Invitation Flow', () => {
       await page.click('button:has-text("Send Invitation")');
 
       // Should show error about existing invitation
-      await expect(page.locator('text=/already.*invited/i, text=/pending.*invitation/i')).toBeVisible({ timeout: 10000 });
+      await expect(
+        page.locator('text=/already.*invited/i, text=/pending.*invitation/i')
+      ).toBeVisible({ timeout: 10000 });
     });
 
     test('should not allow inviting existing team members', async ({ page }) => {
@@ -284,7 +307,9 @@ test.describe('Team Invitation Flow', () => {
       await page.click('button:has-text("Send Invitation")');
 
       // Should show error
-      await expect(page.locator('text=/already.*member/i, text=/cannot.*invite/i')).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('text=/already.*member/i, text=/cannot.*invite/i')).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should handle expired invitations', async ({ page }) => {
@@ -299,7 +324,7 @@ test.describe('Team Invitation Flow', () => {
 
       // Expired invitations should not have Accept/Reject buttons
       const expiredInvitations = page.locator('text=EXPIRED').locator('..');
-      if (await expiredInvitations.count() > 0) {
+      if ((await expiredInvitations.count()) > 0) {
         const expiredInvitation = expiredInvitations.first();
         await expect(expiredInvitation.locator('button:has-text("Accept")')).not.toBeVisible();
         await expect(expiredInvitation.locator('button:has-text("Reject")')).not.toBeVisible();

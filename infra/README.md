@@ -93,6 +93,7 @@ railway up
 ```
 
 **Render.com**:
+
 1. Connect GitHub repository
 2. Create PostgreSQL database (Free 90 days)
 3. Create Redis instance (Free 90 days)
@@ -168,26 +169,31 @@ Push to `main` branch to trigger automatic deployment.
 ## Free Tier Limits (AWS)
 
 **RDS PostgreSQL (Free Tier):**
+
 - 750 hours/month of db.t3.micro
 - 20 GB storage
 - 20 GB backups
 - **Duration:** 12 months
 
 **ElastiCache Redis (Free Tier):**
+
 - 750 hours/month of cache.t3.micro
 - **Duration:** 12 months
 
 **S3 (Free Tier):**
+
 - 5 GB storage
 - 20,000 GET requests
 - 2,000 PUT requests
 - **Duration:** Always free
 
 **ECS Fargate (Free Tier):**
+
 - Limited free usage
 - Typically $5-20/month for small apps
 
 **CloudFront (Free Tier):**
+
 - 1 TB data transfer out
 - 10 million requests
 - **Duration:** Always free
@@ -247,16 +253,19 @@ Each module has its own README with detailed configuration options:
 ### Common Issues
 
 **1. Terraform state locked**
+
 ```bash
 terraform force-unlock <LOCK_ID>
 ```
 
 **2. Provider version conflicts**
+
 ```bash
 terraform init -upgrade
 ```
 
 **3. Resource already exists**
+
 ```bash
 terraform import <resource_type>.<name> <resource_id>
 ```
@@ -264,6 +273,7 @@ terraform import <resource_type>.<name> <resource_id>
 ## Support
 
 For infrastructure issues:
+
 - GitHub Issues: https://github.com/mickelsamuel/Innovation-Lab/issues
 - AWS Support: https://console.aws.amazon.com/support/
 - Terraform Docs: https://registry.terraform.io/providers/hashicorp/aws/latest/docs

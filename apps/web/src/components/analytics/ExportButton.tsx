@@ -10,12 +10,7 @@ interface ExportButtonProps {
   columns?: { header: string; dataKey: string }[];
 }
 
-export const ExportButton: React.FC<ExportButtonProps> = ({
-  data,
-  filename,
-  title,
-  columns,
-}) => {
+export const ExportButton: React.FC<ExportButtonProps> = ({ data, filename, title, columns }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleExportCSV = () => {
@@ -38,12 +33,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition-colors"
       >
-        <svg
-          className="h-4 w-4"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
+        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -56,10 +46,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
 
       {isOpen && (
         <>
-          <div
-            className="fixed inset-0 z-10"
-            onClick={() => setIsOpen(false)}
-          />
+          <div className="fixed inset-0 z-10" onClick={() => setIsOpen(false)} />
           <div className="absolute right-0 z-20 mt-2 w-48 rounded-lg border border-slate-700 bg-slate-800 shadow-xl">
             <div className="py-1">
               <button

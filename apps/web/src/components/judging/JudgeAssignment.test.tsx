@@ -199,7 +199,7 @@ describe('JudgeAssignment', () => {
   it('should show loading state while assigning', async () => {
     const _user = userEvent.setup();
     (assignJudge as any).mockImplementation(
-      () => new Promise((resolve) => setTimeout(resolve, 1000))
+      () => new Promise(resolve => setTimeout(resolve, 1000))
     );
     (global.fetch as any).mockResolvedValue({
       ok: true,
@@ -259,10 +259,7 @@ describe('JudgeAssignment', () => {
     const judgeWithScoresButton = removeButtons[1];
 
     expect(judgeWithScoresButton).toBeDisabled();
-    expect(judgeWithScoresButton).toHaveAttribute(
-      'title',
-      'Cannot remove judge with scores'
-    );
+    expect(judgeWithScoresButton).toHaveAttribute('title', 'Cannot remove judge with scores');
   });
 
   it('should show error when search fails', async () => {

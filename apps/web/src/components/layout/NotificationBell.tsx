@@ -14,7 +14,12 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { getAuthToken } from '@/lib/api';
-import { getNotifications, markAsRead, markAllAsRead, type Notification } from '@/lib/notifications';
+import {
+  getNotifications,
+  markAsRead,
+  markAllAsRead,
+  type Notification,
+} from '@/lib/notifications';
 import { formatDistanceToNow } from 'date-fns';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
@@ -60,9 +65,11 @@ export function NotificationBell() {
 
     try {
       await markAsRead(notificationId, token);
-      setNotifications(notifications.map(n =>
-        n.id === notificationId ? { ...n, readAt: new Date().toISOString() } : n
-      ));
+      setNotifications(
+        notifications.map(n =>
+          n.id === notificationId ? { ...n, readAt: new Date().toISOString() } : n
+        )
+      );
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (error) {
       console.error('Failed to mark notification as read:', error);
@@ -148,18 +155,18 @@ export function NotificationBell() {
           </div>
         ) : (
           <ScrollArea className="max-h-[400px]">
-            {notifications.map((notification) => (
+            {notifications.map(notification => (
               <DropdownMenuItem
                 key={notification.id}
                 className={cn(
-                  "flex flex-col items-start gap-1 p-3 cursor-pointer",
-                  !notification.readAt && "bg-primary/5"
+                  'flex flex-col items-start gap-1 p-3 cursor-pointer',
+                  !notification.readAt && 'bg-primary/5'
                 )}
                 asChild
               >
                 <Link
                   href={notification.link || '/notifications'}
-                  onClick={(e) => {
+                  onClick={e => {
                     if (!notification.readAt) {
                       handleMarkAsRead(notification.id, e);
                     }
@@ -171,12 +178,8 @@ export function NotificationBell() {
                       {getNotificationIcon(notification.type)}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm line-clamp-1">
-                        {notification.title}
-                      </p>
-                      <p className="text-xs text-slate-500 line-clamp-2">
-                        {notification.message}
-                      </p>
+                      <p className="font-medium text-sm line-clamp-1">{notification.title}</p>
+                      <p className="text-xs text-slate-500 line-clamp-2">{notification.message}</p>
                       <p className="text-xs text-slate-400 mt-1">
                         {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
                       </p>

@@ -5,9 +5,7 @@ import { ToastProvider, useToast } from './toast';
 function ToastTester() {
   const { addToast } = useToast();
   return (
-    <button onClick={() => addToast({ type: 'success', title: 'Success!' })}>
-      Add Toast
-    </button>
+    <button onClick={() => addToast({ type: 'success', title: 'Success!' })}>Add Toast</button>
   );
 }
 

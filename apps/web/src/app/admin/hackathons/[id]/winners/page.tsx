@@ -66,7 +66,7 @@ export default function AnnounceWinnersPage() {
 
       // Filter and sort submissions by rank
       const rankedSubmissions = submissionsData
-        .filter((s) => s.rank !== null)
+        .filter(s => s.rank !== null)
         .sort((a, b) => (a.rank || 999) - (b.rank || 999));
 
       setSubmissions(rankedSubmissions);
@@ -79,9 +79,9 @@ export default function AnnounceWinnersPage() {
   }
 
   function handleSelectWinner(submissionId: string, rank: '1' | '2' | '3') {
-    setSelectedWinners((prev) => {
+    setSelectedWinners(prev => {
       // Remove any existing winner with this rank
-      const filtered = prev.filter((w) => w.rank !== rank);
+      const filtered = prev.filter(w => w.rank !== rank);
 
       // Add new winner
       return [
@@ -96,17 +96,15 @@ export default function AnnounceWinnersPage() {
   }
 
   function handleRemoveWinner(rank: '1' | '2' | '3') {
-    setSelectedWinners((prev) => prev.filter((w) => w.rank !== rank));
+    setSelectedWinners(prev => prev.filter(w => w.rank !== rank));
   }
 
   function handlePrizeChange(submissionId: string, prize: string) {
-    setPrizes((prev) => ({ ...prev, [submissionId]: prize }));
+    setPrizes(prev => ({ ...prev, [submissionId]: prize }));
 
     // Update the prize in selected winners if this submission is already selected
-    setSelectedWinners((prev) =>
-      prev.map((w) =>
-        w.submissionId === submissionId ? { ...w, prize: prize || undefined } : w
-      )
+    setSelectedWinners(prev =>
+      prev.map(w => (w.submissionId === submissionId ? { ...w, prize: prize || undefined } : w))
     );
   }
 
@@ -141,11 +139,11 @@ export default function AnnounceWinnersPage() {
   }
 
   function getWinnerByRank(rank: '1' | '2' | '3'): Winner | undefined {
-    return selectedWinners.find((w) => w.rank === rank);
+    return selectedWinners.find(w => w.rank === rank);
   }
 
   function isSubmissionSelected(submissionId: string): boolean {
-    return selectedWinners.some((w) => w.submissionId === submissionId);
+    return selectedWinners.some(w => w.submissionId === submissionId);
   }
 
   if (isLoading) {
@@ -177,9 +175,7 @@ export default function AnnounceWinnersPage() {
                 <Trophy className="w-6 h-6 text-primary" />
                 Announce Winners
               </CardTitle>
-              <CardDescription>
-                Select top 3 submissions for {hackathon?.title}
-              </CardDescription>
+              <CardDescription>Select top 3 submissions for {hackathon?.title}</CardDescription>
             </CardHeader>
             <CardContent>
               {error && (
@@ -205,10 +201,10 @@ export default function AnnounceWinnersPage() {
                 <>
                   {/* Winner Selection Summary */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    {['1', '2', '3'].map((rank) => {
+                    {['1', '2', '3'].map(rank => {
                       const winner = getWinnerByRank(rank as '1' | '2' | '3');
                       const submission = winner
-                        ? submissions.find((s) => s.id === winner.submissionId)
+                        ? submissions.find(s => s.id === winner.submissionId)
                         : null;
 
                       return (
@@ -253,10 +249,10 @@ export default function AnnounceWinnersPage() {
                   <div className="mb-6">
                     <h3 className="font-semibold mb-3">Ranked Submissions</h3>
                     <div className="space-y-2">
-                      {submissions.map((submission) => {
+                      {submissions.map(submission => {
                         const selected = isSubmissionSelected(submission.id);
                         const selectedRank = selectedWinners.find(
-                          (w) => w.submissionId === submission.id
+                          w => w.submissionId === submission.id
                         )?.rank;
 
                         return (
@@ -283,8 +279,8 @@ export default function AnnounceWinnersPage() {
                                       {selectedRank === '1'
                                         ? '1st Place'
                                         : selectedRank === '2'
-                                        ? '2nd Place'
-                                        : '3rd Place'}
+                                          ? '2nd Place'
+                                          : '3rd Place'}
                                     </Badge>
                                   )}
                                 </div>
@@ -296,7 +292,7 @@ export default function AnnounceWinnersPage() {
                                     <Input
                                       placeholder="Prize (optional, e.g., $5,000)"
                                       value={prizes[submission.id] || ''}
-                                      onChange={(e) =>
+                                      onChange={e =>
                                         handlePrizeChange(submission.id, e.target.value)
                                       }
                                       className="max-w-xs"

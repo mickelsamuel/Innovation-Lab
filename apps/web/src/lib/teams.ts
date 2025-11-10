@@ -126,10 +126,7 @@ export async function requestToJoinTeam(
 /**
  * Get current user's teams
  */
-export async function getUserTeams(
-  token: string,
-  hackathonId?: string
-): Promise<Team[]> {
+export async function getUserTeams(token: string, hackathonId?: string): Promise<Team[]> {
   const queryString = hackathonId ? buildQueryString({ hackathonId }) : '';
   return apiFetch<Team[]>(`/teams/my${queryString}`, { token });
 }

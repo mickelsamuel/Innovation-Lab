@@ -43,7 +43,7 @@ export function InvitationList({
 
   return (
     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {invitations.map((invitation) => (
+      {invitations.map(invitation => (
         <InvitationCard
           key={invitation.id}
           invitation={invitation}

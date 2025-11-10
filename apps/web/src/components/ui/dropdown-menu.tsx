@@ -67,7 +67,7 @@ export function DropdownMenuTrigger({ children, asChild, className }: DropdownMe
     <button
       type="button"
       className={className}
-      onClick={(e) => {
+      onClick={e => {
         e.stopPropagation();
         setOpen(!open);
       }}
@@ -212,11 +212,7 @@ interface DropdownMenuLabelProps {
 export function DropdownMenuLabel({ children, className, inset }: DropdownMenuLabelProps) {
   return (
     <div
-      className={cn(
-        'px-2 py-1.5 text-sm font-semibold',
-        inset && 'pl-8',
-        className
-      )}
+      className={cn('px-2 py-1.5 text-sm font-semibold', inset && 'pl-8', className)}
       role="presentation"
     >
       {children}
@@ -229,12 +225,7 @@ interface DropdownMenuSeparatorProps {
 }
 
 export function DropdownMenuSeparator({ className }: DropdownMenuSeparatorProps) {
-  return (
-    <div
-      className={cn('-mx-1 my-1 h-px bg-slate-100', className)}
-      role="separator"
-    />
-  );
+  return <div className={cn('-mx-1 my-1 h-px bg-slate-100', className)} role="separator" />;
 }
 
 interface DropdownMenuGroupProps {

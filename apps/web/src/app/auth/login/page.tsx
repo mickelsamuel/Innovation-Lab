@@ -33,13 +33,16 @@ export default function LoginPage() {
     setError(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/v1/auth/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/v1/auth/login`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -66,7 +69,10 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen hex-grid flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Link href="/" className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-6"
+        >
           <ArrowLeft className="w-4 h-4" />
           <span className="font-semibold">Back to Arena</span>
         </Link>
@@ -76,7 +82,9 @@ export default function LoginPage() {
             <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full mx-auto mb-4 flex items-center justify-center">
               <Trophy className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl font-display font-black mb-2 gradient-text">Welcome Back, Champion!</h1>
+            <h1 className="text-3xl font-display font-black mb-2 gradient-text">
+              Welcome Back, Champion!
+            </h1>
             <p className="text-slate-600 font-semibold">Sign in to continue your epic journey</p>
           </div>
 
@@ -98,7 +106,7 @@ export default function LoginPage() {
                   type="email"
                   placeholder="your.email@example.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                   autoFocus
                   disabled={isSubmitting}
@@ -118,7 +126,7 @@ export default function LoginPage() {
                   type="password"
                   placeholder="Enter your password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   required
                   disabled={isSubmitting}
                   className="flex h-12 w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 pl-10 text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
@@ -127,7 +135,10 @@ export default function LoginPage() {
             </div>
 
             <div className="flex items-center justify-end">
-              <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline font-bold">
+              <Link
+                href="/auth/forgot-password"
+                className="text-sm text-primary hover:underline font-bold"
+              >
                 Forgot password?
               </Link>
             </div>

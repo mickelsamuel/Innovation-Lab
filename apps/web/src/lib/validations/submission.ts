@@ -3,11 +3,7 @@ import { z } from 'zod';
 /**
  * URL validation schema
  */
-const urlSchema = z
-  .string()
-  .url('Must be a valid URL')
-  .optional()
-  .or(z.literal(''));
+const urlSchema = z.string().url('Must be a valid URL').optional().or(z.literal(''));
 
 /**
  * Create submission validation schema

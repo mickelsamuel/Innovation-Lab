@@ -8,9 +8,7 @@ import type { Announcement, CreateAnnouncementInput } from '@/types/announcement
 /**
  * Get announcements for a hackathon
  */
-export async function getHackathonAnnouncements(
-  hackathonId: string
-): Promise<Announcement[]> {
+export async function getHackathonAnnouncements(hackathonId: string): Promise<Announcement[]> {
   return apiFetch<Announcement[]>(`/hackathons/${hackathonId}/announcements`);
 }
 
@@ -37,11 +35,8 @@ export async function deleteAnnouncement(
   announcementId: string,
   token: string
 ): Promise<void> {
-  return apiFetch<void>(
-    `/hackathons/${hackathonId}/announcements/${announcementId}`,
-    {
-      method: 'DELETE',
-      token,
-    }
-  );
+  return apiFetch<void>(`/hackathons/${hackathonId}/announcements/${announcementId}`, {
+    method: 'DELETE',
+    token,
+  });
 }

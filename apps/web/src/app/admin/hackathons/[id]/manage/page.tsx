@@ -11,7 +11,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/toast';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { getHackathonById, calculateRankings, createAnnouncement, getAnnouncements, deleteAnnouncement } from '@/lib/hackathons';
+import {
+  getHackathonById,
+  calculateRankings,
+  createAnnouncement,
+  getAnnouncements,
+  deleteAnnouncement,
+} from '@/lib/hackathons';
 import { getAuthToken } from '@/lib/api';
 import type { Hackathon } from '@/types/hackathon';
 import {
@@ -235,9 +241,7 @@ export default function ManageHackathonPage() {
                 <h1 className="text-3xl md:text-4xl font-display font-bold text-white">
                   {hackathon.title}
                 </h1>
-                <Badge className="bg-white/20 text-white border-white/30">
-                  {hackathon.status}
-                </Badge>
+                <Badge className="bg-white/20 text-white border-white/30">{hackathon.status}</Badge>
               </div>
               <p className="text-lg text-white/90">Manage hackathon settings and participants</p>
             </div>
@@ -391,19 +395,24 @@ export default function ManageHackathonPage() {
                     <div className="p-3 bg-slate-50 rounded-lg">
                       <p className="text-sm text-slate-600 mb-1">Hackathon Period</p>
                       <p className="font-medium">
-                        {new Date(hackathon.startsAt).toLocaleDateString()} - {new Date(hackathon.endsAt).toLocaleDateString()}
+                        {new Date(hackathon.startsAt).toLocaleDateString()} -{' '}
+                        {new Date(hackathon.endsAt).toLocaleDateString()}
                       </p>
                     </div>
                     {hackathon.registrationClosesAt && (
                       <div className="p-3 bg-slate-50 rounded-lg">
                         <p className="text-sm text-slate-600 mb-1">Registration Closes</p>
-                        <p className="font-medium">{new Date(hackathon.registrationClosesAt).toLocaleDateString()}</p>
+                        <p className="font-medium">
+                          {new Date(hackathon.registrationClosesAt).toLocaleDateString()}
+                        </p>
                       </div>
                     )}
                     {hackathon.submissionClosesAt && (
                       <div className="p-3 bg-slate-50 rounded-lg">
                         <p className="text-sm text-slate-600 mb-1">Submission Closes</p>
-                        <p className="font-medium">{new Date(hackathon.submissionClosesAt).toLocaleDateString()}</p>
+                        <p className="font-medium">
+                          {new Date(hackathon.submissionClosesAt).toLocaleDateString()}
+                        </p>
                       </div>
                     )}
                   </div>
@@ -433,7 +442,8 @@ export default function ManageHackathonPage() {
                     <div>
                       <p className="text-sm font-medium">Judge Management Ready</p>
                       <p className="text-sm text-slate-600 mt-1">
-                        Add, remove, and view all judges assigned to this hackathon. Judges can score submissions based on your defined criteria.
+                        Add, remove, and view all judges assigned to this hackathon. Judges can
+                        score submissions based on your defined criteria.
                       </p>
                     </div>
                   </div>
@@ -463,7 +473,8 @@ export default function ManageHackathonPage() {
                     <div>
                       <p className="text-sm font-medium">Mentor Management Ready</p>
                       <p className="text-sm text-slate-600 mt-1">
-                        Add, remove, and view all mentors assigned to this hackathon. Mentors can guide participants and provide expertise throughout the event.
+                        Add, remove, and view all mentors assigned to this hackathon. Mentors can
+                        guide participants and provide expertise throughout the event.
                       </p>
                     </div>
                   </div>
@@ -486,7 +497,7 @@ export default function ManageHackathonPage() {
                     id="announcement-title"
                     placeholder="e.g., Important Update"
                     value={announcementTitle}
-                    onChange={(e) => setAnnouncementTitle(e.target.value)}
+                    onChange={e => setAnnouncementTitle(e.target.value)}
                     className="mt-1.5"
                   />
                 </div>
@@ -498,7 +509,7 @@ export default function ManageHackathonPage() {
                     placeholder="Write your announcement message..."
                     rows={6}
                     value={announcementContent}
-                    onChange={(e) => setAnnouncementContent(e.target.value)}
+                    onChange={e => setAnnouncementContent(e.target.value)}
                     className="mt-1.5"
                   />
                 </div>
@@ -520,7 +531,7 @@ export default function ManageHackathonPage() {
                     </div>
                   ) : (
                     <div className="space-y-3">
-                      {announcements.map((announcement) => (
+                      {announcements.map(announcement => (
                         <div key={announcement.id} className="p-4 border rounded-lg bg-slate-50">
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex-1">

@@ -32,27 +32,36 @@ export default function BadgesPage() {
 
   const rarityOptions = ['ALL', 'COMMON', 'RARE', 'EPIC', 'LEGENDARY'];
 
-  const filteredBadges = selectedRarity === 'ALL'
-    ? badges
-    : badges.filter((badge) => badge.rarity === selectedRarity);
+  const filteredBadges =
+    selectedRarity === 'ALL' ? badges : badges.filter(badge => badge.rarity === selectedRarity);
 
   const getRarityColor = (rarity: string) => {
     switch (rarity) {
-      case 'COMMON': return 'text-slate-600';
-      case 'RARE': return 'text-blue-600';
-      case 'EPIC': return 'text-purple-600';
-      case 'LEGENDARY': return 'text-accent';
-      default: return 'text-slate-600';
+      case 'COMMON':
+        return 'text-slate-600';
+      case 'RARE':
+        return 'text-blue-600';
+      case 'EPIC':
+        return 'text-purple-600';
+      case 'LEGENDARY':
+        return 'text-accent';
+      default:
+        return 'text-slate-600';
     }
   };
 
   const getRarityBg = (rarity: string) => {
     switch (rarity) {
-      case 'COMMON': return 'from-slate-100 to-slate-200';
-      case 'RARE': return 'from-blue-100 to-blue-200';
-      case 'EPIC': return 'from-purple-100 to-purple-200';
-      case 'LEGENDARY': return 'from-accent/20 to-primary/20';
-      default: return 'from-slate-100 to-slate-200';
+      case 'COMMON':
+        return 'from-slate-100 to-slate-200';
+      case 'RARE':
+        return 'from-blue-100 to-blue-200';
+      case 'EPIC':
+        return 'from-purple-100 to-purple-200';
+      case 'LEGENDARY':
+        return 'from-accent/20 to-primary/20';
+      default:
+        return 'from-slate-100 to-slate-200';
     }
   };
 
@@ -104,21 +113,21 @@ export default function BadgesPage() {
             <div className="glass-game p-5 border-2 border-white/20">
               <Star className="w-7 h-7 text-white mb-2 animate-sparkle" />
               <p className="text-3xl font-black text-white stat-counter">
-                {badges.filter((b) => b.rarity === 'COMMON').length}
+                {badges.filter(b => b.rarity === 'COMMON').length}
               </p>
               <p className="text-sm text-white/90 font-bold uppercase">Common</p>
             </div>
             <div className="glass-game p-5 border-2 border-white/20">
               <Trophy className="w-7 h-7 text-white mb-2 animate-float" />
               <p className="text-3xl font-black text-white stat-counter">
-                {badges.filter((b) => b.rarity === 'EPIC').length}
+                {badges.filter(b => b.rarity === 'EPIC').length}
               </p>
               <p className="text-sm text-white/90 font-bold uppercase">Epic</p>
             </div>
             <div className="glass-game p-5 border-2 border-white/20">
               <Crown className="w-7 h-7 text-white mb-2 animate-bounce-subtle" />
               <p className="text-3xl font-black text-white stat-counter">
-                {badges.filter((b) => b.rarity === 'LEGENDARY').length}
+                {badges.filter(b => b.rarity === 'LEGENDARY').length}
               </p>
               <p className="text-sm text-white/90 font-bold uppercase">Legendary</p>
             </div>
@@ -136,9 +145,11 @@ export default function BadgesPage() {
 
         {/* Filters */}
         <div className="mb-8">
-          <label className="text-sm font-black text-slate-900 mb-2 block uppercase">Filter by Rarity</label>
+          <label className="text-sm font-black text-slate-900 mb-2 block uppercase">
+            Filter by Rarity
+          </label>
           <div className="flex flex-wrap gap-2">
-            {rarityOptions.map((rarity) => (
+            {rarityOptions.map(rarity => (
               <Badge
                 key={rarity}
                 variant={selectedRarity === rarity ? 'default' : 'outline'}
@@ -154,12 +165,14 @@ export default function BadgesPage() {
         {/* Badges Grid */}
         {filteredBadges.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {filteredBadges.map((badge) => (
+            {filteredBadges.map(badge => (
               <Card
                 key={badge.id}
                 className="hover:shadow-lg transition-all duration-200 hover:scale-105"
               >
-                <CardHeader className={`bg-gradient-to-br ${getRarityBg(badge.rarity)} text-center pb-4`}>
+                <CardHeader
+                  className={`bg-gradient-to-br ${getRarityBg(badge.rarity)} text-center pb-4`}
+                >
                   <div className="text-6xl mb-3">{badge.icon}</div>
                   <Badge variant="secondary" className="mx-auto">
                     <span className={getRarityColor(badge.rarity)}>{badge.rarity}</span>
@@ -167,11 +180,10 @@ export default function BadgesPage() {
                 </CardHeader>
                 <CardContent className="pt-4">
                   <h3 className="font-bold text-lg text-center mb-2">{badge.name}</h3>
-                  <p className="text-sm text-slate-600 text-center mb-4">
-                    {badge.description}
-                  </p>
+                  <p className="text-sm text-slate-600 text-center mb-4">{badge.description}</p>
                   <div className="text-xs text-center text-slate-600 font-semibold">
-                    Unlocked by {badge._count?.userBadges || 0} {badge._count?.userBadges === 1 ? 'warrior' : 'warriors'}
+                    Unlocked by {badge._count?.userBadges || 0}{' '}
+                    {badge._count?.userBadges === 1 ? 'warrior' : 'warriors'}
                   </div>
                 </CardContent>
               </Card>

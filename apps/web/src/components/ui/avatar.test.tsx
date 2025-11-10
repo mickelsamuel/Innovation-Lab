@@ -73,8 +73,7 @@ describe('Avatar Components', () => {
       expect(screen.getByTestId('avatar')).toBeInTheDocument();
       // Either image or fallback should be present
       const hasImageOrFallback =
-        screen.queryByAltText('User Avatar') !== null ||
-        screen.queryByText('UA') !== null;
+        screen.queryByAltText('User Avatar') !== null || screen.queryByText('UA') !== null;
       expect(hasImageOrFallback).toBe(true);
     });
   });

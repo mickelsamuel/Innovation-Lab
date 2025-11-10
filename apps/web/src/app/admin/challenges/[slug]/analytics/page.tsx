@@ -13,11 +13,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { KPICard, ExportButton } from '@/components/analytics';
-import {
-  chartColors,
-  areaChartConfig,
-  formatDuration,
-} from '@/lib/analytics';
+import { chartColors, areaChartConfig, formatDuration } from '@/lib/analytics';
 
 interface ChallengeAnalytics {
   challengeId: string;
@@ -96,9 +92,7 @@ export default function ChallengeAnalyticsPage() {
             <h1 className="text-4xl font-bold text-white">
               {analytics?.challengeName || 'Challenge Analytics'}
             </h1>
-            <p className="mt-2 text-slate-400">
-              Performance insights and submission metrics
-            </p>
+            <p className="mt-2 text-slate-400">Performance insights and submission metrics</p>
           </div>
           {analytics && (
             <ExportButton
@@ -120,9 +114,12 @@ export default function ChallengeAnalyticsPage() {
             <span className="inline-flex items-center rounded-full bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-400">
               {analytics.category}
             </span>
-            <span className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-medium ${
-              difficultyBadgeColor[analytics.difficulty as keyof typeof difficultyBadgeColor] || 'bg-slate-500/10 text-slate-400'
-            }`}>
+            <span
+              className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-medium ${
+                difficultyBadgeColor[analytics.difficulty as keyof typeof difficultyBadgeColor] ||
+                'bg-slate-500/10 text-slate-400'
+              }`}
+            >
               {analytics.difficulty}
             </span>
           </div>
@@ -135,7 +132,12 @@ export default function ChallengeAnalyticsPage() {
             value={analytics?.totalAttempts || 0}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
+                />
               </svg>
             }
             loading={loading}
@@ -145,7 +147,12 @@ export default function ChallengeAnalyticsPage() {
             value={analytics?.totalSubmissions || 0}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
               </svg>
             }
             loading={loading}
@@ -156,7 +163,12 @@ export default function ChallengeAnalyticsPage() {
             format="percentage"
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             }
             loading={loading}
@@ -167,7 +179,12 @@ export default function ChallengeAnalyticsPage() {
             format="none"
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                />
               </svg>
             }
             loading={loading}
@@ -192,7 +209,11 @@ export default function ChallengeAnalyticsPage() {
                   </linearGradient>
                 </defs>
                 <CartesianGrid {...areaChartConfig.grid} />
-                <XAxis dataKey="date" {...areaChartConfig.axisStyle} {...areaChartConfig.labelStyle} />
+                <XAxis
+                  dataKey="date"
+                  {...areaChartConfig.axisStyle}
+                  {...areaChartConfig.labelStyle}
+                />
                 <YAxis {...areaChartConfig.axisStyle} {...areaChartConfig.labelStyle} />
                 <Tooltip {...areaChartConfig.tooltip} />
                 <Legend />
@@ -286,8 +307,18 @@ export default function ChallengeAnalyticsPage() {
                     {analytics?.totalAttempts || 0}
                   </div>
                 </div>
-                <svg className="h-10 w-10 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <svg
+                  className="h-10 w-10 text-purple-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 10V3L4 14h7v7l9-11h-7z"
+                  />
                 </svg>
               </div>
               <div className="flex items-center justify-between rounded-lg bg-slate-700/50 p-4">
@@ -297,8 +328,18 @@ export default function ChallengeAnalyticsPage() {
                     {analytics?.acceptedSubmissions || 0}
                   </div>
                 </div>
-                <svg className="h-10 w-10 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="h-10 w-10 text-green-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
               <div className="flex items-center justify-between rounded-lg bg-slate-700/50 p-4">
@@ -308,8 +349,18 @@ export default function ChallengeAnalyticsPage() {
                     {(analytics?.totalSubmissions || 0) - (analytics?.acceptedSubmissions || 0)}
                   </div>
                 </div>
-                <svg className="h-10 w-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="h-10 w-10 text-red-400"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
               </div>
             </div>
@@ -333,15 +384,17 @@ export default function ChallengeAnalyticsPage() {
                 {analytics?.topPerformers.map((performer, index) => (
                   <tr key={performer.userId} className="border-b border-slate-700/50">
                     <td className="py-4 text-slate-300">
-                      <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full font-bold ${
-                        index === 0
-                          ? 'bg-yellow-500/20 text-yellow-400'
-                          : index === 1
-                          ? 'bg-slate-400/20 text-slate-300'
-                          : index === 2
-                          ? 'bg-orange-500/20 text-orange-400'
-                          : 'bg-slate-700 text-slate-400'
-                      }`}>
+                      <span
+                        className={`inline-flex h-8 w-8 items-center justify-center rounded-full font-bold ${
+                          index === 0
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : index === 1
+                              ? 'bg-slate-400/20 text-slate-300'
+                              : index === 2
+                                ? 'bg-orange-500/20 text-orange-400'
+                                : 'bg-slate-700 text-slate-400'
+                        }`}
+                      >
                         {index + 1}
                       </span>
                     </td>

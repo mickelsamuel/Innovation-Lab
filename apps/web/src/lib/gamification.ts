@@ -14,18 +14,14 @@ import type {
 /**
  * Get current user's gamification profile
  */
-export async function getMyGamificationProfile(
-  token: string
-): Promise<GamificationProfile> {
+export async function getMyGamificationProfile(token: string): Promise<GamificationProfile> {
   return apiFetch<GamificationProfile>('/gamification/profile', { token });
 }
 
 /**
  * Get user's gamification profile by ID
  */
-export async function getUserGamificationProfile(
-  userId: string
-): Promise<GamificationProfile> {
+export async function getUserGamificationProfile(userId: string): Promise<GamificationProfile> {
   return apiFetch<GamificationProfile>(`/gamification/profile/${userId}`);
 }
 
@@ -49,10 +45,7 @@ export async function getAllBadges(): Promise<Badge[]> {
 /**
  * Get current user's XP events
  */
-export async function getMyXpEvents(
-  token: string,
-  limit: number = 50
-): Promise<XpEvent[]> {
+export async function getMyXpEvents(token: string, limit: number = 50): Promise<XpEvent[]> {
   const queryString = buildQueryString({ limit });
   return apiFetch<XpEvent[]>(`/gamification/xp-events${queryString}`, {
     token,
@@ -62,10 +55,7 @@ export async function getMyXpEvents(
 /**
  * Get user's XP events by ID
  */
-export async function getUserXpEvents(
-  userId: string,
-  limit: number = 50
-): Promise<XpEvent[]> {
+export async function getUserXpEvents(userId: string, limit: number = 50): Promise<XpEvent[]> {
   const queryString = buildQueryString({ limit });
   return apiFetch<XpEvent[]>(`/gamification/xp-events/${userId}${queryString}`);
 }

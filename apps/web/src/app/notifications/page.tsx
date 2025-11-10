@@ -63,9 +63,11 @@ export default function NotificationsPage() {
 
     try {
       await markAsRead(notificationId, token);
-      setNotifications(notifications.map(n =>
-        n.id === notificationId ? { ...n, readAt: new Date().toISOString() } : n
-      ));
+      setNotifications(
+        notifications.map(n =>
+          n.id === notificationId ? { ...n, readAt: new Date().toISOString() } : n
+        )
+      );
       setUnreadCount(prev => Math.max(0, prev - 1));
     } catch (error) {
       console.error('Failed to mark notification as read:', error);
@@ -117,9 +119,8 @@ export default function NotificationsPage() {
     return iconMap[type] || '🔔';
   }
 
-  const filteredNotifications = activeTab === 'unread'
-    ? notifications.filter(n => !n.readAt)
-    : notifications;
+  const filteredNotifications =
+    activeTab === 'unread' ? notifications.filter(n => !n.readAt) : notifications;
 
   if (isLoading) {
     return (
@@ -139,7 +140,9 @@ export default function NotificationsPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Notifications</h1>
-          <p className="text-slate-600">Stay updated with your hackathons, challenges, and achievements</p>
+          <p className="text-slate-600">
+            Stay updated with your hackathons, challenges, and achievements
+          </p>
         </div>
 
         <Tabs defaultValue="all" value={activeTab} onValueChange={setActiveTab}>
@@ -185,12 +188,12 @@ export default function NotificationsPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredNotifications.map((notification) => (
+              filteredNotifications.map(notification => (
                 <Card
                   key={notification.id}
                   className={cn(
-                    "transition-colors hover:bg-slate-50 cursor-pointer",
-                    !notification.readAt && "border-l-4 border-l-primary bg-primary/5"
+                    'transition-colors hover:bg-slate-50 cursor-pointer',
+                    !notification.readAt && 'border-l-4 border-l-primary bg-primary/5'
                   )}
                   onClick={() => {
                     if (!notification.readAt) {
@@ -210,12 +213,16 @@ export default function NotificationsPage() {
                         <div className="flex items-start justify-between gap-4 mb-2">
                           <h3 className="font-semibold text-lg">{notification.title}</h3>
                           {!notification.readAt && (
-                            <Badge variant="default" className="flex-shrink-0">New</Badge>
+                            <Badge variant="default" className="flex-shrink-0">
+                              New
+                            </Badge>
                           )}
                         </div>
                         <p className="text-slate-600 mb-2">{notification.message}</p>
                         <p className="text-sm text-slate-400">
-                          {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
+                          {formatDistanceToNow(new Date(notification.createdAt), {
+                            addSuffix: true,
+                          })}
                         </p>
                       </div>
                     </div>
@@ -235,7 +242,7 @@ export default function NotificationsPage() {
                 </CardContent>
               </Card>
             ) : (
-              filteredNotifications.map((notification) => (
+              filteredNotifications.map(notification => (
                 <Card
                   key={notification.id}
                   className="border-l-4 border-l-primary bg-primary/5 transition-colors hover:bg-slate-50 cursor-pointer"
@@ -254,11 +261,15 @@ export default function NotificationsPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-4 mb-2">
                           <h3 className="font-semibold text-lg">{notification.title}</h3>
-                          <Badge variant="default" className="flex-shrink-0">New</Badge>
+                          <Badge variant="default" className="flex-shrink-0">
+                            New
+                          </Badge>
                         </div>
                         <p className="text-slate-600 mb-2">{notification.message}</p>
                         <p className="text-sm text-slate-400">
-                          {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
+                          {formatDistanceToNow(new Date(notification.createdAt), {
+                            addSuffix: true,
+                          })}
                         </p>
                       </div>
                     </div>
@@ -285,23 +296,33 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="email-registration">Hackathon Registration</Label>
-                          <p className="text-sm text-slate-500">When you register for a hackathon</p>
+                          <p className="text-sm text-slate-500">
+                            When you register for a hackathon
+                          </p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="email-registration-email" className="text-sm">Email</Label>
+                            <Label htmlFor="email-registration-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="email-registration-email"
                               checked={preferences.emailHackathonRegistration}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailHackathonRegistration', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailHackathonRegistration', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="email-registration-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="email-registration-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="email-registration-app"
                               checked={preferences.inAppHackathonRegistration}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppHackathonRegistration', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppHackathonRegistration', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -314,19 +335,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="submission-email" className="text-sm">Email</Label>
+                            <Label htmlFor="submission-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="submission-email"
                               checked={preferences.emailSubmissionReceived}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailSubmissionReceived', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailSubmissionReceived', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="submission-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="submission-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="submission-app"
                               checked={preferences.inAppSubmissionReceived}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppSubmissionReceived', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppSubmissionReceived', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -339,19 +368,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="judging-email" className="text-sm">Email</Label>
+                            <Label htmlFor="judging-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="judging-email"
                               checked={preferences.emailJudgingComplete}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailJudgingComplete', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailJudgingComplete', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="judging-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="judging-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="judging-app"
                               checked={preferences.inAppJudgingComplete}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppJudgingComplete', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppJudgingComplete', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -364,19 +401,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="winner-email" className="text-sm">Email</Label>
+                            <Label htmlFor="winner-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="winner-email"
                               checked={preferences.emailWinnerAnnouncement}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailWinnerAnnouncement', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailWinnerAnnouncement', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="winner-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="winner-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="winner-app"
                               checked={preferences.inAppWinnerAnnouncement}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppWinnerAnnouncement', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppWinnerAnnouncement', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -391,23 +436,33 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="challenge-reviewed">Challenge Reviewed</Label>
-                          <p className="text-sm text-slate-500">When your challenge solution is reviewed</p>
+                          <p className="text-sm text-slate-500">
+                            When your challenge solution is reviewed
+                          </p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="challenge-reviewed-email" className="text-sm">Email</Label>
+                            <Label htmlFor="challenge-reviewed-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="challenge-reviewed-email"
                               checked={preferences.emailChallengeReviewed}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailChallengeReviewed', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailChallengeReviewed', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="challenge-reviewed-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="challenge-reviewed-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="challenge-reviewed-app"
                               checked={preferences.inAppChallengeReviewed}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppChallengeReviewed', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppChallengeReviewed', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -420,19 +475,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="challenge-accepted-email" className="text-sm">Email</Label>
+                            <Label htmlFor="challenge-accepted-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="challenge-accepted-email"
                               checked={preferences.emailChallengeAccepted}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailChallengeAccepted', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailChallengeAccepted', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="challenge-accepted-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="challenge-accepted-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="challenge-accepted-app"
                               checked={preferences.inAppChallengeAccepted}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppChallengeAccepted', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppChallengeAccepted', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -445,19 +508,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="challenge-winner-email" className="text-sm">Email</Label>
+                            <Label htmlFor="challenge-winner-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="challenge-winner-email"
                               checked={preferences.emailChallengeWinner}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailChallengeWinner', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailChallengeWinner', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="challenge-winner-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="challenge-winner-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="challenge-winner-app"
                               checked={preferences.inAppChallengeWinner}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppChallengeWinner', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppChallengeWinner', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -472,23 +543,33 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="team-invitation">Team Invitations</Label>
-                          <p className="text-sm text-slate-500">When you're invited to join a team</p>
+                          <p className="text-sm text-slate-500">
+                            When you're invited to join a team
+                          </p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="team-invitation-email" className="text-sm">Email</Label>
+                            <Label htmlFor="team-invitation-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="team-invitation-email"
                               checked={preferences.emailTeamInvitation}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailTeamInvitation', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailTeamInvitation', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="team-invitation-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="team-invitation-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="team-invitation-app"
                               checked={preferences.inAppTeamInvitation}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppTeamInvitation', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppTeamInvitation', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -501,19 +582,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="level-up-email" className="text-sm">Email</Label>
+                            <Label htmlFor="level-up-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="level-up-email"
                               checked={preferences.emailLevelUp}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailLevelUp', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailLevelUp', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="level-up-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="level-up-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="level-up-app"
                               checked={preferences.inAppLevelUp}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppLevelUp', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppLevelUp', checked)
+                              }
                             />
                           </div>
                         </div>
@@ -526,19 +615,27 @@ export default function NotificationsPage() {
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="badge-email" className="text-sm">Email</Label>
+                            <Label htmlFor="badge-email" className="text-sm">
+                              Email
+                            </Label>
                             <Switch
                               id="badge-email"
                               checked={preferences.emailBadgeUnlocked}
-                              onCheckedChange={(checked) => handlePreferenceChange('emailBadgeUnlocked', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('emailBadgeUnlocked', checked)
+                              }
                             />
                           </div>
                           <div className="flex items-center gap-2">
-                            <Label htmlFor="badge-app" className="text-sm">In-App</Label>
+                            <Label htmlFor="badge-app" className="text-sm">
+                              In-App
+                            </Label>
                             <Switch
                               id="badge-app"
                               checked={preferences.inAppBadgeUnlocked}
-                              onCheckedChange={(checked) => handlePreferenceChange('inAppBadgeUnlocked', checked)}
+                              onCheckedChange={checked =>
+                                handlePreferenceChange('inAppBadgeUnlocked', checked)
+                              }
                             />
                           </div>
                         </div>

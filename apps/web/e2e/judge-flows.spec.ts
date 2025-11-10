@@ -25,7 +25,9 @@ test.describe('Judge Flows', () => {
     test('should navigate to judge dashboard', async ({ page }) => {
       await page.goto('/judge/dashboard');
 
-      await expect(page.locator('h1, h2').filter({ hasText: /Judge.*Dashboard/i })).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('h1, h2').filter({ hasText: /Judge.*Dashboard/i })).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should display assigned hackathons', async ({ page }) => {
@@ -50,7 +52,9 @@ test.describe('Judge Flows', () => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
       // Should display list of submissions
-      await expect(page.locator('h1, h2').filter({ hasText: /Submissions/i })).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('h1, h2').filter({ hasText: /Submissions/i })).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should view submission details', async ({ page }) => {
@@ -66,7 +70,9 @@ test.describe('Judge Flows', () => {
         await expect(page).toHaveURL(/\/submissions\//, { timeout: 10000 });
 
         // Should see submission details
-        await expect(page.locator('text=/Description/i, text=/Team/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/Description/i, text=/Team/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
 
@@ -99,13 +105,17 @@ test.describe('Judge Flows', () => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
       // Find a submission to score
-      const scoreButton = page.locator('button:has-text("Score"), button:has-text("Judge")').first();
+      const scoreButton = page
+        .locator('button:has-text("Score"), button:has-text("Judge")')
+        .first();
 
       if (await scoreButton.isVisible({ timeout: 5000 })) {
         await scoreButton.click();
 
         // Should see scoring form
-        await expect(page.locator('text=/Score/i, text=/Criteria/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/Score/i, text=/Criteria/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
 
@@ -113,7 +123,9 @@ test.describe('Judge Flows', () => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
       // Find and open scoring interface
-      const scoreButton = page.locator('button:has-text("Score"), button:has-text("Judge")').first();
+      const scoreButton = page
+        .locator('button:has-text("Score"), button:has-text("Judge")')
+        .first();
 
       if (await scoreButton.isVisible({ timeout: 5000 })) {
         await scoreButton.click();
@@ -127,7 +139,9 @@ test.describe('Judge Flows', () => {
         }
 
         // Add comments
-        const commentField = page.locator('textarea[name*="comment"], textarea[placeholder*="comment"]').first();
+        const commentField = page
+          .locator('textarea[name*="comment"], textarea[placeholder*="comment"]')
+          .first();
         if (await commentField.isVisible({ timeout: 3000 })) {
           await commentField.fill('Great project! Well implemented with good documentation.');
         }
@@ -136,14 +150,18 @@ test.describe('Judge Flows', () => {
         await page.click('button[type="submit"], button:has-text("Submit")');
 
         // Should show success message
-        await expect(page.locator('text=/success/i, text=/submitted/i, text=/scored/i')).toBeVisible({ timeout: 10000 });
+        await expect(
+          page.locator('text=/success/i, text=/submitted/i, text=/scored/i')
+        ).toBeVisible({ timeout: 10000 });
       }
     });
 
     test('should validate score inputs', async ({ page }) => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
-      const scoreButton = page.locator('button:has-text("Score"), button:has-text("Judge")').first();
+      const scoreButton = page
+        .locator('button:has-text("Score"), button:has-text("Judge")')
+        .first();
 
       if (await scoreButton.isVisible({ timeout: 5000 })) {
         await scoreButton.click();
@@ -152,14 +170,18 @@ test.describe('Judge Flows', () => {
         await page.click('button[type="submit"], button:has-text("Submit")');
 
         // Should show validation errors
-        await expect(page.locator('text=/required/i, text=/invalid/i').first()).toBeVisible({ timeout: 5000 });
+        await expect(page.locator('text=/required/i, text=/invalid/i').first()).toBeVisible({
+          timeout: 5000,
+        });
       }
     });
 
     test('should validate score ranges', async ({ page }) => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
-      const scoreButton = page.locator('button:has-text("Score"), button:has-text("Judge")').first();
+      const scoreButton = page
+        .locator('button:has-text("Score"), button:has-text("Judge")')
+        .first();
 
       if (await scoreButton.isVisible({ timeout: 5000 })) {
         await scoreButton.click();
@@ -172,7 +194,9 @@ test.describe('Judge Flows', () => {
           await page.click('button[type="submit"]');
 
           // Should show validation error
-          await expect(page.locator('text=/maximum/i, text=/invalid/i, text=/0.*10/i').first()).toBeVisible({ timeout: 5000 });
+          await expect(
+            page.locator('text=/maximum/i, text=/invalid/i, text=/0.*10/i').first()
+          ).toBeVisible({ timeout: 5000 });
         }
       }
     });
@@ -181,7 +205,9 @@ test.describe('Judge Flows', () => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
       // Find a submission that's already scored
-      const editScoreButton = page.locator('button:has-text("Edit"), button:has-text("Update Score")').first();
+      const editScoreButton = page
+        .locator('button:has-text("Edit"), button:has-text("Update Score")')
+        .first();
 
       if (await editScoreButton.isVisible({ timeout: 5000 })) {
         await editScoreButton.click();
@@ -200,7 +226,9 @@ test.describe('Judge Flows', () => {
         await page.click('button[type="submit"], button:has-text("Update")');
 
         // Should show success
-        await expect(page.locator('text=/updated/i, text=/success/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/updated/i, text=/success/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
   });
@@ -215,7 +243,9 @@ test.describe('Judge Flows', () => {
         await scoreButton.click();
 
         // Should see all criteria (e.g., Innovation, Technical, Design, etc.)
-        await expect(page.locator('text=/Innovation/i, text=/Technical/i, text=/Design/i, text=/Criteria/i')).toBeVisible({ timeout: 10000 });
+        await expect(
+          page.locator('text=/Innovation/i, text=/Technical/i, text=/Design/i, text=/Criteria/i')
+        ).toBeVisible({ timeout: 10000 });
       }
     });
 
@@ -245,7 +275,9 @@ test.describe('Judge Flows', () => {
       await page.goto('/judge/dashboard');
 
       // Should see progress indicator
-      const progress = page.locator('text=/progress/i, text=/\\d+.*of.*\\d+/i, [role="progressbar"]').first();
+      const progress = page
+        .locator('text=/progress/i, text=/\\d+.*of.*\\d+/i, [role="progressbar"]')
+        .first();
       await expect(progress).toBeVisible({ timeout: 10000 });
     });
 
@@ -253,7 +285,9 @@ test.describe('Judge Flows', () => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
       // Unscored submissions should have some indicator
-      const unscoredBadge = page.locator('text=/unscored/i, text=/not.*scored/i, text=/pending/i').first();
+      const unscoredBadge = page
+        .locator('text=/unscored/i, text=/not.*scored/i, text=/pending/i')
+        .first();
 
       if (await unscoredBadge.isVisible({ timeout: 5000 })) {
         expect(true).toBeTruthy();
@@ -295,7 +329,9 @@ test.describe('Judge Flows', () => {
         await submission.click();
 
         // Should see repository link
-        const repoLink = page.locator('a[href*="github"], a[href*="gitlab"], a:has-text("Repository")').first();
+        const repoLink = page
+          .locator('a[href*="github"], a[href*="gitlab"], a:has-text("Repository")')
+          .first();
         if (await repoLink.isVisible({ timeout: 5000 })) {
           expect(await repoLink.getAttribute('href')).toBeTruthy();
         }
@@ -311,7 +347,9 @@ test.describe('Judge Flows', () => {
         await submission.click();
 
         // Should see demo link
-        const demoLink = page.locator('a:has-text("Demo"), a:has-text("Live"), a[href*="demo"]').first();
+        const demoLink = page
+          .locator('a:has-text("Demo"), a:has-text("Live"), a[href*="demo"]')
+          .first();
         if (await demoLink.isVisible({ timeout: 5000 })) {
           expect(await demoLink.getAttribute('href')).toBeTruthy();
         }
@@ -369,7 +407,9 @@ test.describe('Judge Flows', () => {
       await page.goto(`/judge/hackathons/${hackathonSlug}/submissions`);
 
       // Look for export button
-      const exportButton = page.locator('button:has-text("Export"), button:has-text("Download")').first();
+      const exportButton = page
+        .locator('button:has-text("Export"), button:has-text("Download")')
+        .first();
 
       if (await exportButton.isVisible({ timeout: 3000 })) {
         // Set up download listener

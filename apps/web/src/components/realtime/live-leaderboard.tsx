@@ -151,16 +151,13 @@ export function LiveLeaderboard({ hackathonId, initialData }: LiveLeaderboardPro
                       <h3 className="font-semibold text-lg">{entry.teamName}</h3>
                       <div className="flex items-center gap-2 mt-1">
                         <div className="flex -space-x-2">
-                          {entry.members.slice(0, 3).map((member) => (
+                          {entry.members.slice(0, 3).map(member => (
                             <Avatar
                               key={member.user.id}
                               className="h-6 w-6 border-2 border-background"
                             >
                               {member.user.avatarUrl ? (
-                                <img
-                                  src={member.user.avatarUrl}
-                                  alt={member.user.name}
-                                />
+                                <img src={member.user.avatarUrl} alt={member.user.name} />
                               ) : (
                                 <div className="h-full w-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center text-white text-xs">
                                   {member.user.name[0]}

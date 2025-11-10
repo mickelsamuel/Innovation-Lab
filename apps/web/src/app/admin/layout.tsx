@@ -17,11 +17,7 @@ import {
   BarChart3,
 } from 'lucide-react';
 
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -115,9 +111,7 @@ export default function AdminLayout({
     },
   ];
 
-  const visibleNav = navigation.filter((item) =>
-    item.roles.some((role) => userRoles.includes(role))
-  );
+  const visibleNav = navigation.filter(item => item.roles.some(role => userRoles.includes(role)));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-ink via-[#1a1c23] to-ink">
@@ -142,7 +136,7 @@ export default function AdminLayout({
           </div>
 
           <nav className="space-y-2">
-            {visibleNav.map((item) => {
+            {visibleNav.map(item => {
               const Icon = item.icon;
               return (
                 <Link

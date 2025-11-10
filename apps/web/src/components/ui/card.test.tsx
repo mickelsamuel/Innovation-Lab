@@ -1,13 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from './card';
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from './card';
 
 describe('Card Components', () => {
   describe('Card', () => {
@@ -18,7 +11,11 @@ describe('Card Components', () => {
     });
 
     it('should apply custom className', () => {
-      render(<Card className="custom-class" data-testid="card">Content</Card>);
+      render(
+        <Card className="custom-class" data-testid="card">
+          Content
+        </Card>
+      );
       expect(screen.getByTestId('card')).toHaveClass('custom-class');
     });
 
@@ -37,7 +34,11 @@ describe('Card Components', () => {
     });
 
     it('should apply custom className', () => {
-      render(<CardHeader className="custom-header" data-testid="header">Content</CardHeader>);
+      render(
+        <CardHeader className="custom-header" data-testid="header">
+          Content
+        </CardHeader>
+      );
       expect(screen.getByTestId('header')).toHaveClass('custom-header');
     });
   });
@@ -78,7 +79,11 @@ describe('Card Components', () => {
     });
 
     it('should apply custom className', () => {
-      render(<CardContent className="custom-content" data-testid="content">Content</CardContent>);
+      render(
+        <CardContent className="custom-content" data-testid="content">
+          Content
+        </CardContent>
+      );
       expect(screen.getByTestId('content')).toHaveClass('custom-content');
     });
   });
@@ -91,7 +96,11 @@ describe('Card Components', () => {
     });
 
     it('should apply custom className', () => {
-      render(<CardFooter className="custom-footer" data-testid="footer">Footer</CardFooter>);
+      render(
+        <CardFooter className="custom-footer" data-testid="footer">
+          Footer
+        </CardFooter>
+      );
       expect(screen.getByTestId('footer')).toHaveClass('custom-footer');
     });
   });

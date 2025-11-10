@@ -132,7 +132,7 @@ export class GamificationService {
       xpToNextLevel: levelData.xpToNextLevel,
       currentLevelXp: levelData.currentLevelXp,
       nextLevelXp: levelData.nextLevelXp,
-      recentXpEvents: recentEvents.map((event) => ({
+      recentXpEvents: recentEvents.map(event => ({
         id: event.id,
         eventType: event.eventType,
         points: event.points,
@@ -153,7 +153,7 @@ export class GamificationService {
     points: number,
     refType?: string,
     refId?: string,
-    metadata?: any,
+    metadata?: any
   ): Promise<void> {
     // Create XP event
     await this.prisma.xpEvent.create({
@@ -236,7 +236,7 @@ export class GamificationService {
     _scope: LeaderboardScope = LeaderboardScope.GLOBAL,
     _period: LeaderboardPeriod = LeaderboardPeriod.ALLTIME,
     _scopeId?: string,
-    limit: number = 100,
+    limit: number = 100
   ): Promise<LeaderboardEntry[]> {
     // For now, we'll generate real-time leaderboard
     // In production, use LeaderboardSnapshot for caching
@@ -337,8 +337,7 @@ export class GamificationService {
   } {
     const level = this.calculateLevel(xp);
     const currentLevelXp = LEVEL_THRESHOLDS[level - 1] || 0;
-    const nextLevelXp =
-      LEVEL_THRESHOLDS[level] || LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
+    const nextLevelXp = LEVEL_THRESHOLDS[level] || LEVEL_THRESHOLDS[LEVEL_THRESHOLDS.length - 1];
     const xpToNextLevel = nextLevelXp - xp;
 
     return {
@@ -352,10 +351,7 @@ export class GamificationService {
   /**
    * Check and award level-based badges
    */
-  private async checkAndAwardLevelBadges(
-    userId: string,
-    newLevel: number,
-  ): Promise<void> {
+  private async checkAndAwardLevelBadges(userId: string, newLevel: number): Promise<void> {
     const levelBadges: Record<number, string> = {
       5: 'level-5',
       10: 'level-10',
@@ -398,7 +394,7 @@ export class GamificationService {
     }
 
     const daysSinceLastActivity = Math.floor(
-      (now.getTime() - lastActivity.getTime()) / (1000 * 60 * 60 * 24),
+      (now.getTime() - lastActivity.getTime()) / (1000 * 60 * 60 * 24)
     );
 
     if (daysSinceLastActivity === 0) {
@@ -418,18 +414,10 @@ export class GamificationService {
 
       // Streak bonuses
       if (newStreak === 7) {
-        await this.awardXp(
-          userId,
-          'STREAK_BONUS_7DAYS',
-          XP_POINTS.STREAK_BONUS_7DAYS,
-        );
+        await this.awardXp(userId, 'STREAK_BONUS_7DAYS', XP_POINTS.STREAK_BONUS_7DAYS);
         await this.awardBadge(userId, 'streak-7');
       } else if (newStreak === 30) {
-        await this.awardXp(
-          userId,
-          'STREAK_BONUS_30DAYS',
-          XP_POINTS.STREAK_BONUS_30DAYS,
-        );
+        await this.awardXp(userId, 'STREAK_BONUS_30DAYS', XP_POINTS.STREAK_BONUS_30DAYS);
         await this.awardBadge(userId, 'streak-30');
       }
     } else {

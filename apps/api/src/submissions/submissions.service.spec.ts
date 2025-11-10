@@ -1,9 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  NotFoundException,
-  ForbiddenException,
-  BadRequestException,
-} from '@nestjs/common';
+import { NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
 import { SubmissionsService } from './submissions.service';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { GamificationService } from '../gamification/gamification.service';
@@ -87,7 +83,12 @@ describe('SubmissionsService', () => {
           ...team,
           members: team.members.map(m => ({
             ...m,
-            user: { id: m.userId, name: `User ${m.userId}`, handle: `user${m.userId}`, avatarUrl: null },
+            user: {
+              id: m.userId,
+              name: `User ${m.userId}`,
+              handle: `user${m.userId}`,
+              avatarUrl: null,
+            },
           })),
         },
         track: { id: 'track-1', title: 'AI Track' },
@@ -132,7 +133,9 @@ describe('SubmissionsService', () => {
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(ForbiddenException);
-      await expect(service.create(createDto, 'user-1')).rejects.toThrow('You are not a member of this team');
+      await expect(service.create(createDto, 'user-1')).rejects.toThrow(
+        'You are not a member of this team'
+      );
 
       expect(prismaMock.submission.create).not.toHaveBeenCalled();
     });
@@ -151,7 +154,9 @@ describe('SubmissionsService', () => {
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.create(createDto, 'user-1')).rejects.toThrow('Hackathon is not accepting submissions');
+      await expect(service.create(createDto, 'user-1')).rejects.toThrow(
+        'Hackathon is not accepting submissions'
+      );
 
       expect(prismaMock.submission.create).not.toHaveBeenCalled();
     });
@@ -170,7 +175,9 @@ describe('SubmissionsService', () => {
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.create(createDto, 'user-1')).rejects.toThrow('Submission deadline has passed');
+      await expect(service.create(createDto, 'user-1')).rejects.toThrow(
+        'Submission deadline has passed'
+      );
 
       expect(prismaMock.submission.create).not.toHaveBeenCalled();
     });
@@ -196,7 +203,9 @@ describe('SubmissionsService', () => {
       prismaMock.submission.findFirst.mockResolvedValue(existingSubmission as any);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.create(createDto, 'user-1')).rejects.toThrow('Team already has a submission for this hackathon');
+      await expect(service.create(createDto, 'user-1')).rejects.toThrow(
+        'Team already has a submission for this hackathon'
+      );
 
       expect(prismaMock.submission.create).not.toHaveBeenCalled();
     });
@@ -281,10 +290,7 @@ describe('SubmissionsService', () => {
 
   describe('findUserSubmissions', () => {
     it('should return all submissions where user is a team member', async () => {
-      const mockTeamMembers = [
-        { teamId: 'team-1' },
-        { teamId: 'team-2' },
-      ];
+      const mockTeamMembers = [{ teamId: 'team-1' }, { teamId: 'team-2' }];
 
       const mockSubmissions = [
         {
@@ -371,7 +377,9 @@ describe('SubmissionsService', () => {
     it('should throw NotFoundException if submission not found', async () => {
       prismaMock.submission.findUnique.mockResolvedValue(null);
 
-      await expect(service.update('non-existent', updateDto, 'user-1')).rejects.toThrow(NotFoundException);
+      await expect(service.update('non-existent', updateDto, 'user-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -391,8 +399,12 @@ describe('SubmissionsService', () => {
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(ForbiddenException);
-      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow('Only team members can update submission');
+      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
+        'Only team members can update submission'
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -412,8 +424,12 @@ describe('SubmissionsService', () => {
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow('Cannot update finalized submission');
+      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
+        'Cannot update finalized submission'
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -433,8 +449,12 @@ describe('SubmissionsService', () => {
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow('Cannot update submission after deadline');
+      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.update('submission-1', updateDto, 'user-1')).rejects.toThrow(
+        'Cannot update submission after deadline'
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -510,7 +530,9 @@ describe('SubmissionsService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
       await expect(service.submit('submission-1', 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.submit('submission-1', 'user-2')).rejects.toThrow('Only team lead can finalize submission');
+      await expect(service.submit('submission-1', 'user-2')).rejects.toThrow(
+        'Only team lead can finalize submission'
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -530,7 +552,9 @@ describe('SubmissionsService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
       await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.submit('submission-1', 'user-1')).rejects.toThrow('Submission already finalized');
+      await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(
+        'Submission already finalized'
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -550,7 +574,9 @@ describe('SubmissionsService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
       await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.submit('submission-1', 'user-1')).rejects.toThrow('Submission deadline has passed');
+      await expect(service.submit('submission-1', 'user-1')).rejects.toThrow(
+        'Submission deadline has passed'
+      );
 
       expect(prismaMock.submission.update).not.toHaveBeenCalled();
     });
@@ -605,7 +631,9 @@ describe('SubmissionsService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
       await expect(service.remove('submission-1', 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.remove('submission-1', 'user-2')).rejects.toThrow('Only team lead can delete submission');
+      await expect(service.remove('submission-1', 'user-2')).rejects.toThrow(
+        'Only team lead can delete submission'
+      );
 
       expect(prismaMock.submission.delete).not.toHaveBeenCalled();
     });
@@ -622,7 +650,9 @@ describe('SubmissionsService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
       await expect(service.remove('submission-1', 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.remove('submission-1', 'user-1')).rejects.toThrow('Cannot delete submission that has been scored');
+      await expect(service.remove('submission-1', 'user-1')).rejects.toThrow(
+        'Cannot delete submission that has been scored'
+      );
 
       expect(prismaMock.submission.delete).not.toHaveBeenCalled();
     });

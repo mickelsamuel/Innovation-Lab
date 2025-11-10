@@ -10,13 +10,7 @@ import {
   UseGuards,
   Req,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { ChallengesService } from './challenges.service';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
 import { UpdateChallengeDto } from './dto/update-challenge.dto';
@@ -87,7 +81,7 @@ export class ChallengesController {
   @Get('user/submissions')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
-  @ApiOperation({ summary: 'Get current user\'s submissions' })
+  @ApiOperation({ summary: "Get current user's submissions" })
   @ApiResponse({ status: 200, description: 'Submissions retrieved' })
   getUserSubmissions(@Req() req: any) {
     return this.challengesService.getUserSubmissions(req.user.id);
@@ -140,17 +134,8 @@ export class ChallengesController {
     status: 403,
     description: 'Forbidden (not owner or admin)',
   })
-  update(
-    @Param('id') id: string,
-    @Req() req: any,
-    @Body() updateChallengeDto: UpdateChallengeDto
-  ) {
-    return this.challengesService.update(
-      id,
-      req.user.id,
-      req.user.role,
-      updateChallengeDto
-    );
+  update(@Param('id') id: string, @Req() req: any, @Body() updateChallengeDto: UpdateChallengeDto) {
+    return this.challengesService.update(id, req.user.id, req.user.role, updateChallengeDto);
   }
 
   /**
@@ -192,11 +177,7 @@ export class ChallengesController {
     @Req() req: any,
     @Body() submitSolutionDto: SubmitSolutionDto
   ) {
-    return this.challengesService.submitSolution(
-      id,
-      req.user.id,
-      submitSolutionDto
-    );
+    return this.challengesService.submitSolution(id, req.user.id, submitSolutionDto);
   }
 
   /**

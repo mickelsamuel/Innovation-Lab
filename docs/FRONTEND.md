@@ -1,6 +1,7 @@
 # Innovation Lab - Frontend Application Map
 
 ## Project Overview
+
 - **Framework**: Next.js 15 with App Router (React 18.3)
 - **Styling**: Tailwind CSS with custom design system
 - **UI Components**: Radix UI + custom components
@@ -14,12 +15,14 @@
 ## Application Structure
 
 ### Root Configuration
+
 - **Layout**: `/src/app/layout.tsx` - Global layout with Header, Footer, Theme Provider, Toast Provider
 - **Metadata**: Site-wide metadata (title template, description, OG tags, manifest)
 - **Styling**: Hex grid background, game-themed CSS classes with animations
 - **Fonts**: Inter (body) + Space Grotesk (display/gaming)
 
 ### Environment Configuration
+
 - **Next Config**: `/next.config.js` - Security headers, CSP, image optimization, API rewrites
 - **API Proxy**: Routes `/api/v1/*` to backend (NEXT_PUBLIC_API_URL env var)
 - **Package**: Node 20+, pnpm workspaces, Turbo monorepo
@@ -29,6 +32,7 @@
 ## All Pages & Routes (35 Total Pages/Routes)
 
 ### 1. **Home Page**
+
 - **Path**: `/` (`/page.tsx`)
 - **Type**: Public landing page
 - **Features**:
@@ -41,7 +45,8 @@
 ### 2. **Authentication Pages**
 
 #### 2a. Login (Duplicate Routes)
-- **Paths**: 
+
+- **Paths**:
   - `/auth/login` (`/auth/login/page.tsx`)
   - `/(auth)/login` (`/(auth)/login/page.tsx`) - Route group version
 - **Type**: Public auth page
@@ -50,6 +55,7 @@
 - **API**: POST `/v1/auth/login` → stores token in localStorage
 
 #### 2b. Registration/Signup (Multiple Routes)
+
 - **Paths**:
   - `/auth/register` (`/auth/register/page.tsx`)
   - `/auth/signup` (`/auth/signup/page.tsx`)
@@ -58,16 +64,19 @@
 - **Features**: User registration form with validation
 
 #### 2c. Forgot Password
+
 - **Path**: `/auth/forgot-password` (`/auth/forgot-password/page.tsx`)
 - **Type**: Public password reset page
 - **Features**: Email-based password recovery flow
 
 #### 2d. NextAuth API Route
+
 - **Path**: `/api/auth/[...nextauth]` (`/api/auth/[...nextauth]/route.ts`)
 - **Type**: Auth provider route
 - **Purpose**: Centralized authentication handling
 
 ### 3. **User Dashboard**
+
 - **Path**: `/dashboard` (`/dashboard/page.tsx`)
 - **Type**: Protected, client-side
 - **Features**:
@@ -90,6 +99,7 @@
 ### 4. **Hackathon System** (Primary Feature)
 
 #### 4a. Hackathons List
+
 - **Path**: `/hackathons` (`/hackathons/page.tsx`)
 - **Type**: Public, client-side
 - **Features**:
@@ -104,27 +114,32 @@
 - **Response Model**: `HackathonsResponse` with data[] and meta
 
 #### 4b. Hackathon Detail
+
 - **Path**: `/hackathons/[slug]` (`/hackathons/[slug]/page.tsx`)
 - **Type**: Dynamic public page
 - **Features**: Individual hackathon details, status, timeline, description
 - **Dynamic Segment**: `[slug]` - URL parameter for specific hackathon
 
 #### 4c. Hackathon Submissions
+
 - **Path**: `/hackathons/[slug]/submissions` (`/hackathons/[slug]/submissions/page.tsx`)
 - **Type**: Dynamic page
 - **Features**: View all submissions for a hackathon
 
 #### 4d. Hackathon Submit
+
 - **Path**: `/hackathons/[slug]/submit` (`/hackathons/[slug]/submit/page.tsx`)
 - **Type**: Dynamic protected page
 - **Features**: Create/edit quest submission for hackathon
 
 #### 4e. Hackathon Teams
+
 - **Path**: `/hackathons/[slug]/teams` (`/hackathons/[slug]/teams/page.tsx`)
 - **Type**: Dynamic page
 - **Features**: List all teams/guilds for hackathon
 
 #### 4f. Create Team
+
 - **Path**: `/hackathons/[slug]/teams/create` (`/hackathons/[slug]/teams/create/page.tsx`)
 - **Type**: Dynamic protected page
 - **Features**: Guild/team creation interface
@@ -132,6 +147,7 @@
 ### 5. **Challenge System** (Individual Contests)
 
 #### 5a. Challenges List
+
 - **Path**: `/challenges` (`/challenges/page.tsx`)
 - **Type**: Public, client-side
 - **Features**:
@@ -146,11 +162,13 @@
 - **Models**: Challenge, ChallengeStatus, RewardType
 
 #### 5b. Challenge Detail
+
 - **Path**: `/challenges/[slug]` (`/challenges/[slug]/page.tsx`)
 - **Type**: Dynamic public page
 - **Features**: Full challenge description, criteria, skills required
 
 #### 5c. My Solutions
+
 - **Path**: `/challenges/my-solutions` (`/challenges/my-solutions/page.tsx`)
 - **Type**: Protected page
 - **Features**: User's submitted solutions to challenges
@@ -158,6 +176,7 @@
 ### 6. **Leaderboard & Gamification**
 
 #### 6a. Leaderboard (Hall of Fame)
+
 - **Path**: `/leaderboard` (`/leaderboard/page.tsx`)
 - **Type**: Public, client-side
 - **Features**:
@@ -175,6 +194,7 @@
 - **Models**: LeaderboardEntry, Badge, LeaderboardScope, LeaderboardPeriod
 
 #### 6b. Badges / Trophy Vault
+
 - **Path**: `/badges` (`/badges/page.tsx`)
 - **Type**: Public, client-side
 - **Features**:
@@ -193,6 +213,7 @@
 ### 7. **User Profile & Settings**
 
 #### 7a. User Profile
+
 - **Path**: `/profile` (`/profile/page.tsx`)
 - **Type**: Protected, client-side
 - **Features**:
@@ -214,6 +235,7 @@
 ### 8. **Team Management**
 
 #### 8a. Team Detail
+
 - **Path**: `/teams/[id]` (`/teams/[id]/page.tsx`)
 - **Type**: Dynamic public page
 - **Features**: Team/guild details, member list, stats
@@ -221,6 +243,7 @@
 ### 9. **Submission Management**
 
 #### 9a. Submission Detail
+
 - **Path**: `/submissions/[id]` (`/submissions/[id]/page.tsx`)
 - **Type**: Dynamic public page
 - **Features**: Individual submission review, status, scores
@@ -228,6 +251,7 @@
 ### 10. **Judge System** (Admin/Moderator Feature)
 
 #### 10a. Judge Dashboard
+
 - **Path**: `/judge` (`/judge/page.tsx`)
 - **Type**: Protected, client-side (judges only)
 - **Features**:
@@ -245,6 +269,7 @@
 - **Models**: JudgeAssignment, Hackathon with criteria and submissions
 
 #### 10b. Judge Scoring Interface
+
 - **Path**: `/judge/score/[submissionId]` (`/judge/score/[submissionId]/page.tsx`)
 - **Type**: Dynamic protected page
 - **Features**: Detailed scoring interface for evaluating submissions against criteria
@@ -252,6 +277,7 @@
 ### 11. **Informational Pages**
 
 #### 11a. About Page
+
 - **Path**: `/about` (`/about/page.tsx`)
 - **Type**: Static public page
 - **Features**:
@@ -261,6 +287,7 @@
   - CTA buttons to explore hackathons/challenges
 
 #### 11b. FAQ / Battle Manual
+
 - **Path**: `/faq` (`/faq/page.tsx`)
 - **Type**: Static public page
 - **Features**:
@@ -274,16 +301,19 @@
   - Support CTA section linking to `/support`
 
 #### 11c. Support Page
+
 - **Path**: `/support` (`/support/page.tsx`)
 - **Type**: Static public page
 - **Features**: Contact information, support options
 
 #### 11d. Blog
+
 - **Path**: `/blog` (`/blog/page.tsx`)
 - **Type**: Static/dynamic public page
 - **Features**: Platform news and updates
 
 #### 11e. Internships
+
 - **Path**: `/internships` (`/internships/page.tsx`)
 - **Type**: Static public page
 - **Features**: Student internship opportunities at NBC
@@ -291,18 +321,22 @@
 ### 12. **Legal Pages**
 
 #### 12a. Privacy Policy
+
 - **Path**: `/legal/privacy` (`/legal/privacy/page.tsx`)
 - **Type**: Static public page
 
 #### 12b. Terms of Service
+
 - **Path**: `/legal/terms` (`/legal/terms/page.tsx`)
 - **Type**: Static public page
 
 #### 12c. Code of Conduct
+
 - **Path**: `/legal/code-of-conduct` (`/legal/code-of-conduct/page.tsx`)
 - **Type**: Static public page
 
 #### 12d. Cookie Policy
+
 - **Path**: `/legal/cookies` (`/legal/cookies/page.tsx`)
 - **Type**: Static public page
 
@@ -311,6 +345,7 @@
 ## Major Components (21 Files)
 
 ### Layout Components
+
 1. **Header** (`/components/layout/header.tsx`)
    - Sticky navigation bar
    - Logo with brand name
@@ -327,6 +362,7 @@
    - Site-wide footer with links, copyright, etc.
 
 ### Feature-Specific Components
+
 3. **HackathonCard** (`/components/hackathons/hackathon-card.tsx`)
    - Reusable card for displaying hackathon in grid
    - Shows title, status badge, dates, description
@@ -341,6 +377,7 @@
    - Shows project title, team, status
 
 ### File Management
+
 6. **FileUpload** (`/components/files/file-upload.tsx`)
    - Drag-and-drop file upload component
    - Used in submission and team creation forms
@@ -350,6 +387,7 @@
    - Delete capability
 
 ### UI/Design System Components (Radix UI Based)
+
 8. **Card** (`/components/ui/card.tsx`)
    - Container component with header, content, footer
    - Used extensively across app
@@ -408,11 +446,13 @@
 ## Routing Structure & Organization
 
 ### Route Groups (Parentheses)
+
 - `(auth)` - Route group for authentication pages
   - `/login`, `/register` - Grouped auth routes
   - Applied for shared layout/styling without affecting URL
 
 ### Dynamic Routes (Square Brackets)
+
 - `[slug]` - Hackathon identifier (URL-friendly slug)
   - `/hackathons/[slug]`
   - `/hackathons/[slug]/teams`
@@ -427,6 +467,7 @@
   - `/judge/score/[submissionId]`
 
 ### Nested Structures
+
 - **Hackathon Sub-Routes**: Everything under `/hackathons/[slug]/*` is hackathon-specific
 - **Judge Routes**: All under `/judge/*` for judging functionality
 - **Legal Routes**: All under `/legal/*` for compliance pages
@@ -437,6 +478,7 @@
 ## Data Models & Types
 
 ### User
+
 ```typescript
 {
   id: string;
@@ -451,6 +493,7 @@
 ```
 
 ### Gamification Profile
+
 ```typescript
 {
   userId: string;
@@ -467,6 +510,7 @@
 ```
 
 ### Hackathon
+
 ```typescript
 {
   id: string;
@@ -483,6 +527,7 @@
 ```
 
 ### Challenge
+
 ```typescript
 {
   id: string;
@@ -503,6 +548,7 @@
 ```
 
 ### Badge
+
 ```typescript
 {
   id: string;
@@ -513,11 +559,12 @@
   rarity: 'COMMON' | 'RARE' | 'EPIC' | 'LEGENDARY';
   _count: {
     userBadges: number;
-  };
+  }
 }
 ```
 
 ### Leaderboard Entry
+
 ```typescript
 {
   rank: number;
@@ -530,6 +577,7 @@
 ```
 
 ### Team/Guild
+
 ```typescript
 {
   id: string;
@@ -539,14 +587,15 @@
   hackathon: {
     id: string;
     title: string;
-  };
+  }
   _count: {
     members: number;
-  };
+  }
 }
 ```
 
 ### Submission
+
 ```typescript
 {
   id: string;
@@ -559,7 +608,7 @@
   track: Track | null;
   _count: {
     scores: number;
-  };
+  }
 }
 ```
 
@@ -568,11 +617,13 @@
 ## Key Libraries & Dependencies
 
 ### Core
+
 - `next@15.0.3` - React framework with App Router
 - `react@18.3.1` - React library
 - `react-dom@18.3.1` - DOM rendering
 
 ### UI & Styling
+
 - `tailwindcss@3.4.1` - Utility-first CSS framework
 - `@radix-ui/*` - Headless UI components (13 packages)
 - `class-variance-authority@0.7.0` - Component variant system
@@ -581,6 +632,7 @@
 - `@next/font` - Google fonts (Inter, Space Grotesk)
 
 ### State & Data
+
 - `@tanstack/react-query@5.17.19` - Server state management
 - `@tanstack/react-query-devtools@5.17.19` - Query debugging
 - `react-hook-form@7.49.3` - Form state management
@@ -588,18 +640,22 @@
 - `zod@3.22.4` - TypeScript-first schema validation
 
 ### Authentication & Theming
+
 - `next-auth@5.0.0-beta.4` - Authentication library
 - `next-themes@0.4.0` - Theme management (dark/light mode)
 
 ### Animation & Visual Effects
+
 - `framer-motion@11.0.3` - Animation library
 - `canvas-confetti@1.9.2` - Confetti animation effects
 - `tailwindcss-animate@1.0.7` - Tailwind animation utilities
 
 ### Utilities
+
 - `@innovation-lab/database` - Workspace package (database/types)
 
 ### Development
+
 - `typescript@5.3.3` - TypeScript compiler
 - `eslint@8.56.0` & `eslint-config-next@15.0.3` - Linting
 - `vitest@1.2.0` - Test framework
@@ -610,6 +666,7 @@
 ## Authentication & API Integration
 
 ### Authentication Flow
+
 1. User submits credentials on `/auth/login`
 2. API POST to `${NEXT_PUBLIC_API_URL}/v1/auth/login`
 3. Token returned and stored in `localStorage` as `auth_token`
@@ -618,6 +675,7 @@
 6. Logout clears localStorage and resets state
 
 ### API Integration Patterns
+
 - Custom `apiFetch()` utility in `/lib/api.ts`
 - Supports authentication with bearer token
 - Error handling with `ApiError` class
@@ -625,6 +683,7 @@
 - Demo mode data fallback in dashboard for unauthenticated users
 
 ### API Base URL
+
 - Environment: `NEXT_PUBLIC_API_URL`
 - Default: `http://localhost:3001` or `http://localhost:4000`
 - Configured in next.config.js with rewrites
@@ -634,12 +693,14 @@
 ## Key Features & User Journeys
 
 ### 1. User Registration & Onboarding
+
 - Sign up at `/auth/signup` or `/auth/register`
 - Login at `/auth/login`
 - Redirect to `/dashboard` on success
 - View demo dashboard if not authenticated
 
 ### 2. Participate in Hackathon Raid
+
 - Browse hackathons at `/hackathons`
 - Filter by status, location, search
 - Click hackathon to view details at `/hackathons/[slug]`
@@ -648,6 +709,7 @@
 - View submissions at `/hackathons/[slug]/submissions`
 
 ### 3. Defeat Boss Challenge
+
 - Browse challenges at `/challenges`
 - Search by skill, filter by status
 - Click challenge for details at `/challenges/[slug]`
@@ -655,6 +717,7 @@
 - View existing solutions at `/challenges/my-solutions`
 
 ### 4. Track Progress & Gamification
+
 - View personal dashboard at `/dashboard`
 - Check XP, level, and vault keys
 - Browse leaderboard at `/leaderboard`
@@ -662,6 +725,7 @@
 - Update profile at `/profile`
 
 ### 5. Judge Submissions (Admin)
+
 - Access judge dashboard at `/judge`
 - View assigned hackathons and submissions
 - Click submission to open scoring interface at `/judge/score/[submissionId]`
@@ -673,6 +737,7 @@
 ## Security & Best Practices
 
 ### Headers
+
 - X-DNS-Prefetch-Control: on
 - Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 - X-Frame-Options: DENY (clickjacking protection)
@@ -681,12 +746,14 @@
 - Permissions-Policy: camera=(), microphone=(), geolocation=()
 
 ### Protected Routes
+
 - `/dashboard` - Requires authentication
 - `/profile` - Requires authentication
 - `/judge/*` - Requires judge role
 - `/(auth)/*` - Hidden header on auth pages
 
 ### Form Validation
+
 - React Hook Form with Zod schema validation
 - Email format, password strength, handle constraints
 - Character limits (bio: 500 chars)
@@ -696,12 +763,14 @@
 ## Styling System
 
 ### Design Tokens
+
 - **Primary Color**: Used for main CTAs, active states
 - **Accent Color**: Used for highlights, secondary actions
 - **Accent2 Color**: Third accent for variety
 - **Slate Palette**: Neutral grays for text and backgrounds
 
 ### Custom CSS Classes
+
 - `.hex-grid` - Background pattern
 - `.game-card` - Card container with gaming styling
 - `.btn-game` - Primary button
@@ -715,6 +784,7 @@
 - `.stat-counter` - Number animation class
 
 ### Animations
+
 - `.animate-float` - Floating motion
 - `.animate-wiggle` - Wiggle effect
 - `.animate-levitate` - Levitation
@@ -822,6 +892,7 @@
 ## Testing Strategy
 
 ### Test Framework
+
 - Vitest for unit testing
 - React Testing Library for component testing
 - Available commands:
@@ -829,6 +900,7 @@
   - `npm run test:ui` - Interactive test UI
 
 ### Coverage Areas (To Be Implemented)
+
 - Component rendering
 - User interactions (clicks, form submissions)
 - API integration mocking
@@ -872,12 +944,14 @@
 ## Performance Considerations
 
 ### Optimization Done
+
 - Next.js 15 with App Router
 - Image optimization configured
 - Font optimization (Google Fonts)
 - Static generation where applicable
 
 ### Potential Optimizations
+
 - Implement ISR (Incremental Static Regeneration) for frequently accessed pages
 - Code splitting and lazy loading components
 - Image lazy loading
@@ -889,6 +963,7 @@
 ## Accessibility Notes
 
 ### Current Implementation
+
 - Semantic HTML structure
 - ARIA labels on interactive elements
 - Form labels with `<label>` tags
@@ -896,6 +971,7 @@
 - Color contrast ratios follow gaming aesthetic
 
 ### Areas for Improvement
+
 - WCAG 2.1 AA compliance audit
 - Screen reader testing
 - Keyboard navigation testing
@@ -915,4 +991,3 @@
 - **Code Files**: ~9,250 lines across 35 page files
 - **Custom CSS Classes**: 15+ gaming-themed classes
 - **Animations**: 8+ custom animations
-

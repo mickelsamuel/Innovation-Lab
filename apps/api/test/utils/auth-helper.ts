@@ -10,10 +10,7 @@ export class AuthTestHelper {
    * Generate a JWT token for testing
    */
   static generateToken(userId: string, roles: Role[] = [Role.PARTICIPANT]): string {
-    return this.jwtService.sign(
-      { sub: userId, roles },
-      { expiresIn: '1h' }
-    );
+    return this.jwtService.sign({ sub: userId, roles }, { expiresIn: '1h' });
   }
 
   /**

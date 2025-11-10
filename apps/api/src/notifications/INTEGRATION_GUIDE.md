@@ -291,6 +291,7 @@ async awardXp(userId: string, points: number, eventType: string, metadata?: any)
 ## Best Practices
 
 1. **Always check preferences before sending emails**:
+
    ```typescript
    const shouldEmail = await this.notificationsService.shouldSendEmail(userId, notificationType);
    if (shouldEmail) {
@@ -299,6 +300,7 @@ async awardXp(userId: string, points: number, eventType: string, metadata?: any)
    ```
 
 2. **Use bulk notifications for multiple users**:
+
    ```typescript
    const notifications = users.map(user => ({
      userId: user.id,
@@ -315,6 +317,7 @@ async awardXp(userId: string, points: number, eventType: string, metadata?: any)
    In-app notifications should be brief. Save detailed information for the linked page.
 
 5. **Handle errors gracefully**:
+
    ```typescript
    try {
      await this.notificationsService.createNotification(...);

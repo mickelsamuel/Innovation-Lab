@@ -54,9 +54,7 @@ export const KPICard: React.FC<KPICardProps> = ({
         <div className="flex-1">
           <p className="text-sm font-medium text-slate-400">{title}</p>
           <div className="mt-2 flex items-baseline gap-2">
-            <p className="text-3xl font-bold text-white">
-              {formatValue(value)}
-            </p>
+            <p className="text-3xl font-bold text-white">{formatValue(value)}</p>
             {trendInfo && (
               <span className={`flex items-center text-sm font-medium ${trendInfo.color}`}>
                 <span className="mr-1">{trendInfo.icon}</span>

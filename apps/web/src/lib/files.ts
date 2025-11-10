@@ -56,7 +56,7 @@ export async function uploadFile(
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
 
-      xhr.upload.addEventListener('progress', (e) => {
+      xhr.upload.addEventListener('progress', e => {
         if (e.lengthComputable) {
           const progress = Math.round((e.loaded / e.total) * 100);
           onProgress(progress);
@@ -170,7 +170,7 @@ export function validateFileSize(file: File, maxSizeMB: number): boolean {
  * Validate file type
  */
 export function validateFileType(file: File, allowedTypes: string[]): boolean {
-  return allowedTypes.some((type) => {
+  return allowedTypes.some(type => {
     if (type.endsWith('/*')) {
       const prefix = type.replace('/*', '');
       return file.type.startsWith(prefix);

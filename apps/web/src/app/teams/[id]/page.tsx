@@ -73,10 +73,11 @@ export default function TeamDetailPage() {
     );
   }
 
-  const isLookingForMembers = team.lookingForMembers && team.members.length < (team.hackathon?.maxTeamSize || 4);
+  const isLookingForMembers =
+    team.lookingForMembers && team.members.length < (team.hackathon?.maxTeamSize || 4);
 
   // Check if current user is team lead
-  const currentUserMember = team.members.find((m) => m.userId === session?.user?.id);
+  const currentUserMember = team.members.find(m => m.userId === session?.user?.id);
   const isTeamLead = currentUserMember?.role === 'LEAD';
   const canInvite = isTeamLead && team.members.length < (team.hackathon?.maxTeamSize || 4);
 
@@ -132,7 +133,10 @@ export default function TeamDetailPage() {
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <Calendar className="w-6 h-6 text-white mb-2" />
               <p className="text-2xl font-bold text-white">
-                {new Date(team.createdAt).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                {new Date(team.createdAt).toLocaleDateString('en-US', {
+                  month: 'short',
+                  year: 'numeric',
+                })}
               </p>
               <p className="text-sm text-white/80">Created</p>
             </div>
@@ -171,8 +175,7 @@ export default function TeamDetailPage() {
                     Team Members ({team.members.length})
                   </CardTitle>
                   <CardDescription>
-                    {team.hackathon?.maxTeamSize &&
-                      `Maximum ${team.hackathon.maxTeamSize} members`}
+                    {team.hackathon?.maxTeamSize && `Maximum ${team.hackathon.maxTeamSize} members`}
                   </CardDescription>
                 </div>
                 {canInvite && (
@@ -185,7 +188,7 @@ export default function TeamDetailPage() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {team.members.map((member) => (
+                {team.members.map(member => (
                   <div
                     key={member.id}
                     className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors"
@@ -224,7 +227,12 @@ export default function TeamDetailPage() {
                 <Button
                   variant="destructive"
                   onClick={async () => {
-                    if (!confirm(`Are you sure you want to delete "${team.name}"? This action cannot be undone.`)) return;
+                    if (
+                      !confirm(
+                        `Are you sure you want to delete "${team.name}"? This action cannot be undone.`
+                      )
+                    )
+                      return;
                     try {
                       const token = getAuthToken();
                       if (!token) {

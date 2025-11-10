@@ -11,15 +11,17 @@ export const exportToCSV = (data: any[], filename: string) => {
   // Convert to CSV
   const csvContent = [
     headers.join(','),
-    ...data.map((row) =>
-      headers.map((header) => {
-        const value = row[header];
-        // Escape values with commas or quotes
-        if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
-          return `"${value.replace(/"/g, '""')}"`;
-        }
-        return value;
-      }).join(',')
+    ...data.map(row =>
+      headers
+        .map(header => {
+          const value = row[header];
+          // Escape values with commas or quotes
+          if (typeof value === 'string' && (value.includes(',') || value.includes('"'))) {
+            return `"${value.replace(/"/g, '""')}"`;
+          }
+          return value;
+        })
+        .join(',')
     ),
   ].join('\n');
 
@@ -55,8 +57,8 @@ export const exportToPDF = (
 
   // Add table
   autoTable(doc, {
-    head: [columns.map((col) => col.header)],
-    body: data.map((row) => columns.map((col) => row[col.dataKey] ?? '')),
+    head: [columns.map(col => col.header)],
+    body: data.map(row => columns.map(col => row[col.dataKey] ?? '')),
     startY: 35,
     theme: 'grid',
     headStyles: {

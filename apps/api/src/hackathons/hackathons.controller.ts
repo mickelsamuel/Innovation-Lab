@@ -59,7 +59,7 @@ export class HackathonsController {
   @Get('my')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
-  @ApiOperation({ summary: 'Get current user\'s hackathons' })
+  @ApiOperation({ summary: "Get current user's hackathons" })
   @ApiResponse({ status: 200, description: 'User hackathons retrieved successfully' })
   async getMyHackathons(@GetCurrentUser() user: CurrentUser) {
     return this.hackathonsService.findUserHackathons(user.id);
@@ -134,13 +134,13 @@ export class HackathonsController {
   @ApiOperation({ summary: 'Register for a hackathon' })
   @ApiParam({ name: 'id', description: 'Hackathon ID' })
   @ApiResponse({ status: 201, description: 'Successfully registered for hackathon' })
-  @ApiResponse({ status: 400, description: 'Registration closed or hackathon not accepting registrations' })
+  @ApiResponse({
+    status: 400,
+    description: 'Registration closed or hackathon not accepting registrations',
+  })
   @ApiResponse({ status: 404, description: 'Hackathon not found' })
   @ApiResponse({ status: 409, description: 'Already registered' })
-  async registerForHackathon(
-    @Param('id') id: string,
-    @GetCurrentUser() user: CurrentUser,
-  ) {
+  async registerForHackathon(@Param('id') id: string, @GetCurrentUser() user: CurrentUser) {
     await this.hackathonsService.registerParticipant(id, user.id);
     return { message: 'Successfully registered for hackathon' };
   }
@@ -158,7 +158,7 @@ export class HackathonsController {
   async announceWinners(
     @Param('id') id: string,
     @Body() dto: AnnounceWinnersDto,
-    @GetCurrentUser() user: CurrentUser,
+    @GetCurrentUser() user: CurrentUser
   ) {
     return this.hackathonsService.announceWinners(id, dto, user.id);
   }
@@ -175,7 +175,7 @@ export class HackathonsController {
   async createAnnouncement(
     @Param('id') id: string,
     @Body() dto: CreateAnnouncementDto,
-    @GetCurrentUser() user: CurrentUser,
+    @GetCurrentUser() user: CurrentUser
   ) {
     return this.hackathonsService.createAnnouncement(id, dto, user.id);
   }
@@ -201,7 +201,7 @@ export class HackathonsController {
   async deleteAnnouncement(
     @Param('id') id: string,
     @Param('announcementId') announcementId: string,
-    @GetCurrentUser() user: CurrentUser,
+    @GetCurrentUser() user: CurrentUser
   ) {
     return this.hackathonsService.deleteAnnouncement(id, announcementId, user.id);
   }
@@ -211,10 +211,7 @@ export class HackathonsController {
   @ApiParam({ name: 'id', description: 'Hackathon ID' })
   @ApiQuery({ name: 'status', required: false, description: 'Filter by submission status' })
   @ApiResponse({ status: 200, description: 'Submissions retrieved successfully' })
-  async getHackathonSubmissions(
-    @Param('id') id: string,
-    @Query('status') status?: string,
-  ) {
+  async getHackathonSubmissions(@Param('id') id: string, @Query('status') status?: string) {
     return this.hackathonsService.getHackathonSubmissions(id, status);
   }
 }

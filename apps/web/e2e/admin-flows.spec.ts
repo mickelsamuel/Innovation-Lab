@@ -68,7 +68,11 @@ test.describe('Admin Flows', () => {
       await page.goto('/admin/hackathons');
 
       // Find and click edit button for the test hackathon
-      const editButton = page.locator(`text=${hackathonData.title}`).locator('..').locator('button:has-text("Edit")').first();
+      const editButton = page
+        .locator(`text=${hackathonData.title}`)
+        .locator('..')
+        .locator('button:has-text("Edit")')
+        .first();
       await editButton.click({ timeout: 10000 });
 
       // Update description
@@ -99,7 +103,9 @@ test.describe('Admin Flows', () => {
         await assignButton.click();
 
         // Verify success message
-        await expect(page.locator('text=/Judge assigned successfully/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/Judge assigned successfully/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
 
@@ -120,7 +126,9 @@ test.describe('Admin Flows', () => {
         await assignButton.click();
 
         // Verify success message
-        await expect(page.locator('text=/Mentor assigned successfully/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/Mentor assigned successfully/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
   });
@@ -158,7 +166,11 @@ test.describe('Admin Flows', () => {
       await page.goto('/admin/challenges');
 
       // Find and click edit button for the test challenge
-      const editButton = page.locator(`text=${challengeData.title}`).locator('..').locator('button:has-text("Edit")').first();
+      const editButton = page
+        .locator(`text=${challengeData.title}`)
+        .locator('..')
+        .locator('button:has-text("Edit")')
+        .first();
       await editButton.click({ timeout: 10000 });
 
       // Update points
@@ -180,7 +192,9 @@ test.describe('Admin Flows', () => {
       const challengeCard = page.locator(`text=${challengeData.title}`).locator('..');
 
       // Toggle publish status
-      const publishButton = challengeCard.locator('button:has-text("Publish"), button:has-text("Unpublish")').first();
+      const publishButton = challengeCard
+        .locator('button:has-text("Publish"), button:has-text("Unpublish")')
+        .first();
       const initialText = await publishButton.textContent();
 
       await publishButton.click();
@@ -236,7 +250,9 @@ test.describe('Admin Flows', () => {
       await page.click('button[type="submit"]');
 
       // Should show error about duplicate slug
-      await expect(page.locator('text=/already exists/i, text=/duplicate/i').first()).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('text=/already exists/i, text=/duplicate/i').first()).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should validate date ranges for hackathons', async ({ page }) => {
@@ -255,7 +271,9 @@ test.describe('Admin Flows', () => {
       await page.click('button[type="submit"]');
 
       // Should show error about invalid date range
-      await expect(page.locator('text=/end date.*after.*start date/i, text=/invalid.*date/i').first()).toBeVisible({ timeout: 10000 });
+      await expect(
+        page.locator('text=/end date.*after.*start date/i, text=/invalid.*date/i').first()
+      ).toBeVisible({ timeout: 10000 });
     });
   });
 });

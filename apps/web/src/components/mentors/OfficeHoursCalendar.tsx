@@ -28,14 +28,17 @@ export function OfficeHoursCalendar({ sessions, onBookSession }: OfficeHoursCale
   };
 
   // Group sessions by date
-  const sessionsByDate = sessions.reduce((acc, session) => {
-    const date = formatDate(session.startsAt);
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(session);
-    return acc;
-  }, {} as Record<string, MentorSession[]>);
+  const sessionsByDate = sessions.reduce(
+    (acc, session) => {
+      const date = formatDate(session.startsAt);
+      if (!acc[date]) {
+        acc[date] = [];
+      }
+      acc[date].push(session);
+      return acc;
+    },
+    {} as Record<string, MentorSession[]>
+  );
 
   return (
     <div className="space-y-6">
@@ -51,7 +54,7 @@ export function OfficeHoursCalendar({ sessions, onBookSession }: OfficeHoursCale
           <div key={date}>
             <h3 className="text-lg font-bold text-cyan-400 mb-3">{date}</h3>
             <div className="space-y-3">
-              {dateSessions.map((session) => {
+              {dateSessions.map(session => {
                 const availableSpots = session.capacity - session.booked;
                 const isFull = availableSpots <= 0;
 

@@ -158,16 +158,13 @@ export default function ManageJudgesPage() {
                 <Input
                   placeholder="Enter user email to add as judge..."
                   value={newJudgeEmail}
-                  onChange={(e) => setNewJudgeEmail(e.target.value)}
-                  onKeyDown={(e) => {
+                  onChange={e => setNewJudgeEmail(e.target.value)}
+                  onKeyDown={e => {
                     if (e.key === 'Enter') handleAddJudge();
                   }}
                   className="flex-1"
                 />
-                <Button
-                  onClick={handleAddJudge}
-                  disabled={isAdding || !newJudgeEmail.trim()}
-                >
+                <Button onClick={handleAddJudge} disabled={isAdding || !newJudgeEmail.trim()}>
                   {isAdding ? (
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   ) : (
@@ -183,7 +180,7 @@ export default function ManageJudgesPage() {
                     No judges assigned yet. Add judges using their email address.
                   </p>
                 ) : (
-                  judges.map((judge) => (
+                  judges.map(judge => (
                     <div
                       key={judge.id}
                       className="flex items-center justify-between p-4 border rounded-lg hover:border-primary/50 transition-colors"
@@ -198,11 +195,7 @@ export default function ManageJudgesPage() {
                           <p className="text-sm text-slate-600">{judge.user.email}</p>
                         </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRemoveJudge(judge)}
-                      >
+                      <Button variant="ghost" size="sm" onClick={() => handleRemoveJudge(judge)}>
                         <Trash2 className="w-4 h-4 text-red-500" />
                       </Button>
                     </div>

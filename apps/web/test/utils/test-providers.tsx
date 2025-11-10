@@ -27,9 +27,7 @@ export function TestProviders({ children }: { children: React.ReactNode }) {
 
   return (
     <SessionProvider session={mockSession}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
+      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
     </SessionProvider>
   );
 }
@@ -50,9 +48,7 @@ export function createTestProvidersWithSession(session: any) {
 
     return (
       <SessionProvider session={session}>
-        <QueryClientProvider client={queryClient}>
-          {children}
-        </QueryClientProvider>
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
       </SessionProvider>
     );
   };

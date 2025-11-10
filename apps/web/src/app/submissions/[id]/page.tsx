@@ -124,13 +124,16 @@ export default function SubmissionDetailPage() {
   }
 
   // Group scores by criterion
-  const scoresByCriterion: Record<string, Score[]> = scores.reduce((acc, score) => {
-    if (!acc[score.criterionId]) {
-      acc[score.criterionId] = [];
-    }
-    acc[score.criterionId].push(score);
-    return acc;
-  }, {} as Record<string, Score[]>);
+  const scoresByCriterion: Record<string, Score[]> = scores.reduce(
+    (acc, score) => {
+      if (!acc[score.criterionId]) {
+        acc[score.criterionId] = [];
+      }
+      acc[score.criterionId].push(score);
+      return acc;
+    },
+    {} as Record<string, Score[]>
+  );
 
   // Calculate criterion averages
   const criterionAverages: Record<string, number> = Object.entries(scoresByCriterion).reduce(
@@ -177,7 +180,7 @@ export default function SubmissionDetailPage() {
 
   const hasLinks = submission.repoUrl || submission.demoUrl || submission.videoUrl;
   const hasScores = scores.length > 0;
-  const uniqueJudges = new Set(scores.map((s) => s.judgeId)).size;
+  const uniqueJudges = new Set(scores.map(s => s.judgeId)).size;
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -199,9 +202,7 @@ export default function SubmissionDetailPage() {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-3">
-                    <Badge variant={getStatusVariant(submission.status)}>
-                      {submission.status}
-                    </Badge>
+                    <Badge variant={getStatusVariant(submission.status)}>{submission.status}</Badge>
                     {submission.track && (
                       <Badge variant="info" className="text-xs">
                         {submission.track.title}
@@ -231,7 +232,7 @@ export default function SubmissionDetailPage() {
                 <div>
                   <h3 className="text-sm font-semibold text-slate-700 mb-3">Team Members</h3>
                   <div className="flex flex-wrap gap-3">
-                    {submission.team.members.map((member) => (
+                    {submission.team.members.map(member => (
                       <div
                         key={member.id}
                         className="flex items-center gap-2 bg-slate-50 rounded-lg pl-2 pr-4 py-2"
@@ -360,14 +361,14 @@ export default function SubmissionDetailPage() {
                   Score Breakdown
                 </CardTitle>
                 <CardDescription>
-                  Detailed scores from {uniqueJudges} judge{uniqueJudges !== 1 ? 's' : ''} across all
-                  criteria
+                  Detailed scores from {uniqueJudges} judge{uniqueJudges !== 1 ? 's' : ''} across
+                  all criteria
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
                 {submission.hackathon.criteria
                   ?.sort((a, b) => a.order - b.order)
-                  .map((criterion) => {
+                  .map(criterion => {
                     const criterionScores = scoresByCriterion[criterion.id] || [];
                     const avgScore = criterionAverages[criterion.id] || 0;
                     const normalizedScore = (avgScore / criterion.maxScore) * 100;
@@ -414,11 +415,8 @@ export default function SubmissionDetailPage() {
                             <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
                               Individual Scores
                             </p>
-                            {criterionScores.map((score) => (
-                              <div
-                                key={score.id}
-                                className="bg-slate-50 rounded-lg p-4 space-y-2"
-                              >
+                            {criterionScores.map(score => (
+                              <div key={score.id} className="bg-slate-50 rounded-lg p-4 space-y-2">
                                 <div className="flex items-start justify-between gap-4">
                                   <div className="flex items-center gap-2">
                                     <Avatar className="w-6 h-6">
@@ -505,45 +503,50 @@ export default function SubmissionDetailPage() {
 
           {/* Danger Zone - Only for Team Members */}
           {submission.team &&
-           submission.team.members?.some((m) => m.userId === session?.user?.id) && (
-            <Card className="border-red-200 bg-red-50/30">
-              <CardHeader>
-                <CardTitle className="text-red-900">Danger Zone</CardTitle>
-                <CardDescription className="text-red-700">
-                  Irreversible submission actions
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button
-                  variant="destructive"
-                  onClick={async () => {
-                    if (!confirm(`Are you sure you want to delete "${submission.title}"? This action cannot be undone.`)) return;
-                    try {
-                      const token = getAuthToken();
-                      if (!token) {
-                        router.push('/auth/login');
+            submission.team.members?.some(m => m.userId === session?.user?.id) && (
+              <Card className="border-red-200 bg-red-50/30">
+                <CardHeader>
+                  <CardTitle className="text-red-900">Danger Zone</CardTitle>
+                  <CardDescription className="text-red-700">
+                    Irreversible submission actions
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button
+                    variant="destructive"
+                    onClick={async () => {
+                      if (
+                        !confirm(
+                          `Are you sure you want to delete "${submission.title}"? This action cannot be undone.`
+                        )
+                      )
                         return;
+                      try {
+                        const token = getAuthToken();
+                        if (!token) {
+                          router.push('/auth/login');
+                          return;
+                        }
+                        await deleteSubmission(submissionId, token);
+                        toast({
+                          title: 'Submission Deleted',
+                          description: 'Submission deleted successfully',
+                        });
+                        router.push('/dashboard');
+                      } catch (err: any) {
+                        toast({
+                          title: 'Delete Failed',
+                          description: err.message || 'Failed to delete submission',
+                          variant: 'destructive',
+                        });
                       }
-                      await deleteSubmission(submissionId, token);
-                      toast({
-                        title: 'Submission Deleted',
-                        description: 'Submission deleted successfully',
-                      });
-                      router.push('/dashboard');
-                    } catch (err: any) {
-                      toast({
-                        title: 'Delete Failed',
-                        description: err.message || 'Failed to delete submission',
-                        variant: 'destructive',
-                      });
-                    }
-                  }}
-                >
-                  Delete Submission
-                </Button>
-              </CardContent>
-            </Card>
-          )}
+                    }}
+                  >
+                    Delete Submission
+                  </Button>
+                </CardContent>
+              </Card>
+            )}
 
           {/* Back Button */}
           <div className="flex justify-center pt-4">

@@ -56,7 +56,7 @@ export class TeamsController {
   @Get('my')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
-  @ApiOperation({ summary: 'Get current user\'s teams' })
+  @ApiOperation({ summary: "Get current user's teams" })
   @ApiQuery({ name: 'hackathonId', required: false, description: 'Filter by hackathon ID' })
   @ApiResponse({ status: 200, description: 'User teams retrieved successfully' })
   async getMyTeams(
@@ -114,12 +114,15 @@ export class TeamsController {
   @ApiOperation({ summary: 'Request to join a team' })
   @ApiParam({ name: 'id', description: 'Team ID' })
   @ApiResponse({ status: 200, description: 'Join request sent successfully' })
-  @ApiResponse({ status: 400, description: 'Team not accepting members, full, or already a member' })
+  @ApiResponse({
+    status: 400,
+    description: 'Team not accepting members, full, or already a member',
+  })
   @ApiResponse({ status: 404, description: 'Team not found' })
   async requestToJoin(
     @Param('id') teamId: string,
     @Body() dto: JoinRequestDto,
-    @GetCurrentUser() user: CurrentUser,
+    @GetCurrentUser() user: CurrentUser
   ) {
     return this.teamsService.handleJoinRequest(teamId, user.id, dto.message);
   }

@@ -262,21 +262,21 @@ describe('NotificationsController', () => {
 
     it('should throw NotFoundException if notification not found', async () => {
       mockNotificationsService.markAsRead.mockRejectedValue(
-        new NotFoundException('Notification not found'),
+        new NotFoundException('Notification not found')
       );
 
       await expect(controller.markAsRead(userId, notificationId)).rejects.toThrow(
-        NotFoundException,
+        NotFoundException
       );
     });
 
     it('should throw NotFoundException if notification belongs to different user', async () => {
       mockNotificationsService.markAsRead.mockRejectedValue(
-        new NotFoundException('Notification not found'),
+        new NotFoundException('Notification not found')
       );
 
       await expect(controller.markAsRead(userId, 'different-notif')).rejects.toThrow(
-        NotFoundException,
+        NotFoundException
       );
     });
   });
@@ -379,7 +379,7 @@ describe('NotificationsController', () => {
 
       mockNotificationsService.markAsRead.mockResolvedValue(mockNotification);
 
-      const promises = notifications.map((notifId) => controller.markAsRead(userId, notifId));
+      const promises = notifications.map(notifId => controller.markAsRead(userId, notifId));
       const results = await Promise.all(promises);
 
       expect(results).toHaveLength(3);

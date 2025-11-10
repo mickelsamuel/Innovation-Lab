@@ -53,7 +53,14 @@ describe('Input', () => {
   it('should handle onChange event', async () => {
     const user = userEvent.setup();
     let value = '';
-    render(<Input onChange={(e) => { value = e.target.value; }} data-testid="input" />);
+    render(
+      <Input
+        onChange={e => {
+          value = e.target.value;
+        }}
+        data-testid="input"
+      />
+    );
 
     await user.type(screen.getByTestId('input'), 'Test');
     expect(value).toBe('Test');

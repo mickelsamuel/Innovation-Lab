@@ -13,7 +13,7 @@ import { getTeams } from '@/lib/teams';
 import { getHackathonBySlug } from '@/lib/hackathons';
 import type { Team } from '@/types/team';
 import type { Hackathon } from '@/types/hackathon';
-import { Search,  Users, UserPlus, ArrowLeft, Plus } from 'lucide-react';
+import { Search, Users, UserPlus, ArrowLeft, Plus } from 'lucide-react';
 import { getAuthToken } from '@/lib/api';
 
 export default function HackathonTeamsPage() {
@@ -85,14 +85,14 @@ export default function HackathonTeamsPage() {
   }
 
   // Filter teams based on search and filters
-  const filteredTeams = teams.filter((team) => {
+  const filteredTeams = teams.filter(team => {
     // Search filter
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
       const matchesName = team.name.toLowerCase().includes(searchLower);
       const matchesBio = team.bio?.toLowerCase().includes(searchLower);
       const matchesMembers = team.members.some(
-        (m) =>
+        m =>
           m.user.name.toLowerCase().includes(searchLower) ||
           m.user.handle.toLowerCase().includes(searchLower)
       );
@@ -153,7 +153,7 @@ export default function HackathonTeamsPage() {
     );
   }
 
-  const lookingForMembersCount = teams.filter((t) => {
+  const lookingForMembersCount = teams.filter(t => {
     const maxSize = hackathon.maxTeamSize || 4;
     const isFull = t.members.length >= maxSize;
     return t.lookingForMembers && !isFull;
@@ -178,9 +178,7 @@ export default function HackathonTeamsPage() {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">
-                Teams
-              </h1>
+              <h1 className="text-3xl md:text-4xl font-display font-bold text-white mb-2">Teams</h1>
               <p className="text-lg text-white/90">
                 Browse teams or create your own for {hackathon.title}
               </p>
@@ -197,14 +195,14 @@ export default function HackathonTeamsPage() {
           <div className="flex items-center gap-6 mt-6 text-white/90">
             <div className="flex items-center gap-2">
               <Users className="w-5 h-5" />
-              <span>{teams.length} team{teams.length !== 1 ? 's' : ''}</span>
+              <span>
+                {teams.length} team{teams.length !== 1 ? 's' : ''}
+              </span>
             </div>
             {lookingForMembersCount > 0 && (
               <div className="flex items-center gap-2">
                 <UserPlus className="w-5 h-5" />
-                <span>
-                  {lookingForMembersCount} looking for members
-                </span>
+                <span>{lookingForMembersCount} looking for members</span>
               </div>
             )}
           </div>
@@ -221,7 +219,7 @@ export default function HackathonTeamsPage() {
               type="text"
               placeholder="Search teams by name, bio, or members..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="pl-10 h-12 text-base"
             />
           </div>
@@ -257,9 +255,7 @@ export default function HackathonTeamsPage() {
             ) : (
               <>
                 Showing {filteredTeams.length} team{filteredTeams.length !== 1 ? 's' : ''}
-                {searchTerm || showOnlyLookingForMembers ? (
-                  <> of {teams.length} total</>
-                ) : null}
+                {searchTerm || showOnlyLookingForMembers ? <> of {teams.length} total</> : null}
               </>
             )}
           </div>
@@ -268,12 +264,8 @@ export default function HackathonTeamsPage() {
         {/* Teams Grid */}
         {filteredTeams.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTeams.map((team) => (
-              <TeamCard
-                key={team.id}
-                team={team}
-                onJoinRequest={handleJoinRequest}
-              />
+            {filteredTeams.map(team => (
+              <TeamCard key={team.id} team={team} onJoinRequest={handleJoinRequest} />
             ))}
           </div>
         ) : (
@@ -290,7 +282,7 @@ export default function HackathonTeamsPage() {
                 ? 'Try adjusting your filters or search term'
                 : 'Be the first to create a team for this hackathon!'}
             </p>
-            {(searchTerm || showOnlyLookingForMembers) ? (
+            {searchTerm || showOnlyLookingForMembers ? (
               <Button
                 variant="outline"
                 onClick={() => {

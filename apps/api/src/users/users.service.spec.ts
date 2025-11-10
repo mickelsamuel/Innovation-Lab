@@ -191,13 +191,17 @@ describe('UsersService', () => {
       const updateWithHandle = { ...updateDto, handle: 'existinghandle' };
       const conflictingUser = TestDataFactory.createUser({
         id: 'user-2',
-        handle: 'existinghandle'
+        handle: 'existinghandle',
       });
 
       prismaMock.user.findUnique.mockResolvedValue(conflictingUser as any);
 
-      await expect(service.updateProfile('user-1', updateWithHandle)).rejects.toThrow(ConflictException);
-      await expect(service.updateProfile('user-1', updateWithHandle)).rejects.toThrow('Handle already taken');
+      await expect(service.updateProfile('user-1', updateWithHandle)).rejects.toThrow(
+        ConflictException
+      );
+      await expect(service.updateProfile('user-1', updateWithHandle)).rejects.toThrow(
+        'Handle already taken'
+      );
 
       expect(prismaMock.user.update).not.toHaveBeenCalled();
     });
@@ -246,8 +250,12 @@ describe('UsersService', () => {
 
       prismaMock.user.findUnique.mockResolvedValue(user as any);
 
-      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(BadRequestException);
-      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow('Current password is incorrect');
+      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(
+        'Current password is incorrect'
+      );
 
       expect(prismaMock.user.update).not.toHaveBeenCalled();
     });
@@ -255,8 +263,12 @@ describe('UsersService', () => {
     it('should throw BadRequestException if user not found or has no password', async () => {
       prismaMock.user.findUnique.mockResolvedValue(null);
 
-      await expect(service.changePassword('non-existent', changePasswordDto)).rejects.toThrow(BadRequestException);
-      await expect(service.changePassword('non-existent', changePasswordDto)).rejects.toThrow('Invalid operation');
+      await expect(service.changePassword('non-existent', changePasswordDto)).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.changePassword('non-existent', changePasswordDto)).rejects.toThrow(
+        'Invalid operation'
+      );
 
       expect(prismaMock.user.update).not.toHaveBeenCalled();
     });
@@ -268,8 +280,12 @@ describe('UsersService', () => {
 
       prismaMock.user.findUnique.mockResolvedValue(user as any);
 
-      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(BadRequestException);
-      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow('Invalid operation');
+      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.changePassword('user-1', changePasswordDto)).rejects.toThrow(
+        'Invalid operation'
+      );
 
       expect(prismaMock.user.update).not.toHaveBeenCalled();
     });

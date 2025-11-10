@@ -88,15 +88,18 @@ export default function ScoreSubmissionPage() {
       setExistingScores(currentJudgeScores);
 
       // Pre-populate scores if judge has already scored
-      const scoresByJudge = currentJudgeScores.reduce((acc, score) => {
-        acc[score.criterionId] = {
-          criterionId: score.criterionId,
-          value: Number(score.score),
-          feedback: score.feedback || '',
-          scoreId: score.id,
-        };
-        return acc;
-      }, {} as Record<string, CriterionScore>);
+      const scoresByJudge = currentJudgeScores.reduce(
+        (acc, score) => {
+          acc[score.criterionId] = {
+            criterionId: score.criterionId,
+            value: Number(score.score),
+            feedback: score.feedback || '',
+            scoreId: score.id,
+          };
+          return acc;
+        },
+        {} as Record<string, CriterionScore>
+      );
 
       setScores(scoresByJudge);
     } catch (err: any) {
@@ -108,7 +111,7 @@ export default function ScoreSubmissionPage() {
   }
 
   function handleScoreChange(criterionId: string, value: number) {
-    setScores((prev) => ({
+    setScores(prev => ({
       ...prev,
       [criterionId]: {
         ...(prev[criterionId] || { criterionId, feedback: '' }),
@@ -119,7 +122,7 @@ export default function ScoreSubmissionPage() {
   }
 
   function handleFeedbackChange(criterionId: string, feedback: string) {
-    setScores((prev) => ({
+    setScores(prev => ({
       ...prev,
       [criterionId]: {
         ...(prev[criterionId] || { criterionId, value: 0 }),
@@ -167,7 +170,7 @@ export default function ScoreSubmissionPage() {
           token
         );
         // Update local state with score ID
-        setScores((prev) => ({
+        setScores(prev => ({
           ...prev,
           [criterionId]: {
             ...prev[criterionId],
@@ -234,7 +237,7 @@ export default function ScoreSubmissionPage() {
 
   // Calculate completion
   const criteriaCount = submission?.hackathon?.criteria?.length || 0;
-  const scoredCount = Object.values(scores).filter((s) => s.value > 0 && s.scoreId).length;
+  const scoredCount = Object.values(scores).filter(s => s.value > 0 && s.scoreId).length;
   const isComplete = scoredCount === criteriaCount && criteriaCount > 0;
 
   // Loading State
@@ -349,7 +352,7 @@ export default function ScoreSubmissionPage() {
                 <div className="mb-4">
                   <p className="text-sm font-medium text-slate-700 mb-2">Team Members</p>
                   <div className="flex items-center gap-2">
-                    {submission.team.members.map((member) => (
+                    {submission.team.members.map(member => (
                       <div
                         key={member.id}
                         className="flex items-center gap-2 bg-slate-100 rounded-full pl-1 pr-3 py-1"
@@ -430,7 +433,7 @@ export default function ScoreSubmissionPage() {
             <CardContent className="space-y-6">
               {submission.hackathon.criteria
                 ?.sort((a, b) => a.order - b.order)
-                .map((criterion) => {
+                .map(criterion => {
                   const score = scores[criterion.id];
                   const currentValue = score?.value || 0;
                   const currentFeedback = score?.feedback || '';
@@ -454,7 +457,8 @@ export default function ScoreSubmissionPage() {
                           </div>
                           <p className="text-sm text-slate-600 mb-2">{criterion.description}</p>
                           <p className="text-xs text-slate-500">
-                            Max Score: {criterion.maxScore} | Weight: {(criterion.weight * 100).toFixed(0)}%
+                            Max Score: {criterion.maxScore} | Weight:{' '}
+                            {(criterion.weight * 100).toFixed(0)}%
                           </p>
                         </div>
                       </div>
@@ -470,7 +474,7 @@ export default function ScoreSubmissionPage() {
                           max={criterion.maxScore}
                           step="0.5"
                           value={currentValue}
-                          onChange={(e) =>
+                          onChange={e =>
                             handleScoreChange(criterion.id, parseFloat(e.target.value) || 0)
                           }
                           className="mt-1.5"
@@ -478,22 +482,22 @@ export default function ScoreSubmissionPage() {
                       </div>
 
                       <div>
-                        <Label htmlFor={`feedback-${criterion.id}`}>
-                          Feedback (Optional)
-                        </Label>
+                        <Label htmlFor={`feedback-${criterion.id}`}>Feedback (Optional)</Label>
                         <Textarea
                           id={`feedback-${criterion.id}`}
                           rows={3}
                           placeholder="Provide constructive feedback..."
                           value={currentFeedback}
-                          onChange={(e) => handleFeedbackChange(criterion.id, e.target.value)}
+                          onChange={e => handleFeedbackChange(criterion.id, e.target.value)}
                           className="mt-1.5"
                         />
                       </div>
 
                       <Button
                         onClick={() => handleSave(criterion.id)}
-                        disabled={isSaving || currentValue <= 0 || currentValue > criterion.maxScore}
+                        disabled={
+                          isSaving || currentValue <= 0 || currentValue > criterion.maxScore
+                        }
                         className="w-full"
                         variant={isSaved ? 'outline' : 'default'}
                       >

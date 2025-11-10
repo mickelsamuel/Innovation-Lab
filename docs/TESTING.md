@@ -48,18 +48,21 @@ pnpm --filter @innovation-lab/web test:e2e
 ### Testing Stack
 
 **Backend (NestJS)**:
+
 - **Framework**: Jest
 - **Coverage**: 80%+ target
 - **Files**: 32+ test files
 - **Location**: `apps/api/src/**/*.spec.ts`
 
 **Frontend (Next.js)**:
+
 - **Framework**: Vitest + React Testing Library
 - **Coverage**: 85%+ target
 - **Files**: 25+ test files
 - **Location**: `apps/web/src/**/*.test.tsx`
 
 **E2E (Full Stack)**:
+
 - **Framework**: Playwright
 - **Coverage**: 90%+ user flow coverage
 - **Files**: 5+ test files
@@ -143,6 +146,7 @@ pnpm --filter @innovation-lab/web test:e2e --headed
 **Location**: `apps/api/src/**/*.spec.ts`
 
 **Example**:
+
 ```typescript
 // apps/api/src/notifications/notifications.service.spec.ts
 import { Test, TestingModule } from '@nestjs/testing';
@@ -238,6 +242,7 @@ describe('NotificationsService', () => {
 **Location**: `apps/web/src/**/*.test.tsx`
 
 **Example**:
+
 ```typescript
 // apps/web/src/components/layout/NotificationBell.test.tsx
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -348,6 +353,7 @@ describe('NotificationBell', () => {
 **Location**: `apps/web/e2e/*.spec.ts`
 
 **Example**:
+
 ```typescript
 // apps/web/e2e/notifications.spec.ts
 import { test, expect } from '@playwright/test';
@@ -430,6 +436,7 @@ test.describe('Notifications', () => {
 **Target**: 80%+ statement coverage on critical paths
 
 **Critical Modules**:
+
 - Authentication: 90%+
 - Authorization: 90%+
 - Notifications: 85%+
@@ -439,6 +446,7 @@ test.describe('Notifications', () => {
 - Teams: 80%+
 
 **View Coverage Report**:
+
 ```bash
 pnpm --filter @innovation-lab/api test:cov
 open apps/api/coverage/lcov-report/index.html
@@ -449,6 +457,7 @@ open apps/api/coverage/lcov-report/index.html
 **Target**: 85%+ component coverage
 
 **Critical Components**:
+
 - NotificationBell: 90%+
 - InviteModal: 85%+
 - JudgeAssignment: 85%+
@@ -456,6 +465,7 @@ open apps/api/coverage/lcov-report/index.html
 - Form components: 85%+
 
 **View Coverage Report**:
+
 ```bash
 pnpm --filter @innovation-lab/web test:cov
 open apps/web/coverage/index.html
@@ -466,6 +476,7 @@ open apps/web/coverage/index.html
 **Target**: 90%+ user flow coverage
 
 **Critical Flows**:
+
 - Authentication flow: 100%
 - Hackathon registration: 95%+
 - Team creation/invitation: 90%+
@@ -584,6 +595,7 @@ npx husky add .husky/pre-commit "pnpm test:quick"
 ```
 
 Create `test:quick` script in `package.json`:
+
 ```json
 {
   "scripts": {
@@ -601,12 +613,15 @@ Create `test:quick` script in `package.json`:
 **Problem**: Tests failing unexpectedly
 
 **Solutions**:
+
 1. Ensure all dependencies installed:
+
    ```bash
    pnpm install
    ```
 
 2. Clear test cache:
+
    ```bash
    # Jest
    pnpm jest --clearCache
@@ -628,7 +643,9 @@ Create `test:quick` script in `package.json`:
 **Problem**: Coverage not meeting targets
 
 **Solutions**:
+
 1. Generate coverage report:
+
    ```bash
    pnpm test:cov
    ```
@@ -644,7 +661,9 @@ Create `test:quick` script in `package.json`:
 **Problem**: E2E tests timing out
 
 **Solutions**:
+
 1. Increase timeout in `playwright.config.ts`:
+
    ```typescript
    export default defineConfig({
      timeout: 60000, // 60 seconds
@@ -652,6 +671,7 @@ Create `test:quick` script in `package.json`:
    ```
 
 2. Ensure services are running:
+
    ```bash
    docker-compose up -d
    curl http://localhost:4000/health
@@ -667,12 +687,15 @@ Create `test:quick` script in `package.json`:
 **Problem**: Database connection errors
 
 **Solutions**:
+
 1. Use test database:
+
    ```bash
    DATABASE_URL="postgresql://test:test@localhost:5432/test_db" pnpm test
    ```
 
 2. Run migrations:
+
    ```bash
    cd packages/database
    DATABASE_URL="..." npx prisma db push
@@ -725,33 +748,33 @@ Create `test:quick` script in `package.json`:
 
 ### Backend Testing
 
-| Command | Description |
-|---------|-------------|
-| `pnpm --filter @innovation-lab/api test` | Run all backend tests |
-| `pnpm --filter @innovation-lab/api test:cov` | Run with coverage |
-| `pnpm --filter @innovation-lab/api test:watch` | Watch mode |
-| `pnpm --filter @innovation-lab/api test:debug` | Debug mode |
-| `pnpm jest --clearCache` | Clear Jest cache |
+| Command                                        | Description           |
+| ---------------------------------------------- | --------------------- |
+| `pnpm --filter @innovation-lab/api test`       | Run all backend tests |
+| `pnpm --filter @innovation-lab/api test:cov`   | Run with coverage     |
+| `pnpm --filter @innovation-lab/api test:watch` | Watch mode            |
+| `pnpm --filter @innovation-lab/api test:debug` | Debug mode            |
+| `pnpm jest --clearCache`                       | Clear Jest cache      |
 
 ### Frontend Testing
 
-| Command | Description |
-|---------|-------------|
-| `pnpm --filter @innovation-lab/web test` | Run all frontend tests |
-| `pnpm --filter @innovation-lab/web test:cov` | Run with coverage |
-| `pnpm --filter @innovation-lab/web test:watch` | Watch mode |
-| `pnpm --filter @innovation-lab/web test:ui` | Vitest UI |
-| `pnpm vitest --run --clearCache` | Clear Vitest cache |
+| Command                                        | Description            |
+| ---------------------------------------------- | ---------------------- |
+| `pnpm --filter @innovation-lab/web test`       | Run all frontend tests |
+| `pnpm --filter @innovation-lab/web test:cov`   | Run with coverage      |
+| `pnpm --filter @innovation-lab/web test:watch` | Watch mode             |
+| `pnpm --filter @innovation-lab/web test:ui`    | Vitest UI              |
+| `pnpm vitest --run --clearCache`               | Clear Vitest cache     |
 
 ### E2E Testing
 
-| Command | Description |
-|---------|-------------|
-| `pnpm --filter @innovation-lab/web test:e2e` | Run all E2E tests |
-| `pnpm --filter @innovation-lab/web test:e2e:ui` | Playwright UI |
-| `pnpm --filter @innovation-lab/web test:e2e:debug` | Debug mode |
-| `pnpm --filter @innovation-lab/web test:e2e --headed` | Show browser |
-| `npx playwright codegen` | Generate tests |
+| Command                                               | Description       |
+| ----------------------------------------------------- | ----------------- |
+| `pnpm --filter @innovation-lab/web test:e2e`          | Run all E2E tests |
+| `pnpm --filter @innovation-lab/web test:e2e:ui`       | Playwright UI     |
+| `pnpm --filter @innovation-lab/web test:e2e:debug`    | Debug mode        |
+| `pnpm --filter @innovation-lab/web test:e2e --headed` | Show browser      |
+| `npx playwright codegen`                              | Generate tests    |
 
 ---
 

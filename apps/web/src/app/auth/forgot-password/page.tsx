@@ -19,13 +19,16 @@ export default function ForgotPasswordPage() {
     setError(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/v1/auth/forgot-password`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/v1/auth/forgot-password`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error('Failed to send reset email');
@@ -58,9 +61,7 @@ export default function ForgotPasswordPage() {
             </p>
             <div className="flex flex-col gap-3">
               <Button asChild className="w-full">
-                <Link href="/auth/login">
-                  Back to Login
-                </Link>
+                <Link href="/auth/login">Back to Login</Link>
               </Button>
               <Button variant="ghost" onClick={() => setIsSubmitted(false)}>
                 Send Another Email
@@ -107,7 +108,7 @@ export default function ForgotPasswordPage() {
                 type="email"
                 placeholder="your.email@example.com"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 required
                 autoFocus
                 disabled={isSubmitting}

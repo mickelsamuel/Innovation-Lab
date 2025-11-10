@@ -52,7 +52,14 @@ describe('Textarea', () => {
   it('should handle onChange event', async () => {
     const user = userEvent.setup();
     let value = '';
-    render(<Textarea onChange={(e) => { value = e.target.value; }} data-testid="textarea" />);
+    render(
+      <Textarea
+        onChange={e => {
+          value = e.target.value;
+        }}
+        data-testid="textarea"
+      />
+    );
 
     await user.type(screen.getByTestId('textarea'), 'Test');
     expect(value).toBe('Test');

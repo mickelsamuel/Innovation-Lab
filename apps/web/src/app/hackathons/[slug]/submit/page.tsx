@@ -171,17 +171,14 @@ export default function SubmitProjectPage() {
   }
 
   function handleSaveDraft() {
-    handleSubmit((data) => onSubmit(data, true))();
+    handleSubmit(data => onSubmit(data, true))();
   }
 
   // Check if deadline has passed
-  const isBeforeDeadline = hackathon
-    ? new Date() < new Date(hackathon.endsAt)
-    : false;
+  const isBeforeDeadline = hackathon ? new Date() < new Date(hackathon.endsAt) : false;
 
   const canSubmit =
-    isBeforeDeadline &&
-    (!existingSubmission || existingSubmission.status === 'DRAFT');
+    isBeforeDeadline && (!existingSubmission || existingSubmission.status === 'DRAFT');
 
   // Loading State
   if (isLoading) {
@@ -320,7 +317,7 @@ export default function SubmitProjectPage() {
           )}
 
           {userTeams.length > 0 && (
-            <form onSubmit={handleSubmit((data) => onSubmit(data, false))}>
+            <form onSubmit={handleSubmit(data => onSubmit(data, false))}>
               {/* Team Selection Card */}
               <Card className="mb-6">
                 <CardHeader>
@@ -338,7 +335,7 @@ export default function SubmitProjectPage() {
                       {...register('teamId')}
                       className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       disabled={!canSubmit || userTeams.length === 1}
-                      onChange={(e) => {
+                      onChange={e => {
                         setValue('teamId', e.target.value);
                         if (hackathon) {
                           checkExistingSubmission(hackathon.id, e.target.value);
@@ -346,7 +343,7 @@ export default function SubmitProjectPage() {
                       }}
                     >
                       <option value="">Select a team...</option>
-                      {userTeams.map((team) => (
+                      {userTeams.map(team => (
                         <option key={team.id} value={team.id}>
                           {team.name} ({team.members.length} members)
                         </option>
@@ -368,7 +365,7 @@ export default function SubmitProjectPage() {
                         disabled={!canSubmit}
                       >
                         <option value="">No specific track</option>
-                        {hackathon.tracks.map((track) => (
+                        {hackathon.tracks.map(track => (
                           <option key={track.id} value={track.id}>
                             {track.title}
                           </option>
@@ -376,7 +373,7 @@ export default function SubmitProjectPage() {
                       </select>
                       {selectedTrackId && hackathon.tracks && (
                         <p className="text-sm text-slate-500 mt-1.5">
-                          {hackathon.tracks.find((t) => t.id === selectedTrackId)?.description}
+                          {hackathon.tracks.find(t => t.id === selectedTrackId)?.description}
                         </p>
                       )}
                     </div>
@@ -516,11 +513,11 @@ export default function SubmitProjectPage() {
                         fileType={FileType.DOCUMENT}
                         entityId={existingSubmission.id}
                         entityType="submission"
-                        onUploadComplete={(files) => {
+                        onUploadComplete={files => {
                           setSuccessMessage(`${files.length} file(s) uploaded successfully!`);
                           setTimeout(() => setSuccessMessage(null), 3000);
                         }}
-                        onUploadError={(err) => {
+                        onUploadError={err => {
                           setError(err.message);
                           setTimeout(() => setError(null), 5000);
                         }}
@@ -532,7 +529,7 @@ export default function SubmitProjectPage() {
                       entityType="submission"
                       entityId={existingSubmission.id}
                       canDelete={canSubmit}
-                      onDelete={(file) => {
+                      onDelete={file => {
                         setSuccessMessage(`${file.filename} deleted successfully!`);
                         setTimeout(() => setSuccessMessage(null), 3000);
                       }}
@@ -574,8 +571,7 @@ export default function SubmitProjectPage() {
                       </Button>
                     </div>
                     <p className="text-xs text-slate-500 text-center mt-3">
-                      You can edit your submission as a draft. Only the team lead can finalize
-                      it.
+                      You can edit your submission as a draft. Only the team lead can finalize it.
                     </p>
                   </CardContent>
                 </Card>

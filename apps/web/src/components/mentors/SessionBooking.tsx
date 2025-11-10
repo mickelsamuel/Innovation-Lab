@@ -99,7 +99,7 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
             <Input
               id="title"
               value={title}
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={e => setTitle(e.target.value)}
               placeholder="e.g., React Best Practices"
               className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
             />
@@ -114,7 +114,7 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
                 id="date"
                 type="date"
                 value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
+                onChange={e => setStartDate(e.target.value)}
                 min={new Date().toISOString().split('T')[0]}
                 required
                 className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
@@ -129,7 +129,7 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
                 id="startTime"
                 type="time"
                 value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
+                onChange={e => setStartTime(e.target.value)}
                 required
                 className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
               />
@@ -143,7 +143,7 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
                 id="endTime"
                 type="time"
                 value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
+                onChange={e => setEndTime(e.target.value)}
                 required
                 className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
               />
@@ -160,7 +160,7 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
               min="1"
               max="100"
               value={capacity}
-              onChange={(e) => setCapacity(e.target.value)}
+              onChange={e => setCapacity(e.target.value)}
               className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
             />
           </div>
@@ -173,7 +173,7 @@ export function SessionBooking({ mentorId, onSuccess }: SessionBookingProps) {
               id="meetingUrl"
               type="url"
               value={meetingUrl}
-              onChange={(e) => setMeetingUrl(e.target.value)}
+              onChange={e => setMeetingUrl(e.target.value)}
               placeholder="https://zoom.us/j/123456789"
               className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
             />

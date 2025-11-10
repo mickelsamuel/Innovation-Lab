@@ -61,7 +61,7 @@ export function FileUpload({
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Get allowed types from accept prop
-  const allowedTypes = accept === '*/*' ? [] : accept.split(',').map((t) => t.trim());
+  const allowedTypes = accept === '*/*' ? [] : accept.split(',').map(t => t.trim());
 
   const handleFiles = useCallback(
     async (files: FileList | null) => {
@@ -97,13 +97,13 @@ export function FileUpload({
       if (validFiles.length === 0) return;
 
       // Initialize uploading files
-      const newUploadingFiles: UploadingFile[] = validFiles.map((file) => ({
+      const newUploadingFiles: UploadingFile[] = validFiles.map(file => ({
         file,
         progress: 0,
         status: 'uploading' as const,
       }));
 
-      setUploadingFiles((prev) => [...prev, ...newUploadingFiles]);
+      setUploadingFiles(prev => [...prev, ...newUploadingFiles]);
 
       // Upload files
       const results: FileUploadResponse[] = [];
@@ -122,8 +122,8 @@ export function FileUpload({
             type: fileType,
             entityId,
             entityType,
-            onProgress: (progress) => {
-              setUploadingFiles((prev) => {
+            onProgress: progress => {
+              setUploadingFiles(prev => {
                 const updated = [...prev];
                 updated[fileIndex] = { ...updated[fileIndex], progress };
                 return updated;
@@ -134,7 +134,7 @@ export function FileUpload({
           results.push(result);
 
           // Update status to success
-          setUploadingFiles((prev) => {
+          setUploadingFiles(prev => {
             const updated = [...prev];
             updated[fileIndex] = {
               ...updated[fileIndex],
@@ -146,7 +146,7 @@ export function FileUpload({
           });
         } catch (error: any) {
           // Update status to error
-          setUploadingFiles((prev) => {
+          setUploadingFiles(prev => {
             const updated = [...prev];
             updated[fileIndex] = {
               ...updated[fileIndex],
@@ -164,7 +164,17 @@ export function FileUpload({
         onUploadComplete?.(results);
       }
     },
-    [uploadingFiles, maxFiles, maxSizeMB, allowedTypes, fileType, entityId, entityType, onUploadComplete, onUploadError]
+    [
+      uploadingFiles,
+      maxFiles,
+      maxSizeMB,
+      allowedTypes,
+      fileType,
+      entityId,
+      entityType,
+      onUploadComplete,
+      onUploadError,
+    ]
   );
 
   const handleDragEnter = useCallback((e: React.DragEvent) => {
@@ -208,11 +218,11 @@ export function FileUpload({
   );
 
   const removeFile = useCallback((index: number) => {
-    setUploadingFiles((prev) => prev.filter((_, i) => i !== index));
+    setUploadingFiles(prev => prev.filter((_, i) => i !== index));
   }, []);
 
   const clearCompleted = useCallback(() => {
-    setUploadingFiles((prev) => prev.filter((f) => f.status === 'uploading'));
+    setUploadingFiles(prev => prev.filter(f => f.status === 'uploading'));
   }, []);
 
   const getFileIcon = (file: File) => {
@@ -221,7 +231,7 @@ export function FileUpload({
     return <FileIcon className="w-6 h-6" />;
   };
 
-  const hasCompleted = uploadingFiles.some((f) => f.status === 'success' || f.status === 'error');
+  const hasCompleted = uploadingFiles.some(f => f.status === 'success' || f.status === 'error');
 
   return (
     <div className={cn('space-y-4', className)}>
@@ -238,7 +248,9 @@ export function FileUpload({
         onClick={handleClick}
       >
         <CardContent className="pt-10 pb-10 text-center">
-          <Upload className={cn('w-12 h-12 mx-auto mb-4', isDragging ? 'text-primary' : 'text-slate-400')} />
+          <Upload
+            className={cn('w-12 h-12 mx-auto mb-4', isDragging ? 'text-primary' : 'text-slate-400')}
+          />
           <p className="text-base font-medium text-slate-700 mb-1">
             Drag and drop files here, or click to browse
           </p>

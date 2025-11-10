@@ -96,11 +96,7 @@ export default function CreateChallengePage() {
       </div>
 
       {/* Form */}
-      <ChallengeForm
-        onSubmit={handleSubmit}
-        submitLabel="Create Challenge"
-        isLoading={isLoading}
-      />
+      <ChallengeForm onSubmit={handleSubmit} submitLabel="Create Challenge" isLoading={isLoading} />
     </div>
   );
 }

@@ -46,11 +46,7 @@ export class AnalyticsService {
       this.prisma.hackathon.aggregate({
         _count: true,
         where: {
-          OR: [
-            { status: 'UPCOMING' },
-            { status: 'LIVE' },
-            { status: 'JUDGING' },
-          ],
+          OR: [{ status: 'UPCOMING' }, { status: 'LIVE' }, { status: 'JUDGING' }],
         },
       }),
 
@@ -89,8 +85,7 @@ export class AnalyticsService {
     });
     const averageTeamSize =
       teamMemberCounts.length > 0
-        ? teamMemberCounts.reduce((sum: number, t) => sum + t._count, 0) /
-          teamMemberCounts.length
+        ? teamMemberCounts.reduce((sum: number, t) => sum + t._count, 0) / teamMemberCounts.length
         : 0;
 
     // Calculate total hackathons and challenges
@@ -98,11 +93,8 @@ export class AnalyticsService {
     const totalChallenges = await this.prisma.challenge.count();
 
     // Process department stats
-    const totalDeptUsers = departmentStats.reduce(
-      (sum: number, d) => sum + d._count,
-      0,
-    );
-    const topDepartments = departmentStats.map((dept) => ({
+    const totalDeptUsers = departmentStats.reduce((sum: number, d) => sum + d._count, 0);
+    const topDepartments = departmentStats.map(dept => ({
       department: dept.organization || 'Unknown',
       count: dept._count,
       percentage: totalDeptUsers > 0 ? (dept._count / totalDeptUsers) * 100 : 0,
@@ -196,9 +188,7 @@ export class AnalyticsService {
     };
   }
 
-  async getGrowthMetrics(
-    filter: AnalyticsFilterDto,
-  ): Promise<GrowthMetricsResponseDto> {
+  async getGrowthMetrics(filter: AnalyticsFilterDto): Promise<GrowthMetricsResponseDto> {
     const { timeRange = TimeRange.MONTH } = filter;
     const { startDate, endDate, interval } = this.getDateRange(timeRange);
 
@@ -293,16 +283,10 @@ export class AnalyticsService {
     const activityByHour = await this.getActivityByHour(today);
 
     const submissionsPerHackathon =
-      totalHackathons > 0
-        ? Math.round((totalSubmissions / totalHackathons) * 10) / 10
-        : 0;
+      totalHackathons > 0 ? Math.round((totalSubmissions / totalHackathons) * 10) / 10 : 0;
 
     const participationRate =
-      totalUsers > 0
-        ? Math.round(
-            (repeatParticipants.length / totalUsers) * 100 * 10,
-          ) / 10
-        : 0;
+      totalUsers > 0 ? Math.round((repeatParticipants.length / totalUsers) * 100 * 10) / 10 : 0;
 
     return {
       activeUsersToday,
@@ -317,9 +301,7 @@ export class AnalyticsService {
     };
   }
 
-  async getTopContributors(
-    limit: number = 10,
-  ): Promise<TopContributorsResponseDto> {
+  async getTopContributors(limit: number = 10): Promise<TopContributorsResponseDto> {
     // Get users with their participation stats
     const users = await this.prisma.user.findMany({
       where: { isActive: true, isBanned: false },
@@ -352,25 +334,20 @@ export class AnalyticsService {
       },
     });
 
-    const contributors: TopContributor[] = users.map((user) => {
-      const hackathonsParticipated = new Set(
-        user.teamMemberships.map((tm) => tm.team.hackathonId),
-      ).size;
+    const contributors: TopContributor[] = users.map(user => {
+      const hackathonsParticipated = new Set(user.teamMemberships.map(tm => tm.team.hackathonId))
+        .size;
 
       const challengesCompleted = user.challengeSubmissions.filter(
-        (cs) => cs.status === 'ACCEPTED' || cs.status === 'WINNER',
+        cs => cs.status === 'ACCEPTED' || cs.status === 'WINNER'
       ).length;
 
       const totalSubmissions = user.challengeSubmissions.length;
 
-      const scores = user.challengeSubmissions
-        .filter((cs) => cs.score)
-        .map((cs) => Number(cs.score));
+      const scores = user.challengeSubmissions.filter(cs => cs.score).map(cs => Number(cs.score));
 
       const averageScore =
-        scores.length > 0
-          ? scores.reduce((sum, s) => sum + s, 0) / scores.length
-          : 0;
+        scores.length > 0 ? scores.reduce((sum, s) => sum + s, 0) / scores.length : 0;
 
       return {
         id: user.id,
@@ -395,12 +372,12 @@ export class AnalyticsService {
         (a, b) =>
           b.hackathonsParticipated +
           b.challengesCompleted -
-          (a.hackathonsParticipated + a.challengesCompleted),
+          (a.hackathonsParticipated + a.challengesCompleted)
       )
       .slice(0, limit);
 
     const topScorers = [...contributors]
-      .filter((c) => c.averageScore > 0)
+      .filter(c => c.averageScore > 0)
       .sort((a, b) => b.averageScore - a.averageScore)
       .slice(0, limit);
 
@@ -411,9 +388,7 @@ export class AnalyticsService {
     };
   }
 
-  async getHackathonAnalytics(
-    hackathonId: string,
-  ): Promise<HackathonAnalyticsResponseDto> {
+  async getHackathonAnalytics(hackathonId: string): Promise<HackathonAnalyticsResponseDto> {
     const hackathon = await this.prisma.hackathon.findUnique({
       where: { id: hackathonId },
       include: {
@@ -435,28 +410,19 @@ export class AnalyticsService {
       throw new Error('Hackathon not found');
     }
 
-    const totalRegistrations = hackathon.teams.reduce(
-      (sum, team) => sum + team.members.length,
-      0,
-    );
+    const totalRegistrations = hackathon.teams.reduce((sum, team) => sum + team.members.length, 0);
     const totalTeams = hackathon.teams.length;
-    const teamsWithSubmissions = hackathon.teams.filter(
-      (t) => t.submissions.length > 0,
-    );
+    const teamsWithSubmissions = hackathon.teams.filter(t => t.submissions.length > 0);
     const totalSubmissions = teamsWithSubmissions.length;
 
-    const completionRate =
-      totalTeams > 0 ? (totalSubmissions / totalTeams) * 100 : 0;
+    const completionRate = totalTeams > 0 ? (totalSubmissions / totalTeams) * 100 : 0;
 
-    const averageTeamSize =
-      totalTeams > 0 ? totalRegistrations / totalTeams : 0;
+    const averageTeamSize = totalTeams > 0 ? totalRegistrations / totalTeams : 0;
 
     // Registration funnel
-    const teamsWithMembers = hackathon.teams.filter(
-      (t) => t.members.length > 0,
-    );
+    const teamsWithMembers = hackathon.teams.filter(t => t.members.length > 0);
     const submissionsJudged = hackathon.teams.filter(
-      (t) => t.submissions.length > 0 && t.submissions[0].scores.length > 0,
+      t => t.submissions.length > 0 && t.submissions[0].scores.length > 0
     ).length;
 
     const registrationFunnel = {
@@ -470,22 +436,17 @@ export class AnalyticsService {
     const submissionTimeline = await this.getSubmissionTimeline(hackathonId);
 
     // Department distribution
-    const departmentDistribution = await this.getDepartmentDistribution(
-      hackathonId,
-    );
+    const departmentDistribution = await this.getDepartmentDistribution(hackathonId);
 
     // Score distribution
     const scoreDistribution = this.getScoreDistribution(hackathon.teams);
 
     // Judge progress
     const totalJudges = hackathon.judges.length;
-    const allSubmissions = hackathon.teams.flatMap((t) => t.submissions);
-    const submissionsWithScores = allSubmissions.filter(
-      (s) => s.scores.length > 0,
-    );
-    const activeJudges = new Set(
-      submissionsWithScores.flatMap((s) => s.scores.map((sc) => sc.judgeId)),
-    ).size;
+    const allSubmissions = hackathon.teams.flatMap(t => t.submissions);
+    const submissionsWithScores = allSubmissions.filter(s => s.scores.length > 0);
+    const activeJudges = new Set(submissionsWithScores.flatMap(s => s.scores.map(sc => sc.judgeId)))
+      .size;
 
     const judgeProgress = {
       totalJudges,
@@ -497,8 +458,8 @@ export class AnalyticsService {
 
     // Top teams
     const topTeams = hackathon.teams
-      .filter((t) => t.submissions.length > 0 && t.submissions[0].scoreAggregate)
-      .map((team) => ({
+      .filter(t => t.submissions.length > 0 && t.submissions[0].scoreAggregate)
+      .map(team => ({
         teamId: team.id,
         teamName: team.name,
         score: Number(team.submissions[0].scoreAggregate),
@@ -525,9 +486,7 @@ export class AnalyticsService {
     };
   }
 
-  async getChallengeAnalytics(
-    challengeId: string,
-  ): Promise<ChallengeAnalyticsResponseDto> {
+  async getChallengeAnalytics(challengeId: string): Promise<ChallengeAnalyticsResponseDto> {
     const challenge = await this.prisma.challenge.findUnique({
       where: { id: challengeId },
       include: {
@@ -550,11 +509,9 @@ export class AnalyticsService {
     }
 
     const totalAttempts = challenge.submissions.length;
-    const submittedSubmissions = challenge.submissions.filter(
-      (s) => s.status !== 'SUBMITTED',
-    );
+    const submittedSubmissions = challenge.submissions.filter(s => s.status !== 'SUBMITTED');
     const acceptedSubmissions = challenge.submissions.filter(
-      (s) => s.status === 'ACCEPTED' || s.status === 'WINNER',
+      s => s.status === 'ACCEPTED' || s.status === 'WINNER'
     );
 
     const acceptanceRate =
@@ -562,19 +519,15 @@ export class AnalyticsService {
         ? (acceptedSubmissions.length / submittedSubmissions.length) * 100
         : 0;
 
-    const scores = challenge.submissions
-      .filter((s) => s.score)
-      .map((s) => Number(s.score));
+    const scores = challenge.submissions.filter(s => s.score).map(s => Number(s.score));
     const averageScore =
       scores.length > 0 ? scores.reduce((sum, s) => sum + s, 0) / scores.length : 0;
 
     // Calculate average review time
     const reviewedSubmissions = challenge.submissions.filter(
-      (s) => s.status !== 'SUBMITTED' && s.updatedAt > s.createdAt,
+      s => s.status !== 'SUBMITTED' && s.updatedAt > s.createdAt
     );
-    const reviewTimes = reviewedSubmissions.map(
-      (s) => s.updatedAt.getTime() - s.createdAt.getTime(),
-    );
+    const reviewTimes = reviewedSubmissions.map(s => s.updatedAt.getTime() - s.createdAt.getTime());
     const averageReviewTime =
       reviewTimes.length > 0
         ? reviewTimes.reduce((sum, t) => sum + t, 0) / reviewTimes.length / (1000 * 60 * 60)
@@ -585,10 +538,10 @@ export class AnalyticsService {
 
     // Top performers
     const topPerformers = challenge.submissions
-      .filter((s) => s.score && s.user)
+      .filter(s => s.score && s.user)
       .sort((a, b) => Number(b.score) - Number(a.score))
       .slice(0, 10)
-      .map((s) => ({
+      .map(s => ({
         userId: s.user!.id,
         userName: s.user!.name || 'Anonymous',
         score: Number(s.score),
@@ -632,7 +585,7 @@ export class AnalyticsService {
       },
     });
 
-    const departmentStatsPromises = departments.map(async (dept) => {
+    const departmentStatsPromises = departments.map(async dept => {
       const [activeUsers, hackathonParticipations, challengeSubmissions, scores] =
         await Promise.all([
           this.prisma.user.count({
@@ -663,8 +616,7 @@ export class AnalyticsService {
           }),
         ]);
 
-      const engagementRate =
-        dept._count > 0 ? (activeUsers / dept._count) * 100 : 0;
+      const engagementRate = dept._count > 0 ? (activeUsers / dept._count) * 100 : 0;
 
       return {
         department: dept.organization || 'Unknown',
@@ -685,10 +637,8 @@ export class AnalyticsService {
     return {
       departments: departmentStats,
       totalDepartments: departments.length,
-      mostActiveDepartment:
-        departmentStats[0]?.department || 'None',
-      leastActiveDepartment:
-        departmentStats[departmentStats.length - 1]?.department || 'None',
+      mostActiveDepartment: departmentStats[0]?.department || 'None',
+      leastActiveDepartment: departmentStats[departmentStats.length - 1]?.department || 'None',
     };
   }
 
@@ -727,10 +677,7 @@ export class AnalyticsService {
     return { startDate, endDate, interval };
   }
 
-  private getNextInterval(
-    date: Date,
-    interval: 'day' | 'week' | 'month',
-  ): Date {
+  private getNextInterval(date: Date, interval: 'day' | 'week' | 'month'): Date {
     const next = new Date(date);
     switch (interval) {
       case 'day':
@@ -748,7 +695,7 @@ export class AnalyticsService {
 
   private calculateGrowth(
     dataPoints: GrowthDataPoint[],
-    metric: keyof Omit<GrowthDataPoint, 'date'>,
+    metric: keyof Omit<GrowthDataPoint, 'date'>
   ): number {
     if (dataPoints.length < 2) return 0;
 
@@ -760,9 +707,7 @@ export class AnalyticsService {
     return Math.round(((last - first) / first) * 100 * 10) / 10;
   }
 
-  private async getActivityByDay(
-    since: Date,
-  ): Promise<Array<{ day: string; activities: number }>> {
+  private async getActivityByDay(since: Date): Promise<Array<{ day: string; activities: number }>> {
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const activityCounts = new Array(7).fill(0);
 
@@ -771,7 +716,7 @@ export class AnalyticsService {
       select: { createdAt: true },
     });
 
-    activities.forEach((activity) => {
+    activities.forEach(activity => {
       const dayIndex = activity.createdAt.getDay();
       activityCounts[dayIndex]++;
     });
@@ -783,7 +728,7 @@ export class AnalyticsService {
   }
 
   private async getActivityByHour(
-    since: Date,
+    since: Date
   ): Promise<Array<{ hour: number; activities: number }>> {
     const hourCounts = new Array(24).fill(0);
 
@@ -792,7 +737,7 @@ export class AnalyticsService {
       select: { createdAt: true },
     });
 
-    activities.forEach((activity) => {
+    activities.forEach(activity => {
       const hour = activity.createdAt.getHours();
       hourCounts[hour]++;
     });
@@ -801,7 +746,7 @@ export class AnalyticsService {
   }
 
   private async getSubmissionTimeline(
-    hackathonId: string,
+    hackathonId: string
   ): Promise<Array<{ date: string; count: number }>> {
     const submissions = await this.prisma.submission.findMany({
       where: { hackathonId },
@@ -810,7 +755,7 @@ export class AnalyticsService {
     });
 
     const timeline = new Map<string, number>();
-    submissions.forEach((sub) => {
+    submissions.forEach(sub => {
       const date = sub.createdAt.toISOString().split('T')[0];
       timeline.set(date, (timeline.get(date) || 0) + 1);
     });
@@ -822,7 +767,7 @@ export class AnalyticsService {
   }
 
   private async getDepartmentDistribution(
-    hackathonId: string,
+    hackathonId: string
   ): Promise<Array<{ department: string; count: number; percentage: number }>> {
     const teams = await this.prisma.team.findMany({
       where: { hackathonId },
@@ -840,8 +785,8 @@ export class AnalyticsService {
     const deptCounts = new Map<string, number>();
     let total = 0;
 
-    teams.forEach((team) => {
-      team.members.forEach((member) => {
+    teams.forEach(team => {
+      team.members.forEach(member => {
         const dept = member.user.organization || 'Unknown';
         deptCounts.set(dept, (deptCounts.get(dept) || 0) + 1);
         total++;
@@ -862,7 +807,7 @@ export class AnalyticsService {
       submissions: Array<{
         scoreAggregate: Decimal | null;
       }>;
-    }>,
+    }>
   ): Array<{ range: string; count: number }> {
     const ranges = [
       { min: 0, max: 20, label: '0-20' },
@@ -872,17 +817,15 @@ export class AnalyticsService {
       { min: 80, max: 100, label: '80-100' },
     ];
 
-    const distribution = ranges.map((range) => ({
+    const distribution = ranges.map(range => ({
       range: range.label,
       count: 0,
     }));
 
-    teams.forEach((team) => {
+    teams.forEach(team => {
       if (team.submissions.length > 0 && team.submissions[0].scoreAggregate) {
         const score = Number(team.submissions[0].scoreAggregate);
-        const rangeIndex = ranges.findIndex(
-          (r) => score >= r.min && score < r.max,
-        );
+        const rangeIndex = ranges.findIndex(r => score >= r.min && score < r.max);
         if (rangeIndex >= 0) {
           distribution[rangeIndex].count++;
         }
@@ -893,7 +836,7 @@ export class AnalyticsService {
   }
 
   private async getChallengeSubmissionTrend(
-    challengeId: string,
+    challengeId: string
   ): Promise<Array<{ date: string; submissions: number; accepted: number }>> {
     const submissions = await this.prisma.challengeSubmission.findMany({
       where: { challengeId },
@@ -901,12 +844,9 @@ export class AnalyticsService {
       orderBy: { createdAt: 'asc' },
     });
 
-    const timeline = new Map<
-      string,
-      { submissions: number; accepted: number }
-    >();
+    const timeline = new Map<string, { submissions: number; accepted: number }>();
 
-    submissions.forEach((sub) => {
+    submissions.forEach(sub => {
       const date = sub.createdAt.toISOString().split('T')[0];
       const current = timeline.get(date) || { submissions: 0, accepted: 0 };
       current.submissions++;

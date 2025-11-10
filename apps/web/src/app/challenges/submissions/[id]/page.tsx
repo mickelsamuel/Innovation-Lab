@@ -53,12 +53,11 @@ export default function SubmissionDetailPage() {
           const userRoles = payload.roles || [];
 
           // Check if user is the submitter
-          const isSubmitter = data.userId === userId ||
-                             (data.team && data.teamId); // Add team member check if needed
+          const isSubmitter = data.userId === userId || (data.team && data.teamId); // Add team member check if needed
 
           // Check if user can review (challenge owner or admin)
-          const canReviewSubmission = userRoles.includes('BANK_ADMIN') ||
-                                      userRoles.includes('ORGANIZER');
+          const canReviewSubmission =
+            userRoles.includes('BANK_ADMIN') || userRoles.includes('ORGANIZER');
 
           setIsOwner(isSubmitter);
           setCanReview(canReviewSubmission);
@@ -109,7 +108,13 @@ export default function SubmissionDetailPage() {
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Header */}
         <div>
-          <Link href={submission.challenge?.slug ? `/challenges/${submission.challenge.slug}` : '/challenges'}>
+          <Link
+            href={
+              submission.challenge?.slug
+                ? `/challenges/${submission.challenge.slug}`
+                : '/challenges'
+            }
+          >
             <Button variant="ghost" size="sm" className="gap-2 mb-4 text-slate-300">
               <ArrowLeft className="w-4 h-4" />
               Back to Challenge
@@ -299,10 +304,12 @@ export default function SubmissionDetailPage() {
                 <div className="space-y-4">
                   {submission.user && (
                     <div className="flex items-center gap-3">
-                      <div className={cn(
-                        'w-12 h-12 rounded-full flex items-center justify-center',
-                        'bg-gradient-to-br from-primary/20 to-primary/10'
-                      )}>
+                      <div
+                        className={cn(
+                          'w-12 h-12 rounded-full flex items-center justify-center',
+                          'bg-gradient-to-br from-primary/20 to-primary/10'
+                        )}
+                      >
                         <User className="w-6 h-6 text-primary" />
                       </div>
                       <div>
@@ -315,10 +322,12 @@ export default function SubmissionDetailPage() {
                   {submission.team && (
                     <div className="pt-4 border-t border-slate-700">
                       <div className="flex items-center gap-3">
-                        <div className={cn(
-                          'w-12 h-12 rounded-full flex items-center justify-center',
-                          'bg-gradient-to-br from-blue-500/20 to-blue-500/10'
-                        )}>
+                        <div
+                          className={cn(
+                            'w-12 h-12 rounded-full flex items-center justify-center',
+                            'bg-gradient-to-br from-blue-500/20 to-blue-500/10'
+                          )}
+                        >
                           <Users className="w-6 h-6 text-blue-400" />
                         </div>
                         <div>
@@ -367,9 +376,7 @@ export default function SubmissionDetailPage() {
               <Card className="bg-slate-800/50 border-slate-700">
                 <CardContent className="pt-6">
                   <h3 className="text-lg font-semibold text-white mb-4">Actions</h3>
-                  <p className="text-sm text-slate-400 mb-4">
-                    Your submission is awaiting review
-                  </p>
+                  <p className="text-sm text-slate-400 mb-4">Your submission is awaiting review</p>
                   <Button variant="outline" size="sm" className="w-full" disabled>
                     Edit Submission
                   </Button>

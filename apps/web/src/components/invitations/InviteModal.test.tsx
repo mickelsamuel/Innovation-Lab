@@ -250,7 +250,7 @@ describe('InviteModal', () => {
   it('should disable submit button while loading', async () => {
     const _user = userEvent.setup();
     (sendInvitation as any).mockImplementation(
-      () => new Promise((resolve) => setTimeout(resolve, 1000))
+      () => new Promise(resolve => setTimeout(resolve, 1000))
     );
 
     render(<InviteModal {...defaultProps} />);
@@ -307,7 +307,7 @@ describe('InviteModal', () => {
   it('should disable cancel button while loading', async () => {
     const _user = userEvent.setup();
     (sendInvitation as any).mockImplementation(
-      () => new Promise((resolve) => setTimeout(resolve, 1000))
+      () => new Promise(resolve => setTimeout(resolve, 1000))
     );
 
     render(<InviteModal {...defaultProps} />);

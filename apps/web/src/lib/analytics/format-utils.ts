@@ -34,7 +34,9 @@ export const formatDuration = (hours: number): string => {
   return `${days}d ${remainingHours}h`;
 };
 
-export const getTrendIndicator = (value: number): {
+export const getTrendIndicator = (
+  value: number
+): {
   icon: string;
   color: string;
   label: string;

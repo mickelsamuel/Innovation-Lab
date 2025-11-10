@@ -23,17 +23,8 @@ export class FilesService {
   private readonly MAX_AVATAR_SIZE = 5 * 1024 * 1024; // 5MB
 
   // Allowed mimetypes
-  private readonly ALLOWED_IMAGE_TYPES = [
-    'image/jpeg',
-    'image/png',
-    'image/gif',
-    'image/webp',
-  ];
-  private readonly ALLOWED_VIDEO_TYPES = [
-    'video/mp4',
-    'video/webm',
-    'video/quicktime',
-  ];
+  private readonly ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  private readonly ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime'];
   private readonly ALLOWED_DOCUMENT_TYPES = [
     'application/pdf',
     'application/msword',
@@ -128,10 +119,7 @@ export class FilesService {
   /**
    * Get files by entity
    */
-  async getFilesByEntity(
-    entityType: string,
-    entityId: string
-  ): Promise<FileUploadResponseDto[]> {
+  async getFilesByEntity(entityType: string, entityId: string): Promise<FileUploadResponseDto[]> {
     const files = await this.prisma.file.findMany({
       where: {
         entityType,
@@ -143,7 +131,7 @@ export class FilesService {
       },
     });
 
-    return files.map((file) => ({
+    return files.map(file => ({
       id: file.id,
       filename: file.filename,
       mimetype: file.mimetype,
@@ -184,7 +172,7 @@ export class FilesService {
       });
 
       // Delete from storage (async, don't wait)
-      this.storage.deleteFile(file.key).catch((error) => {
+      this.storage.deleteFile(file.key).catch(error => {
         this.logger.error(`Failed to delete file from storage: ${file.key}`, error);
       });
 
@@ -232,9 +220,7 @@ export class FilesService {
 
     // Check mimetype
     if (!allowedTypes.includes(file.mimetype)) {
-      throw new BadRequestException(
-        `File type ${file.mimetype} is not allowed for ${type}`
-      );
+      throw new BadRequestException(`File type ${file.mimetype} is not allowed for ${type}`);
     }
   }
 
@@ -264,6 +250,6 @@ export class FilesService {
     const k = 1024;
     const sizes = ['Bytes', 'KB', 'MB', 'GB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+    return Math.round((bytes / Math.pow(k, i)) * 100) / 100 + ' ' + sizes[i];
   }
 }

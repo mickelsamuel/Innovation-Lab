@@ -32,11 +32,13 @@ The analytics dashboard provides administrators and organizers with data-driven 
 ### Technology Stack
 
 **Backend**:
+
 - NestJS Analytics Module
 - Prisma ORM for efficient queries
 - Parallel data fetching
 
 **Frontend**:
+
 - Recharts for visualizations
 - jsPDF for PDF generation
 - date-fns for date manipulation
@@ -48,6 +50,7 @@ The analytics dashboard provides administrators and organizers with data-driven 
 ### Navigation
 
 Analytics accessible via admin sidebar:
+
 - **Icon**: BarChart3
 - **Path**: `/admin/analytics`
 - **Permissions**: BANK_ADMIN, ORGANIZER roles
@@ -78,21 +81,25 @@ Analytics accessible via admin sidebar:
 ### Key Performance Indicators
 
 **User Metrics**:
+
 - Total registered users
 - Active users (last 30 days)
 - New registrations (this month)
 
 **Event Metrics**:
+
 - Active hackathons
 - Total challenges
 - Ongoing challenges
 
 **Activity Metrics**:
+
 - Total submissions
 - Teams formed
 - Active participants
 
 **Department Metrics**:
+
 - Top 10 departments by participation
 - Department distribution
 
@@ -103,12 +110,14 @@ Analytics accessible via admin sidebar:
 **Type**: Area Chart with Gradients
 
 **Metrics**:
+
 - User registrations over time
 - Hackathon creations over time
 - Challenge submissions over time
 - Team formations over time
 
 **Features**:
+
 - Selectable time range (week/month/quarter/year/all)
 - Smooth curves with animations
 - Gaming-themed purple/cyan gradients
@@ -141,15 +150,18 @@ Analytics accessible via admin sidebar:
 ### Engagement Metrics Section
 
 **Active Users**:
+
 - Daily active users
 - Weekly active users
 - Monthly active users
 
 **Participation Rate**:
+
 - Percentage of registered users participating in events
 - Trend indicator (up/down)
 
 **Average Submissions**:
+
 - Mean submissions per user
 - Per hackathon metrics
 
@@ -168,12 +180,14 @@ Analytics accessible via admin sidebar:
 ### Key Performance Indicators
 
 **Registration Metrics**:
+
 - Total registrations
 - Teams formed (percentage of registrations)
 - Submissions received (percentage of teams)
 - Average team size
 
 **Completion Metrics**:
+
 - Completion rate (submissions/registrations)
 - Judge progress percentage
 - Time to first submission
@@ -185,6 +199,7 @@ Analytics accessible via admin sidebar:
 **Type**: Horizontal Bar Chart
 
 **Stages**:
+
 1. **Registered**: Total users registered
 2. **Formed Team**: Users who joined/created teams
 3. **Submitted**: Teams that submitted projects
@@ -199,6 +214,7 @@ Analytics accessible via admin sidebar:
 **Data**: Cumulative submissions over hackathon duration
 
 **Features**:
+
 - Shows submission pace
 - Helps plan submission deadlines
 - Identifies last-minute rushes
@@ -216,6 +232,7 @@ Analytics accessible via admin sidebar:
 **Type**: Bar Chart
 
 **Ranges**:
+
 - 0-20: Low scores
 - 21-40: Below average
 - 41-60: Average
@@ -227,6 +244,7 @@ Analytics accessible via admin sidebar:
 ### Judge Progress Panel
 
 **Displays**:
+
 - Judges assigned
 - Total submissions to score
 - Submissions scored
@@ -238,6 +256,7 @@ Analytics accessible via admin sidebar:
 **Type**: Ranked Table
 
 **Columns**:
+
 - Rank (with medal icons for top 3)
 - Team name
 - Score
@@ -245,6 +264,7 @@ Analytics accessible via admin sidebar:
 - Submission date
 
 **Medals**:
+
 - 1st place: Gold
 - 2nd place: Silver
 - 3rd place: Bronze
@@ -258,12 +278,14 @@ Analytics accessible via admin sidebar:
 ### Key Performance Indicators
 
 **Submission Metrics**:
+
 - Total attempts
 - Unique submissions
 - Acceptance rate (percentage)
 - Average score
 
 **Performance Metrics**:
+
 - Average review time
 - Completion rate
 - Success rate
@@ -276,6 +298,7 @@ Analytics accessible via admin sidebar:
 **Type**: Dual Area Chart
 
 **Lines**:
+
 - Total submissions (all attempts)
 - Accepted submissions
 
@@ -286,6 +309,7 @@ Analytics accessible via admin sidebar:
 **Type**: Progress Bars
 
 **Metrics**:
+
 - **Acceptance Rate**: Percentage of accepted submissions
   - Color: Green (>70%), Yellow (40-70%), Red (<40%)
 
@@ -301,14 +325,17 @@ Analytics accessible via admin sidebar:
 ### Submission Status Cards
 
 **Total Attempts**:
+
 - Count of all submission attempts
 - Icon: FileText
 
 **Accepted Submissions**:
+
 - Count of approved solutions
 - Icon: CheckCircle (green)
 
 **Rejected Submissions**:
+
 - Count of declined solutions
 - Icon: XCircle (red)
 
@@ -317,6 +344,7 @@ Analytics accessible via admin sidebar:
 **Type**: Ranked List
 
 **Displays**:
+
 - Rank number
 - User name/avatar
 - Score achieved
@@ -330,17 +358,20 @@ Analytics accessible via admin sidebar:
 ### Export to CSV
 
 **Available For**:
+
 - All data tables
 - Leaderboards
 - Statistics summaries
 
 **Process**:
+
 1. Click "Export" button
 2. Select "Export to CSV"
 3. File downloads automatically
 4. Filename format: `{type}_{date}_{time}.csv`
 
 **Example**:
+
 ```csv
 Name,Score,Rank,Status
 Team Alpha,95,1,Judged
@@ -351,16 +382,19 @@ Team Gamma,82,3,Judged
 ### Export to PDF
 
 **Available For**:
+
 - Full dashboard reports
 - Tables with multiple columns
 
 **Process**:
+
 1. Click "Export" button
 2. Select "Export to PDF"
 3. PDF generates with auto-formatted tables
 4. Filename format: `{title}_report_{date}.pdf`
 
 **Features**:
+
 - Professional formatting
 - Auto-sized tables
 - Page breaks
@@ -369,9 +403,11 @@ Team Gamma,82,3,Judged
 ### Export Chart as PNG
 
 **Available For**:
+
 - All chart visualizations
 
 **Process**:
+
 1. Right-click on chart
 2. Select "Save as PNG"
 3. Image downloads at high resolution
@@ -397,6 +433,7 @@ Authorization: Bearer {token}
 ```
 
 **Response**:
+
 ```json
 {
   "users": {
@@ -438,9 +475,11 @@ Authorization: Bearer {token}
 ```
 
 **Query Parameters**:
+
 - `timeRange`: `week` | `month` | `quarter` | `year` | `all`
 
 **Response**:
+
 ```json
 {
   "timeRange": "month",
@@ -471,6 +510,7 @@ Authorization: Bearer {token}
 ```
 
 **Response**:
+
 ```json
 {
   "activeUsers": {
@@ -501,9 +541,11 @@ Authorization: Bearer {token}
 ```
 
 **Query Parameters**:
+
 - `limit`: Number of users to return (default: 10)
 
 **Response**:
+
 ```json
 {
   "contributors": [
@@ -529,6 +571,7 @@ Authorization: Bearer {token}
 ```
 
 **Response**:
+
 ```json
 {
   "id": "hack-123",
@@ -588,6 +631,7 @@ Authorization: Bearer {token}
 ```
 
 **Response**:
+
 ```json
 {
   "id": "challenge-123",
@@ -630,6 +674,7 @@ Authorization: Bearer {token}
 ```
 
 **Response**:
+
 ```json
 {
   "departments": [
@@ -656,16 +701,16 @@ All charts use consistent gaming-inspired colors:
 
 ```typescript
 export const chartColors = {
-  primary: '#8b5cf6',      // Purple
-  secondary: '#06b6d4',    // Cyan
-  success: '#10b981',      // Emerald
-  warning: '#f59e0b',      // Amber
-  error: '#ef4444',        // Red
-  info: '#3b82f6',         // Blue
-  purple: '#a855f7',       // Purple variant
-  pink: '#ec4899',         // Pink
-  indigo: '#6366f1',       // Indigo
-  teal: '#14b8a6',         // Teal
+  primary: '#8b5cf6', // Purple
+  secondary: '#06b6d4', // Cyan
+  success: '#10b981', // Emerald
+  warning: '#f59e0b', // Amber
+  error: '#ef4444', // Red
+  info: '#3b82f6', // Blue
+  purple: '#a855f7', // Purple variant
+  pink: '#ec4899', // Pink
+  indigo: '#6366f1', // Indigo
+  teal: '#14b8a6', // Teal
 };
 ```
 
@@ -695,7 +740,7 @@ export const chartDefaults = {
 
   // Pie Chart
   pieChart: {
-    innerRadius: '50%',   // Donut chart
+    innerRadius: '50%', // Donut chart
     outerRadius: '80%',
     paddingAngle: 2,
   },

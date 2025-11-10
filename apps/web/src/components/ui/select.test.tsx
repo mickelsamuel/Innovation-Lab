@@ -1,7 +1,15 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect } from 'vitest';
-import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue, SelectLabel, SelectSeparator } from './select';
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+  SelectLabel,
+  SelectSeparator,
+} from './select';
 
 describe('Select Components', () => {
   it('should render select with trigger', () => {

@@ -125,11 +125,11 @@ export default function ActivityFeedPage() {
       }
 
       // Fetch XP events which represent user activity
-      const user = await apiFetch('/auth/me', { token }) as { id: string };
+      const user = (await apiFetch('/auth/me', { token })) as { id: string };
       const xpEvents = await apiFetch(`/gamification/xp-events/${user.id}`, { token });
 
       // Transform XP events into activity feed format
-      const activityEvents: ActivityEvent[] = (xpEvents as XPEvent[]).map((event) => ({
+      const activityEvents: ActivityEvent[] = (xpEvents as XPEvent[]).map(event => ({
         id: event.id,
         type: event.eventType,
         title: getActivityTitle(event.eventType),
@@ -166,19 +166,20 @@ export default function ActivityFeedPage() {
 
   function getActivityDescription(type: string, metadata?: ActivityMetadata): string {
     if (type === 'SIGNUP') return 'Welcome to the Innovation Lab community!';
-    if (type === 'JOIN_HACKATHON' && metadata?.hackathonName) return `Registered for ${metadata.hackathonName}`;
+    if (type === 'JOIN_HACKATHON' && metadata?.hackathonName)
+      return `Registered for ${metadata.hackathonName}`;
     if (type === 'CREATE_TEAM' && metadata?.teamName) return `Created team "${metadata.teamName}"`;
     if (type === 'JOIN_TEAM' && metadata?.teamName) return `Joined team "${metadata.teamName}"`;
     if (type === 'SUBMIT_PROJECT') return 'Submitted a hackathon project';
-    if (type === 'COMPLETE_CHALLENGE' && metadata?.challengeName) return `Completed "${metadata.challengeName}"`;
+    if (type === 'COMPLETE_CHALLENGE' && metadata?.challengeName)
+      return `Completed "${metadata.challengeName}"`;
     if (type === 'LEVEL_UP' && metadata?.level) return `Reached level ${metadata.level}`;
     if (type === 'DAILY_LOGIN' && metadata?.streak) return `${metadata.streak} day streak!`;
     return 'User activity';
   }
 
-  const filteredActivities = filter === 'all'
-    ? activities
-    : activities.filter(a => a.type === filter);
+  const filteredActivities =
+    filter === 'all' ? activities : activities.filter(a => a.type === filter);
 
   // Loading State
   if (isLoading) {
@@ -275,7 +276,7 @@ export default function ActivityFeedPage() {
           </Card>
         ) : (
           <div className="space-y-4">
-            {filteredActivities.map((activity) => {
+            {filteredActivities.map(activity => {
               const Icon = getActivityIcon(activity.type);
               const colorClass = getActivityColor(activity.type);
 
@@ -283,7 +284,9 @@ export default function ActivityFeedPage() {
                 <Card key={activity.id} className="hover:shadow-md transition-shadow">
                   <CardContent className="p-4">
                     <div className="flex gap-4">
-                      <div className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center ${colorClass}`}>
+                      <div
+                        className={`flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center ${colorClass}`}
+                      >
                         <Icon className="w-6 h-6" />
                       </div>
                       <div className="flex-1 min-w-0">

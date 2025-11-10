@@ -23,10 +23,7 @@ export async function sendInvitation(
 /**
  * Get team invitations
  */
-export async function getTeamInvitations(
-  teamId: string,
-  token: string
-): Promise<TeamInvitation[]> {
+export async function getTeamInvitations(teamId: string, token: string): Promise<TeamInvitation[]> {
   return apiFetch<TeamInvitation[]>(`/teams/${teamId}/invitations`, {
     token,
   });
@@ -61,13 +58,10 @@ export async function rejectInvitation(
   invitationId: string,
   token: string
 ): Promise<{ success: boolean; message: string }> {
-  return apiFetch<{ success: boolean; message: string }>(
-    `/invitations/${invitationId}/reject`,
-    {
-      method: 'PUT',
-      token,
-    }
-  );
+  return apiFetch<{ success: boolean; message: string }>(`/invitations/${invitationId}/reject`, {
+    method: 'PUT',
+    token,
+  });
 }
 
 /**
@@ -77,11 +71,8 @@ export async function cancelInvitation(
   invitationId: string,
   token: string
 ): Promise<{ success: boolean; message: string }> {
-  return apiFetch<{ success: boolean; message: string }>(
-    `/invitations/${invitationId}`,
-    {
-      method: 'DELETE',
-      token,
-    }
-  );
+  return apiFetch<{ success: boolean; message: string }>(`/invitations/${invitationId}`, {
+    method: 'DELETE',
+    token,
+  });
 }

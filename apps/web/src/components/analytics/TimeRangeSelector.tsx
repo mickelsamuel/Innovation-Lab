@@ -10,13 +10,10 @@ interface TimeRangeSelectorProps {
 
 const timeRanges: TimeRange[] = ['week', 'month', 'quarter', 'year', 'all'];
 
-export const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({
-  value,
-  onChange,
-}) => {
+export const TimeRangeSelector: React.FC<TimeRangeSelectorProps> = ({ value, onChange }) => {
   return (
     <div className="flex gap-2 rounded-lg border border-slate-700 bg-slate-800/50 p-1">
-      {timeRanges.map((range) => (
+      {timeRanges.map(range => (
         <button
           key={range}
           onClick={() => onChange(range)}

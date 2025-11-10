@@ -47,6 +47,7 @@ cp .env.example .env
 ```
 
 This single command will:
+
 1. ✅ Check if Docker is running
 2. ✅ Start PostgreSQL, Redis, MinIO, and Mailhog containers
 3. ✅ Wait for all services to become healthy
@@ -64,17 +65,17 @@ This single command will:
 
 Once started, access these services:
 
-| Service | URL | Purpose |
-|---------|-----|---------|
-| 🎮 **Web App** | http://localhost:3000 | Main application |
-| 🔧 **API Server** | http://localhost:4000/v1 | REST API endpoints |
-| 📚 **API Docs** | http://localhost:4000/api/docs | Swagger UI |
-| 🏥 **Health Check** | http://localhost:4000/health | API health status |
-| 🗄️ **PostgreSQL** | localhost:5432 | Database (use Prisma Studio) |
-| ⚡ **Redis** | localhost:6379 | Cache server |
-| 📦 **MinIO** | http://localhost:9001 | S3-compatible storage (minioadmin / minioadmin) |
-| 📧 **Mailhog** | http://localhost:8025 | Email testing interface |
-| 🎨 **Prisma Studio** | Run `pnpm db:studio` | Database GUI |
+| Service              | URL                            | Purpose                                         |
+| -------------------- | ------------------------------ | ----------------------------------------------- |
+| 🎮 **Web App**       | http://localhost:3000          | Main application                                |
+| 🔧 **API Server**    | http://localhost:4000/v1       | REST API endpoints                              |
+| 📚 **API Docs**      | http://localhost:4000/api/docs | Swagger UI                                      |
+| 🏥 **Health Check**  | http://localhost:4000/health   | API health status                               |
+| 🗄️ **PostgreSQL**    | localhost:5432                 | Database (use Prisma Studio)                    |
+| ⚡ **Redis**         | localhost:6379                 | Cache server                                    |
+| 📦 **MinIO**         | http://localhost:9001          | S3-compatible storage (minioadmin / minioadmin) |
+| 📧 **Mailhog**       | http://localhost:8025          | Email testing interface                         |
+| 🎨 **Prisma Studio** | Run `pnpm db:studio`           | Database GUI                                    |
 
 ---
 
@@ -82,13 +83,13 @@ Once started, access these services:
 
 After seeding the database, use these accounts to test different roles:
 
-| Role | Email | Password | Access Level |
-|------|-------|----------|--------------|
-| **Bank Admin** | admin@nbc.com | Password123! | Full system access |
-| **Organizer** | organizer@nbc.com | Password123! | Create/manage hackathons |
-| **Mentor** | mentor@vaultix.com | Password123! | Mentor participants |
-| **Judge** | judge@nbc.com | Password123! | Score submissions |
-| **Participant** | participant1@example.com | Password123! | Join events |
+| Role            | Email                    | Password     | Access Level             |
+| --------------- | ------------------------ | ------------ | ------------------------ |
+| **Bank Admin**  | admin@nbc.com            | Password123! | Full system access       |
+| **Organizer**   | organizer@nbc.com        | Password123! | Create/manage hackathons |
+| **Mentor**      | mentor@vaultix.com       | Password123! | Mentor participants      |
+| **Judge**       | judge@nbc.com            | Password123! | Score submissions        |
+| **Participant** | participant1@example.com | Password123! | Join events              |
 
 ---
 
@@ -140,6 +141,7 @@ Press `Ctrl+C` in the terminal where `./start.sh` is running. This stops the web
 ```
 
 This will:
+
 - Stop all Node.js processes (pnpm, next, nest)
 - Kill processes on ports 3000 and 4000
 - Stop all Docker containers
@@ -154,6 +156,7 @@ This will:
 **Problem**: `Docker is not running` error
 
 **Solution**:
+
 1. Open Docker Desktop application
 2. Wait for Docker to start completely
 3. Run `./start.sh` again
@@ -163,6 +166,7 @@ This will:
 **Problem**: `Port 3000 is already in use` or `Port 4000 is already in use`
 
 **Solution**:
+
 ```bash
 ./stop.sh    # This clears all ports automatically
 ./start.sh   # Restart fresh
@@ -173,6 +177,7 @@ This will:
 **Problem**: Database migration or connection errors
 
 **Solution**:
+
 ```bash
 # Reset everything
 ./stop.sh
@@ -185,6 +190,7 @@ docker compose down -v  # Remove volumes
 **Problem**: `Cannot find module '@innovation-lab/database'`
 
 **Solution**:
+
 ```bash
 pnpm db:generate
 ```
@@ -194,6 +200,7 @@ pnpm db:generate
 **Problem**: `pnpm install` errors
 
 **Solution**:
+
 ```bash
 pnpm clean              # Remove node_modules
 rm -rf node_modules     # Full cleanup

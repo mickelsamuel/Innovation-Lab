@@ -135,10 +135,7 @@ export class JudgingController {
   @ApiParam({ name: 'scoreId', description: 'Score ID' })
   @ApiResponse({ status: 200, description: 'Score deleted successfully' })
   @ApiResponse({ status: 403, description: 'Can only delete your own scores' })
-  async deleteScore(
-    @Param('scoreId') scoreId: string,
-    @GetCurrentUser() user: CurrentUser
-  ) {
+  async deleteScore(@Param('scoreId') scoreId: string, @GetCurrentUser() user: CurrentUser) {
     return this.judgingService.deleteScore(scoreId, user.id);
   }
 

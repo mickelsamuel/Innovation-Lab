@@ -149,7 +149,8 @@ export default function CreateTeamPage() {
             <CardHeader>
               <CardTitle>Team Information</CardTitle>
               <CardDescription>
-                Create a new team for this hackathon. You'll be the team lead and can invite other members.
+                Create a new team for this hackathon. You'll be the team lead and can invite other
+                members.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -166,7 +167,7 @@ export default function CreateTeamPage() {
                     id="teamName"
                     placeholder="e.g., Code Warriors"
                     value={teamName}
-                    onChange={(e) => setTeamName(e.target.value)}
+                    onChange={e => setTeamName(e.target.value)}
                     required
                     maxLength={50}
                     className="mt-1.5"
@@ -182,14 +183,12 @@ export default function CreateTeamPage() {
                     id="bio"
                     placeholder="Tell others about your team's goals, skills, and what you're building..."
                     value={bio}
-                    onChange={(e) => setBio(e.target.value)}
+                    onChange={e => setBio(e.target.value)}
                     rows={4}
                     maxLength={500}
                     className="mt-1.5"
                   />
-                  <p className="text-xs text-slate-500 mt-1">
-                    {bio.length}/500 characters
-                  </p>
+                  <p className="text-xs text-slate-500 mt-1">{bio.length}/500 characters</p>
                 </div>
 
                 <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
@@ -197,11 +196,14 @@ export default function CreateTeamPage() {
                     type="checkbox"
                     id="lookingForMembers"
                     checked={lookingForMembers}
-                    onChange={(e) => setLookingForMembers(e.target.checked)}
+                    onChange={e => setLookingForMembers(e.target.checked)}
                     className="w-4 h-4 text-primary border-slate-300 rounded focus:ring-primary"
                   />
                   <div className="flex-1">
-                    <Label htmlFor="lookingForMembers" className="text-sm font-medium cursor-pointer">
+                    <Label
+                      htmlFor="lookingForMembers"
+                      className="text-sm font-medium cursor-pointer"
+                    >
                       Looking for members
                     </Label>
                     <p className="text-xs text-slate-600">
@@ -215,7 +217,8 @@ export default function CreateTeamPage() {
                     <p className="text-sm text-blue-900">
                       <strong>Note:</strong> This hackathon has a maximum team size of{' '}
                       <strong>{hackathon.maxTeamSize} members</strong>. You can invite up to{' '}
-                      {hackathon.maxTeamSize - 1} additional {hackathon.maxTeamSize - 1 === 1 ? 'member' : 'members'}.
+                      {hackathon.maxTeamSize - 1} additional{' '}
+                      {hackathon.maxTeamSize - 1 === 1 ? 'member' : 'members'}.
                     </p>
                   </div>
                 )}

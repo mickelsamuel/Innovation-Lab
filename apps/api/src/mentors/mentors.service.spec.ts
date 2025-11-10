@@ -337,9 +337,7 @@ describe('MentorsService', () => {
         roles: [Role.MENTOR],
       });
 
-      await expect(service.deleteSession(sessionId, 'user-1')).rejects.toThrow(
-        BadRequestException
-      );
+      await expect(service.deleteSession(sessionId, 'user-1')).rejects.toThrow(BadRequestException);
     });
   });
 });

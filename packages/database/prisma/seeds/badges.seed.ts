@@ -241,7 +241,7 @@ async function seedBadges() {
 }
 
 seedBadges()
-  .catch((error) => {
+  .catch(error => {
     console.error('Error seeding badges:', error);
     process.exit(1);
   })

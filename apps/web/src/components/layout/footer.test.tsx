@@ -53,7 +53,9 @@ describe('Footer', () => {
   it('should render copyright text', () => {
     render(<Footer />);
     const currentYear = new Date().getFullYear();
-    expect(screen.getByText(new RegExp(`${currentYear}.*National Bank of Canada`))).toBeInTheDocument();
+    expect(
+      screen.getByText(new RegExp(`${currentYear}.*National Bank of Canada`))
+    ).toBeInTheDocument();
   });
 
   it('should have correct link hrefs', () => {

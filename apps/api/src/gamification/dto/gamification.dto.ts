@@ -1,12 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsString,
-  IsInt,
-  Min,
-  IsOptional,
-  IsEnum,
-  IsObject,
-} from 'class-validator';
+import { IsString, IsInt, Min, IsOptional, IsEnum, IsObject } from 'class-validator';
 import { LeaderboardScope, LeaderboardPeriod } from '@prisma/client';
 
 /**

@@ -192,8 +192,8 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
                 type="text"
                 placeholder="Search by name, email, or handle..."
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                onChange={e => setSearchQuery(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && handleSearch()}
                 className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
               />
             </div>
@@ -209,7 +209,7 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
           {searchResults.length > 0 && (
             <div className="mt-4 space-y-2">
               <p className="text-sm text-slate-400">{searchResults.length} user(s) found</p>
-              {searchResults.map((user) => (
+              {searchResults.map(user => (
                 <div
                   key={user.id}
                   className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
@@ -274,7 +274,7 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
               <Textarea
                 id="bio"
                 value={bio}
-                onChange={(e) => setBio(e.target.value)}
+                onChange={e => setBio(e.target.value)}
                 placeholder="Mentor bio and background..."
                 className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
                 rows={3}
@@ -289,7 +289,7 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
                 id="calendlyUrl"
                 type="url"
                 value={calendlyUrl}
-                onChange={(e) => setCalendlyUrl(e.target.value)}
+                onChange={e => setCalendlyUrl(e.target.value)}
                 placeholder="https://calendly.com/username"
                 className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
               />
@@ -302,7 +302,7 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
               <Input
                 id="expertise"
                 value={expertise}
-                onChange={(e) => setExpertise(e.target.value)}
+                onChange={e => setExpertise(e.target.value)}
                 placeholder="React, Node.js, AWS"
                 className="mt-1.5 bg-slate-800/50 border-slate-700 text-white"
               />
@@ -347,10 +347,9 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
           </p>
         ) : (
           <div className="space-y-2">
-            {mentors.map((mentor) => {
-              const upcomingSessions = mentor.sessions?.filter(
-                s => new Date(s.startsAt) > new Date()
-              ).length || 0;
+            {mentors.map(mentor => {
+              const upcomingSessions =
+                mentor.sessions?.filter(s => new Date(s.startsAt) > new Date()).length || 0;
               const hasUpcomingSessions = upcomingSessions > 0;
 
               return (
@@ -369,7 +368,9 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
                       )}
                     </Avatar>
                     <div className="flex-1">
-                      <p className="font-medium text-white">{mentor.user.name || 'Unnamed Mentor'}</p>
+                      <p className="font-medium text-white">
+                        {mentor.user.name || 'Unnamed Mentor'}
+                      </p>
                       <p className="text-sm text-slate-400">
                         {mentor.user.handle ? `@${mentor.user.handle}` : mentor.user.email}
                       </p>
@@ -386,9 +387,20 @@ export function MentorAssignment({ hackathonId, mentors, onUpdate }: MentorAssig
                     variant="destructive"
                     onClick={() => handleRemove(mentor.userId, hasUpcomingSessions)}
                     disabled={isLoading === mentor.userId || hasUpcomingSessions}
-                    title={hasUpcomingSessions ? 'Cannot remove mentor with upcoming sessions' : 'Remove mentor'}
+                    title={
+                      hasUpcomingSessions
+                        ? 'Cannot remove mentor with upcoming sessions'
+                        : 'Remove mentor'
+                    }
                   >
-                    {isLoading === mentor.userId ? 'Removing...' : <><Trash2 className="w-4 h-4 mr-1" />Remove</>}
+                    {isLoading === mentor.userId ? (
+                      'Removing...'
+                    ) : (
+                      <>
+                        <Trash2 className="w-4 h-4 mr-1" />
+                        Remove
+                      </>
+                    )}
                   </Button>
                 </div>
               );

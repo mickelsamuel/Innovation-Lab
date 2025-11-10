@@ -1,5 +1,14 @@
 import Link from 'next/link';
-import { ArrowLeft, Mail, MessageCircle, Book, HelpCircle, Shield, Sparkles, Zap } from 'lucide-react';
+import {
+  ArrowLeft,
+  Mail,
+  MessageCircle,
+  Book,
+  HelpCircle,
+  Shield,
+  Sparkles,
+  Zap,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Support HQ',
@@ -94,21 +103,24 @@ export default function SupportPage() {
               <div>
                 <h3 className="text-xl font-bold mb-2 text-primary">How do I join a raid?</h3>
                 <p className="text-slate-700 font-semibold">
-                  Browse available raids, click on one that interests you, and hit "Join Raid" to enter the battle!
+                  Browse available raids, click on one that interests you, and hit "Join Raid" to
+                  enter the battle!
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2 text-primary">How do I submit a quest?</h3>
                 <p className="text-slate-700 font-semibold">
-                  After joining a guild for a raid, navigate to the raid page and click "Submit Quest"
-                  to upload your team's work!
+                  After joining a guild for a raid, navigate to the raid page and click "Submit
+                  Quest" to upload your team's work!
                 </p>
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2 text-primary">How does the XP system work?</h3>
+                <h3 className="text-xl font-bold mb-2 text-primary">
+                  How does the XP system work?
+                </h3>
                 <p className="text-slate-700 font-semibold">
-                  You earn XP by participating in raids, defeating bosses, and contributing to your guild.
-                  XP helps you level up and unlock legendary trophies!
+                  You earn XP by participating in raids, defeating bosses, and contributing to your
+                  guild. XP helps you level up and unlock legendary trophies!
                 </p>
               </div>
             </div>

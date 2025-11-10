@@ -49,8 +49,8 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm leading-6 text-slate-600">
-              Empowering innovators to build the future of fintech. Join hackathons,
-              solve challenges, and compete for amazing prizes.
+              Empowering innovators to build the future of fintech. Join hackathons, solve
+              challenges, and compete for amazing prizes.
             </p>
           </div>
 
@@ -60,7 +60,7 @@ export function Footer() {
               <div>
                 <h3 className="text-sm font-semibold leading-6 text-slate-900">Platform</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {footerNavigation.platform.map((item) => (
+                  {footerNavigation.platform.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -75,7 +75,7 @@ export function Footer() {
               <div className="mt-10 md:mt-0">
                 <h3 className="text-sm font-semibold leading-6 text-slate-900">Resources</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {footerNavigation.resources.map((item) => (
+                  {footerNavigation.resources.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -92,7 +92,7 @@ export function Footer() {
               <div>
                 <h3 className="text-sm font-semibold leading-6 text-slate-900">Company</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {footerNavigation.company.map((item) => (
+                  {footerNavigation.company.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
@@ -107,7 +107,7 @@ export function Footer() {
               <div className="mt-10 md:mt-0">
                 <h3 className="text-sm font-semibold leading-6 text-slate-900">Legal</h3>
                 <ul role="list" className="mt-6 space-y-4">
-                  {footerNavigation.legal.map((item) => (
+                  {footerNavigation.legal.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}

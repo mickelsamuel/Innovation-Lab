@@ -59,7 +59,7 @@ export class SubmissionsController {
   @Get('my')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
-  @ApiOperation({ summary: 'Get current user\'s submissions' })
+  @ApiOperation({ summary: "Get current user's submissions" })
   @ApiResponse({ status: 200, description: 'User submissions retrieved successfully' })
   async getMySubmissions(@GetCurrentUser() user: CurrentUser) {
     return this.submissionsService.findUserSubmissions(user.id);

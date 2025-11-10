@@ -133,17 +133,20 @@ When you need assistance:
 ## 📚 Documentation by Role
 
 ### For New Contributors
+
 1. [Quick Start](../QUICK_START.md)
 2. [Contributing Guide](../CONTRIBUTING.md)
 3. [Architecture](../ARCHITECTURE.md)
 
 ### For Frontend Developers
+
 1. [Frontend Documentation](./FRONTEND.md)
 2. [WebSocket Guide](./WEBSOCKET.md)
 3. [Notifications Guide](./NOTIFICATIONS.md)
 4. [Testing Guide](./TESTING.md)
 
 ### For Backend Developers
+
 1. [Backend Documentation](./BACKEND.md)
 2. [Architecture](../ARCHITECTURE.md)
 3. [WebSocket Guide](./WEBSOCKET.md)
@@ -151,12 +154,14 @@ When you need assistance:
 5. [Testing Guide](./TESTING.md)
 
 ### For DevOps Engineers
+
 1. [Infrastructure Guide](../infra/README.md)
 2. [Scripts Reference](./SCRIPTS.md)
 3. [Testing Guide](./TESTING.md)
 4. [Architecture](../ARCHITECTURE.md)
 
 ### For Analysts & Product Managers
+
 1. [Analytics Guide](./ANALYTICS.md)
 2. [Main README](../README.md)
 3. [Changelog](../CHANGELOG.md)
@@ -198,13 +203,13 @@ When you need assistance:
 
 ## 📊 Documentation Stats
 
-| Category | Files | Lines | Status |
-|----------|-------|-------|--------|
-| **Root** | 7 files | ~2,500 lines | ✅ Complete |
-| **docs/** | 10 files | ~5,000 lines | ✅ Complete |
-| **Code Comments** | All modules | Inline | 🔄 Ongoing |
-| **API Docs** | Swagger | Live | ✅ Complete |
-| **Total** | 17+ files | 7,500+ lines | ✅ Comprehensive |
+| Category          | Files       | Lines        | Status           |
+| ----------------- | ----------- | ------------ | ---------------- |
+| **Root**          | 7 files     | ~2,500 lines | ✅ Complete      |
+| **docs/**         | 10 files    | ~5,000 lines | ✅ Complete      |
+| **Code Comments** | All modules | Inline       | 🔄 Ongoing       |
+| **API Docs**      | Swagger     | Live         | ✅ Complete      |
+| **Total**         | 17+ files   | 7,500+ lines | ✅ Comprehensive |
 
 ---
 
@@ -244,6 +249,7 @@ If you can't find what you need in the documentation:
 5. **Contact maintainers** - For private concerns
 
 **Links:**
+
 - **GitHub Issues**: https://github.com/mickelsamuel/Innovation-Lab/issues
 - **Discussions**: https://github.com/mickelsamuel/Innovation-Lab/discussions
 - **Security**: security@innovationlab.example.com

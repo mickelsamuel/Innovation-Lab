@@ -159,14 +159,12 @@ export default function AdminDashboard() {
     <div className="space-y-8">
       <div>
         <h1 className="text-3xl font-bold text-white mb-2">Admin Dashboard</h1>
-        <p className="text-gray-400">
-          Manage hackathons, challenges, users, and platform settings
-        </p>
+        <p className="text-gray-400">Manage hackathons, challenges, users, and platform settings</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {statCards.map((stat) => {
+        {statCards.map(stat => {
           const Icon = stat.icon;
           return (
             <Link
@@ -193,7 +191,7 @@ export default function AdminDashboard() {
       <div>
         <h2 className="text-xl font-bold text-white mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {quickActions.map((action) => {
+          {quickActions.map(action => {
             const Icon = action.icon;
             return (
               <Link
@@ -201,7 +199,9 @@ export default function AdminDashboard() {
                 href={action.href}
                 className="game-card p-6 hover:scale-105 transition-transform group"
               >
-                <div className={`w-12 h-12 rounded-lg ${action.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                <div
+                  className={`w-12 h-12 rounded-lg ${action.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}
+                >
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-white font-semibold mb-1">{action.title}</h3>
@@ -218,7 +218,7 @@ export default function AdminDashboard() {
         <div className="game-card p-6">
           {stats?.recentActivity && stats.recentActivity.length > 0 ? (
             <div className="space-y-4">
-              {stats.recentActivity.map((activity) => (
+              {stats.recentActivity.map(activity => (
                 <div
                   key={activity.id}
                   className="flex items-start space-x-3 pb-4 border-b border-[#1e2129] last:border-0"

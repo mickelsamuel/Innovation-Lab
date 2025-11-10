@@ -45,8 +45,8 @@ services:
       MINIO_ROOT_USER: minioadmin
       MINIO_ROOT_PASSWORD: minioadmin
     ports:
-      - '9000:9000'  # API
-      - '9001:9001'  # Console UI
+      - '9000:9000' # API
+      - '9001:9001' # Console UI
     volumes:
       - minio-data:/data
     healthcheck:
@@ -76,8 +76,8 @@ services:
     container_name: innovationlab-mailhog
     restart: unless-stopped
     ports:
-      - '1025:1025'  # SMTP
-      - '8025:8025'  # Web UI
+      - '1025:1025' # SMTP
+      - '8025:8025' # Web UI
     healthcheck:
       test: ['CMD', 'wget', '--quiet', '--tries=1', '--spider', 'http://localhost:8025']
       interval: 30s

@@ -1,12 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsString,
-  IsOptional,
-  IsUrl,
-  IsArray,
-  MinLength,
-  MaxLength,
-} from 'class-validator';
+import { IsString, IsOptional, IsUrl, IsArray, MinLength, MaxLength } from 'class-validator';
 
 export class CreateSubmissionDto {
   @ApiProperty({ example: 'clxxx...', description: 'Hackathon ID' })

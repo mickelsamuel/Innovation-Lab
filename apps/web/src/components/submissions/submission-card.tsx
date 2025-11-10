@@ -69,9 +69,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
           {getRankBadge(submission.rank)}
         </div>
 
-        <CardTitle className="text-xl font-display line-clamp-2">
-          {submission.title}
-        </CardTitle>
+        <CardTitle className="text-xl font-display line-clamp-2">{submission.title}</CardTitle>
 
         {submission.team && (
           <CardDescription className="flex items-center gap-2">
@@ -110,7 +108,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
           <div>
             <p className="text-xs font-medium text-slate-700 mb-2">Team Members</p>
             <div className="flex items-center -space-x-2">
-              {submission.team.members.slice(0, 4).map((member) => (
+              {submission.team.members.slice(0, 4).map(member => (
                 <Avatar
                   key={member.id}
                   className="w-8 h-8 border-2 border-white"

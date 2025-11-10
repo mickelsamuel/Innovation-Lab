@@ -1,4 +1,11 @@
-import { PrismaClient, Role, HackathonStatus, HackathonLocation, ChallengeStatus, RewardType } from '../generated/client';
+import {
+  PrismaClient,
+  Role,
+  HackathonStatus,
+  HackathonLocation,
+  ChallengeStatus,
+  RewardType,
+} from '../generated/client';
 import * as bcrypt from 'bcryptjs';
 
 const prisma = new PrismaClient();
@@ -499,7 +506,7 @@ This event brings together developers, designers, and entrepreneurs to solve rea
         name: 'UX/UI',
         description: 'User experience and interface design',
         maxScore: 10,
-        weight: 0.20,
+        weight: 0.2,
         order: 3,
       },
       {
@@ -507,7 +514,7 @@ This event brings together developers, designers, and entrepreneurs to solve rea
         name: 'Impact',
         description: 'Real-world impact and feasibility',
         maxScore: 10,
-        weight: 0.20,
+        weight: 0.2,
         order: 4,
       },
       {
@@ -515,7 +522,7 @@ This event brings together developers, designers, and entrepreneurs to solve rea
         name: 'Presentation',
         description: 'Quality of demo and pitch',
         maxScore: 10,
-        weight: 0.10,
+        weight: 0.1,
         order: 5,
       },
     ],

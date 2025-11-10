@@ -17,13 +17,14 @@ describe('RolesGuard', () => {
     reflector = module.get<Reflector>(Reflector);
   });
 
-  const mockExecutionContext = (user: any): ExecutionContext => ({
-    switchToHttp: () => ({
-      getRequest: () => ({ user }),
-    }),
-    getHandler: jest.fn(),
-    getClass: jest.fn(),
-  } as any);
+  const mockExecutionContext = (user: any): ExecutionContext =>
+    ({
+      switchToHttp: () => ({
+        getRequest: () => ({ user }),
+      }),
+      getHandler: jest.fn(),
+      getClass: jest.fn(),
+    }) as any;
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -74,18 +75,14 @@ describe('RolesGuard', () => {
       jest.spyOn(reflector, 'getAllAndOverride').mockReturnValue(['USER']);
       const context = mockExecutionContext(null);
 
-      expect(() => guard.canActivate(context)).toThrow(
-        new ForbiddenException('Access denied')
-      );
+      expect(() => guard.canActivate(context)).toThrow(new ForbiddenException('Access denied'));
     });
 
     it('should throw ForbiddenException when user has no roles', () => {
       jest.spyOn(reflector, 'getAllAndOverride').mockReturnValue(['USER']);
       const context = mockExecutionContext({ id: 'user-1' });
 
-      expect(() => guard.canActivate(context)).toThrow(
-        new ForbiddenException('Access denied')
-      );
+      expect(() => guard.canActivate(context)).toThrow(new ForbiddenException('Access denied'));
     });
 
     it('should throw ForbiddenException when user does not have required role', () => {

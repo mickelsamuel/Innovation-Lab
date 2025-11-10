@@ -82,7 +82,13 @@ describe('ChallengesController', () => {
       const challenges = [{ id: 'c1', status: 'ACTIVE' }];
       mockChallengesService.findAll.mockResolvedValue(challenges);
 
-      const result = await controller.findAll('ACTIVE' as any, 'algorithms', 'javascript', 'owner-1', 'test');
+      const result = await controller.findAll(
+        'ACTIVE' as any,
+        'algorithms',
+        'javascript',
+        'owner-1',
+        'test'
+      );
 
       expect(result).toEqual(challenges);
       expect(service.findAll).toHaveBeenCalledWith({
@@ -213,7 +219,12 @@ describe('ChallengesController', () => {
       const result = await controller.reviewSubmission('s1', req, reviewDto);
 
       expect(result).toEqual(reviewed);
-      expect(service.reviewSubmission).toHaveBeenCalledWith('s1', 'user-1', 'BANK_ADMIN', reviewDto);
+      expect(service.reviewSubmission).toHaveBeenCalledWith(
+        's1',
+        'user-1',
+        'BANK_ADMIN',
+        reviewDto
+      );
     });
   });
 });

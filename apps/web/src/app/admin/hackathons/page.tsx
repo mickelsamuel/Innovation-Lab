@@ -87,9 +87,10 @@ export default function HackathonsAdminPage() {
     }
   }
 
-  const filteredHackathons = hackathons.filter((hackathon) =>
-    hackathon.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    hackathon.subtitle?.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredHackathons = hackathons.filter(
+    hackathon =>
+      hackathon.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      hackathon.subtitle?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   function getStatusBadgeColor(status: HackathonStatus) {
@@ -152,7 +153,7 @@ export default function HackathonsAdminPage() {
                 <Input
                   placeholder="Search hackathons..."
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={e => setSearchQuery(e.target.value)}
                   className="pl-9"
                 />
               </div>
@@ -160,7 +161,7 @@ export default function HackathonsAdminPage() {
               {/* Status Filter */}
               <select
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value as HackathonStatus | '')}
+                onChange={e => setStatusFilter(e.target.value as HackathonStatus | '')}
                 className="h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <option value="">All Statuses</option>
@@ -174,7 +175,7 @@ export default function HackathonsAdminPage() {
               {/* Location Filter */}
               <select
                 value={locationFilter}
-                onChange={(e) => setLocationFilter(e.target.value as HackathonLocation | '')}
+                onChange={e => setLocationFilter(e.target.value as HackathonLocation | '')}
                 className="h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               >
                 <option value="">All Locations</option>
@@ -219,7 +220,7 @@ export default function HackathonsAdminPage() {
 
         {!isLoading && filteredHackathons.length > 0 && (
           <div className="space-y-4">
-            {filteredHackathons.map((hackathon) => (
+            {filteredHackathons.map(hackathon => (
               <Card key={hackathon.id} className="game-card hover:border-primary transition-colors">
                 <CardContent className="pt-6">
                   <div className="flex flex-col lg:flex-row gap-6">

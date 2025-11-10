@@ -10,7 +10,16 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getAuthToken, apiFetch, ApiError } from '@/lib/api';
 import { getInitials } from '@/lib/utils';
-import { User, Mail, Building2, Save, Loader2, AlertCircle, CheckCircle2, ArrowLeft } from 'lucide-react';
+import {
+  User,
+  Mail,
+  Building2,
+  Save,
+  Loader2,
+  AlertCircle,
+  CheckCircle2,
+  ArrowLeft,
+} from 'lucide-react';
 import Link from 'next/link';
 
 interface UserData {
@@ -143,7 +152,10 @@ export default function ProfilePage() {
         <div className="max-w-3xl mx-auto">
           {/* Header */}
           <div className="mb-6">
-            <Link href="/dashboard" className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-4 font-semibold">
+            <Link
+              href="/dashboard"
+              className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-4 font-semibold"
+            >
               <ArrowLeft className="w-4 h-4" />
               Back to Dashboard
             </Link>
@@ -176,9 +188,7 @@ export default function ProfilePage() {
               <CardContent>
                 <div className="flex items-center gap-6">
                   <Avatar className="w-24 h-24 border-4 border-primary">
-                    {user.avatarUrl && (
-                      <AvatarImage src={user.avatarUrl} alt={user.name} />
-                    )}
+                    {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
                     <AvatarFallback className="bg-primary text-white font-bold text-2xl">
                       {getInitials(user.name)}
                     </AvatarFallback>
@@ -231,7 +241,7 @@ export default function ProfilePage() {
                       id="name"
                       type="text"
                       value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      onChange={e => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Your full name"
                       required
                       disabled={saving}
@@ -251,7 +261,12 @@ export default function ProfilePage() {
                         id="handle"
                         type="text"
                         value={formData.handle}
-                        onChange={(e) => setFormData({ ...formData, handle: e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, '') })}
+                        onChange={e =>
+                          setFormData({
+                            ...formData,
+                            handle: e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''),
+                          })
+                        }
                         placeholder="username"
                         required
                         disabled={saving}
@@ -273,7 +288,7 @@ export default function ProfilePage() {
                       id="organization"
                       type="text"
                       value={formData.organization}
-                      onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
+                      onChange={e => setFormData({ ...formData, organization: e.target.value })}
                       placeholder="Your company or institution"
                       disabled={saving}
                     />
@@ -287,7 +302,7 @@ export default function ProfilePage() {
                     <Textarea
                       id="bio"
                       value={formData.bio}
-                      onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                      onChange={e => setFormData({ ...formData, bio: e.target.value })}
                       placeholder="Tell us about yourself..."
                       rows={4}
                       disabled={saving}
@@ -300,11 +315,7 @@ export default function ProfilePage() {
 
                   {/* Submit Button */}
                   <div className="flex gap-4 pt-4">
-                    <Button
-                      type="submit"
-                      className="btn-game flex-1"
-                      disabled={saving}
-                    >
+                    <Button type="submit" className="btn-game flex-1" disabled={saving}>
                       {saving ? (
                         <>
                           <Loader2 className="w-4 h-4 mr-2 animate-spin" />
@@ -340,8 +351,11 @@ export default function ProfilePage() {
                 <div className="flex justify-between py-2 border-b border-slate-100">
                   <span className="text-sm font-semibold text-slate-600">Roles</span>
                   <div className="flex gap-2">
-                    {user.roles.map((role) => (
-                      <span key={role} className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full font-bold">
+                    {user.roles.map(role => (
+                      <span
+                        key={role}
+                        className="text-xs px-2 py-1 bg-primary/10 text-primary rounded-full font-bold"
+                      >
                         {role}
                       </span>
                     ))}

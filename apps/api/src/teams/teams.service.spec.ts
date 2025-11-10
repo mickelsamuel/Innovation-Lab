@@ -141,7 +141,9 @@ describe('TeamsService', () => {
       prismaMock.teamMember.findFirst.mockResolvedValue(existingTeamMember as any);
 
       await expect(service.create(createDto, 'user-1')).rejects.toThrow(ConflictException);
-      await expect(service.create(createDto, 'user-1')).rejects.toThrow('You are already part of a team in this hackathon');
+      await expect(service.create(createDto, 'user-1')).rejects.toThrow(
+        'You are already part of a team in this hackathon'
+      );
 
       expect(prismaMock.team.create).not.toHaveBeenCalled();
     });
@@ -293,7 +295,9 @@ describe('TeamsService', () => {
     it('should throw NotFoundException if team not found', async () => {
       prismaMock.team.findUnique.mockResolvedValue(null);
 
-      await expect(service.update('non-existent', updateDto, 'user-1')).rejects.toThrow(NotFoundException);
+      await expect(service.update('non-existent', updateDto, 'user-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.team.update).not.toHaveBeenCalled();
     });
@@ -309,8 +313,12 @@ describe('TeamsService', () => {
 
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
-      await expect(service.update('team-1', updateDto, 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.update('team-1', updateDto, 'user-2')).rejects.toThrow('Only team lead can update team details');
+      await expect(service.update('team-1', updateDto, 'user-2')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.update('team-1', updateDto, 'user-2')).rejects.toThrow(
+        'Only team lead can update team details'
+      );
 
       expect(prismaMock.team.update).not.toHaveBeenCalled();
     });
@@ -334,10 +342,7 @@ describe('TeamsService', () => {
 
       const updatedTeam = {
         ...team,
-        members: [
-          ...team.members,
-          { userId: 'user-3', role: TeamMemberRole.MEMBER },
-        ],
+        members: [...team.members, { userId: 'user-3', role: TeamMemberRole.MEMBER }],
       };
 
       prismaMock.team.findUnique
@@ -374,7 +379,9 @@ describe('TeamsService', () => {
     it('should throw NotFoundException if team not found', async () => {
       prismaMock.team.findUnique.mockResolvedValue(null);
 
-      await expect(service.addMember('non-existent', inviteDto, 'user-1')).rejects.toThrow(NotFoundException);
+      await expect(service.addMember('non-existent', inviteDto, 'user-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.teamMember.create).not.toHaveBeenCalled();
     });
@@ -391,8 +398,12 @@ describe('TeamsService', () => {
 
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
-      await expect(service.addMember('team-1', inviteDto, 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.addMember('team-1', inviteDto, 'user-2')).rejects.toThrow('Only team lead can invite members');
+      await expect(service.addMember('team-1', inviteDto, 'user-2')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.addMember('team-1', inviteDto, 'user-2')).rejects.toThrow(
+        'Only team lead can invite members'
+      );
 
       expect(prismaMock.teamMember.create).not.toHaveBeenCalled();
     });
@@ -419,8 +430,12 @@ describe('TeamsService', () => {
         return callback(prismaMock);
       });
 
-      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow('Team is full');
+      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
+        'Team is full'
+      );
 
       expect(prismaMock.teamMember.create).not.toHaveBeenCalled();
     });
@@ -437,8 +452,12 @@ describe('TeamsService', () => {
 
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
-      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(ConflictException);
-      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow('User is already a team member');
+      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
+        ConflictException
+      );
+      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
+        'User is already a team member'
+      );
 
       expect(prismaMock.teamMember.create).not.toHaveBeenCalled();
     });
@@ -458,8 +477,12 @@ describe('TeamsService', () => {
       prismaMock.team.findUnique.mockResolvedValue(team as any);
       prismaMock.teamMember.findFirst.mockResolvedValue(otherTeamMember as any);
 
-      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(ConflictException);
-      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow('User is already in another team for this hackathon');
+      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
+        ConflictException
+      );
+      await expect(service.addMember('team-1', inviteDto, 'user-1')).rejects.toThrow(
+        'User is already in another team for this hackathon'
+      );
 
       expect(prismaMock.teamMember.create).not.toHaveBeenCalled();
     });
@@ -514,7 +537,9 @@ describe('TeamsService', () => {
     it('should throw NotFoundException if team not found', async () => {
       prismaMock.team.findUnique.mockResolvedValue(null);
 
-      await expect(service.removeMember('non-existent', 'user-2', 'user-1')).rejects.toThrow(NotFoundException);
+      await expect(service.removeMember('non-existent', 'user-2', 'user-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.teamMember.delete).not.toHaveBeenCalled();
     });
@@ -531,8 +556,12 @@ describe('TeamsService', () => {
 
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
-      await expect(service.removeMember('team-1', 'user-3', 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.removeMember('team-1', 'user-3', 'user-2')).rejects.toThrow('Only team lead can remove members');
+      await expect(service.removeMember('team-1', 'user-3', 'user-2')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.removeMember('team-1', 'user-3', 'user-2')).rejects.toThrow(
+        'Only team lead can remove members'
+      );
 
       expect(prismaMock.teamMember.delete).not.toHaveBeenCalled();
     });
@@ -545,8 +574,12 @@ describe('TeamsService', () => {
 
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
-      await expect(service.removeMember('team-1', 'user-1', 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.removeMember('team-1', 'user-1', 'user-2')).rejects.toThrow('Only team lead can remove members');
+      await expect(service.removeMember('team-1', 'user-1', 'user-2')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.removeMember('team-1', 'user-1', 'user-2')).rejects.toThrow(
+        'Only team lead can remove members'
+      );
 
       expect(prismaMock.teamMember.delete).not.toHaveBeenCalled();
     });
@@ -645,7 +678,9 @@ describe('TeamsService', () => {
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
       await expect(service.remove('team-1', 'user-2')).rejects.toThrow(ForbiddenException);
-      await expect(service.remove('team-1', 'user-2')).rejects.toThrow('Only team lead can delete team');
+      await expect(service.remove('team-1', 'user-2')).rejects.toThrow(
+        'Only team lead can delete team'
+      );
 
       expect(prismaMock.team.delete).not.toHaveBeenCalled();
     });
@@ -660,7 +695,9 @@ describe('TeamsService', () => {
       prismaMock.team.findUnique.mockResolvedValue(team as any);
 
       await expect(service.remove('team-1', 'user-1')).rejects.toThrow(BadRequestException);
-      await expect(service.remove('team-1', 'user-1')).rejects.toThrow('Cannot delete team with existing submissions');
+      await expect(service.remove('team-1', 'user-1')).rejects.toThrow(
+        'Cannot delete team with existing submissions'
+      );
 
       expect(prismaMock.team.delete).not.toHaveBeenCalled();
     });

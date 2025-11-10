@@ -6,11 +6,7 @@ import {
   ForbiddenException,
 } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
-import {
-  ChallengeStatus,
-  ChallengeSubmissionStatus,
-  Role,
-} from '@prisma/client';
+import { ChallengeStatus, ChallengeSubmissionStatus, Role } from '@prisma/client';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
 import { UpdateChallengeDto } from './dto/update-challenge.dto';
 import { SubmitSolutionDto } from './dto/submit-solution.dto';
@@ -31,16 +27,13 @@ export class ChallengesService {
 
   constructor(
     private prisma: PrismaService,
-    private gamificationService: GamificationService,
+    private gamificationService: GamificationService
   ) {}
 
   /**
    * Create a new challenge
    */
-  async create(
-    ownerId: string,
-    createChallengeDto: CreateChallengeDto
-  ): Promise<any> {
+  async create(ownerId: string, createChallengeDto: CreateChallengeDto): Promise<any> {
     // Check if slug already exists
     const existingChallenge = await this.prisma.challenge.findUnique({
       where: { slug: createChallengeDto.slug },
@@ -240,8 +233,7 @@ export class ChallengesService {
 
     // Check permissions
     const isOwner = challenge.ownerId === userId;
-    const isAdmin =
-      userRole === Role.BANK_ADMIN;
+    const isAdmin = userRole === Role.BANK_ADMIN;
 
     if (!isOwner && !isAdmin) {
       throw new ForbiddenException('You can only update your own challenges');
@@ -254,9 +246,7 @@ export class ChallengesService {
       });
 
       if (existingChallenge) {
-        throw new BadRequestException(
-          'Challenge with this slug already exists'
-        );
+        throw new BadRequestException('Challenge with this slug already exists');
       }
     }
 
@@ -299,8 +289,7 @@ export class ChallengesService {
 
     // Check permissions
     const isOwner = challenge.ownerId === userId;
-    const isAdmin =
-      userRole === Role.BANK_ADMIN;
+    const isAdmin = userRole === Role.BANK_ADMIN;
 
     if (!isOwner && !isAdmin) {
       throw new ForbiddenException('You can only delete your own challenges');
@@ -340,19 +329,16 @@ export class ChallengesService {
     }
 
     // Check for duplicate submission
-    const existingSubmission =
-      await this.prisma.challengeSubmission.findFirst({
-        where: {
-          challengeId,
-          userId,
-          teamId: submitSolutionDto.teamId || null,
-        },
-      });
+    const existingSubmission = await this.prisma.challengeSubmission.findFirst({
+      where: {
+        challengeId,
+        userId,
+        teamId: submitSolutionDto.teamId || null,
+      },
+    });
 
     if (existingSubmission) {
-      throw new BadRequestException(
-        'You have already submitted a solution to this challenge'
-      );
+      throw new BadRequestException('You have already submitted a solution to this challenge');
     }
 
     const submission = await this.prisma.challengeSubmission.create({
@@ -397,7 +383,7 @@ export class ChallengesService {
       'SUBMIT_CHALLENGE_SOLUTION',
       XP_POINTS.SUBMIT_CHALLENGE_SOLUTION,
       'challenge',
-      challengeId,
+      challengeId
     );
 
     this.logger.log(
@@ -549,13 +535,10 @@ export class ChallengesService {
 
     // Check permissions - must be challenge owner or admin
     const isOwner = submission.challenge.ownerId === userId;
-    const isAdmin =
-      userRole === Role.BANK_ADMIN;
+    const isAdmin = userRole === Role.BANK_ADMIN;
 
     if (!isOwner && !isAdmin) {
-      throw new ForbiddenException(
-        'Only challenge owner or admin can review submissions'
-      );
+      throw new ForbiddenException('Only challenge owner or admin can review submissions');
     }
 
     const updated = await this.prisma.challengeSubmission.update({
@@ -598,7 +581,7 @@ export class ChallengesService {
           'CHALLENGE_ACCEPTED',
           XP_POINTS.CHALLENGE_ACCEPTED,
           'challenge_submission',
-          submissionId,
+          submissionId
         );
       } else if (reviewSolutionDto.status === ChallengeSubmissionStatus.WINNER) {
         await this.gamificationService.awardXp(
@@ -606,7 +589,7 @@ export class ChallengesService {
           'CHALLENGE_WINNER',
           XP_POINTS.CHALLENGE_WINNER,
           'challenge_submission',
-          submissionId,
+          submissionId
         );
       }
     }

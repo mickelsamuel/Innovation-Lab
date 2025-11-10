@@ -20,23 +20,24 @@ import {
   ExternalLink,
   Target,
   Award,
-  
   ArrowLeft,
-  
   UserPlus,
   FileText,
   Megaphone,
   Pin,
 } from 'lucide-react';
 
-function getStatusVariant(status: HackathonStatus): 'draft' | 'upcoming' | 'live' | 'judging' | 'closed' {
-  const variantMap: Record<HackathonStatus, 'draft' | 'upcoming' | 'live' | 'judging' | 'closed'> = {
-    DRAFT: 'draft',
-    UPCOMING: 'upcoming',
-    LIVE: 'live',
-    JUDGING: 'judging',
-    CLOSED: 'closed',
-  };
+function getStatusVariant(
+  status: HackathonStatus
+): 'draft' | 'upcoming' | 'live' | 'judging' | 'closed' {
+  const variantMap: Record<HackathonStatus, 'draft' | 'upcoming' | 'live' | 'judging' | 'closed'> =
+    {
+      DRAFT: 'draft',
+      UPCOMING: 'upcoming',
+      LIVE: 'live',
+      JUDGING: 'judging',
+      CLOSED: 'closed',
+    };
   return variantMap[status];
 }
 
@@ -241,8 +242,8 @@ export default function HackathonDetailPage() {
     hackathon.location === 'VIRTUAL'
       ? 'Virtual Event'
       : hackathon.location === 'IN_PERSON'
-      ? `${hackathon.city || 'In Person'}, ${hackathon.country || ''}`
-      : 'Hybrid Event';
+        ? `${hackathon.city || 'In Person'}, ${hackathon.country || ''}`
+        : 'Hybrid Event';
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -268,7 +269,10 @@ export default function HackathonDetailPage() {
                   {hackathon.status.replace('_', ' ')}
                 </Badge>
                 {(isLive || isUpcoming) && timeRemaining && (
-                  <Badge variant={isLive ? 'live' : 'upcoming'} className="text-sm px-4 py-1 animate-pulse">
+                  <Badge
+                    variant={isLive ? 'live' : 'upcoming'}
+                    className="text-sm px-4 py-1 animate-pulse"
+                  >
                     <Clock className="w-4 h-4 mr-2" />
                     {isLive ? 'Ends in' : 'Starts in'}: {timeRemaining}
                   </Badge>
@@ -362,9 +366,7 @@ export default function HackathonDetailPage() {
                     <Megaphone className="w-5 h-5 text-primary" />
                     Announcements
                   </CardTitle>
-                  <CardDescription>
-                    Important updates from the organizers
-                  </CardDescription>
+                  <CardDescription>Important updates from the organizers</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -376,7 +378,7 @@ export default function HackathonDetailPage() {
                         // Then sort by creation date (newest first)
                         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
                       })
-                      .map((announcement) => (
+                      .map(announcement => (
                         <div
                           key={announcement.id}
                           className={`border rounded-lg p-4 ${
@@ -387,9 +389,7 @@ export default function HackathonDetailPage() {
                         >
                           <div className="flex items-start justify-between gap-3 mb-2">
                             <h3 className="font-semibold text-lg text-slate-900 flex items-center gap-2">
-                              {announcement.pinned && (
-                                <Pin className="w-4 h-4 text-primary" />
-                              )}
+                              {announcement.pinned && <Pin className="w-4 h-4 text-primary" />}
                               {announcement.title}
                             </h3>
                             <span className="text-xs text-slate-500 whitespace-nowrap">
@@ -418,15 +418,13 @@ export default function HackathonDetailPage() {
                     <Target className="w-5 h-5 text-accent2" />
                     Challenge Tracks
                   </CardTitle>
-                  <CardDescription>
-                    Choose a track that aligns with your interests
-                  </CardDescription>
+                  <CardDescription>Choose a track that aligns with your interests</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
                     {hackathon.tracks
                       .sort((a, b) => a.order - b.order)
-                      .map((track) => (
+                      .map(track => (
                         <div
                           key={track.id}
                           className="border border-slate-200 rounded-lg p-4 hover:border-primary transition-colors"
@@ -456,7 +454,7 @@ export default function HackathonDetailPage() {
                   <div className="space-y-3">
                     {hackathon.criteria
                       .sort((a, b) => a.order - b.order)
-                      .map((criterion) => (
+                      .map(criterion => (
                         <div
                           key={criterion.id}
                           className="flex items-start justify-between gap-4 pb-3 border-b border-slate-100 last:border-0"
@@ -488,9 +486,7 @@ export default function HackathonDetailPage() {
               <Card className="border-primary">
                 <CardHeader>
                   <CardTitle>Ready to Participate?</CardTitle>
-                  <CardDescription>
-                    Join the hackathon and start building!
-                  </CardDescription>
+                  <CardDescription>Join the hackathon and start building!</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <Button
@@ -526,9 +522,7 @@ export default function HackathonDetailPage() {
                 </div>
                 {hackathon.registrationClosesAt && (
                   <div>
-                    <p className="text-sm font-medium text-slate-700 mb-1">
-                      Registration Closes
-                    </p>
+                    <p className="text-sm font-medium text-slate-700 mb-1">Registration Closes</p>
                     <p className="text-sm text-slate-600">
                       {formatDate(hackathon.registrationClosesAt)}
                     </p>
@@ -536,9 +530,7 @@ export default function HackathonDetailPage() {
                 )}
                 {hackathon.submissionClosesAt && (
                   <div>
-                    <p className="text-sm font-medium text-slate-700 mb-1">
-                      Submission Deadline
-                    </p>
+                    <p className="text-sm font-medium text-slate-700 mb-1">Submission Deadline</p>
                     <p className="text-sm text-slate-600">
                       {formatDate(hackathon.submissionClosesAt)}
                     </p>
@@ -629,12 +621,7 @@ export default function HackathonDetailPage() {
       {/* Mobile CTA */}
       {canRegister && (
         <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-lg">
-          <Button
-            className="w-full"
-            size="lg"
-            onClick={handleRegister}
-            disabled={isRegistering}
-          >
+          <Button className="w-full" size="lg" onClick={handleRegister} disabled={isRegistering}>
             <UserPlus className="w-5 h-5 mr-2" />
             {isRegistering ? 'Registering...' : 'Register Now'}
           </Button>

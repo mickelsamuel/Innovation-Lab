@@ -30,7 +30,7 @@ export function LiveSubmissionCounter({ hackathonId, initialCount }: LiveSubmiss
     if (!socket) return;
 
     const handleNewSubmission = () => {
-      setCount((prev) => prev + 1);
+      setCount(prev => prev + 1);
       setIsIncreasing(true);
       setTimeout(() => setIsIncreasing(false), 2000);
     };

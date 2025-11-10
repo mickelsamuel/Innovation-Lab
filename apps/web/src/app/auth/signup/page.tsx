@@ -49,13 +49,16 @@ export default function SignupPage() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/v1/auth/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ name, email, password }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/v1/auth/register`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, password }),
+        }
+      );
 
       const data = await response.json();
 
@@ -89,7 +92,10 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen hex-grid flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        <Link href="/" className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-6"
+        >
           <ArrowLeft className="w-4 h-4" />
           <span className="font-semibold">Back to Arena</span>
         </Link>
@@ -100,7 +106,9 @@ export default function SignupPage() {
               <Trophy className="w-10 h-10 text-white" />
             </div>
             <h1 className="text-3xl font-display font-black mb-2 gradient-text">Join the Arena!</h1>
-            <p className="text-slate-600 font-semibold">Create your account and start your legendary journey</p>
+            <p className="text-slate-600 font-semibold">
+              Create your account and start your legendary journey
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -121,7 +129,7 @@ export default function SignupPage() {
                   type="text"
                   placeholder="John Doe"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={e => setName(e.target.value)}
                   required
                   autoFocus
                   disabled={isSubmitting}
@@ -141,7 +149,7 @@ export default function SignupPage() {
                   type="email"
                   placeholder="your.email@example.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                   disabled={isSubmitting}
                   className="flex h-12 w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 pl-10 text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
@@ -160,7 +168,7 @@ export default function SignupPage() {
                   type="password"
                   placeholder="At least 8 characters"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={e => setPassword(e.target.value)}
                   required
                   disabled={isSubmitting}
                   className="flex h-12 w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 pl-10 text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
@@ -169,7 +177,10 @@ export default function SignupPage() {
             </div>
 
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-bold text-slate-700 mb-2">
+              <label
+                htmlFor="confirmPassword"
+                className="block text-sm font-bold text-slate-700 mb-2"
+              >
                 Confirm Password
               </label>
               <div className="relative">
@@ -179,7 +190,7 @@ export default function SignupPage() {
                   type="password"
                   placeholder="Re-enter your password"
                   value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  onChange={e => setConfirmPassword(e.target.value)}
                   required
                   disabled={isSubmitting}
                   className="flex h-12 w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 pl-10 text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"

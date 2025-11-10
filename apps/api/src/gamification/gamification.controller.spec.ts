@@ -82,7 +82,12 @@ describe('GamificationController', () => {
       const result = await controller.getLeaderboard(query as any);
 
       expect(result).toEqual(leaderboard);
-      expect(service.getLeaderboard).toHaveBeenCalledWith(undefined, undefined, undefined, undefined);
+      expect(service.getLeaderboard).toHaveBeenCalledWith(
+        undefined,
+        undefined,
+        undefined,
+        undefined
+      );
     });
   });
 

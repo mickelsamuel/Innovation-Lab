@@ -248,9 +248,7 @@ describe('Files Utility Functions', () => {
       }
 
       // Simulate load event
-      const loadHandler = mockXHR.addEventListener.mock.calls.find(
-        call => call[0] === 'load'
-      )?.[1];
+      const loadHandler = mockXHR.addEventListener.mock.calls.find(call => call[0] === 'load')?.[1];
 
       if (loadHandler) {
         loadHandler();
@@ -260,14 +258,8 @@ describe('Files Utility Functions', () => {
 
       expect(result).toEqual(mockResponse);
       expect(progressCallback).toHaveBeenCalledWith(50);
-      expect(mockXHR.open).toHaveBeenCalledWith(
-        'POST',
-        expect.stringContaining('/files/upload')
-      );
-      expect(mockXHR.setRequestHeader).toHaveBeenCalledWith(
-        'Authorization',
-        'Bearer token-123'
-      );
+      expect(mockXHR.open).toHaveBeenCalledWith('POST', expect.stringContaining('/files/upload'));
+      expect(mockXHR.setRequestHeader).toHaveBeenCalledWith('Authorization', 'Bearer token-123');
     });
 
     it('should handle progress with non-computable length', async () => {
@@ -303,9 +295,7 @@ describe('Files Utility Functions', () => {
       }
 
       // Simulate load event
-      const loadHandler = mockXHR.addEventListener.mock.calls.find(
-        call => call[0] === 'load'
-      )?.[1];
+      const loadHandler = mockXHR.addEventListener.mock.calls.find(call => call[0] === 'load')?.[1];
 
       if (loadHandler) {
         loadHandler();
@@ -371,9 +361,7 @@ describe('Files Utility Functions', () => {
       });
 
       // Simulate load event with error status
-      const loadHandler = mockXHR.addEventListener.mock.calls.find(
-        call => call[0] === 'load'
-      )?.[1];
+      const loadHandler = mockXHR.addEventListener.mock.calls.find(call => call[0] === 'load')?.[1];
 
       if (loadHandler) {
         loadHandler();
@@ -405,9 +393,7 @@ describe('Files Utility Functions', () => {
       });
 
       // Simulate load event
-      const loadHandler = mockXHR.addEventListener.mock.calls.find(
-        call => call[0] === 'load'
-      )?.[1];
+      const loadHandler = mockXHR.addEventListener.mock.calls.find(call => call[0] === 'load')?.[1];
 
       if (loadHandler) {
         loadHandler();
@@ -439,9 +425,7 @@ describe('Files Utility Functions', () => {
       });
 
       // Simulate load event with error status
-      const loadHandler = mockXHR.addEventListener.mock.calls.find(
-        call => call[0] === 'load'
-      )?.[1];
+      const loadHandler = mockXHR.addEventListener.mock.calls.find(call => call[0] === 'load')?.[1];
 
       if (loadHandler) {
         loadHandler();

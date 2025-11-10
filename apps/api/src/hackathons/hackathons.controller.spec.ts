@@ -44,7 +44,12 @@ describe('HackathonsController', () => {
 
   describe('create', () => {
     it('should create a hackathon', async () => {
-      const createDto = { slug: 'test', title: 'Test Hackathon', startsAt: new Date(), endsAt: new Date() } as any;
+      const createDto = {
+        slug: 'test',
+        title: 'Test Hackathon',
+        startsAt: new Date(),
+        endsAt: new Date(),
+      } as any;
       const hackathon = { id: 'h1', ...createDto };
       const user = { id: 'user-1' };
       mockHackathonsService.create.mockResolvedValue(hackathon);

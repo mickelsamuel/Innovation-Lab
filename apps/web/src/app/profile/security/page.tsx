@@ -255,9 +255,7 @@ export default function SecuritySettingsPage() {
                 <Smartphone className="w-5 h-5" />
                 Two-Factor Authentication
               </CardTitle>
-              <CardDescription>
-                Add an extra layer of security to your account
-              </CardDescription>
+              <CardDescription>Add an extra layer of security to your account</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex items-center justify-between">
@@ -277,9 +275,7 @@ export default function SecuritySettingsPage() {
                     )}
                   </p>
                 </div>
-                {!is2FAEnabled && !showQR && (
-                  <Button onClick={setup2FA}>Enable 2FA</Button>
-                )}
+                {!is2FAEnabled && !showQR && <Button onClick={setup2FA}>Enable 2FA</Button>}
                 {is2FAEnabled && (
                   <Button variant="destructive" onClick={disable2FA}>
                     Disable 2FA
@@ -294,9 +290,7 @@ export default function SecuritySettingsPage() {
                     <p className="text-sm text-slate-600 mb-4">
                       Scan this QR code with Google Authenticator, Authy, or any TOTP app
                     </p>
-                    {qrCode && (
-                      <img src={qrCode} alt="2FA QR Code" className="max-w-xs mx-auto" />
-                    )}
+                    {qrCode && <img src={qrCode} alt="2FA QR Code" className="max-w-xs mx-auto" />}
                   </div>
 
                   <div>
@@ -306,7 +300,7 @@ export default function SecuritySettingsPage() {
                         type="text"
                         placeholder="Enter 6-digit code"
                         value={totpToken}
-                        onChange={(e) => setTotpToken(e.target.value)}
+                        onChange={e => setTotpToken(e.target.value)}
                         maxLength={6}
                         className="max-w-xs"
                       />
@@ -341,7 +335,7 @@ export default function SecuritySettingsPage() {
                     id="current-password"
                     type="password"
                     value={currentPassword}
-                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    onChange={e => setCurrentPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -351,13 +345,11 @@ export default function SecuritySettingsPage() {
                     id="new-password"
                     type="password"
                     value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    onChange={e => setNewPassword(e.target.value)}
                     required
                     minLength={8}
                   />
-                  <p className="text-xs text-slate-500 mt-1">
-                    Must be at least 8 characters long
-                  </p>
+                  <p className="text-xs text-slate-500 mt-1">Must be at least 8 characters long</p>
                 </div>
                 <div>
                   <Label htmlFor="confirm-password">Confirm New Password</Label>
@@ -365,7 +357,7 @@ export default function SecuritySettingsPage() {
                     id="confirm-password"
                     type="password"
                     value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onChange={e => setConfirmPassword(e.target.value)}
                     required
                   />
                 </div>
@@ -389,10 +381,7 @@ export default function SecuritySettingsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {!showDeleteConfirm ? (
-                <Button
-                  variant="destructive"
-                  onClick={() => setShowDeleteConfirm(true)}
-                >
+                <Button variant="destructive" onClick={() => setShowDeleteConfirm(true)}>
                   Delete My Account
                 </Button>
               ) : (
@@ -402,8 +391,8 @@ export default function SecuritySettingsPage() {
                       ⚠️ Warning: This action cannot be undone!
                     </p>
                     <p className="text-xs text-red-700 mt-1">
-                      All your data, including teams, submissions, and activity will be
-                      permanently deleted.
+                      All your data, including teams, submissions, and activity will be permanently
+                      deleted.
                     </p>
                   </div>
 
@@ -413,7 +402,7 @@ export default function SecuritySettingsPage() {
                       id="delete-password"
                       type="password"
                       value={deletePassword}
-                      onChange={(e) => setDeletePassword(e.target.value)}
+                      onChange={e => setDeletePassword(e.target.value)}
                       placeholder="Password"
                     />
                   </div>
@@ -424,7 +413,7 @@ export default function SecuritySettingsPage() {
                       id="delete-confirm"
                       type="text"
                       value={deleteConfirmation}
-                      onChange={(e) => setDeleteConfirmation(e.target.value)}
+                      onChange={e => setDeleteConfirmation(e.target.value)}
                       placeholder="DELETE"
                     />
                   </div>

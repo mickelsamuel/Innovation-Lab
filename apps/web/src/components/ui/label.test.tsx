@@ -38,7 +38,15 @@ describe('Label', () => {
 
   it('should handle onClick event', () => {
     let clicked = false;
-    render(<Label onClick={() => { clicked = true; }}>Clickable Label</Label>);
+    render(
+      <Label
+        onClick={() => {
+          clicked = true;
+        }}
+      >
+        Clickable Label
+      </Label>
+    );
     screen.getByText('Clickable Label').click();
     expect(clicked).toBe(true);
   });

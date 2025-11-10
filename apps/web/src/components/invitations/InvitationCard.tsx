@@ -110,12 +110,13 @@ export function InvitationCard({ invitation, variant = 'user', onUpdate }: Invit
   };
 
   const getStatusBadge = (status: InvitationStatus) => {
-    const variants: Record<InvitationStatus, 'default' | 'secondary' | 'destructive' | 'outline'> = {
-      [InvitationStatus.PENDING]: 'default',
-      [InvitationStatus.ACCEPTED]: 'secondary',
-      [InvitationStatus.REJECTED]: 'destructive',
-      [InvitationStatus.EXPIRED]: 'outline',
-    };
+    const variants: Record<InvitationStatus, 'default' | 'secondary' | 'destructive' | 'outline'> =
+      {
+        [InvitationStatus.PENDING]: 'default',
+        [InvitationStatus.ACCEPTED]: 'secondary',
+        [InvitationStatus.REJECTED]: 'destructive',
+        [InvitationStatus.EXPIRED]: 'outline',
+      };
 
     return <Badge variant={variants[status]}>{status}</Badge>;
   };
@@ -135,7 +136,9 @@ export function InvitationCard({ invitation, variant = 'user', onUpdate }: Invit
               </AvatarFallback>
             </Avatar>
             <div>
-              <p className="font-semibold">{invitation.invitedBy.name || invitation.invitedBy.handle}</p>
+              <p className="font-semibold">
+                {invitation.invitedBy.name || invitation.invitedBy.handle}
+              </p>
               <p className="text-sm text-muted-foreground">@{invitation.invitedBy.handle}</p>
             </div>
           </div>
@@ -193,9 +196,7 @@ export function InvitationCard({ invitation, variant = 'user', onUpdate }: Invit
           {invitation.expiresAt && (
             <div className="flex items-center gap-1">
               <Clock className="h-3 w-3" />
-              <span>
-                Expires {new Date(invitation.expiresAt).toLocaleDateString()}
-              </span>
+              <span>Expires {new Date(invitation.expiresAt).toLocaleDateString()}</span>
             </div>
           )}
         </div>

@@ -7,17 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Avatar } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import {
-  Trophy,
-  Medal,
-  
-  Crown,
-  Star,
-  TrendingUp,
-  Users,
-  ArrowLeft,
-  Sparkles,
-} from 'lucide-react';
+import { Trophy, Medal, Crown, Star, TrendingUp, Users, ArrowLeft, Sparkles } from 'lucide-react';
 import type { Hackathon } from '@/types/hackathon';
 
 interface Submission {
@@ -101,9 +91,7 @@ export default function HackathonLeaderboardPage() {
 
   // Filter submissions by track
   const filteredSubmissions =
-    selectedTrack === 'all'
-      ? submissions
-      : submissions.filter((s) => s.track?.id === selectedTrack);
+    selectedTrack === 'all' ? submissions : submissions.filter(s => s.track?.id === selectedTrack);
 
   const topThree = filteredSubmissions.slice(0, 3);
   const restOfSubmissions = filteredSubmissions.slice(3);
@@ -196,7 +184,8 @@ export default function HackathonLeaderboardPage() {
                 {hackathon.title} Leaderboard
               </h1>
               <p className="text-slate-400">
-                {filteredSubmissions.length} ranked submission{filteredSubmissions.length !== 1 ? 's' : ''}
+                {filteredSubmissions.length} ranked submission
+                {filteredSubmissions.length !== 1 ? 's' : ''}
               </p>
             </div>
           </div>
@@ -216,7 +205,7 @@ export default function HackathonLeaderboardPage() {
               >
                 All Tracks
               </Button>
-              {tracks.map((track) => (
+              {tracks.map(track => (
                 <Button
                   key={track.id}
                   size="sm"
@@ -243,9 +232,7 @@ export default function HackathonLeaderboardPage() {
             <CardContent className="pt-16 pb-16 text-center">
               <Trophy className="w-16 h-16 text-slate-600 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-slate-300 mb-2">No Rankings Yet</h3>
-              <p className="text-slate-500">
-                Rankings will appear here once judging is complete.
-              </p>
+              <p className="text-slate-500">Rankings will appear here once judging is complete.</p>
             </CardContent>
           </Card>
         ) : (
@@ -259,7 +246,7 @@ export default function HackathonLeaderboardPage() {
                 </h2>
 
                 <div className="grid md:grid-cols-3 gap-6">
-                  {topThree.map((submission) => (
+                  {topThree.map(submission => (
                     <Card
                       key={submission.id}
                       className={`bg-gradient-to-br ${getPodiumColor(submission.rank!)} border-2 overflow-hidden`}
@@ -275,8 +262,8 @@ export default function HackathonLeaderboardPage() {
                                   submission.rank === 1
                                     ? 'border-yellow-500 text-yellow-500'
                                     : submission.rank === 2
-                                    ? 'border-gray-400 text-gray-400'
-                                    : 'border-amber-600 text-amber-600'
+                                      ? 'border-gray-400 text-gray-400'
+                                      : 'border-amber-600 text-amber-600'
                                 }`}
                               >
                                 #{submission.rank}
@@ -308,11 +295,18 @@ export default function HackathonLeaderboardPage() {
 
                         <div className="flex items-center gap-2 text-sm text-slate-400">
                           <Users className="w-4 h-4" />
-                          <span>{submission.team.members.length} member{submission.team.members.length !== 1 ? 's' : ''}</span>
+                          <span>
+                            {submission.team.members.length} member
+                            {submission.team.members.length !== 1 ? 's' : ''}
+                          </span>
                         </div>
 
                         <Link href={`/submissions/${submission.id}`}>
-                          <Button variant="outline" size="sm" className="w-full mt-4 border-slate-700 hover:bg-slate-800">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="w-full mt-4 border-slate-700 hover:bg-slate-800"
+                          >
                             View Submission
                           </Button>
                         </Link>
@@ -358,13 +352,16 @@ export default function HackathonLeaderboardPage() {
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-700/50">
-                          {restOfSubmissions.map((submission) => (
+                          {restOfSubmissions.map(submission => (
                             <tr
                               key={submission.id}
                               className="hover:bg-slate-800/30 transition-colors"
                             >
                               <td className="px-6 py-4">
-                                <Badge variant="outline" className="border-slate-600 text-slate-300">
+                                <Badge
+                                  variant="outline"
+                                  className="border-slate-600 text-slate-300"
+                                >
                                   #{submission.rank}
                                 </Badge>
                               </td>
@@ -372,7 +369,10 @@ export default function HackathonLeaderboardPage() {
                                 <div className="flex items-center gap-3">
                                   <Avatar className="w-10 h-10">
                                     {submission.team.logoUrl ? (
-                                      <img src={submission.team.logoUrl} alt={submission.team.name} />
+                                      <img
+                                        src={submission.team.logoUrl}
+                                        alt={submission.team.name}
+                                      />
                                     ) : (
                                       <div className="w-full h-full bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center text-white font-bold">
                                         {submission.team.name[0].toUpperCase()}
@@ -382,7 +382,8 @@ export default function HackathonLeaderboardPage() {
                                   <div>
                                     <p className="font-medium text-white">{submission.team.name}</p>
                                     <p className="text-sm text-slate-400">
-                                      {submission.team.members.length} member{submission.team.members.length !== 1 ? 's' : ''}
+                                      {submission.team.members.length} member
+                                      {submission.team.members.length !== 1 ? 's' : ''}
                                     </p>
                                   </div>
                                 </div>

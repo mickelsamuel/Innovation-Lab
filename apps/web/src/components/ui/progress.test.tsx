@@ -43,13 +43,7 @@ describe('Progress', () => {
   });
 
   it('should handle aria attributes', () => {
-    render(
-      <Progress
-        value={60}
-        aria-label="Upload progress"
-        data-testid="progress"
-      />
-    );
+    render(<Progress value={60} aria-label="Upload progress" data-testid="progress" />);
     const progress = screen.getByTestId('progress');
     expect(progress).toHaveAttribute('aria-label', 'Upload progress');
   });

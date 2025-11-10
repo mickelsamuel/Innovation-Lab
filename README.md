@@ -31,6 +31,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 ## ✨ Features
 
 ### 🎯 **Virtual Hackathons**
+
 - **Complete Event Lifecycle**: Registration → Team Formation → Mentoring → Submissions → Judging → Awards
 - **Role-Based Access Control**: Bank Admin, Organizers, Mentors, Judges, Participants (9 roles)
 - **Multi-Track Support**: Multiple competition tracks with dedicated prizes
@@ -40,6 +41,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 - **Live Leaderboards**: Real-time rankings per event, track, and team
 
 ### 💡 **Cross-Departmental Challenges**
+
 - **Any Department, Any Problem**:
   - 💰 **Finance**: Fraud detection models, risk assessment tools, financial forecasting
   - 👥 **HR**: Employee engagement platforms, recruitment automation, training programs
@@ -55,6 +57,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 - **Analytics Dashboard**: Views, submissions, conversion metrics, engagement tracking
 
 ### 🎮 **Gamification System (Vaultix Theme)**
+
 - **XP & Leveling**: Earn points for participation, submissions, wins, mentoring
 - **Progressive Levels**: 50 levels with milestone rewards
 - **Badge Collection**: 40+ achievements across categories (common → legendary rarity)
@@ -63,6 +66,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 - **Daily Streaks**: Activity tracking with bonus multipliers
 
 ### 🔐 **Enterprise Security**
+
 - **Multi-Factor Authentication**: Email/Password + Microsoft Entra ID SSO + TOTP 2FA
 - **Fine-Grained Authorization**: Policy-based access control with role hierarchies
 - **Input Validation**: Zod schemas (frontend) + class-validator (backend)
@@ -77,9 +81,11 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 ## 🛠 Tech Stack
 
 ### **Monorepo Architecture**
+
 - **Turborepo** - High-performance build system with remote caching
 
 ### **Frontend** (`apps/web`)
+
 - **Next.js 15** - React framework with App Router
 - **TypeScript 5.3** - Type-safe JavaScript
 - **Tailwind CSS** - Utility-first styling framework
@@ -90,6 +96,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 - **NextAuth v5** - Authentication (Credentials + OAuth)
 
 ### **Backend** (`apps/api`)
+
 - **NestJS 10** - Progressive Node.js framework
 - **TypeScript 5.3** - Type-safe JavaScript
 - **Prisma ORM** - Type-safe database access layer
@@ -100,6 +107,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 - **Swagger/OpenAPI** - Interactive API documentation
 
 ### **Database & Storage**
+
 - **PostgreSQL 16** - Relational data with JSONB support
 - **Prisma** - Database migrations and schema management
 - **Redis** - Session storage and caching
@@ -107,6 +115,7 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 - **MinIO** - S3-compatible local development storage
 
 ### **Infrastructure & DevOps**
+
 - **Docker & Docker Compose** - Containerized local development
 - **Terraform** - Infrastructure as Code for AWS
 - **GitHub Actions** - CI/CD pipelines
@@ -120,12 +129,14 @@ A complete, secure, and scalable web platform for running cross-departmental hac
   - WAF (Web Application Firewall)
 
 ### **Observability**
+
 - **Pino** - Structured JSON logging
 - **OpenTelemetry** - Distributed tracing (infrastructure ready)
 - **Prometheus** - Metrics collection (infrastructure ready)
 - **Health Checks** - Kubernetes-compatible probes
 
 ### **Testing**
+
 - **Jest** - Backend unit and integration testing
 - **Vitest** - Frontend unit testing
 - **React Testing Library** - Component testing
@@ -146,23 +157,27 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 ### Installation (5 Minutes)
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/mickelsamuel/Innovation-Lab.git
    cd Innovation-Lab
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env
    # The defaults work for local development - no changes needed!
    ```
 
 4. **Start everything with one command**
+
    ```bash
    ./start.sh
    ```
@@ -183,28 +198,28 @@ A complete, secure, and scalable web platform for running cross-departmental hac
 
 Once running:
 
-| Service | URL | Notes |
-|---------|-----|-------|
-| 🎮 **Web Application** | http://localhost:3000 | Next.js frontend |
-| 🔧 **Backend API** | http://localhost:4000/v1 | NestJS REST API |
-| 📚 **API Documentation** | http://localhost:4000/api/docs | Swagger UI |
-| 🏥 **Health Check** | http://localhost:4000/health | Service health |
-| 🗄️ **Database** | localhost:5432 | PostgreSQL |
-| ⚡ **Redis** | localhost:6379 | Cache |
-| 📦 **MinIO Console** | http://localhost:9001 | minioadmin / minioadmin |
-| 📧 **Email Testing** | http://localhost:8025 | Mailhog UI |
-| 🎨 **Prisma Studio** | Run `pnpm db:studio` | Database GUI |
+| Service                  | URL                            | Notes                   |
+| ------------------------ | ------------------------------ | ----------------------- |
+| 🎮 **Web Application**   | http://localhost:3000          | Next.js frontend        |
+| 🔧 **Backend API**       | http://localhost:4000/v1       | NestJS REST API         |
+| 📚 **API Documentation** | http://localhost:4000/api/docs | Swagger UI              |
+| 🏥 **Health Check**      | http://localhost:4000/health   | Service health          |
+| 🗄️ **Database**          | localhost:5432                 | PostgreSQL              |
+| ⚡ **Redis**             | localhost:6379                 | Cache                   |
+| 📦 **MinIO Console**     | http://localhost:9001          | minioadmin / minioadmin |
+| 📧 **Email Testing**     | http://localhost:8025          | Mailhog UI              |
+| 🎨 **Prisma Studio**     | Run `pnpm db:studio`           | Database GUI            |
 
 ### Demo Accounts
 
 After seeding, use these credentials:
 
-| Role | Email | Password |
-|------|-------|----------|
-| Bank Admin | admin@nbc.com | Password123! |
-| Organizer | organizer@nbc.com | Password123! |
-| Mentor | mentor@vaultix.com | Password123! |
-| Judge | judge@nbc.com | Password123! |
+| Role        | Email                    | Password     |
+| ----------- | ------------------------ | ------------ |
+| Bank Admin  | admin@nbc.com            | Password123! |
+| Organizer   | organizer@nbc.com        | Password123! |
+| Mentor      | mentor@vaultix.com       | Password123! |
+| Judge       | judge@nbc.com            | Password123! |
 | Participant | participant1@example.com | Password123! |
 
 ---
@@ -276,25 +291,30 @@ Innovation-Lab/
 Comprehensive guides for all aspects of the platform:
 
 ### Getting Started
+
 - **[Quick Start](./QUICK_START.md)** - Get running in 5 minutes
 - **[Architecture](./ARCHITECTURE.md)** - System design and technical decisions
 
 ### Development Guides
+
 - **[Backend Guide](./docs/BACKEND.md)** - Complete backend documentation (83+ endpoints, 17+ models)
 - **[Frontend Guide](./docs/FRONTEND.md)** - Complete frontend documentation (35+ pages)
 - **[WebSocket Guide](./docs/WEBSOCKET.md)** - Real-time features implementation
 - **[Notifications Guide](./docs/NOTIFICATIONS.md)** - Email and in-app notifications
 
 ### Operations & Testing
+
 - **[Testing Guide](./docs/TESTING.md)** - Unit, integration, and E2E tests (500+ tests)
 - **[Scripts Reference](./docs/SCRIPTS.md)** - Automation scripts documentation
 - **[Troubleshooting](./docs/TROUBLESHOOTING.md)** - Common issues and solutions
 
 ### Analytics & Monitoring
+
 - **[Analytics Guide](./docs/ANALYTICS.md)** - Analytics dashboard and metrics
 - **[Infrastructure](./infra/README.md)** - Terraform and AWS setup
 
 ### Contributing
+
 - **[Contributing](./CONTRIBUTING.md)** - How to contribute to the project
 - **[Security](./SECURITY.md)** - Security policy and vulnerability reporting
 - **[Changelog](./CHANGELOG.md)** - Version history and release notes
@@ -320,6 +340,7 @@ pnpm test:watch
 ```
 
 ### Test Coverage
+
 - **Backend**: ≥80% coverage requirement (137+ test cases)
 - **Frontend**: ≥70% coverage requirement (23+ test cases)
 - **E2E**: Critical user journeys covered
@@ -331,11 +352,13 @@ See [TESTING.md](./docs/TESTING.md) for comprehensive testing documentation.
 ## 🚢 Deployment
 
 ### Local Development (Default)
+
 ```bash
 ./start.sh  # Uses Docker Compose
 ```
 
 ### Staging/Production (AWS)
+
 ```bash
 cd infra/environments/prod
 terraform init
@@ -350,6 +373,7 @@ See [DEPLOYMENT.md](./docs/DEPLOYMENT.md) for detailed deployment instructions.
 ## 🔒 Security
 
 ### Security Features
+
 - OWASP ASVS Level 2 compliance
 - Multi-factor authentication (TOTP)
 - Input validation at all boundaries

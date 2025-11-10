@@ -115,9 +115,7 @@ export default function PlatformAnalyticsPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-4xl font-bold text-white">Platform Analytics</h1>
-            <p className="mt-2 text-slate-400">
-              Comprehensive insights into platform performance
-            </p>
+            <p className="mt-2 text-slate-400">Comprehensive insights into platform performance</p>
           </div>
           {platformStats && (
             <ExportButton
@@ -149,7 +147,12 @@ export default function PlatformAnalyticsPage() {
             trend={growthMetrics?.trends.userGrowth}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                />
               </svg>
             }
             loading={loading}
@@ -160,7 +163,12 @@ export default function PlatformAnalyticsPage() {
             trend={growthMetrics?.trends.hackathonGrowth}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                />
               </svg>
             }
             loading={loading}
@@ -171,7 +179,12 @@ export default function PlatformAnalyticsPage() {
             trend={growthMetrics?.trends.challengeGrowth}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
               </svg>
             }
             loading={loading}
@@ -182,7 +195,12 @@ export default function PlatformAnalyticsPage() {
             trend={growthMetrics?.trends.submissionGrowth}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
               </svg>
             }
             loading={loading}
@@ -207,7 +225,11 @@ export default function PlatformAnalyticsPage() {
                   </linearGradient>
                 </defs>
                 <CartesianGrid {...lineChartConfig.grid} />
-                <XAxis dataKey="date" {...lineChartConfig.axisStyle} {...lineChartConfig.labelStyle} />
+                <XAxis
+                  dataKey="date"
+                  {...lineChartConfig.axisStyle}
+                  {...lineChartConfig.labelStyle}
+                />
                 <YAxis {...lineChartConfig.axisStyle} {...lineChartConfig.labelStyle} />
                 <Tooltip {...lineChartConfig.tooltip} />
                 <Legend />
@@ -240,7 +262,12 @@ export default function PlatformAnalyticsPage() {
                 <XAxis dataKey="day" {...barChartConfig.axisStyle} {...barChartConfig.labelStyle} />
                 <YAxis {...barChartConfig.axisStyle} {...barChartConfig.labelStyle} />
                 <Tooltip {...barChartConfig.tooltip} />
-                <Bar dataKey="activities" fill={chartColors.primary} radius={barChartConfig.radius} name="Activities" />
+                <Bar
+                  dataKey="activities"
+                  fill={chartColors.primary}
+                  radius={barChartConfig.radius}
+                  name="Activities"
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -255,8 +282,11 @@ export default function PlatformAnalyticsPage() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={(props) => {
-                    const { department, percentage } = props.payload as { department: string; percentage: number };
+                  label={props => {
+                    const { department, percentage } = props.payload as {
+                      department: string;
+                      percentage: number;
+                    };
                     return `${department}: ${percentage.toFixed(1)}%`;
                   }}
                   outerRadius={100}
@@ -264,7 +294,10 @@ export default function PlatformAnalyticsPage() {
                   dataKey="count"
                 >
                   {platformStats?.topDepartments.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={multiSeriesColors[index % multiSeriesColors.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={multiSeriesColors[index % multiSeriesColors.length]}
+                    />
                   ))}
                 </Pie>
                 <Tooltip {...lineChartConfig.tooltip} />
@@ -278,7 +311,11 @@ export default function PlatformAnalyticsPage() {
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={engagementMetrics?.activityByHour || []}>
                 <CartesianGrid {...lineChartConfig.grid} />
-                <XAxis dataKey="hour" {...lineChartConfig.axisStyle} {...lineChartConfig.labelStyle} />
+                <XAxis
+                  dataKey="hour"
+                  {...lineChartConfig.axisStyle}
+                  {...lineChartConfig.labelStyle}
+                />
                 <YAxis {...lineChartConfig.axisStyle} {...lineChartConfig.labelStyle} />
                 <Tooltip {...lineChartConfig.tooltip} />
                 <Line

@@ -22,6 +22,7 @@ Please send a detailed description of the vulnerability to:
 **Email**: security@innovationlab.example.com
 
 Alternatively, you can use GitHub's private security advisory feature:
+
 1. Go to the [Security tab](https://github.com/mickelsamuel/Innovation-Lab/security)
 2. Click "Report a vulnerability"
 3. Fill out the form with details
@@ -141,10 +142,12 @@ This platform is designed with the following compliance frameworks in mind:
 ## Contact
 
 For non-security-related questions, please use:
+
 - **General issues**: https://github.com/mickelsamuel/Innovation-Lab/issues
 - **Discussions**: https://github.com/mickelsamuel/Innovation-Lab/discussions
 
 For security concerns only:
+
 - **Email**: security@innovationlab.example.com
 - **GitHub Security Advisories**: [Report privately](https://github.com/mickelsamuel/Innovation-Lab/security/advisories/new)
 

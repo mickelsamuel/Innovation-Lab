@@ -86,7 +86,9 @@ export default function RegisterPage() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="name" className="font-bold text-slate-900">Full Name</Label>
+              <Label htmlFor="name" className="font-bold text-slate-900">
+                Full Name
+              </Label>
               <Input
                 id="name"
                 type="text"
@@ -96,11 +98,15 @@ export default function RegisterPage() {
                 className="font-semibold"
                 {...register('name')}
               />
-              {errors.name && <p className="text-sm font-bold text-red-600">{errors.name.message}</p>}
+              {errors.name && (
+                <p className="text-sm font-bold text-red-600">{errors.name.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="handle" className="font-bold text-slate-900">Warrior Handle</Label>
+              <Label htmlFor="handle" className="font-bold text-slate-900">
+                Warrior Handle
+              </Label>
               <Input
                 id="handle"
                 type="text"
@@ -110,14 +116,18 @@ export default function RegisterPage() {
                 className="font-semibold"
                 {...register('handle')}
               />
-              {errors.handle && <p className="text-sm font-bold text-red-600">{errors.handle.message}</p>}
+              {errors.handle && (
+                <p className="text-sm font-bold text-red-600">{errors.handle.message}</p>
+              )}
               <p className="text-xs text-slate-600 font-semibold">
                 Only letters, numbers, underscores, and hyphens
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="font-bold text-slate-900">Player Email</Label>
+              <Label htmlFor="email" className="font-bold text-slate-900">
+                Player Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -127,11 +137,15 @@ export default function RegisterPage() {
                 className="font-semibold"
                 {...register('email')}
               />
-              {errors.email && <p className="text-sm font-bold text-red-600">{errors.email.message}</p>}
+              {errors.email && (
+                <p className="text-sm font-bold text-red-600">{errors.email.message}</p>
+              )}
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="font-bold text-slate-900">Password</Label>
+              <Label htmlFor="password" className="font-bold text-slate-900">
+                Password
+              </Label>
               <Input
                 id="password"
                 type="password"
@@ -150,7 +164,9 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="font-bold text-slate-900">Confirm Password</Label>
+              <Label htmlFor="confirmPassword" className="font-bold text-slate-900">
+                Confirm Password
+              </Label>
               <Input
                 id="confirmPassword"
                 type="password"
@@ -166,7 +182,9 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="organization" className="font-bold text-slate-900">Guild (Optional)</Label>
+              <Label htmlFor="organization" className="font-bold text-slate-900">
+                Guild (Optional)
+              </Label>
               <Input
                 id="organization"
                 type="text"

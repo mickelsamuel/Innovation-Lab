@@ -54,12 +54,20 @@ export default function EditHackathonPage() {
     resolver: zodResolver(createHackathonSchema),
   });
 
-  const { fields: trackFields, append: appendTrack, remove: removeTrack } = useFieldArray({
+  const {
+    fields: trackFields,
+    append: appendTrack,
+    remove: removeTrack,
+  } = useFieldArray({
     control,
     name: 'tracks',
   });
 
-  const { fields: criteriaFields, append: appendCriterion, remove: removeCriterion } = useFieldArray({
+  const {
+    fields: criteriaFields,
+    append: appendCriterion,
+    remove: removeCriterion,
+  } = useFieldArray({
     control,
     name: 'criteria',
   });
@@ -93,28 +101,38 @@ export default function EditHackathonPage() {
         logoUrl: data.logoUrl || '',
         startsAt: data.startsAt ? new Date(data.startsAt).toISOString().slice(0, 16) : '',
         endsAt: data.endsAt ? new Date(data.endsAt).toISOString().slice(0, 16) : '',
-        registrationOpensAt: data.registrationOpensAt ? new Date(data.registrationOpensAt).toISOString().slice(0, 16) : '',
-        registrationClosesAt: data.registrationClosesAt ? new Date(data.registrationClosesAt).toISOString().slice(0, 16) : '',
-        submissionOpensAt: data.submissionOpensAt ? new Date(data.submissionOpensAt).toISOString().slice(0, 16) : '',
-        submissionClosesAt: data.submissionClosesAt ? new Date(data.submissionClosesAt).toISOString().slice(0, 16) : '',
+        registrationOpensAt: data.registrationOpensAt
+          ? new Date(data.registrationOpensAt).toISOString().slice(0, 16)
+          : '',
+        registrationClosesAt: data.registrationClosesAt
+          ? new Date(data.registrationClosesAt).toISOString().slice(0, 16)
+          : '',
+        submissionOpensAt: data.submissionOpensAt
+          ? new Date(data.submissionOpensAt).toISOString().slice(0, 16)
+          : '',
+        submissionClosesAt: data.submissionClosesAt
+          ? new Date(data.submissionClosesAt).toISOString().slice(0, 16)
+          : '',
         prizePool: data.prizePool || undefined,
         maxTeamSize: data.maxTeamSize,
         minTeamSize: data.minTeamSize,
         allowSoloTeams: data.allowSoloTeams,
         requireApproval: data.requireApproval,
         isPublished: data.isPublished,
-        tracks: data.tracks?.map((track) => ({
-          title: track.title,
-          description: track.description,
-          order: track.order,
-        })) || [],
-        criteria: data.criteria?.map((criterion) => ({
-          name: criterion.name,
-          description: criterion.description,
-          maxScore: criterion.maxScore,
-          weight: criterion.weight,
-          order: criterion.order,
-        })) || [],
+        tracks:
+          data.tracks?.map(track => ({
+            title: track.title,
+            description: track.description,
+            order: track.order,
+          })) || [],
+        criteria:
+          data.criteria?.map(criterion => ({
+            name: criterion.name,
+            description: criterion.description,
+            maxScore: criterion.maxScore,
+            weight: criterion.weight,
+            order: criterion.order,
+          })) || [],
       });
     } catch (error: any) {
       console.error('Error fetching hackathon:', error);
@@ -247,7 +265,8 @@ export default function EditHackathonPage() {
                   <div>
                     <p className="font-medium text-yellow-900">Active Submissions</p>
                     <p className="text-sm text-yellow-700 mt-1">
-                      This hackathon has {hackathon._count?.submissions || 0} submissions. Modifying tracks or criteria may affect judging.
+                      This hackathon has {hackathon._count?.submissions || 0} submissions. Modifying
+                      tracks or criteria may affect judging.
                     </p>
                   </div>
                 </div>
@@ -325,7 +344,7 @@ export default function EditHackathonPage() {
                   <Label htmlFor="isPublished">Visibility</Label>
                   <select
                     id="isPublished"
-                    {...register('isPublished', { setValueAs: (v) => v === 'true' })}
+                    {...register('isPublished', { setValueAs: v => v === 'true' })}
                     className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     <option value="false">Unpublished</option>
@@ -358,7 +377,8 @@ export default function EditHackathonPage() {
                 </select>
               </div>
 
-              {(location === HackathonLocation.VIRTUAL || location === HackathonLocation.HYBRID) && (
+              {(location === HackathonLocation.VIRTUAL ||
+                location === HackathonLocation.HYBRID) && (
                 <div>
                   <Label htmlFor="virtualUrl">Virtual Meeting URL</Label>
                   <Input
@@ -407,33 +427,67 @@ export default function EditHackathonPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="startsAt">Start Date & Time *</Label>
-                  <Input id="startsAt" type="datetime-local" {...register('startsAt')} className="mt-1.5" />
-                  {errors.startsAt && <p className="text-sm text-red-600 mt-1">{errors.startsAt.message}</p>}
+                  <Input
+                    id="startsAt"
+                    type="datetime-local"
+                    {...register('startsAt')}
+                    className="mt-1.5"
+                  />
+                  {errors.startsAt && (
+                    <p className="text-sm text-red-600 mt-1">{errors.startsAt.message}</p>
+                  )}
                 </div>
                 <div>
                   <Label htmlFor="endsAt">End Date & Time *</Label>
-                  <Input id="endsAt" type="datetime-local" {...register('endsAt')} className="mt-1.5" />
-                  {errors.endsAt && <p className="text-sm text-red-600 mt-1">{errors.endsAt.message}</p>}
+                  <Input
+                    id="endsAt"
+                    type="datetime-local"
+                    {...register('endsAt')}
+                    className="mt-1.5"
+                  />
+                  {errors.endsAt && (
+                    <p className="text-sm text-red-600 mt-1">{errors.endsAt.message}</p>
+                  )}
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="registrationOpensAt">Registration Opens</Label>
-                  <Input id="registrationOpensAt" type="datetime-local" {...register('registrationOpensAt')} className="mt-1.5" />
+                  <Input
+                    id="registrationOpensAt"
+                    type="datetime-local"
+                    {...register('registrationOpensAt')}
+                    className="mt-1.5"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="registrationClosesAt">Registration Closes</Label>
-                  <Input id="registrationClosesAt" type="datetime-local" {...register('registrationClosesAt')} className="mt-1.5" />
+                  <Input
+                    id="registrationClosesAt"
+                    type="datetime-local"
+                    {...register('registrationClosesAt')}
+                    className="mt-1.5"
+                  />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="submissionOpensAt">Submission Opens</Label>
-                  <Input id="submissionOpensAt" type="datetime-local" {...register('submissionOpensAt')} className="mt-1.5" />
+                  <Input
+                    id="submissionOpensAt"
+                    type="datetime-local"
+                    {...register('submissionOpensAt')}
+                    className="mt-1.5"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="submissionClosesAt">Submission Closes</Label>
-                  <Input id="submissionClosesAt" type="datetime-local" {...register('submissionClosesAt')} className="mt-1.5" />
+                  <Input
+                    id="submissionClosesAt"
+                    type="datetime-local"
+                    {...register('submissionClosesAt')}
+                    className="mt-1.5"
+                  />
                 </div>
               </div>
             </CardContent>
@@ -451,20 +505,36 @@ export default function EditHackathonPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="minTeamSize">Minimum Team Size *</Label>
-                  <Input id="minTeamSize" type="number" min="1" {...register('minTeamSize', { valueAsNumber: true })} className="mt-1.5" />
+                  <Input
+                    id="minTeamSize"
+                    type="number"
+                    min="1"
+                    {...register('minTeamSize', { valueAsNumber: true })}
+                    className="mt-1.5"
+                  />
                 </div>
                 <div>
                   <Label htmlFor="maxTeamSize">Maximum Team Size *</Label>
-                  <Input id="maxTeamSize" type="number" min="1" {...register('maxTeamSize', { valueAsNumber: true })} className="mt-1.5" />
+                  <Input
+                    id="maxTeamSize"
+                    type="number"
+                    min="1"
+                    {...register('maxTeamSize', { valueAsNumber: true })}
+                    className="mt-1.5"
+                  />
                 </div>
               </div>
               <div className="flex items-center gap-3">
                 <input type="checkbox" id="allowSoloTeams" {...register('allowSoloTeams')} />
-                <Label htmlFor="allowSoloTeams" className="cursor-pointer">Allow Solo Teams</Label>
+                <Label htmlFor="allowSoloTeams" className="cursor-pointer">
+                  Allow Solo Teams
+                </Label>
               </div>
               <div className="flex items-center gap-3">
                 <input type="checkbox" id="requireApproval" {...register('requireApproval')} />
-                <Label htmlFor="requireApproval" className="cursor-pointer">Require Team Approval</Label>
+                <Label htmlFor="requireApproval" className="cursor-pointer">
+                  Require Team Approval
+                </Label>
               </div>
             </CardContent>
           </Card>
@@ -480,7 +550,14 @@ export default function EditHackathonPage() {
             <CardContent>
               <div>
                 <Label htmlFor="prizePool">Total Prize Pool (USD)</Label>
-                <Input id="prizePool" type="number" min="0" step="0.01" {...register('prizePool', { valueAsNumber: true })} className="mt-1.5" />
+                <Input
+                  id="prizePool"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  {...register('prizePool', { valueAsNumber: true })}
+                  className="mt-1.5"
+                />
               </div>
             </CardContent>
           </Card>
@@ -520,22 +597,49 @@ export default function EditHackathonPage() {
                   <CardContent className="pt-4 space-y-3">
                     <div className="flex items-start justify-between">
                       <Label>Track {index + 1}</Label>
-                      <Button type="button" variant="ghost" size="sm" onClick={() => removeTrack(index)} disabled={hasSubmissions}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeTrack(index)}
+                        disabled={hasSubmissions}
+                      >
                         <X className="w-4 h-4" />
                       </Button>
                     </div>
-                    <Input placeholder="Track title" {...register(`tracks.${index}.title` as const)} />
-                    <Textarea placeholder="Track description" {...register(`tracks.${index}.description` as const)} rows={2} />
-                    <input type="hidden" {...register(`tracks.${index}.order` as const)} value={index} />
+                    <Input
+                      placeholder="Track title"
+                      {...register(`tracks.${index}.title` as const)}
+                    />
+                    <Textarea
+                      placeholder="Track description"
+                      {...register(`tracks.${index}.description` as const)}
+                      rows={2}
+                    />
+                    <input
+                      type="hidden"
+                      {...register(`tracks.${index}.order` as const)}
+                      value={index}
+                    />
                   </CardContent>
                 </Card>
               ))}
-              <Button type="button" variant="outline" onClick={() => appendTrack({ title: '', description: '', order: trackFields.length })} className="w-full" disabled={hasSubmissions}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  appendTrack({ title: '', description: '', order: trackFields.length })
+                }
+                className="w-full"
+                disabled={hasSubmissions}
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Track
               </Button>
               {hasSubmissions && (
-                <p className="text-sm text-yellow-600">Cannot modify tracks with existing submissions</p>
+                <p className="text-sm text-yellow-600">
+                  Cannot modify tracks with existing submissions
+                </p>
               )}
             </CardContent>
           </Card>
@@ -555,32 +659,80 @@ export default function EditHackathonPage() {
                   <CardContent className="pt-4 space-y-3">
                     <div className="flex items-start justify-between">
                       <Label>Criterion {index + 1}</Label>
-                      <Button type="button" variant="ghost" size="sm" onClick={() => removeCriterion(index)} disabled={hasSubmissions}>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => removeCriterion(index)}
+                        disabled={hasSubmissions}
+                      >
                         <X className="w-4 h-4" />
                       </Button>
                     </div>
-                    <Input placeholder="Criterion name" {...register(`criteria.${index}.name` as const)} />
-                    <Textarea placeholder="Description" {...register(`criteria.${index}.description` as const)} rows={2} />
+                    <Input
+                      placeholder="Criterion name"
+                      {...register(`criteria.${index}.name` as const)}
+                    />
+                    <Textarea
+                      placeholder="Description"
+                      {...register(`criteria.${index}.description` as const)}
+                      rows={2}
+                    />
                     <div className="grid grid-cols-3 gap-2">
                       <div>
                         <Label className="text-xs">Max Score</Label>
-                        <Input type="number" min="1" max="100" {...register(`criteria.${index}.maxScore` as const, { valueAsNumber: true })} />
+                        <Input
+                          type="number"
+                          min="1"
+                          max="100"
+                          {...register(`criteria.${index}.maxScore` as const, {
+                            valueAsNumber: true,
+                          })}
+                        />
                       </div>
                       <div>
                         <Label className="text-xs">Weight (0-1)</Label>
-                        <Input type="number" min="0" max="1" step="0.1" {...register(`criteria.${index}.weight` as const, { valueAsNumber: true })} />
+                        <Input
+                          type="number"
+                          min="0"
+                          max="1"
+                          step="0.1"
+                          {...register(`criteria.${index}.weight` as const, {
+                            valueAsNumber: true,
+                          })}
+                        />
                       </div>
-                      <input type="hidden" {...register(`criteria.${index}.order` as const)} value={index} />
+                      <input
+                        type="hidden"
+                        {...register(`criteria.${index}.order` as const)}
+                        value={index}
+                      />
                     </div>
                   </CardContent>
                 </Card>
               ))}
-              <Button type="button" variant="outline" onClick={() => appendCriterion({ name: '', description: '', maxScore: 10, weight: 1, order: criteriaFields.length })} className="w-full" disabled={hasSubmissions}>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() =>
+                  appendCriterion({
+                    name: '',
+                    description: '',
+                    maxScore: 10,
+                    weight: 1,
+                    order: criteriaFields.length,
+                  })
+                }
+                className="w-full"
+                disabled={hasSubmissions}
+              >
                 <Plus className="w-4 h-4 mr-2" />
                 Add Criterion
               </Button>
               {hasSubmissions && (
-                <p className="text-sm text-yellow-600">Cannot modify criteria with existing submissions</p>
+                <p className="text-sm text-yellow-600">
+                  Cannot modify criteria with existing submissions
+                </p>
               )}
             </CardContent>
           </Card>

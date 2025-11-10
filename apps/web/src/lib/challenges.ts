@@ -24,9 +24,7 @@ export interface ChallengeFilters {
 /**
  * Get all challenges with filters
  */
-export async function getChallenges(
-  filters: ChallengeFilters = {}
-): Promise<Challenge[]> {
+export async function getChallenges(filters: ChallengeFilters = {}): Promise<Challenge[]> {
   const queryString = buildQueryString(filters);
   return apiFetch<Challenge[]>(`/challenges${queryString}`);
 }
@@ -77,10 +75,7 @@ export async function updateChallenge(
 /**
  * Delete challenge
  */
-export async function deleteChallenge(
-  id: string,
-  token: string
-): Promise<void> {
+export async function deleteChallenge(id: string, token: string): Promise<void> {
   return apiFetch<void>(`/challenges/${id}`, {
     method: 'DELETE',
     token,
@@ -105,20 +100,14 @@ export async function submitSolution(
 /**
  * Get all submissions for a challenge
  */
-export async function getChallengeSubmissions(
-  challengeId: string
-): Promise<ChallengeSubmission[]> {
-  return apiFetch<ChallengeSubmission[]>(
-    `/challenges/${challengeId}/submissions`
-  );
+export async function getChallengeSubmissions(challengeId: string): Promise<ChallengeSubmission[]> {
+  return apiFetch<ChallengeSubmission[]>(`/challenges/${challengeId}/submissions`);
 }
 
 /**
  * Get user's submissions
  */
-export async function getUserSubmissions(
-  token: string
-): Promise<ChallengeSubmission[]> {
+export async function getUserSubmissions(token: string): Promise<ChallengeSubmission[]> {
   return apiFetch<ChallengeSubmission[]>('/challenges/user/submissions', {
     token,
   });
@@ -127,12 +116,8 @@ export async function getUserSubmissions(
 /**
  * Get submission by ID
  */
-export async function getSubmissionById(
-  submissionId: string
-): Promise<ChallengeSubmission> {
-  return apiFetch<ChallengeSubmission>(
-    `/challenges/submissions/${submissionId}`
-  );
+export async function getSubmissionById(submissionId: string): Promise<ChallengeSubmission> {
+  return apiFetch<ChallengeSubmission>(`/challenges/submissions/${submissionId}`);
 }
 
 /**
@@ -143,14 +128,11 @@ export async function reviewSubmission(
   data: ReviewSolutionInput,
   token: string
 ): Promise<ChallengeSubmission> {
-  return apiFetch<ChallengeSubmission>(
-    `/challenges/submissions/${submissionId}/review`,
-    {
-      method: 'POST',
-      body: JSON.stringify(data),
-      token,
-    }
-  );
+  return apiFetch<ChallengeSubmission>(`/challenges/submissions/${submissionId}/review`, {
+    method: 'POST',
+    body: JSON.stringify(data),
+    token,
+  });
 }
 
 /**
@@ -169,13 +151,8 @@ export function getRewardTypeLabel(rewardType?: string): string {
 /**
  * Get status badge variant
  */
-export function getStatusVariant(
-  status: string
-): 'draft' | 'live' | 'warning' | 'secondary' {
-  const variants: Record<
-    string,
-    'draft' | 'live' | 'warning' | 'secondary'
-  > = {
+export function getStatusVariant(status: string): 'draft' | 'live' | 'warning' | 'secondary' {
+  const variants: Record<string, 'draft' | 'live' | 'warning' | 'secondary'> = {
     DRAFT: 'draft',
     OPEN: 'live',
     REVIEW: 'warning',
@@ -190,10 +167,7 @@ export function getStatusVariant(
 export function getSubmissionStatusVariant(
   status: string
 ): 'draft' | 'live' | 'warning' | 'secondary' | 'success' {
-  const variants: Record<
-    string,
-    'draft' | 'live' | 'warning' | 'secondary' | 'success'
-  > = {
+  const variants: Record<string, 'draft' | 'live' | 'warning' | 'secondary' | 'success'> = {
     SUBMITTED: 'draft',
     UNDER_REVIEW: 'warning',
     ACCEPTED: 'success',

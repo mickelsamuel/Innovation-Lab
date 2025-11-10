@@ -19,7 +19,7 @@ export class TeamsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly gamificationService: GamificationService,
-    private readonly notificationsService: NotificationsService,
+    private readonly notificationsService: NotificationsService
   ) {}
 
   /**
@@ -95,7 +95,7 @@ export class TeamsService {
       'JOIN_HACKATHON',
       XP_POINTS.JOIN_HACKATHON,
       'hackathon',
-      dto.hackathonId,
+      dto.hackathonId
     );
 
     // Award XP for creating team
@@ -104,7 +104,7 @@ export class TeamsService {
       'CREATE_TEAM',
       XP_POINTS.CREATE_TEAM,
       'team',
-      team.id,
+      team.id
     );
 
     // Log audit
@@ -210,9 +210,9 @@ export class TeamsService {
         userId,
         ...(hackathonId && {
           team: {
-            hackathonId
-          }
-        })
+            hackathonId,
+          },
+        }),
       },
       include: {
         team: {
@@ -354,7 +354,7 @@ export class TeamsService {
     }
 
     // Use transaction to prevent race condition on team size limit
-    await this.prisma.$transaction(async (tx) => {
+    await this.prisma.$transaction(async tx => {
       // Atomic count check inside transaction
       const currentMemberCount = await tx.teamMember.count({
         where: { teamId },
@@ -391,7 +391,7 @@ export class TeamsService {
       'JOIN_HACKATHON',
       XP_POINTS.JOIN_HACKATHON,
       'hackathon',
-      team.hackathon.id,
+      team.hackathon.id
     );
 
     // Award XP for joining team
@@ -400,7 +400,7 @@ export class TeamsService {
       'JOIN_TEAM',
       XP_POINTS.JOIN_TEAM,
       'team',
-      teamId,
+      teamId
     );
 
     return this.findOne(teamId);
@@ -560,12 +560,12 @@ export class TeamsService {
     }
 
     // Check if already a member
-    if (team.members.some((m) => m.userId === userId)) {
+    if (team.members.some(m => m.userId === userId)) {
       throw new BadRequestException('You are already a member of this team');
     }
 
     // Find team lead
-    const teamLead = team.members.find((m) => m.role === 'LEAD');
+    const teamLead = team.members.find(m => m.role === 'LEAD');
     if (!teamLead) {
       throw new InternalServerErrorException('Team has no lead');
     }

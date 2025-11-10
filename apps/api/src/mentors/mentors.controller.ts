@@ -157,10 +157,7 @@ export class MentorsController {
   @ApiResponse({ status: 200, description: 'Session deleted successfully' })
   @ApiResponse({ status: 400, description: 'Cannot delete session in progress' })
   @ApiResponse({ status: 403, description: 'Not authorized to delete this session' })
-  async deleteSession(
-    @Param('sessionId') sessionId: string,
-    @GetCurrentUser() user: CurrentUser
-  ) {
+  async deleteSession(@Param('sessionId') sessionId: string, @GetCurrentUser() user: CurrentUser) {
     return this.mentorsService.deleteSession(sessionId, user.id);
   }
 

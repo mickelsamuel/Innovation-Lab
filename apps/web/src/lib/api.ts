@@ -30,10 +30,7 @@ interface RequestOptions extends RequestInit {
 /**
  * Generic fetch wrapper with error handling
  */
-export async function apiFetch<T>(
-  endpoint: string,
-  options: RequestOptions = {}
-): Promise<T> {
+export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { token, headers: customHeaders, ...fetchOptions } = options;
 
   const headers: HeadersInit = {
@@ -61,11 +58,7 @@ export async function apiFetch<T>(
     const data = await response.json();
 
     if (!response.ok) {
-      throw new ApiError(
-        response.status,
-        data.message || 'An error occurred',
-        data
-      );
+      throw new ApiError(response.status, data.message || 'An error occurred', data);
     }
 
     return data as T;

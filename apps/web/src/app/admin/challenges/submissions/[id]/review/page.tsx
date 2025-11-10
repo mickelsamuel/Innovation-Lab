@@ -11,7 +11,17 @@ import type { ChallengeSubmission } from '@/types/challenge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Target, User, Users, Calendar, FileText, Loader2, AlertCircle, ExternalLink } from 'lucide-react';
+import {
+  ArrowLeft,
+  Target,
+  User,
+  Users,
+  Calendar,
+  FileText,
+  Loader2,
+  AlertCircle,
+  ExternalLink,
+} from 'lucide-react';
 import { useToast } from '@/components/ui/toast';
 import { getSubmissionStatusVariant } from '@/lib/challenges';
 import { cn } from '@/lib/utils';
@@ -140,7 +150,13 @@ export default function ReviewSubmissionPage() {
     <div className="max-w-6xl mx-auto space-y-8">
       {/* Header */}
       <div>
-        <Link href={submission.challenge?.slug ? `/challenges/${submission.challenge.slug}` : '/admin/challenges'}>
+        <Link
+          href={
+            submission.challenge?.slug
+              ? `/challenges/${submission.challenge.slug}`
+              : '/admin/challenges'
+          }
+        >
           <Button variant="ghost" size="sm" className="gap-2 mb-4 text-slate-300">
             <ArrowLeft className="w-4 h-4" />
             Back to Challenge
@@ -278,10 +294,12 @@ export default function ReviewSubmissionPage() {
               <div className="space-y-4">
                 {submission.user && (
                   <div className="flex items-center gap-3">
-                    <div className={cn(
-                      'w-10 h-10 rounded-full flex items-center justify-center',
-                      'bg-gradient-to-br from-primary/20 to-primary/10'
-                    )}>
+                    <div
+                      className={cn(
+                        'w-10 h-10 rounded-full flex items-center justify-center',
+                        'bg-gradient-to-br from-primary/20 to-primary/10'
+                      )}
+                    >
                       <User className="w-5 h-5 text-primary" />
                     </div>
                     <div>
@@ -293,10 +311,12 @@ export default function ReviewSubmissionPage() {
 
                 {submission.team && (
                   <div className="flex items-center gap-3 pt-3 border-t border-slate-700">
-                    <div className={cn(
-                      'w-10 h-10 rounded-full flex items-center justify-center',
-                      'bg-gradient-to-br from-blue-500/20 to-blue-500/10'
-                    )}>
+                    <div
+                      className={cn(
+                        'w-10 h-10 rounded-full flex items-center justify-center',
+                        'bg-gradient-to-br from-blue-500/20 to-blue-500/10'
+                      )}
+                    >
                       <Users className="w-5 h-5 text-blue-400" />
                     </div>
                     <div>
@@ -309,9 +329,7 @@ export default function ReviewSubmissionPage() {
                 <div className="pt-3 border-t border-slate-700">
                   <div className="flex items-center gap-2 text-sm text-slate-400">
                     <Calendar className="w-4 h-4" />
-                    <span>
-                      Submitted {new Date(submission.createdAt).toLocaleDateString()}
-                    </span>
+                    <span>Submitted {new Date(submission.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
 

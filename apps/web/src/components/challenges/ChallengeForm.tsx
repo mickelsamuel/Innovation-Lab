@@ -106,9 +106,7 @@ export function ChallengeForm({
                 placeholder="e.g., Build a Real-Time Chat Application"
                 className="mt-2"
               />
-              {errors.title && (
-                <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>
-              )}
+              {errors.title && <p className="text-sm text-red-600 mt-1">{errors.title.message}</p>}
             </div>
 
             <div>
@@ -131,12 +129,8 @@ export function ChallengeForm({
                 readOnly={autoGenerateSlug}
                 className={cn('mt-1', autoGenerateSlug && 'bg-slate-50')}
               />
-              {errors.slug && (
-                <p className="text-sm text-red-600 mt-1">{errors.slug.message}</p>
-              )}
-              <p className="text-xs text-slate-500 mt-1">
-                This will be used in the challenge URL
-              </p>
+              {errors.slug && <p className="text-sm text-red-600 mt-1">{errors.slug.message}</p>}
+              <p className="text-xs text-slate-500 mt-1">This will be used in the challenge URL</p>
             </div>
           </div>
         </CardContent>
@@ -172,7 +166,7 @@ export function ChallengeForm({
               <Label className="text-base font-semibold mb-3 block">Categories</Label>
               <CategoryMultiSelect
                 value={categories || []}
-                onChange={(cats) => setValue('categories', cats)}
+                onChange={cats => setValue('categories', cats)}
                 maxSelections={5}
               />
               {errors.categories && (
@@ -184,7 +178,7 @@ export function ChallengeForm({
               <Label className="text-base font-semibold mb-3 block">Required Skills</Label>
               <SkillMultiSelect
                 value={skills || []}
-                onChange={(skls) => setValue('skills', skls)}
+                onChange={skls => setValue('skills', skls)}
                 maxSelections={10}
               />
               {errors.skills && (
@@ -204,7 +198,7 @@ export function ChallengeForm({
               <Label htmlFor="rewardType">Reward Type</Label>
               <Select
                 value={rewardType || ''}
-                onValueChange={(val) => setValue('rewardType', val as RewardType)}
+                onValueChange={val => setValue('rewardType', val as RewardType)}
               >
                 <SelectTrigger className="mt-1">
                   <SelectValue placeholder="Select reward type" />
@@ -250,7 +244,7 @@ export function ChallengeForm({
               <Label htmlFor="status">Status</Label>
               <Select
                 value={status}
-                onValueChange={(val) => setValue('status', val as ChallengeStatus)}
+                onValueChange={val => setValue('status', val as ChallengeStatus)}
               >
                 <SelectTrigger className="mt-1">
                   <SelectValue />
@@ -268,7 +262,7 @@ export function ChallengeForm({
               <Label htmlFor="visibility">Visibility</Label>
               <Select
                 value={visibility}
-                onValueChange={(val) => setValue('visibility', val as ChallengeVisibility)}
+                onValueChange={val => setValue('visibility', val as ChallengeVisibility)}
               >
                 <SelectTrigger className="mt-1">
                   <SelectValue />
@@ -302,17 +296,15 @@ export function ChallengeForm({
       {/* File Attachments */}
       <Card className="border-2 border-slate-200">
         <CardContent className="pt-6">
-          <Label className="text-base font-semibold mb-3 block">
-            Attachments (Optional)
-          </Label>
+          <Label className="text-base font-semibold mb-3 block">Attachments (Optional)</Label>
           <FileUpload
             accept="*/*"
             maxSizeMB={25}
             maxFiles={10}
             fileType={FileType.DOCUMENT}
             entityType="challenge"
-            onUploadComplete={(files) => {
-              const fileUrls = files.map((f) => f.url);
+            onUploadComplete={files => {
+              const fileUrls = files.map(f => f.url);
               setUploadedFiles([...uploadedFiles, ...fileUrls]);
             }}
           />
@@ -324,12 +316,7 @@ export function ChallengeForm({
 
       {/* Submit Button */}
       <div className="flex items-center justify-end gap-4 pt-4">
-        <Button
-          type="submit"
-          size="lg"
-          disabled={isLoading}
-          className="min-w-[200px]"
-        >
+        <Button type="submit" size="lg" disabled={isLoading} className="min-w-[200px]">
           {isLoading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

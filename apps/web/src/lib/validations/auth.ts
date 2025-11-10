@@ -12,11 +12,7 @@ const passwordSchema = z
 
 // Login schema
 export const loginSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Email is required')
-    .email('Invalid email address')
-    .toLowerCase(),
+  email: z.string().min(1, 'Email is required').email('Invalid email address').toLowerCase(),
   password: z.string().min(1, 'Password is required'),
 });
 
@@ -29,16 +25,15 @@ export const registerSchema = z
       .string()
       .min(2, 'Name must be at least 2 characters')
       .max(100, 'Name must be less than 100 characters'),
-    email: z
-      .string()
-      .min(1, 'Email is required')
-      .email('Invalid email address')
-      .toLowerCase(),
+    email: z.string().min(1, 'Email is required').email('Invalid email address').toLowerCase(),
     handle: z
       .string()
       .min(3, 'Handle must be at least 3 characters')
       .max(30, 'Handle must be less than 30 characters')
-      .regex(/^[a-zA-Z0-9_-]+$/, 'Handle can only contain letters, numbers, underscores, and hyphens')
+      .regex(
+        /^[a-zA-Z0-9_-]+$/,
+        'Handle can only contain letters, numbers, underscores, and hyphens'
+      )
       .toLowerCase(),
     password: passwordSchema,
     confirmPassword: z.string().min(1, 'Please confirm your password'),
@@ -56,11 +51,7 @@ export type RegisterInput = z.infer<typeof registerSchema>;
 
 // Forgot password schema
 export const forgotPasswordSchema = z.object({
-  email: z
-    .string()
-    .min(1, 'Email is required')
-    .email('Invalid email address')
-    .toLowerCase(),
+  email: z.string().min(1, 'Email is required').email('Invalid email address').toLowerCase(),
 });
 
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
@@ -116,14 +107,20 @@ export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
 
 // 2FA setup schema
 export const setup2FASchema = z.object({
-  token: z.string().length(6, 'Token must be 6 digits').regex(/^\d+$/, 'Token must contain only numbers'),
+  token: z
+    .string()
+    .length(6, 'Token must be 6 digits')
+    .regex(/^\d+$/, 'Token must contain only numbers'),
 });
 
 export type Setup2FAInput = z.infer<typeof setup2FASchema>;
 
 // 2FA verify schema
 export const verify2FASchema = z.object({
-  token: z.string().length(6, 'Token must be 6 digits').regex(/^\d+$/, 'Token must contain only numbers'),
+  token: z
+    .string()
+    .length(6, 'Token must be 6 digits')
+    .regex(/^\d+$/, 'Token must contain only numbers'),
 });
 
 export type Verify2FAInput = z.infer<typeof verify2FASchema>;

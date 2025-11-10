@@ -88,9 +88,7 @@ describe('InvitationsService', () => {
     const mockTeam = {
       id: teamId,
       name: 'Test Team',
-      members: [
-        { userId: senderId, role: TeamMemberRole.LEAD },
-      ],
+      members: [{ userId: senderId, role: TeamMemberRole.LEAD }],
       hackathon: {
         id: 'hackathon-1',
         title: 'Test Hackathon',
@@ -138,7 +136,7 @@ describe('InvitationsService', () => {
       const result = await service.sendInvitation(
         teamId,
         { inviteeId, role: TeamMemberRole.MEMBER },
-        senderId,
+        senderId
       );
 
       expect(result).toBeDefined();
@@ -150,7 +148,7 @@ describe('InvitationsService', () => {
       mockPrismaService.team.findUnique.mockResolvedValue(null);
 
       await expect(
-        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId),
+        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId)
       ).rejects.toThrow(NotFoundException);
     });
 
@@ -162,7 +160,7 @@ describe('InvitationsService', () => {
       mockPrismaService.team.findUnique.mockResolvedValue(nonLeadTeam);
 
       await expect(
-        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId),
+        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId)
       ).rejects.toThrow(ForbiddenException);
     });
 
@@ -179,7 +177,7 @@ describe('InvitationsService', () => {
       mockPrismaService.team.findUnique.mockResolvedValue(fullTeam);
 
       await expect(
-        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId),
+        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId)
       ).rejects.toThrow(BadRequestException);
     });
 
@@ -195,7 +193,7 @@ describe('InvitationsService', () => {
       mockPrismaService.user.findUnique.mockResolvedValue(mockInvitee);
 
       await expect(
-        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId),
+        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId)
       ).rejects.toThrow(ConflictException);
     });
 
@@ -209,7 +207,7 @@ describe('InvitationsService', () => {
       });
 
       await expect(
-        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId),
+        service.sendInvitation(teamId, { inviteeId, role: TeamMemberRole.MEMBER }, senderId)
       ).rejects.toThrow(ConflictException);
     });
   });
@@ -231,9 +229,7 @@ describe('InvitationsService', () => {
         id: 'team-1',
         name: 'Test Team',
         hackathonId: 'hackathon-1',
-        members: [
-          { userId: 'sender-1', role: TeamMemberRole.LEAD },
-        ],
+        members: [{ userId: 'sender-1', role: TeamMemberRole.LEAD }],
         hackathon: {
           id: 'hackathon-1',
           maxTeamSize: 4,
@@ -270,7 +266,7 @@ describe('InvitationsService', () => {
       mockPrismaService.teamInvitation.findUnique.mockResolvedValue(null);
 
       await expect(service.acceptInvitation(invitationId, userId)).rejects.toThrow(
-        NotFoundException,
+        NotFoundException
       );
     });
 
@@ -282,7 +278,7 @@ describe('InvitationsService', () => {
       mockPrismaService.teamInvitation.findUnique.mockResolvedValue(wrongUserInvitation);
 
       await expect(service.acceptInvitation(invitationId, userId)).rejects.toThrow(
-        ForbiddenException,
+        ForbiddenException
       );
     });
 
@@ -294,7 +290,7 @@ describe('InvitationsService', () => {
       mockPrismaService.teamInvitation.findUnique.mockResolvedValue(acceptedInvitation);
 
       await expect(service.acceptInvitation(invitationId, userId)).rejects.toThrow(
-        BadRequestException,
+        BadRequestException
       );
     });
 
@@ -307,7 +303,7 @@ describe('InvitationsService', () => {
       mockPrismaService.teamInvitation.update.mockResolvedValue({});
 
       await expect(service.acceptInvitation(invitationId, userId)).rejects.toThrow(
-        BadRequestException,
+        BadRequestException
       );
     });
   });
@@ -338,7 +334,7 @@ describe('InvitationsService', () => {
       mockPrismaService.teamInvitation.findUnique.mockResolvedValue(null);
 
       await expect(service.rejectInvitation(invitationId, userId)).rejects.toThrow(
-        NotFoundException,
+        NotFoundException
       );
     });
   });
@@ -372,7 +368,7 @@ describe('InvitationsService', () => {
       });
 
       await expect(service.cancelInvitation(invitationId, senderId)).rejects.toThrow(
-        ForbiddenException,
+        ForbiddenException
       );
     });
   });

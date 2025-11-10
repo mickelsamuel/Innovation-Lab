@@ -240,7 +240,9 @@ describe('GamificationService', () => {
     it('should throw NotFoundException if profile not found', async () => {
       prismaMock.gamificationProfile.findUnique.mockResolvedValue(null);
 
-      await expect(service.awardBadge('non-existent', 'badge-1')).rejects.toThrow(NotFoundException);
+      await expect(service.awardBadge('non-existent', 'badge-1')).rejects.toThrow(
+        NotFoundException
+      );
     });
   });
 
@@ -252,21 +254,21 @@ describe('GamificationService', () => {
           xp: 1000,
           level: 10,
           badges: [],
-          user: { id: 'user-1', name: 'User 1', handle: 'user1', avatarUrl: null }
+          user: { id: 'user-1', name: 'User 1', handle: 'user1', avatarUrl: null },
         },
         {
           userId: 'user-2',
           xp: 800,
           level: 8,
           badges: [],
-          user: { id: 'user-2', name: 'User 2', handle: 'user2', avatarUrl: null }
+          user: { id: 'user-2', name: 'User 2', handle: 'user2', avatarUrl: null },
         },
         {
           userId: 'user-3',
           xp: 600,
           level: 6,
           badges: [],
-          user: { id: 'user-3', name: 'User 3', handle: 'user3', avatarUrl: null }
+          user: { id: 'user-3', name: 'User 3', handle: 'user3', avatarUrl: null },
         },
       ];
 

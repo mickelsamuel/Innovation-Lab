@@ -18,7 +18,7 @@ export class JudgingService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly gamificationService: GamificationService,
-    private readonly webSocketService: WebSocketService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   /**
@@ -155,9 +155,7 @@ export class JudgingService {
     });
 
     if (scoresCount > 0) {
-      throw new BadRequestException(
-        'Cannot remove judge who has already scored submissions'
-      );
+      throw new BadRequestException('Cannot remove judge who has already scored submissions');
     }
 
     await this.prisma.judge.delete({
@@ -212,7 +210,7 @@ export class JudgingService {
     }
 
     // Verify criterion exists and belongs to this hackathon
-    const criterion = submission.hackathon.criteria.find((c) => c.id === dto.criterionId);
+    const criterion = submission.hackathon.criteria.find(c => c.id === dto.criterionId);
     if (!criterion) {
       throw new NotFoundException('Criterion not found for this hackathon');
     }
@@ -239,9 +237,9 @@ export class JudgingService {
     }
 
     // Check for conflict of interest (judge is team member)
-    const isTeamMember = submission.team.members.some((m) => m.userId === judgeUserId);
+    const isTeamMember = submission.team.members.some(m => m.userId === judgeUserId);
     if (isTeamMember) {
-      throw new ForbiddenException('Cannot score your own team\'s submission');
+      throw new ForbiddenException("Cannot score your own team's submission");
     }
 
     // Check if judge already scored this criterion for this submission
@@ -294,7 +292,7 @@ export class JudgingService {
         'RECEIVE_JUDGE_SCORE',
         XP_POINTS.RECEIVE_JUDGE_SCORE,
         'score',
-        score.id,
+        score.id
       );
     }
 
@@ -326,7 +324,7 @@ export class JudgingService {
       this.webSocketService.emitSubmissionScored(
         submission.hackathonId,
         submission.teamId,
-        updatedSubmission,
+        updatedSubmission
       );
     }
 
@@ -558,13 +556,16 @@ export class JudgingService {
     }
 
     // Group scores by criterion
-    const scoreByCriterion = scores.reduce((acc, score) => {
-      if (!acc[score.criterionId]) {
-        acc[score.criterionId] = [];
-      }
-      acc[score.criterionId].push(score);
-      return acc;
-    }, {} as Record<string, typeof scores>);
+    const scoreByCriterion = scores.reduce(
+      (acc, score) => {
+        if (!acc[score.criterionId]) {
+          acc[score.criterionId] = [];
+        }
+        acc[score.criterionId].push(score);
+        return acc;
+      },
+      {} as Record<string, typeof scores>
+    );
 
     // Calculate weighted average
     let totalWeightedScore = 0;

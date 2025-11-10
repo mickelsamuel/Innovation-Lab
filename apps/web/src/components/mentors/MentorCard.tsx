@@ -31,9 +31,7 @@ export function MentorCard({ mentor, onSchedule, showSessions = true }: MentorCa
           </Avatar>
           <div className="flex-1">
             <h3 className="text-lg font-bold text-white">{mentor.user.name || 'Unnamed Mentor'}</h3>
-            {mentor.user.handle && (
-              <p className="text-sm text-cyan-400">@{mentor.user.handle}</p>
-            )}
+            {mentor.user.handle && <p className="text-sm text-cyan-400">@{mentor.user.handle}</p>}
           </div>
         </div>
       </CardHeader>
@@ -49,7 +47,11 @@ export function MentorCard({ mentor, onSchedule, showSessions = true }: MentorCa
             <p className="text-xs text-slate-400 mb-2">Expertise</p>
             <div className="flex flex-wrap gap-2">
               {mentor.expertise.map((skill, index) => (
-                <Badge key={index} variant="outline" className="border-purple-500/50 text-purple-400">
+                <Badge
+                  key={index}
+                  variant="outline"
+                  className="border-purple-500/50 text-purple-400"
+                >
                   {skill}
                 </Badge>
               ))}
@@ -61,7 +63,9 @@ export function MentorCard({ mentor, onSchedule, showSessions = true }: MentorCa
         {showSessions && upcomingSessions > 0 && (
           <div className="flex items-center gap-2 text-sm text-slate-400">
             <Calendar className="w-4 h-4" />
-            <span>{upcomingSessions} upcoming session{upcomingSessions !== 1 ? 's' : ''}</span>
+            <span>
+              {upcomingSessions} upcoming session{upcomingSessions !== 1 ? 's' : ''}
+            </span>
           </div>
         )}
 

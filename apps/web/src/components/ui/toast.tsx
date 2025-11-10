@@ -39,7 +39,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   const addToast = (toast: Omit<Toast, 'id'>) => {
     const id = Math.random().toString(36).substring(2, 9);
     const newToast = { ...toast, id };
-    setToasts((prev) => [...prev, newToast]);
+    setToasts(prev => [...prev, newToast]);
 
     // Auto-remove toast after duration
     const duration = toast.duration ?? 5000;
@@ -51,7 +51,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
   };
 
   const removeToast = (id: string) => {
-    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+    setToasts(prev => prev.filter(toast => toast.id !== id));
   };
 
   return (
@@ -67,7 +67,7 @@ function ToastContainer() {
 
   return (
     <div className="fixed bottom-0 right-0 z-50 flex flex-col gap-2 p-4 max-w-md w-full">
-      {toasts.map((toast) => (
+      {toasts.map(toast => (
         <ToastItem key={toast.id} toast={toast} />
       ))}
     </div>
@@ -130,9 +130,7 @@ function ToastItem({ toast }: ToastItemProps) {
 
       <div className="flex-1 space-y-1">
         <p className="font-semibold text-sm">{toast.title}</p>
-        {toast.description && (
-          <p className="text-sm opacity-90">{toast.description}</p>
-        )}
+        {toast.description && <p className="text-sm opacity-90">{toast.description}</p>}
       </div>
 
       <button

@@ -21,13 +21,15 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
   const isFull = currentSize >= maxSize;
   const isLookingForMembers = team.lookingForMembers && !isFull;
 
-  const teamLead = team.members.find((m) => m.role === 'LEAD');
+  const teamLead = team.members.find(m => m.role === 'LEAD');
 
   return (
-    <Card className={cn(
-      'h-full hover:shadow-lg transition-shadow duration-200',
-      isLookingForMembers && 'border-accent2'
-    )}>
+    <Card
+      className={cn(
+        'h-full hover:shadow-lg transition-shadow duration-200',
+        isLookingForMembers && 'border-accent2'
+      )}
+    >
       <CardHeader>
         <div className="flex items-start justify-between gap-2 mb-2">
           <div className="flex items-center gap-2">
@@ -49,9 +51,7 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
           )}
         </div>
 
-        <CardTitle className="text-xl font-display line-clamp-1">
-          {team.name}
-        </CardTitle>
+        <CardTitle className="text-xl font-display line-clamp-1">{team.name}</CardTitle>
 
         {teamLead && (
           <CardDescription className="flex items-center gap-2">
@@ -62,15 +62,13 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {team.bio && (
-          <p className="text-sm text-slate-600 line-clamp-3">{team.bio}</p>
-        )}
+        {team.bio && <p className="text-sm text-slate-600 line-clamp-3">{team.bio}</p>}
 
         {/* Team Members Preview */}
         <div>
           <p className="text-xs font-medium text-slate-700 mb-2">Team Members</p>
           <div className="flex items-center -space-x-2">
-            {team.members.slice(0, 5).map((member) => (
+            {team.members.slice(0, 5).map(member => (
               <Avatar
                 key={member.id}
                 className="w-8 h-8 border-2 border-white"
@@ -79,9 +77,7 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
                 {member.user.avatarUrl && (
                   <AvatarImage src={member.user.avatarUrl} alt={member.user.name} />
                 )}
-                <AvatarFallback className="text-xs">
-                  {getInitials(member.user.name)}
-                </AvatarFallback>
+                <AvatarFallback className="text-xs">{getInitials(member.user.name)}</AvatarFallback>
               </Avatar>
             ))}
             {team.members.length > 5 && (
@@ -102,11 +98,7 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
             </Button>
           </Link>
           {isLookingForMembers && onJoinRequest && (
-            <Button
-              size="sm"
-              className="flex-1"
-              onClick={() => onJoinRequest(team.id)}
-            >
+            <Button size="sm" className="flex-1" onClick={() => onJoinRequest(team.id)}>
               <UserPlus className="w-4 h-4 mr-1" />
               Request to Join
             </Button>

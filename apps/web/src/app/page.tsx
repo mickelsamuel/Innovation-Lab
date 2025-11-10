@@ -2,7 +2,17 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Trophy, Code, Users, Zap, Sparkles, Rocket, Target, Flame } from 'lucide-react';
+import {
+  ArrowRight,
+  Trophy,
+  Code,
+  Users,
+  Zap,
+  Sparkles,
+  Rocket,
+  Target,
+  Flame,
+} from 'lucide-react';
 import { getAuthToken } from '@/lib/api';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/v1';
@@ -74,7 +84,10 @@ export default function HomePage() {
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl animate-float" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float" style={{ animationDelay: '1s' }} />
+          <div
+            className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-float"
+            style={{ animationDelay: '1s' }}
+          />
           <div className="absolute top-1/2 left-1/2 w-80 h-80 bg-accent2/10 rounded-full blur-3xl animate-levitate" />
         </div>
 
@@ -88,8 +101,16 @@ export default function HomePage() {
 
             <h1 className="text-6xl md:text-8xl font-display font-black tracking-tight animate-slide-up-fade">
               <span className="inline-block hover:animate-wiggle">Build.</span>{' '}
-              <span className="inline-block hover:animate-wiggle" style={{ animationDelay: '0.1s' }}>Compete.</span>{' '}
-              <span className="inline-block gradient-text drop-shadow-2xl hover:animate-wiggle" style={{ animationDelay: '0.2s' }}>
+              <span
+                className="inline-block hover:animate-wiggle"
+                style={{ animationDelay: '0.1s' }}
+              >
+                Compete.
+              </span>{' '}
+              <span
+                className="inline-block gradient-text drop-shadow-2xl hover:animate-wiggle"
+                style={{ animationDelay: '0.2s' }}
+              >
                 Dominate.
               </span>
             </h1>
@@ -104,19 +125,13 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mt-12">
-              <Link
-                href="/hackathons"
-                className="btn-game group"
-              >
+              <Link href="/hackathons" className="btn-game group">
                 <Trophy className="w-5 h-5 inline mr-2 group-hover:animate-wiggle" />
                 Start Your Quest
                 <ArrowRight className="w-5 h-5 inline ml-2 group-hover:translate-x-1 transition-transform" />
               </Link>
 
-              <Link
-                href="/challenges"
-                className="btn-game-secondary group"
-              >
+              <Link href="/challenges" className="btn-game-secondary group">
                 <Target className="w-5 h-5 inline mr-2 group-hover:animate-wiggle" />
                 Browse Challenges
               </Link>
@@ -126,17 +141,39 @@ export default function HomePage() {
           {/* Stats - Gaming Style */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-24">
             {[
-              { label: 'Active Players', value: formatNumber(stats.activePlayersCount) + '+', icon: Users, color: 'text-accent2' },
-              { label: 'Total Loot', value: formatMoney(stats.totalPrizeMoney) + '+', icon: Trophy, color: 'text-accent' },
-              { label: 'Quests Completed', value: formatNumber(stats.totalHackathonsCompleted) + '+', icon: Target, color: 'text-green-500' },
-              { label: 'Guild Partners', value: formatNumber(stats.partnerCount) + '+', icon: Sparkles, color: 'text-purple-500' },
+              {
+                label: 'Active Players',
+                value: formatNumber(stats.activePlayersCount) + '+',
+                icon: Users,
+                color: 'text-accent2',
+              },
+              {
+                label: 'Total Loot',
+                value: formatMoney(stats.totalPrizeMoney) + '+',
+                icon: Trophy,
+                color: 'text-accent',
+              },
+              {
+                label: 'Quests Completed',
+                value: formatNumber(stats.totalHackathonsCompleted) + '+',
+                icon: Target,
+                color: 'text-green-500',
+              },
+              {
+                label: 'Guild Partners',
+                value: formatNumber(stats.partnerCount) + '+',
+                icon: Sparkles,
+                color: 'text-purple-500',
+              },
             ].map((stat, index) => (
               <div
                 key={stat.label}
                 className="game-card p-6 text-center group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <stat.icon className={`w-8 h-8 ${stat.color} mx-auto mb-3 group-hover:animate-bounce-subtle`} />
+                <stat.icon
+                  className={`w-8 h-8 ${stat.color} mx-auto mb-3 group-hover:animate-bounce-subtle`}
+                />
                 <div className="text-4xl md:text-5xl font-display font-black stat-counter gradient-text">
                   {stat.value}
                 </div>
@@ -201,19 +238,23 @@ export default function HomePage() {
                 style={{ animationDelay: `${index * 0.15}s` }}
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className={`p-4 rounded-xl ${feature.badgeColor} group-hover:scale-110 transition-transform`}>
-                    <feature.icon className={`w-10 h-10 ${feature.color} group-hover:animate-wiggle`} />
+                  <div
+                    className={`p-4 rounded-xl ${feature.badgeColor} group-hover:scale-110 transition-transform`}
+                  >
+                    <feature.icon
+                      className={`w-10 h-10 ${feature.color} group-hover:animate-wiggle`}
+                    />
                   </div>
-                  <span className={`text-xs font-bold px-3 py-1 rounded-full ${feature.badgeColor}`}>
+                  <span
+                    className={`text-xs font-bold px-3 py-1 rounded-full ${feature.badgeColor}`}
+                  >
                     {feature.badge}
                   </span>
                 </div>
                 <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-primary transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 font-medium leading-relaxed">
-                  {feature.description}
-                </p>
+                <p className="text-slate-600 font-medium leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -233,15 +274,19 @@ export default function HomePage() {
             Ready to Enter the Arena?
           </h2>
           <p className="text-2xl mb-12 font-bold drop-shadow-lg">
-            Join <span className="text-yellow-300 font-black animate-pulse">{formatNumber(stats.activePlayersCount)}+ players</span> already grinding XP and claiming loot!
+            Join{' '}
+            <span className="text-yellow-300 font-black animate-pulse">
+              {formatNumber(stats.activePlayersCount)}+ players
+            </span>{' '}
+            already grinding XP and claiming loot!
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
-              href={isLoggedIn ? "/hackathons" : "/auth/register"}
+              href={isLoggedIn ? '/hackathons' : '/auth/register'}
               className="inline-flex items-center gap-3 px-10 py-5 bg-white text-primary rounded-xl font-black text-lg hover:bg-slate-100 transition-all hover:scale-110 shadow-3d-lg group"
             >
               <Rocket className="w-6 h-6 group-hover:animate-wiggle" />
-              {isLoggedIn ? "Explore Hackathons" : "Start Your Journey"}
+              {isLoggedIn ? 'Explore Hackathons' : 'Start Your Journey'}
               <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
             </Link>
             <Link

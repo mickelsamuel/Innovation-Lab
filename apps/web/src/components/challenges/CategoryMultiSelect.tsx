@@ -49,7 +49,7 @@ export function CategoryMultiSelect({
 
   const toggleCategory = (category: string) => {
     if (value.includes(category)) {
-      onChange(value.filter((c) => c !== category));
+      onChange(value.filter(c => c !== category));
     } else {
       if (maxSelections && value.length >= maxSelections) {
         return;
@@ -59,7 +59,7 @@ export function CategoryMultiSelect({
   };
 
   const removeCategory = (category: string) => {
-    onChange(value.filter((c) => c !== category));
+    onChange(value.filter(c => c !== category));
   };
 
   const addCustomCategory = () => {
@@ -78,7 +78,7 @@ export function CategoryMultiSelect({
     <div className={cn('relative', className)}>
       {/* Selected Categories */}
       <div className="flex flex-wrap gap-2 mb-3">
-        {value.map((category) => (
+        {value.map(category => (
           <Badge key={category} variant="secondary" className="pl-3 pr-1 py-1">
             {category}
             <button
@@ -90,9 +90,7 @@ export function CategoryMultiSelect({
             </button>
           </Badge>
         ))}
-        {value.length === 0 && (
-          <p className="text-sm text-slate-500">No categories selected</p>
-        )}
+        {value.length === 0 && <p className="text-sm text-slate-500">No categories selected</p>}
       </div>
 
       {/* Dropdown Trigger */}
@@ -120,7 +118,7 @@ export function CategoryMultiSelect({
           <div className="p-2">
             {/* Available Categories */}
             <div className="space-y-1">
-              {AVAILABLE_CATEGORIES.map((category) => (
+              {AVAILABLE_CATEGORIES.map(category => (
                 <button
                   key={category}
                   type="button"
@@ -142,14 +140,10 @@ export function CategoryMultiSelect({
                   <div
                     className={cn(
                       'w-4 h-4 border-2 rounded flex items-center justify-center',
-                      value.includes(category)
-                        ? 'border-primary bg-primary'
-                        : 'border-slate-300'
+                      value.includes(category) ? 'border-primary bg-primary' : 'border-slate-300'
                     )}
                   >
-                    {value.includes(category) && (
-                      <Check className="w-3 h-3 text-white" />
-                    )}
+                    {value.includes(category) && <Check className="w-3 h-3 text-white" />}
                   </div>
                   <span className="flex-1 text-left">{category}</span>
                 </button>
@@ -174,8 +168,8 @@ export function CategoryMultiSelect({
                   <input
                     type="text"
                     value={customCategory}
-                    onChange={(e) => setCustomCategory(e.target.value)}
-                    onKeyDown={(e) => {
+                    onChange={e => setCustomCategory(e.target.value)}
+                    onKeyDown={e => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         addCustomCategory();
@@ -228,12 +222,7 @@ export function CategoryMultiSelect({
       )}
 
       {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+      {isOpen && <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />}
     </div>
   );
 }

@@ -65,7 +65,7 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
       reconnectAttemptsRef.current = 0;
     });
 
-    newSocket.on('disconnect', (reason) => {
+    newSocket.on('disconnect', reason => {
       console.log('WebSocket disconnected:', reason);
       setIsConnected(false);
 
@@ -81,18 +81,18 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
       }
     });
 
-    newSocket.on('connect_error', (error) => {
+    newSocket.on('connect_error', error => {
       console.error('WebSocket connection error:', error);
       setIsConnected(false);
     });
 
     // Listen for online/offline user events
     newSocket.on('user:online', (data: { userId: string }) => {
-      setOnlineUsers((prev) => [...new Set([...prev, data.userId])]);
+      setOnlineUsers(prev => [...new Set([...prev, data.userId])]);
     });
 
     newSocket.on('user:offline', (data: { userId: string }) => {
-      setOnlineUsers((prev) => prev.filter((id) => id !== data.userId));
+      setOnlineUsers(prev => prev.filter(id => id !== data.userId));
     });
 
     // Listen for online users update
@@ -133,29 +133,41 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
     }
   }, [status, session?.accessToken, connect, socket]);
 
-  const joinHackathon = useCallback((hackathonId: string) => {
-    if (socket?.connected) {
-      socket.emit('join:hackathon', { hackathonId });
-    }
-  }, [socket]);
+  const joinHackathon = useCallback(
+    (hackathonId: string) => {
+      if (socket?.connected) {
+        socket.emit('join:hackathon', { hackathonId });
+      }
+    },
+    [socket]
+  );
 
-  const leaveHackathon = useCallback((hackathonId: string) => {
-    if (socket?.connected) {
-      socket.emit('leave:hackathon', { hackathonId });
-    }
-  }, [socket]);
+  const leaveHackathon = useCallback(
+    (hackathonId: string) => {
+      if (socket?.connected) {
+        socket.emit('leave:hackathon', { hackathonId });
+      }
+    },
+    [socket]
+  );
 
-  const joinTeam = useCallback((teamId: string) => {
-    if (socket?.connected) {
-      socket.emit('join:team', { teamId });
-    }
-  }, [socket]);
+  const joinTeam = useCallback(
+    (teamId: string) => {
+      if (socket?.connected) {
+        socket.emit('join:team', { teamId });
+      }
+    },
+    [socket]
+  );
 
-  const leaveTeam = useCallback((teamId: string) => {
-    if (socket?.connected) {
-      socket.emit('leave:team', { teamId });
-    }
-  }, [socket]);
+  const leaveTeam = useCallback(
+    (teamId: string) => {
+      if (socket?.connected) {
+        socket.emit('leave:team', { teamId });
+      }
+    },
+    [socket]
+  );
 
   const value: WebSocketContextType = {
     socket,
@@ -167,9 +179,5 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
     leaveTeam,
   };
 
-  return (
-    <WebSocketContext.Provider value={value}>
-      {children}
-    </WebSocketContext.Provider>
-  );
+  return <WebSocketContext.Provider value={value}>{children}</WebSocketContext.Provider>;
 }

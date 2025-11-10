@@ -174,8 +174,8 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
               type="text"
               placeholder="Search by name, email, or handle..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+              onChange={e => setSearchQuery(e.target.value)}
+              onKeyDown={e => e.key === 'Enter' && handleSearch()}
               className="pl-10 bg-slate-800/50 border-slate-700 text-white placeholder:text-slate-500"
             />
           </div>
@@ -192,7 +192,7 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
         {searchResults.length > 0 && (
           <div className="mt-4 space-y-2">
             <p className="text-sm text-slate-400">{searchResults.length} user(s) found</p>
-            {searchResults.map((user) => (
+            {searchResults.map(user => (
               <div
                 key={user.id}
                 className="flex items-center justify-between p-3 bg-slate-800/30 rounded-lg border border-slate-700/50"
@@ -208,9 +208,7 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
                     )}
                   </Avatar>
                   <div>
-                    <p className="font-medium text-white">
-                      {user.name || 'Unnamed User'}
-                    </p>
+                    <p className="font-medium text-white">{user.name || 'Unnamed User'}</p>
                     <p className="text-sm text-slate-400">
                       {user.handle ? `@${user.handle}` : user.email}
                     </p>
@@ -247,7 +245,7 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
           </p>
         ) : (
           <div className="space-y-2">
-            {judges.map((judge) => {
+            {judges.map(judge => {
               const hasScores = (judge._count?.scores ?? 0) > 0;
               return (
                 <div
@@ -265,9 +263,7 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
                       )}
                     </Avatar>
                     <div>
-                      <p className="font-medium text-white">
-                        {judge.user.name || 'Unnamed User'}
-                      </p>
+                      <p className="font-medium text-white">{judge.user.name || 'Unnamed User'}</p>
                       <p className="text-sm text-slate-400">
                         {judge.user.handle ? `@${judge.user.handle}` : judge.user.email}
                       </p>
@@ -306,7 +302,9 @@ export function JudgeAssignment({ hackathonId, judges, onUpdate }: JudgeAssignme
       <Card className="p-4 bg-gradient-to-r from-cyan-900/20 to-blue-900/20 border-cyan-500/20">
         <div className="flex items-center justify-between text-sm">
           <span className="text-slate-300">Judging Progress</span>
-          <span className="text-cyan-400 font-bold">{judges.length} Judge{judges.length !== 1 ? 's' : ''} Assigned</span>
+          <span className="text-cyan-400 font-bold">
+            {judges.length} Judge{judges.length !== 1 ? 's' : ''} Assigned
+          </span>
         </div>
       </Card>
     </div>

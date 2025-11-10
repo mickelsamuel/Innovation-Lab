@@ -1,9 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  NotFoundException,
-  BadRequestException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
 import { ChallengesService } from './challenges.service';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { GamificationService } from '../gamification/gamification.service';
@@ -87,7 +83,9 @@ describe('ChallengesService', () => {
       prismaMock.challenge.findUnique.mockResolvedValue(existingChallenge as any);
 
       await expect(service.create('user-1', createDto)).rejects.toThrow(BadRequestException);
-      await expect(service.create('user-1', createDto)).rejects.toThrow('Challenge with this slug already exists');
+      await expect(service.create('user-1', createDto)).rejects.toThrow(
+        'Challenge with this slug already exists'
+      );
 
       expect(prismaMock.challenge.create).not.toHaveBeenCalled();
     });
@@ -330,7 +328,9 @@ describe('ChallengesService', () => {
     it('should throw NotFoundException if challenge not found', async () => {
       prismaMock.challenge.findUnique.mockResolvedValue(null);
 
-      await expect(service.update('non-existent', 'user-1', Role.PARTICIPANT, updateDto)).rejects.toThrow(NotFoundException);
+      await expect(
+        service.update('non-existent', 'user-1', Role.PARTICIPANT, updateDto)
+      ).rejects.toThrow(NotFoundException);
 
       expect(prismaMock.challenge.update).not.toHaveBeenCalled();
     });
@@ -340,8 +340,12 @@ describe('ChallengesService', () => {
 
       prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
 
-      await expect(service.update('challenge-1', 'user-1', Role.PARTICIPANT, updateDto)).rejects.toThrow(ForbiddenException);
-      await expect(service.update('challenge-1', 'user-1', Role.PARTICIPANT, updateDto)).rejects.toThrow('You can only update your own challenges');
+      await expect(
+        service.update('challenge-1', 'user-1', Role.PARTICIPANT, updateDto)
+      ).rejects.toThrow(ForbiddenException);
+      await expect(
+        service.update('challenge-1', 'user-1', Role.PARTICIPANT, updateDto)
+      ).rejects.toThrow('You can only update your own challenges');
 
       expect(prismaMock.challenge.update).not.toHaveBeenCalled();
     });
@@ -354,7 +358,9 @@ describe('ChallengesService', () => {
         .mockResolvedValueOnce(challenge as any)
         .mockResolvedValueOnce(existingChallenge as any);
 
-      await expect(service.update('challenge-1', 'user-1', Role.PARTICIPANT, { slug: 'new-slug' })).rejects.toThrow(BadRequestException);
+      await expect(
+        service.update('challenge-1', 'user-1', Role.PARTICIPANT, { slug: 'new-slug' })
+      ).rejects.toThrow(BadRequestException);
 
       expect(prismaMock.challenge.update).not.toHaveBeenCalled();
     });
@@ -371,7 +377,10 @@ describe('ChallengesService', () => {
       prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
       prismaMock.challenge.update.mockResolvedValue(updatedChallenge as any);
 
-      const result = await service.update('challenge-1', 'user-1', Role.PARTICIPANT, { slug: 'same-slug', title: 'Updated' });
+      const result = await service.update('challenge-1', 'user-1', Role.PARTICIPANT, {
+        slug: 'same-slug',
+        title: 'Updated',
+      });
 
       expect(result).toEqual(updatedChallenge);
     });
@@ -405,7 +414,9 @@ describe('ChallengesService', () => {
     it('should throw NotFoundException if challenge not found', async () => {
       prismaMock.challenge.findUnique.mockResolvedValue(null);
 
-      await expect(service.remove('non-existent', 'user-1', Role.PARTICIPANT)).rejects.toThrow(NotFoundException);
+      await expect(service.remove('non-existent', 'user-1', Role.PARTICIPANT)).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.challenge.delete).not.toHaveBeenCalled();
     });
@@ -415,8 +426,12 @@ describe('ChallengesService', () => {
 
       prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
 
-      await expect(service.remove('challenge-1', 'user-1', Role.PARTICIPANT)).rejects.toThrow(ForbiddenException);
-      await expect(service.remove('challenge-1', 'user-1', Role.PARTICIPANT)).rejects.toThrow('You can only delete your own challenges');
+      await expect(service.remove('challenge-1', 'user-1', Role.PARTICIPANT)).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.remove('challenge-1', 'user-1', Role.PARTICIPANT)).rejects.toThrow(
+        'You can only delete your own challenges'
+      );
 
       expect(prismaMock.challenge.delete).not.toHaveBeenCalled();
     });
@@ -425,7 +440,8 @@ describe('ChallengesService', () => {
   describe('submitSolution', () => {
     const submitDto = {
       title: 'My Solution',
-      content: 'My solution code with detailed explanation that is at least fifty characters long to meet requirements',
+      content:
+        'My solution code with detailed explanation that is at least fifty characters long to meet requirements',
       repoUrl: 'https://github.com/user/solution',
       teamId: undefined,
     };
@@ -461,7 +477,9 @@ describe('ChallengesService', () => {
     it('should throw NotFoundException if challenge not found', async () => {
       prismaMock.challenge.findUnique.mockResolvedValue(null);
 
-      await expect(service.submitSolution('non-existent', 'user-1', submitDto)).rejects.toThrow(NotFoundException);
+      await expect(service.submitSolution('non-existent', 'user-1', submitDto)).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.challengeSubmission.create).not.toHaveBeenCalled();
     });
@@ -475,8 +493,12 @@ describe('ChallengesService', () => {
 
       prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
 
-      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(BadRequestException);
-      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow('Challenge is not open for submissions');
+      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(
+        'Challenge is not open for submissions'
+      );
 
       expect(prismaMock.challengeSubmission.create).not.toHaveBeenCalled();
     });
@@ -490,8 +512,12 @@ describe('ChallengesService', () => {
 
       prismaMock.challenge.findUnique.mockResolvedValue(challenge as any);
 
-      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(BadRequestException);
-      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow('Submission deadline has passed');
+      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.submitSolution('challenge-1', 'user-1', submitDto)).rejects.toThrow(
+        'Submission deadline has passed'
+      );
 
       expect(prismaMock.challengeSubmission.create).not.toHaveBeenCalled();
     });

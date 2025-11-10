@@ -8,17 +8,15 @@ import {
   Get,
   Request,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiBody,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto, LoginResponseDto } from './dto/login.dto';
 import { RegisterDto, RegisterResponseDto } from './dto/register.dto';
-import { ForgotPasswordDto, ResetPasswordDto, PasswordResetResponseDto } from './dto/password-reset.dto';
+import {
+  ForgotPasswordDto,
+  ResetPasswordDto,
+  PasswordResetResponseDto,
+} from './dto/password-reset.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Throttle } from '@nestjs/throttler';
 
@@ -150,7 +148,10 @@ export class AuthController {
   })
   @ApiResponse({ status: 200, description: '2FA enabled successfully' })
   @ApiResponse({ status: 400, description: 'Invalid token' })
-  async enable2FA(@Request() req: AuthenticatedRequest, @Body() body: { secret: string; token: string }) {
+  async enable2FA(
+    @Request() req: AuthenticatedRequest,
+    @Body() body: { secret: string; token: string }
+  ) {
     const isValid = this.authService.verify2FA(body.secret, body.token);
     if (!isValid) {
       return { success: false, message: 'Invalid 2FA token' };
@@ -230,7 +231,7 @@ export class AuthController {
   @ApiResponse({ status: 400, description: 'Bad request' })
   async changePassword(
     @Request() req: AuthenticatedRequest,
-    @Body() body: { currentPassword: string; newPassword: string },
+    @Body() body: { currentPassword: string; newPassword: string }
   ) {
     return this.authService.changePassword(req.user.id, body.currentPassword, body.newPassword);
   }

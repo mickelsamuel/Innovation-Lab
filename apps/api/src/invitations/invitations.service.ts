@@ -16,7 +16,7 @@ export class InvitationsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly emailService: EmailService,
-    private readonly gamificationService: GamificationService,
+    private readonly gamificationService: GamificationService
   ) {}
 
   /**
@@ -50,7 +50,7 @@ export class InvitationsService {
     }
 
     // Check if sender is team lead
-    const sender = team.members.find((m) => m.userId === senderId);
+    const sender = team.members.find(m => m.userId === senderId);
     if (!sender || sender.role !== TeamMemberRole.LEAD) {
       throw new ForbiddenException('Only team lead can send invitations');
     }
@@ -78,7 +78,7 @@ export class InvitationsService {
       }
 
       // Check if user is already a member
-      const existingMember = team.members.find((m) => m.userId === dto.inviteeId);
+      const existingMember = team.members.find(m => m.userId === dto.inviteeId);
       if (existingMember) {
         throw new ConflictException('User is already a team member');
       }
@@ -103,10 +103,7 @@ export class InvitationsService {
       where: {
         teamId,
         status: InvitationStatus.PENDING,
-        OR: [
-          { inviteeId: dto.inviteeId },
-          { inviteeEmail: dto.inviteeEmail },
-        ],
+        OR: [{ inviteeId: dto.inviteeId }, { inviteeEmail: dto.inviteeEmail }],
       },
     });
 
@@ -178,7 +175,7 @@ export class InvitationsService {
           team.name,
           senderUser.name || senderUser.handle || 'Team Lead',
           team.hackathon.title,
-          team.hackathon.slug,
+          team.hackathon.slug
         );
       } catch (error) {
         console.error('Failed to send invitation email:', error);
@@ -271,7 +268,7 @@ export class InvitationsService {
     }
 
     // Accept invitation and add to team (with atomic team size check)
-    await this.prisma.$transaction(async (tx) => {
+    await this.prisma.$transaction(async tx => {
       // Atomic count check inside transaction to prevent race condition
       const currentMemberCount = await tx.teamMember.count({
         where: { teamId: invitation.teamId },
@@ -312,7 +309,7 @@ export class InvitationsService {
         'JOIN_HACKATHON',
         XP_POINTS.JOIN_HACKATHON,
         'hackathon',
-        invitation.team.hackathon.id,
+        invitation.team.hackathon.id
       );
     }
 
@@ -322,7 +319,7 @@ export class InvitationsService {
       'JOIN_TEAM',
       XP_POINTS.JOIN_TEAM,
       'team',
-      invitation.teamId,
+      invitation.teamId
     );
 
     // Send acceptance email to inviter
@@ -337,7 +334,7 @@ export class InvitationsService {
           inviter.email,
           inviter.name || 'Team Lead',
           invitation.invitee?.name || 'A user',
-          invitation.team.name,
+          invitation.team.name
         );
       }
     } catch (error) {
@@ -502,10 +499,7 @@ export class InvitationsService {
 
     const invitations = await this.prisma.teamInvitation.findMany({
       where: {
-        OR: [
-          { inviteeId: userId },
-          { inviteeEmail: user.email },
-        ],
+        OR: [{ inviteeId: userId }, { inviteeEmail: user.email }],
         status: InvitationStatus.PENDING,
       },
       include: {

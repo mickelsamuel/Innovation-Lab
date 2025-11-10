@@ -6,7 +6,7 @@ import { FileUpload } from './file-upload';
 // Mock file operations
 vi.mock('@/lib/files', () => ({
   uploadFile: vi.fn(),
-  formatFileSize: vi.fn((size) => `${size} bytes`),
+  formatFileSize: vi.fn(size => `${size} bytes`),
   validateFileSize: vi.fn(() => true),
   validateFileType: vi.fn(() => true),
   FileType: {
@@ -156,9 +156,11 @@ describe('FileUpload', () => {
     });
 
     await waitFor(() => {
-      expect(onUploadError).toHaveBeenCalledWith(expect.objectContaining({
-        message: expect.stringContaining('Maximum 1 files allowed'),
-      }));
+      expect(onUploadError).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message: expect.stringContaining('Maximum 1 files allowed'),
+        })
+      );
     });
   });
 

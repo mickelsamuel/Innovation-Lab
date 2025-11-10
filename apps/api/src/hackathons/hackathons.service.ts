@@ -16,7 +16,7 @@ import { GamificationService, XP_POINTS } from '../gamification/gamification.ser
 export class HackathonsService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly gamificationService: GamificationService,
+    private readonly gamificationService: GamificationService
   ) {}
 
   /**
@@ -50,9 +50,7 @@ export class HackathonsService {
         status: dto.status,
         location: dto.location,
         registrationOpensAt: dto.registrationOpensAt ? new Date(dto.registrationOpensAt) : null,
-        registrationClosesAt: dto.registrationClosesAt
-          ? new Date(dto.registrationClosesAt)
-          : null,
+        registrationClosesAt: dto.registrationClosesAt ? new Date(dto.registrationClosesAt) : null,
         startsAt: new Date(dto.startsAt),
         endsAt: new Date(dto.endsAt),
         judgingEndsAt: dto.judgingEndsAt ? new Date(dto.judgingEndsAt) : null,
@@ -310,8 +308,7 @@ export class HackathonsService {
 
     // Remove duplicates based on ID
     const uniqueHackathons = hackathons.filter(
-      (hackathon, index, self) =>
-        index === self.findIndex(h => h.id === hackathon.id)
+      (hackathon, index, self) => index === self.findIndex(h => h.id === hackathon.id)
     );
 
     return uniqueHackathons;
@@ -351,7 +348,9 @@ export class HackathonsService {
         coverImage: dto.coverImage,
         status: dto.status,
         location: dto.location,
-        registrationOpensAt: dto.registrationOpensAt ? new Date(dto.registrationOpensAt) : undefined,
+        registrationOpensAt: dto.registrationOpensAt
+          ? new Date(dto.registrationOpensAt)
+          : undefined,
         registrationClosesAt: dto.registrationClosesAt
           ? new Date(dto.registrationClosesAt)
           : undefined,
@@ -404,9 +403,7 @@ export class HackathonsService {
 
     // Prevent deletion if there are teams or submissions
     if (hackathon._count.teams > 0 || hackathon._count.submissions > 0) {
-      throw new BadRequestException(
-        'Cannot delete hackathon with existing teams or submissions'
-      );
+      throw new BadRequestException('Cannot delete hackathon with existing teams or submissions');
     }
 
     await this.prisma.hackathon.delete({
@@ -487,8 +484,13 @@ export class HackathonsService {
     }
 
     // Verify hackathon is in judging or completed status
-    if (hackathon.status !== HackathonStatus.JUDGING && hackathon.status !== HackathonStatus.CLOSED) {
-      throw new BadRequestException('Hackathon must be in JUDGING or COMPLETED status to announce winners');
+    if (
+      hackathon.status !== HackathonStatus.JUDGING &&
+      hackathon.status !== HackathonStatus.CLOSED
+    ) {
+      throw new BadRequestException(
+        'Hackathon must be in JUDGING or COMPLETED status to announce winners'
+      );
     }
 
     const results = [];
@@ -511,7 +513,9 @@ export class HackathonsService {
       }
 
       if (submission.hackathonId !== hackathonId) {
-        throw new BadRequestException(`Submission ${winner.submissionId} does not belong to this hackathon`);
+        throw new BadRequestException(
+          `Submission ${winner.submissionId} does not belong to this hackathon`
+        );
       }
 
       // Update submission with winner rank
@@ -550,7 +554,7 @@ export class HackathonsService {
           xpEventType,
           xpPoints,
           'submission',
-          submission.id,
+          submission.id
         );
       }
 
@@ -647,11 +651,7 @@ export class HackathonsService {
   /**
    * Delete an announcement
    */
-  async deleteAnnouncement(
-    hackathonId: string,
-    announcementId: string,
-    userId: string,
-  ) {
+  async deleteAnnouncement(hackathonId: string, announcementId: string, userId: string) {
     // Verify announcement exists and belongs to this hackathon
     const announcement = await this.prisma.announcement.findFirst({
       where: {
@@ -761,7 +761,7 @@ export class HackathonsService {
       'HACKATHON_REGISTRATION',
       XP_POINTS.JOIN_HACKATHON,
       'hackathon',
-      hackathonId,
+      hackathonId
     );
   }
 

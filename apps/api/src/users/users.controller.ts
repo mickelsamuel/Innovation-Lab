@@ -66,10 +66,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Get current user activity feed' })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiResponse({ status: 200, description: 'Activity feed retrieved' })
-  async getMyActivity(
-    @GetCurrentUser() user: CurrentUser,
-    @Query('limit') limit?: number
-  ) {
+  async getMyActivity(@GetCurrentUser() user: CurrentUser, @Query('limit') limit?: number) {
     return this.usersService.getActivityFeed(user.id, limit);
   }
 
@@ -90,7 +87,7 @@ export class UsersController {
   async search(
     @Query('q') query?: string,
     @Query('email') email?: string,
-    @Query('limit') limit?: number,
+    @Query('limit') limit?: number
   ) {
     if (email) {
       const user = await this.usersService.findByEmail(email);

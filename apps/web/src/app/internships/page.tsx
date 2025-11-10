@@ -1,5 +1,16 @@
 import Link from 'next/link';
-import { ArrowLeft, Users, MapPin, Clock, Briefcase, Sparkles, Trophy, Target, Heart, Zap } from 'lucide-react';
+import {
+  ArrowLeft,
+  Users,
+  MapPin,
+  Clock,
+  Briefcase,
+  Sparkles,
+  Trophy,
+  Target,
+  Heart,
+  Zap,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Student Internships',
@@ -27,7 +38,8 @@ export default function CareersPage() {
           </div>
           <p className="text-xl font-bold text-white/95 max-w-3xl">
             <Sparkles className="inline w-6 h-6 mr-2 animate-sparkle" />
-            Launch your career at National Bank of Canada! Join our internship program and gain real-world experience in finance, tech, and innovation.
+            Launch your career at National Bank of Canada! Join our internship program and gain
+            real-world experience in finance, tech, and innovation.
           </p>
         </div>
       </div>
@@ -47,7 +59,8 @@ export default function CareersPage() {
                   <h3 className="font-bold text-lg">Real Impact</h3>
                 </div>
                 <p className="text-slate-700 font-semibold">
-                  Work on real projects that impact millions of customers across Canada's banking sector!
+                  Work on real projects that impact millions of customers across Canada's banking
+                  sector!
                 </p>
               </div>
               <div className="group">
@@ -56,7 +69,8 @@ export default function CareersPage() {
                   <h3 className="font-bold text-lg">Learn & Grow</h3>
                 </div>
                 <p className="text-slate-700 font-semibold">
-                  Gain hands-on experience with cutting-edge technologies and mentorship from industry experts!
+                  Gain hands-on experience with cutting-edge technologies and mentorship from
+                  industry experts!
                 </p>
               </div>
               <div className="group">
@@ -65,7 +79,8 @@ export default function CareersPage() {
                   <h3 className="font-bold text-lg">Career Launch</h3>
                 </div>
                 <p className="text-slate-700 font-semibold">
-                  Build your professional network and launch your career at one of Canada's leading banks!
+                  Build your professional network and launch your career at one of Canada's leading
+                  banks!
                 </p>
               </div>
             </div>
@@ -82,7 +97,9 @@ export default function CareersPage() {
               <div className="game-card p-6 group">
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-display font-black mb-3">Software Engineering Intern</h3>
+                    <h3 className="text-2xl font-display font-black mb-3">
+                      Software Engineering Intern
+                    </h3>
                     <div className="flex flex-wrap gap-4 text-sm text-slate-700 font-bold mb-4">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-primary" />
@@ -98,7 +115,9 @@ export default function CareersPage() {
                       </div>
                     </div>
                     <p className="text-slate-700 font-semibold mb-4 leading-relaxed">
-                      Build innovative banking applications using Java, Python, React, and cloud technologies. Work alongside experienced engineers on projects that serve millions of customers.
+                      Build innovative banking applications using Java, Python, React, and cloud
+                      technologies. Work alongside experienced engineers on projects that serve
+                      millions of customers.
                     </p>
                   </div>
                 </div>
@@ -128,7 +147,9 @@ export default function CareersPage() {
                       </div>
                     </div>
                     <p className="text-slate-700 font-semibold mb-4 leading-relaxed">
-                      Apply machine learning and data analytics to solve real banking challenges. Work with Python, SQL, and modern ML frameworks to uncover insights from financial data.
+                      Apply machine learning and data analytics to solve real banking challenges.
+                      Work with Python, SQL, and modern ML frameworks to uncover insights from
+                      financial data.
                     </p>
                   </div>
                 </div>
@@ -158,7 +179,9 @@ export default function CareersPage() {
                       </div>
                     </div>
                     <p className="text-slate-700 font-semibold mb-4 leading-relaxed">
-                      Protect our customers and systems from cyber threats. Work on security assessments, threat detection, and incident response alongside our expert security team.
+                      Protect our customers and systems from cyber threats. Work on security
+                      assessments, threat detection, and incident response alongside our expert
+                      security team.
                     </p>
                   </div>
                 </div>
@@ -172,7 +195,9 @@ export default function CareersPage() {
               <div className="game-card p-6 group">
                 <div className="flex items-start justify-between gap-4 mb-4">
                   <div className="flex-1">
-                    <h3 className="text-2xl font-display font-black mb-3">Business Analyst Intern</h3>
+                    <h3 className="text-2xl font-display font-black mb-3">
+                      Business Analyst Intern
+                    </h3>
                     <div className="flex flex-wrap gap-4 text-sm text-slate-700 font-bold mb-4">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-primary" />
@@ -188,7 +213,8 @@ export default function CareersPage() {
                       </div>
                     </div>
                     <p className="text-slate-700 font-semibold mb-4 leading-relaxed">
-                      Bridge the gap between technology and business. Analyze processes, gather requirements, and help design solutions that improve banking operations.
+                      Bridge the gap between technology and business. Analyze processes, gather
+                      requirements, and help design solutions that improve banking operations.
                     </p>
                   </div>
                 </div>
@@ -205,7 +231,8 @@ export default function CareersPage() {
             <Trophy className="w-16 h-16 text-primary mx-auto mb-4 group-hover:animate-wiggle" />
             <h3 className="text-3xl font-display font-black mb-4">Ready to Apply?</h3>
             <p className="text-slate-700 font-semibold mb-6 max-w-2xl mx-auto leading-relaxed">
-              Internship applications open in January 2026. Submit your resume and tell us why you want to intern at National Bank of Canada!
+              Internship applications open in January 2026. Submit your resume and tell us why you
+              want to intern at National Bank of Canada!
             </p>
             <a href="mailto:internships@nbc.ca">
               <button className="btn-game">

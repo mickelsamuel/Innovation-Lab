@@ -3,21 +3,12 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-  reviewSubmissionSchema,
-  type ReviewSubmissionFormData,
-} from '@/lib/validations/challenge';
+import { reviewSubmissionSchema, type ReviewSubmissionFormData } from '@/lib/validations/challenge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  
-  
-  
-  
-  
-} from '@/components/ui/select';
+import {} from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { ChallengeSubmissionStatus } from '@/types/challenge';
 import { Loader2, CheckCircle2, XCircle, Trophy, AlertCircle } from 'lucide-react';
@@ -103,7 +94,7 @@ export function SubmissionReviewForm({
     await onSubmit(data);
   };
 
-  const selectedStatus = STATUS_OPTIONS.find((opt) => opt.value === status);
+  const selectedStatus = STATUS_OPTIONS.find(opt => opt.value === status);
 
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className={cn('space-y-6', className)}>
@@ -113,7 +104,7 @@ export function SubmissionReviewForm({
           <Label className="text-base font-semibold mb-4 block">Review Status</Label>
 
           <div className="grid grid-cols-1 gap-3">
-            {STATUS_OPTIONS.map((option) => {
+            {STATUS_OPTIONS.map(option => {
               const Icon = option.icon;
               const isSelected = status === option.value;
 
@@ -129,19 +120,19 @@ export function SubmissionReviewForm({
                       : 'border-slate-200 hover:border-slate-300'
                   )}
                 >
-                  <div className={cn(
-                    'w-10 h-10 rounded-full flex items-center justify-center',
-                    isSelected ? option.bgColor : 'bg-slate-100'
-                  )}>
+                  <div
+                    className={cn(
+                      'w-10 h-10 rounded-full flex items-center justify-center',
+                      isSelected ? option.bgColor : 'bg-slate-100'
+                    )}
+                  >
                     <Icon className={cn('w-5 h-5', isSelected ? option.color : 'text-slate-400')} />
                   </div>
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
                       <h4 className="font-semibold text-slate-900">{option.label}</h4>
-                      {isSelected && (
-                        <CheckCircle2 className="w-4 h-4 text-primary" />
-                      )}
+                      {isSelected && <CheckCircle2 className="w-4 h-4 text-primary" />}
                     </div>
                     <p className="text-sm text-slate-500 mt-0.5">{option.description}</p>
                   </div>
@@ -150,9 +141,7 @@ export function SubmissionReviewForm({
             })}
           </div>
 
-          {errors.status && (
-            <p className="text-sm text-red-600 mt-2">{errors.status.message}</p>
-          )}
+          {errors.status && <p className="text-sm text-red-600 mt-2">{errors.status.message}</p>}
         </CardContent>
       </Card>
 
@@ -172,7 +161,7 @@ export function SubmissionReviewForm({
             max={100}
             step={1}
             value={[scoreValue]}
-            onValueChange={(value) => {
+            onValueChange={value => {
               const newScore = value[0];
               setScoreValue(newScore);
               setValue('score', newScore);
@@ -188,9 +177,7 @@ export function SubmissionReviewForm({
             <span>100 - Excellent</span>
           </div>
 
-          {errors.score && (
-            <p className="text-sm text-red-600 mt-2">{errors.score.message}</p>
-          )}
+          {errors.score && <p className="text-sm text-red-600 mt-2">{errors.score.message}</p>}
         </CardContent>
       </Card>
 
@@ -245,12 +232,7 @@ export function SubmissionReviewForm({
 
       {/* Submit Button */}
       <div className="flex items-center justify-end gap-4 pt-4">
-        <Button
-          type="submit"
-          size="lg"
-          disabled={isLoading}
-          className="min-w-[200px]"
-        >
+        <Button type="submit" size="lg" disabled={isLoading} className="min-w-[200px]">
           {isLoading ? (
             <>
               <Loader2 className="w-4 h-4 mr-2 animate-spin" />

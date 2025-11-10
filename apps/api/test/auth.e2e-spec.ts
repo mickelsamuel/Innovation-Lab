@@ -55,7 +55,7 @@ describe('Authentication (E2E)', () => {
         .post('/v1/auth/register')
         .send(registerDto)
         .expect(201)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body).toHaveProperty('id');
           expect(res.body).toHaveProperty('email', 'e2e@test.com');
           expect(res.body).toHaveProperty('name', 'E2E Test User');
@@ -81,7 +81,7 @@ describe('Authentication (E2E)', () => {
         .post('/v1/auth/register')
         .send(registerDto)
         .expect(409)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body.message).toContain('Email already registered');
         });
     });
@@ -100,7 +100,7 @@ describe('Authentication (E2E)', () => {
         .post('/v1/auth/register')
         .send(registerDto)
         .expect(409)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body.message).toContain('Handle already taken');
         });
     });
@@ -115,10 +115,7 @@ describe('Authentication (E2E)', () => {
         acceptTerms: true,
       };
 
-      return request(app.getHttpServer())
-        .post('/v1/auth/register')
-        .send(registerDto)
-        .expect(400);
+      return request(app.getHttpServer()).post('/v1/auth/register').send(registerDto).expect(400);
     });
 
     it('should reject missing required fields', () => {
@@ -143,7 +140,7 @@ describe('Authentication (E2E)', () => {
         .post('/v1/auth/login')
         .send(loginDto)
         .expect(200)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body).toHaveProperty('accessToken');
           expect(res.body).toHaveProperty('refreshToken');
           expect(res.body).toHaveProperty('expiresIn');
@@ -166,7 +163,7 @@ describe('Authentication (E2E)', () => {
         .post('/v1/auth/login')
         .send(loginDto)
         .expect(401)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body.message).toContain('Invalid email or password');
         });
     });
@@ -181,7 +178,7 @@ describe('Authentication (E2E)', () => {
         .post('/v1/auth/login')
         .send(loginDto)
         .expect(401)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body.message).toContain('Invalid email or password');
         });
     });
@@ -192,10 +189,7 @@ describe('Authentication (E2E)', () => {
         password: 'SecurePass123!',
       };
 
-      return request(app.getHttpServer())
-        .post('/v1/auth/login')
-        .send(loginDto)
-        .expect(200);
+      return request(app.getHttpServer()).post('/v1/auth/login').send(loginDto).expect(200);
     });
   });
 
@@ -205,7 +199,7 @@ describe('Authentication (E2E)', () => {
         .get('/v1/auth/me')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body).toHaveProperty('id');
           expect(res.body).toHaveProperty('email', 'e2e@test.com');
           expect(res.body).toHaveProperty('name', 'E2E Test User');
@@ -214,9 +208,7 @@ describe('Authentication (E2E)', () => {
     });
 
     it('should reject request without token', () => {
-      return request(app.getHttpServer())
-        .get('/v1/auth/me')
-        .expect(401);
+      return request(app.getHttpServer()).get('/v1/auth/me').expect(401);
     });
 
     it('should reject request with invalid token', () => {
@@ -233,7 +225,7 @@ describe('Authentication (E2E)', () => {
         .get('/v1/users/me')
         .set('Authorization', `Bearer ${authToken}`)
         .expect(200)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body).toHaveProperty('id');
           expect(res.body).toHaveProperty('email', 'e2e@test.com');
           expect(res.body).toHaveProperty('gamificationProfile');
@@ -256,7 +248,7 @@ describe('Authentication (E2E)', () => {
         .set('Authorization', `Bearer ${authToken}`)
         .send(updateDto)
         .expect(200)
-        .expect((res) => {
+        .expect(res => {
           expect(res.body).toHaveProperty('name', 'Updated Name');
           expect(res.body).toHaveProperty('bio', 'Updated bio');
           expect(res.body).toHaveProperty('organization', 'Updated Org');
@@ -264,10 +256,7 @@ describe('Authentication (E2E)', () => {
     });
 
     it('should reject update without authentication', () => {
-      return request(app.getHttpServer())
-        .put('/v1/users/me')
-        .send({ name: 'Test' })
-        .expect(401);
+      return request(app.getHttpServer()).put('/v1/users/me').send({ name: 'Test' }).expect(401);
     });
   });
 

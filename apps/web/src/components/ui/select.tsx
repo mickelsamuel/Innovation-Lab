@@ -27,7 +27,12 @@ interface SelectProps {
   onValueChange?: (value: string) => void;
 }
 
-export function Select({ children, value: controlledValue, defaultValue = '', onValueChange }: SelectProps) {
+export function Select({
+  children,
+  value: controlledValue,
+  defaultValue = '',
+  onValueChange,
+}: SelectProps) {
   const [internalValue, setInternalValue] = useState(defaultValue);
   const [open, setOpen] = useState(false);
 
@@ -84,7 +89,9 @@ export function SelectTrigger({ children, className = '', placeholder }: SelectT
       <span className={!value && placeholder ? 'text-slate-500' : 'text-slate-900'}>
         {children || placeholder || 'Select...'}
       </span>
-      <ChevronDown className={`h-4 w-4 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`} />
+      <ChevronDown
+        className={`h-4 w-4 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`}
+      />
     </button>
   );
 }
@@ -115,7 +122,9 @@ export function SelectContent({ children, className = '' }: SelectContentProps) 
   if (!open) return null;
 
   return (
-    <div className={`absolute z-50 mt-1 w-full min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg ${className}`}>
+    <div
+      className={`absolute z-50 mt-1 w-full min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg ${className}`}
+    >
       <div className="max-h-96 overflow-auto p-1" role="listbox">
         {children}
       </div>
@@ -130,7 +139,12 @@ interface SelectItemProps {
   disabled?: boolean;
 }
 
-export function SelectItem({ value: itemValue, children, className = '', disabled = false }: SelectItemProps) {
+export function SelectItem({
+  value: itemValue,
+  children,
+  className = '',
+  disabled = false,
+}: SelectItemProps) {
   const { value, onValueChange } = useSelect();
   const isSelected = value === itemValue;
 
@@ -139,9 +153,7 @@ export function SelectItem({ value: itemValue, children, className = '', disable
       onClick={() => !disabled && onValueChange(itemValue)}
       className={`relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm text-slate-900 outline-none hover:bg-slate-100 focus:bg-slate-100 ${
         isSelected ? 'bg-slate-50' : ''
-      } ${
-        disabled ? 'pointer-events-none opacity-50' : ''
-      } ${className}`}
+      } ${disabled ? 'pointer-events-none opacity-50' : ''} ${className}`}
       role="option"
       aria-selected={isSelected}
     >

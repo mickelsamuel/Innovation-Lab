@@ -41,7 +41,7 @@ const mockFiles: FileUploadResponse[] = [
 vi.mock('@/lib/files', () => ({
   getFilesByEntity: vi.fn(),
   deleteFile: vi.fn(),
-  formatFileSize: vi.fn((size) => `${size} bytes`),
+  formatFileSize: vi.fn(size => `${size} bytes`),
 }));
 
 vi.mock('@/lib/api', () => ({
@@ -156,13 +156,7 @@ describe('FileList', () => {
     const user = userEvent.setup();
     const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(false);
 
-    render(
-      <FileList
-        entityType="hackathon"
-        entityId="1"
-        canDelete={true}
-      />
-    );
+    render(<FileList entityType="hackathon" entityId="1" canDelete={true} />);
 
     await waitFor(() => {
       expect(screen.getByText('test-file.pdf')).toBeInTheDocument();
@@ -200,16 +194,18 @@ describe('FileList', () => {
   });
 
   it('should render image preview for image files', async () => {
-    const imageFile = [{
-      id: '1',
-      filename: 'image.jpg',
-      url: 'https://example.com/image.jpg',
-      size: 1024,
-      mimetype: 'image/jpeg',
-      type: 'IMAGE' as const,
-      key: 'key-1',
-      uploadedAt: '2024-01-01T00:00:00Z',
-    }];
+    const imageFile = [
+      {
+        id: '1',
+        filename: 'image.jpg',
+        url: 'https://example.com/image.jpg',
+        size: 1024,
+        mimetype: 'image/jpeg',
+        type: 'IMAGE' as const,
+        key: 'key-1',
+        uploadedAt: '2024-01-01T00:00:00Z',
+      },
+    ];
     vi.mocked(getFilesByEntity).mockResolvedValue(imageFile);
 
     render(<FileList entityType="hackathon" entityId="1" />);
@@ -224,16 +220,18 @@ describe('FileList', () => {
   });
 
   it('should render video icon for video files', async () => {
-    const videoFile = [{
-      id: '1',
-      filename: 'video.mp4',
-      url: 'https://example.com/video.mp4',
-      size: 5120,
-      mimetype: 'video/mp4',
-      type: 'VIDEO' as const,
-      key: 'key-1',
-      uploadedAt: '2024-01-01T00:00:00Z',
-    }];
+    const videoFile = [
+      {
+        id: '1',
+        filename: 'video.mp4',
+        url: 'https://example.com/video.mp4',
+        size: 5120,
+        mimetype: 'video/mp4',
+        type: 'VIDEO' as const,
+        key: 'key-1',
+        uploadedAt: '2024-01-01T00:00:00Z',
+      },
+    ];
     vi.mocked(getFilesByEntity).mockResolvedValue(videoFile);
 
     render(<FileList entityType="hackathon" entityId="1" />);

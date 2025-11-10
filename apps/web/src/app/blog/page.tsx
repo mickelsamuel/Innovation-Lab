@@ -1,5 +1,16 @@
 import Link from 'next/link';
-import { ArrowLeft, BookOpen, Sparkles, ArrowRight, Scroll, Trophy, Megaphone, Swords, Target, Zap } from 'lucide-react';
+import {
+  ArrowLeft,
+  BookOpen,
+  Sparkles,
+  ArrowRight,
+  Scroll,
+  Trophy,
+  Megaphone,
+  Swords,
+  Target,
+  Zap,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Battle Chronicles',
@@ -39,7 +50,8 @@ export default function BlogPage() {
             <Scroll className="w-20 h-20 text-primary mx-auto mb-6 animate-float" />
             <h2 className="text-4xl font-display font-black mb-4">Gathering Intel...</h2>
             <p className="text-slate-700 font-semibold mb-6 max-w-md mx-auto leading-relaxed">
-              We're preparing legendary chronicles about raids, boss battles, and developer innovation stories!
+              We're preparing legendary chronicles about raids, boss battles, and developer
+              innovation stories!
             </p>
             <p className="text-slate-700 font-semibold mb-8 max-w-md mx-auto leading-relaxed">
               In the meantime, stay updated by exploring active raids and challenging epic bosses!
@@ -76,7 +88,8 @@ export default function BlogPage() {
                   <h3 className="text-xl font-display font-black">Strategy Guides</h3>
                 </div>
                 <p className="text-slate-700 font-semibold leading-relaxed">
-                  Step-by-step battle plans for building innovative projects, dominating raids, and mastering new technologies!
+                  Step-by-step battle plans for building innovative projects, dominating raids, and
+                  mastering new technologies!
                 </p>
               </div>
 
@@ -87,7 +100,8 @@ export default function BlogPage() {
                   <h3 className="text-xl font-display font-black">Victory Chronicles</h3>
                 </div>
                 <p className="text-slate-700 font-semibold leading-relaxed">
-                  Interviews with legendary guilds, their winning strategies, and how they built their award-winning conquests!
+                  Interviews with legendary guilds, their winning strategies, and how they built
+                  their award-winning conquests!
                 </p>
               </div>
 
@@ -98,7 +112,8 @@ export default function BlogPage() {
                   <h3 className="text-xl font-display font-black">Arena Updates</h3>
                 </div>
                 <p className="text-slate-700 font-semibold leading-relaxed">
-                  New features, legendary improvements, and announcements about arena expansions and upcoming epic raids!
+                  New features, legendary improvements, and announcements about arena expansions and
+                  upcoming epic raids!
                 </p>
               </div>
             </div>

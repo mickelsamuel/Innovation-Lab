@@ -1,5 +1,16 @@
 import Link from 'next/link';
-import { ArrowLeft, Shield, Sparkles, Lock, Eye, Users, ShieldCheck, Cookie, FileText, Mail } from 'lucide-react';
+import {
+  ArrowLeft,
+  Shield,
+  Sparkles,
+  Lock,
+  Eye,
+  Users,
+  ShieldCheck,
+  Cookie,
+  FileText,
+  Mail,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Privacy Shield',
@@ -29,7 +40,9 @@ export default function PrivacyPage() {
             <Sparkles className="inline w-6 h-6 mr-2 animate-sparkle" />
             How we protect your data in the arena
           </p>
-          <p className="text-white/90 font-semibold mt-2">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-white/90 font-semibold mt-2">
+            Last updated: {new Date().toLocaleDateString()}
+          </p>
         </div>
       </div>
 
@@ -49,7 +62,10 @@ export default function PrivacyPage() {
                 <li>Submit quests or solutions</li>
                 <li>Communicate with other players or guilds</li>
               </ul>
-              <p>This may include your name, email address, username, profile information, and submitted content.</p>
+              <p>
+                This may include your name, email address, username, profile information, and
+                submitted content.
+              </p>
             </div>
           </div>
 
@@ -81,10 +97,21 @@ export default function PrivacyPage() {
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>We may share your information in the following circumstances:</p>
               <ul className="space-y-2">
-                <li><strong>With Other Players:</strong> Your profile, quest submissions, and battle activity are visible to other arena warriors</li>
-                <li><strong>With Raid Organizers:</strong> When you enter raids, organizers can see your quest submissions</li>
-                <li><strong>With Judges:</strong> Your quests are shared with assigned judges for scoring</li>
-                <li><strong>Legal Requirements:</strong> If required by law or to protect our rights</li>
+                <li>
+                  <strong>With Other Players:</strong> Your profile, quest submissions, and battle
+                  activity are visible to other arena warriors
+                </li>
+                <li>
+                  <strong>With Raid Organizers:</strong> When you enter raids, organizers can see
+                  your quest submissions
+                </li>
+                <li>
+                  <strong>With Judges:</strong> Your quests are shared with assigned judges for
+                  scoring
+                </li>
+                <li>
+                  <strong>Legal Requirements:</strong> If required by law or to protect our rights
+                </li>
               </ul>
             </div>
           </div>
@@ -97,9 +124,9 @@ export default function PrivacyPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                We take legendary measures to protect your information from unauthorized access, alteration,
-                disclosure, or destruction. However, no internet transmission is completely secure, and we cannot
-                guarantee absolute security in the arena.
+                We take legendary measures to protect your information from unauthorized access,
+                alteration, disclosure, or destruction. However, no internet transmission is
+                completely secure, and we cannot guarantee absolute security in the arena.
               </p>
             </div>
           </div>
@@ -129,8 +156,12 @@ export default function PrivacyPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                We use cookies and similar technologies to provide, secure, and improve our arena services.
-                You can control cookies through your browser settings. See our <Link href="/legal/cookies" className="text-primary font-bold hover:underline">Cookie Vault</Link> for more details.
+                We use cookies and similar technologies to provide, secure, and improve our arena
+                services. You can control cookies through your browser settings. See our{' '}
+                <Link href="/legal/cookies" className="text-primary font-bold hover:underline">
+                  Cookie Vault
+                </Link>{' '}
+                for more details.
               </p>
             </div>
           </div>
@@ -143,8 +174,8 @@ export default function PrivacyPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                We may update this Privacy Shield from time to time. We will notify you of any changes by posting
-                the new policy on this page and updating the "Last updated" date.
+                We may update this Privacy Shield from time to time. We will notify you of any
+                changes by posting the new policy on this page and updating the "Last updated" date.
               </p>
             </div>
           </div>
@@ -156,11 +187,15 @@ export default function PrivacyPage() {
               8. Contact Support HQ
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+              <p>If you have questions about this Privacy Shield, please contact Support HQ at:</p>
               <p>
-                If you have questions about this Privacy Shield, please contact Support HQ at:
-              </p>
-              <p>
-                <strong>Email:</strong> <a href="mailto:privacy@innovationlab.com" className="text-primary font-bold hover:underline">privacy@innovationlab.com</a>
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:privacy@innovationlab.com"
+                  className="text-primary font-bold hover:underline"
+                >
+                  privacy@innovationlab.com
+                </a>
               </p>
             </div>
           </div>

@@ -13,12 +13,7 @@ import {
   ExternalLink,
   Loader2,
 } from 'lucide-react';
-import {
-  getFilesByEntity,
-  deleteFile,
-  formatFileSize,
-  type FileUploadResponse,
-} from '@/lib/files';
+import { getFilesByEntity, deleteFile, formatFileSize, type FileUploadResponse } from '@/lib/files';
 import { cn } from '@/lib/utils';
 import { getAuthToken } from '@/lib/api';
 
@@ -66,7 +61,7 @@ export function FileList({
     if (!confirm(`Delete ${file.filename}?`)) return;
 
     try {
-      setDeletingIds((prev) => new Set(prev).add(file.id));
+      setDeletingIds(prev => new Set(prev).add(file.id));
 
       const token = getAuthToken();
       if (!token) {
@@ -75,13 +70,13 @@ export function FileList({
       }
 
       await deleteFile(file.id, token);
-      setFiles((prev) => prev.filter((f) => f.id !== file.id));
+      setFiles(prev => prev.filter(f => f.id !== file.id));
       onDelete?.(file);
     } catch (err: any) {
       console.error('Error deleting file:', err);
       alert(err.message || 'Failed to delete file');
     } finally {
-      setDeletingIds((prev) => {
+      setDeletingIds(prev => {
         const updated = new Set(prev);
         updated.delete(file.id);
         return updated;
@@ -103,11 +98,7 @@ export function FileList({
     if (file.mimetype.startsWith('image/')) {
       return (
         <div className="relative w-12 h-12 rounded overflow-hidden bg-slate-100">
-          <img
-            src={file.url}
-            alt={file.filename}
-            className="w-full h-full object-cover"
-          />
+          <img src={file.url} alt={file.filename} className="w-full h-full object-cover" />
         </div>
       );
     }
@@ -163,7 +154,7 @@ export function FileList({
         {files.length} file{files.length !== 1 ? 's' : ''}
       </p>
 
-      {files.map((file) => {
+      {files.map(file => {
         const isDeleting = deletingIds.has(file.id);
 
         return (
@@ -173,9 +164,7 @@ export function FileList({
                 {getFilePreview(file)}
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-800 truncate">
-                    {file.filename}
-                  </p>
+                  <p className="text-sm font-medium text-slate-800 truncate">{file.filename}</p>
                   <p className="text-xs text-slate-500">
                     {formatFileSize(file.size)} • {file.type}
                   </p>

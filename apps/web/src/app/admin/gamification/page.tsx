@@ -84,15 +84,18 @@ export default function AdminGamificationPage() {
       }
 
       // Fetch badges
-      const badgesData = await apiFetch('/gamification/badges', { token }) as Badge[];
+      const badgesData = (await apiFetch('/gamification/badges', { token })) as Badge[];
       setBadges(badgesData);
 
       // Fetch gamification stats (using leaderboard as proxy)
       try {
-        const leaderboard = await apiFetch('/gamification/leaderboard?limit=10', { token }) as LeaderboardUser[];
+        const leaderboard = (await apiFetch('/gamification/leaderboard?limit=10', {
+          token,
+        })) as LeaderboardUser[];
 
         const totalXP = leaderboard.reduce((sum, user) => sum + user.xp, 0);
-        const avgLevel = leaderboard.reduce((sum, user) => sum + user.level, 0) / leaderboard.length;
+        const avgLevel =
+          leaderboard.reduce((sum, user) => sum + user.level, 0) / leaderboard.length;
 
         setStats({
           totalXPAwarded: totalXP,
@@ -283,13 +286,16 @@ export default function AdminGamificationPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               {showCreateBadge && (
-                <form onSubmit={handleCreateBadge} className="border rounded-lg p-4 space-y-4 bg-slate-50">
+                <form
+                  onSubmit={handleCreateBadge}
+                  className="border rounded-lg p-4 space-y-4 bg-slate-50"
+                >
                   <div>
                     <Label htmlFor="badge-name">Badge Name</Label>
                     <Input
                       id="badge-name"
                       value={newBadge.name}
-                      onChange={(e) => setNewBadge({ ...newBadge, name: e.target.value })}
+                      onChange={e => setNewBadge({ ...newBadge, name: e.target.value })}
                       required
                       placeholder="First Hackathon"
                     />
@@ -299,7 +305,7 @@ export default function AdminGamificationPage() {
                     <Input
                       id="badge-description"
                       value={newBadge.description}
-                      onChange={(e) => setNewBadge({ ...newBadge, description: e.target.value })}
+                      onChange={e => setNewBadge({ ...newBadge, description: e.target.value })}
                       required
                       placeholder="Participated in first hackathon"
                     />
@@ -309,7 +315,7 @@ export default function AdminGamificationPage() {
                     <Input
                       id="badge-image"
                       value={newBadge.imageUrl}
-                      onChange={(e) => setNewBadge({ ...newBadge, imageUrl: e.target.value })}
+                      onChange={e => setNewBadge({ ...newBadge, imageUrl: e.target.value })}
                       placeholder="https://..."
                     />
                   </div>
@@ -317,11 +323,7 @@ export default function AdminGamificationPage() {
                     <Button type="submit" disabled={isCreating}>
                       {isCreating ? 'Creating...' : 'Create Badge'}
                     </Button>
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      onClick={() => setShowCreateBadge(false)}
-                    >
+                    <Button type="button" variant="ghost" onClick={() => setShowCreateBadge(false)}>
                       Cancel
                     </Button>
                   </div>
@@ -330,11 +332,9 @@ export default function AdminGamificationPage() {
 
               <div className="space-y-2 max-h-96 overflow-y-auto">
                 {badges.length === 0 ? (
-                  <p className="text-sm text-slate-500 text-center py-4">
-                    No badges created yet
-                  </p>
+                  <p className="text-sm text-slate-500 text-center py-4">No badges created yet</p>
                 ) : (
-                  badges.map((badge) => (
+                  badges.map(badge => (
                     <div
                       key={badge.id}
                       className="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50"
@@ -348,11 +348,7 @@ export default function AdminGamificationPage() {
                           <p className="text-sm text-slate-600">{badge.description}</p>
                         </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleDeleteBadge(badge.id)}
-                      >
+                      <Button variant="ghost" size="sm" onClick={() => handleDeleteBadge(badge.id)}>
                         <Trash2 className="w-4 h-4 text-red-600" />
                       </Button>
                     </div>
@@ -456,7 +452,8 @@ export default function AdminGamificationPage() {
               </div>
             </div>
             <p className="text-sm text-slate-500 mt-4">
-              XP values are configured in the gamification service. Contact development team to modify these values.
+              XP values are configured in the gamification service. Contact development team to
+              modify these values.
             </p>
           </CardContent>
         </Card>

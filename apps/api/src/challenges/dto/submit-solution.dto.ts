@@ -1,12 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsString,
-  IsNotEmpty,
-  IsOptional,
-  IsUUID,
-  IsUrl,
-  MinLength,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsUUID, IsUrl, MinLength } from 'class-validator';
 
 export class SubmitSolutionDto {
   @ApiProperty({

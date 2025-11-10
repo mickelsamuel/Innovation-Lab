@@ -1,4 +1,10 @@
-import { Injectable, HttpException, HttpStatus, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import {
+  Injectable,
+  HttpException,
+  HttpStatus,
+  OnModuleInit,
+  OnModuleDestroy,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../prisma/prisma.service';
 import { HackathonStatus } from '@innovation-lab/database';
@@ -29,7 +35,7 @@ export class HealthService implements OnModuleInit, OnModuleDestroy {
     if (redisUrl) {
       try {
         this.redisClient = createClient({ url: redisUrl });
-        this.redisClient.on('error', (err) => console.error('Redis Client Error', err));
+        this.redisClient.on('error', err => console.error('Redis Client Error', err));
         await this.redisClient.connect();
       } catch (error) {
         console.warn('Failed to connect to Redis:', error);
@@ -50,7 +56,7 @@ export class HealthService implements OnModuleInit, OnModuleDestroy {
       redis: await this.checkRedis(),
     };
 
-    const isHealthy = Object.values(checks).every((status) => status === 'up');
+    const isHealthy = Object.values(checks).every(status => status === 'up');
 
     const result: HealthCheckResult = {
       status: isHealthy ? 'ok' : 'error',

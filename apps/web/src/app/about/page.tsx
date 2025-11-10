@@ -3,7 +3,8 @@ import { ArrowLeft, Building2, Target, Users, Zap, Trophy, Sparkles } from 'luci
 
 export const metadata = {
   title: 'About The Arena',
-  description: 'Learn about Innovation Lab - the ultimate gaming platform for developers to compete, level up, and claim victory!',
+  description:
+    'Learn about Innovation Lab - the ultimate gaming platform for developers to compete, level up, and claim victory!',
 };
 
 export default function AboutPage() {
@@ -27,7 +28,8 @@ export default function AboutPage() {
           </div>
           <p className="text-xl font-bold text-white/95 max-w-3xl">
             <Sparkles className="inline w-6 h-6 mr-2 animate-sparkle" />
-            The ultimate competitive platform where developers level up, compete in raids, and claim legendary status!
+            The ultimate competitive platform where developers level up, compete in raids, and claim
+            legendary status!
           </p>
         </div>
       </div>
@@ -41,9 +43,10 @@ export default function AboutPage() {
               <h2 className="text-3xl font-display font-black">Our Quest</h2>
             </div>
             <p className="text-slate-700 text-lg leading-relaxed">
-              Innovation Lab is a platform designed to bring together developers, designers, and innovators
-              to collaborate on cutting-edge projects. We host hackathons, coding challenges, and provide
-              a space for the tech community to learn, grow, and build together.
+              Innovation Lab is a platform designed to bring together developers, designers, and
+              innovators to collaborate on cutting-edge projects. We host hackathons, coding
+              challenges, and provide a space for the tech community to learn, grow, and build
+              together.
             </p>
           </div>
 
@@ -61,7 +64,8 @@ export default function AboutPage() {
               <Users className="w-12 h-12 text-accent2 mb-3 animate-wiggle" />
               <h3 className="text-xl font-display font-black mb-3">Community Driven</h3>
               <p className="text-slate-600">
-                Our platform thrives on collaboration, knowledge sharing, and supporting each other's growth.
+                Our platform thrives on collaboration, knowledge sharing, and supporting each
+                other's growth.
               </p>
             </div>
 
@@ -76,12 +80,14 @@ export default function AboutPage() {
 
           {/* Partnership */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-4">Partnership with NBC & Vaultix</h2>
+            <h2 className="text-2xl font-display font-black mb-4">
+              Partnership with NBC & Vaultix
+            </h2>
             <div className="space-y-4">
               <p className="text-slate-700 leading-relaxed">
-                Innovation Lab is proudly built in partnership with the National Bank of Canada (NBC)
-                and Vaultix, bringing together financial technology expertise and innovation platforms
-                to create opportunities for developers worldwide.
+                Innovation Lab is proudly built in partnership with the National Bank of Canada
+                (NBC) and Vaultix, bringing together financial technology expertise and innovation
+                platforms to create opportunities for developers worldwide.
               </p>
               <p className="text-slate-700 leading-relaxed">
                 This collaboration aims to foster innovation in the fintech space while providing

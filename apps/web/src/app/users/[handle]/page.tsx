@@ -9,19 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { apiFetch } from '@/lib/api';
 import { getInitials } from '@/lib/utils';
-import {
-  
-  Trophy,
-  
-  Award,
-  Users,
-  FileText,
-  Building2,
-  
-  Calendar,
-  ArrowLeft,
-  
-} from 'lucide-react';
+import { Trophy, Award, Users, FileText, Building2, Calendar, ArrowLeft } from 'lucide-react';
 
 interface UserProfile {
   id: string;
@@ -155,8 +143,12 @@ export default function PublicUserProfilePage() {
               <p className="text-white/90 mb-2">@{user.handle}</p>
 
               <div className="flex flex-wrap gap-2 mb-4">
-                {user.roles.map((role) => (
-                  <Badge key={role} variant="secondary" className="bg-white/20 text-white border-white/30">
+                {user.roles.map(role => (
+                  <Badge
+                    key={role}
+                    variant="secondary"
+                    className="bg-white/20 text-white border-white/30"
+                  >
                     {role}
                   </Badge>
                 ))}
@@ -182,9 +174,7 @@ export default function PublicUserProfilePage() {
                     </div>
                     <div>
                       <p className="text-sm text-white/70">XP</p>
-                      <p className="text-2xl font-bold text-white">
-                        {user.gamificationProfile.xp}
-                      </p>
+                      <p className="text-2xl font-bold text-white">{user.gamificationProfile.xp}</p>
                     </div>
                     <div>
                       <p className="text-sm text-white/70">Rank</p>
@@ -352,9 +342,7 @@ export default function PublicUserProfilePage() {
                     <FileText className="w-5 h-5" />
                     Submissions
                   </CardTitle>
-                  <CardDescription>
-                    Projects and solutions submitted by {user.name}
-                  </CardDescription>
+                  <CardDescription>Projects and solutions submitted by {user.name}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-12">

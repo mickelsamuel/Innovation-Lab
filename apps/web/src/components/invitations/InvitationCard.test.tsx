@@ -198,9 +198,7 @@ describe('InvitationCard', () => {
       const user = userEvent.setup();
       (acceptInvitation as any).mockResolvedValue({ success: true });
 
-      render(
-        <InvitationCard invitation={mockInvitation} variant="user" onUpdate={mockOnUpdate} />
-      );
+      render(<InvitationCard invitation={mockInvitation} variant="user" onUpdate={mockOnUpdate} />);
 
       const acceptButton = screen.getByRole('button', { name: /Accept/i });
       await user.click(acceptButton);
@@ -214,7 +212,7 @@ describe('InvitationCard', () => {
     it('should show loading state while accepting', async () => {
       const user = userEvent.setup();
       (acceptInvitation as any).mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 1000))
+        () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
       render(<InvitationCard invitation={mockInvitation} variant="user" />);
@@ -262,9 +260,7 @@ describe('InvitationCard', () => {
       const user = userEvent.setup();
       (rejectInvitation as any).mockResolvedValue({ success: true });
 
-      render(
-        <InvitationCard invitation={mockInvitation} variant="user" onUpdate={mockOnUpdate} />
-      );
+      render(<InvitationCard invitation={mockInvitation} variant="user" onUpdate={mockOnUpdate} />);
 
       const rejectButton = screen.getByRole('button', { name: /Reject/i });
       await user.click(rejectButton);
@@ -278,7 +274,7 @@ describe('InvitationCard', () => {
     it('should show loading state while rejecting', async () => {
       const user = userEvent.setup();
       (rejectInvitation as any).mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 1000))
+        () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
       render(<InvitationCard invitation={mockInvitation} variant="user" />);
@@ -312,9 +308,7 @@ describe('InvitationCard', () => {
       const user = userEvent.setup();
       (cancelInvitation as any).mockResolvedValue({ success: true });
 
-      render(
-        <InvitationCard invitation={mockInvitation} variant="team" onUpdate={mockOnUpdate} />
-      );
+      render(<InvitationCard invitation={mockInvitation} variant="team" onUpdate={mockOnUpdate} />);
 
       const cancelButton = screen.getByRole('button', { name: /Cancel Invitation/i });
       await user.click(cancelButton);
@@ -328,7 +322,7 @@ describe('InvitationCard', () => {
     it('should show loading state while cancelling', async () => {
       const user = userEvent.setup();
       (cancelInvitation as any).mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 1000))
+        () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
       render(<InvitationCard invitation={mockInvitation} variant="team" />);
@@ -422,7 +416,7 @@ describe('InvitationCard', () => {
     it('should disable buttons during loading', async () => {
       const user = userEvent.setup();
       (acceptInvitation as any).mockImplementation(
-        () => new Promise((resolve) => setTimeout(resolve, 1000))
+        () => new Promise(resolve => setTimeout(resolve, 1000))
       );
 
       render(<InvitationCard invitation={mockInvitation} variant="user" />);

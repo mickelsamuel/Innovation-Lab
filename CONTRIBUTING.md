@@ -76,6 +76,7 @@ git checkout -b feature/your-feature-name
 ```
 
 Branch naming conventions:
+
 - `feature/` - New features
 - `fix/` - Bug fixes
 - `docs/` - Documentation changes
@@ -208,7 +209,9 @@ describe('ServiceName', () => {
 
   it('should perform expected action', async () => {
     // Arrange
-    const input = { /* ... */ };
+    const input = {
+      /* ... */
+    };
 
     // Act
     const result = await service.method(input);
@@ -248,19 +251,23 @@ describe('ComponentName', () => {
 
 ```markdown
 ## Description
+
 Brief description of changes
 
 ## Type of Change
+
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation update
 
 ## Testing
+
 - How was this tested?
 - What test cases were added?
 
 ## Checklist
+
 - [ ] Tests pass
 - [ ] Linting passes
 - [ ] Documentation updated
@@ -359,6 +366,7 @@ docs: update API documentation for v1.1
 ### Bug Reports
 
 Include:
+
 - **Description**: Clear description of the bug
 - **Steps to reproduce**: Detailed steps
 - **Expected behavior**: What should happen
@@ -370,6 +378,7 @@ Include:
 ### Feature Requests
 
 Include:
+
 - **Problem**: What problem does this solve?
 - **Proposed solution**: How should it work?
 - **Alternatives**: Other solutions considered

@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Param,
-  Query,
-  HttpCode,
-  HttpStatus,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Param, Query, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
 import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AnalyticsService } from './analytics.service';
 import {
@@ -54,9 +46,7 @@ export class AnalyticsController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get growth metrics' })
-  async getGrowthMetrics(
-    @Query() filter: AnalyticsFilterDto,
-  ): Promise<GrowthMetricsResponseDto> {
+  async getGrowthMetrics(@Query() filter: AnalyticsFilterDto): Promise<GrowthMetricsResponseDto> {
     return this.analyticsService.getGrowthMetrics(filter);
   }
 
@@ -74,9 +64,7 @@ export class AnalyticsController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get top contributors' })
-  async getTopContributors(
-    @Query('limit') limit?: number,
-  ): Promise<TopContributorsResponseDto> {
+  async getTopContributors(@Query('limit') limit?: number): Promise<TopContributorsResponseDto> {
     return this.analyticsService.getTopContributors(limit);
   }
 
@@ -85,9 +73,7 @@ export class AnalyticsController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get hackathon analytics' })
-  async getHackathonAnalytics(
-    @Param('id') id: string,
-  ): Promise<HackathonAnalyticsResponseDto> {
+  async getHackathonAnalytics(@Param('id') id: string): Promise<HackathonAnalyticsResponseDto> {
     return this.analyticsService.getHackathonAnalytics(id);
   }
 
@@ -96,9 +82,7 @@ export class AnalyticsController {
   @ApiBearerAuth()
   @HttpCode(HttpStatus.OK)
   @ApiOperation({ summary: 'Get challenge analytics' })
-  async getChallengeAnalytics(
-    @Param('id') id: string,
-  ): Promise<ChallengeAnalyticsResponseDto> {
+  async getChallengeAnalytics(@Param('id') id: string): Promise<ChallengeAnalyticsResponseDto> {
     return this.analyticsService.getChallengeAnalytics(id);
   }
 

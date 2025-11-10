@@ -46,9 +46,7 @@ export interface NotificationPreferencesDto {
 export class NotificationsService {
   private readonly logger = new Logger(NotificationsService.name);
 
-  constructor(
-    private readonly prisma: PrismaService,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   /**
    * Create a notification in the database
@@ -129,7 +127,7 @@ export class NotificationsService {
       unreadOnly?: boolean;
       limit?: number;
       offset?: number;
-    } = {},
+    } = {}
   ) {
     const { unreadOnly = false, limit = 20, offset = 0 } = options;
 

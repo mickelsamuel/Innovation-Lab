@@ -61,6 +61,7 @@ Innovation Lab is a full-stack web platform built as a **monorepo** using modern
 ## Technology Stack
 
 ### Frontend
+
 - **Framework**: Next.js 15 (React 18.3)
 - **Language**: TypeScript 5.3
 - **Styling**: Tailwind CSS + shadcn/ui
@@ -70,6 +71,7 @@ Innovation Lab is a full-stack web platform built as a **monorepo** using modern
 - **Animations**: Framer Motion
 
 ### Backend
+
 - **Framework**: NestJS 10
 - **Language**: TypeScript 5.3
 - **ORM**: Prisma
@@ -80,6 +82,7 @@ Innovation Lab is a full-stack web platform built as a **monorepo** using modern
 - **Documentation**: Swagger/OpenAPI
 
 ### Infrastructure
+
 - **Monorepo**: Turborepo
 - **Package Manager**: pnpm
 - **Containerization**: Docker + Docker Compose
@@ -105,6 +108,7 @@ Innovation-Lab/
 ### Why Monorepo?
 
 **Advantages:**
+
 - **Code Sharing**: Shared types and database client
 - **Atomic Changes**: Update frontend and backend together
 - **Simplified Dependencies**: Single `pnpm install`
@@ -112,6 +116,7 @@ Innovation-Lab/
 - **Developer Experience**: Single repository to clone
 
 **Tool Choice:**
+
 - **Turborepo**: Fast, incremental builds with remote caching
 - **pnpm**: Fast, efficient, workspace-native package manager
 
@@ -145,19 +150,23 @@ apps/web/src/
 ### Key Patterns
 
 **1. Server vs Client Components**
+
 - **Server Components** (default): SEO, performance, data fetching
 - **Client Components** (`'use client'`): Interactivity, state, effects
 
 **2. Data Fetching**
+
 - **Server Components**: Direct API calls
 - **Client Components**: TanStack Query for caching
 
 **3. Route Organization**
+
 - **Route Groups**: `(auth)` for shared layouts without URL segments
 - **Dynamic Routes**: `[slug]` for dynamic parameters
 - **Parallel Routes**: `@modal` for modals (future)
 
 **4. State Management**
+
 - **Server State**: TanStack Query
 - **Client State**: React Context + hooks
 - **Form State**: React Hook Form
@@ -243,22 +252,27 @@ Challenge ──┬── ChallengeSubmission (1:N)
 ### Key Design Decisions
 
 **1. Soft Deletes**
+
 - Use `deletedAt` timestamp instead of hard deletes
 - Preserves data integrity and audit trails
 
 **2. Audit Fields**
+
 - All entities have: `createdAt`, `updatedAt`
 - Critical entities add: `createdById`, `updatedById`
 
 **3. JSON Columns**
+
 - Use `Json` type for flexible metadata
 - Example: `hackathon.schedule`, `submission.metadata`
 
 **4. Enums**
+
 - Database-level enums for type safety
 - Example: `Role`, `HackathonStatus`, `SubmissionStatus`
 
 **5. Indexes**
+
 - Foreign keys automatically indexed
 - Additional indexes on frequently queried fields
 - Composite indexes for common query patterns
@@ -305,11 +319,13 @@ enum Role {
 ```
 
 **Guard Stack:**
+
 1. **JWT Guard**: Verify token validity
 2. **Roles Guard**: Check user has required role(s)
 3. **Policy Guard**: Custom business logic (future)
 
 **Implementation:**
+
 ```typescript
 @UseGuards(JwtAuthGuard, RolesGuard)
 @Roles(Role.BANK_ADMIN, Role.ORGANIZER)
@@ -324,11 +340,13 @@ createHackathon() { }
 ### RESTful Conventions
 
 **URL Structure:**
+
 ```
 /v1/{resource}/{id}/{sub-resource}
 ```
 
 **Examples:**
+
 ```
 GET    /v1/hackathons
 GET    /v1/hackathons/:id
@@ -348,6 +366,7 @@ POST   /v1/hackathons/:id/teams
 ### Response Format
 
 **Success (200-299):**
+
 ```json
 {
   "id": "clxxx...",
@@ -357,6 +376,7 @@ POST   /v1/hackathons/:id/teams
 ```
 
 **Error (400-599):**
+
 ```json
 {
   "statusCode": 400,
@@ -392,11 +412,13 @@ Response:
 ### Storage Strategy
 
 **Development:**
+
 - **MinIO**: S3-compatible local storage
 - **Location**: Docker container
 - **URL**: http://localhost:9000
 
 **Production:**
+
 - **AWS S3**: Scalable object storage
 - **CloudFront CDN**: Global content delivery
 - **Signed URLs**: Secure file access
@@ -436,21 +458,25 @@ bucket/
 ### Redis Usage
 
 **1. Session Storage**
+
 - User sessions
 - JWT refresh tokens
 - TTL: 7 days
 
 **2. Rate Limiting**
+
 - Request counters per IP/user
 - TTL: 1 minute (configurable)
 
 **3. Application Cache**
+
 - Leaderboards (hot data)
 - Badge definitions
 - Configuration
 - TTL: 5-60 minutes
 
 **4. Future: Queue Management**
+
 - BullMQ job queues
 - Email notifications
 - Async processing
@@ -458,6 +484,7 @@ bucket/
 ### Cache Invalidation
 
 **Strategies:**
+
 - **TTL-based**: Expire after time period
 - **Event-based**: Invalidate on updates
 - **Cache-aside**: Load on miss, update on write
@@ -469,27 +496,32 @@ bucket/
 ### Defense in Depth
 
 **Layer 1: Network**
+
 - HTTPS only in production
 - CORS restrictions
 - Rate limiting
 
 **Layer 2: Application**
+
 - Input validation (Zod + class-validator)
 - Output encoding (XSS prevention)
 - CSRF tokens
 - SQL injection prevention (Prisma)
 
 **Layer 3: Authentication**
+
 - JWT with short expiry (15 min)
 - Refresh token rotation
 - 2FA support
 
 **Layer 4: Authorization**
+
 - Role-based access control
 - Resource ownership checks
 - Policy-based rules
 
 **Layer 5: Data**
+
 - Encryption at rest (database)
 - Encryption in transit (TLS)
 - PII minimization
@@ -504,10 +536,10 @@ helmet({
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
+      imgSrc: ["'self'", 'data:', 'https:'],
     },
   },
-})
+});
 ```
 
 ---
@@ -563,12 +595,14 @@ pnpm dev
 ## Design Decisions
 
 ### Why Next.js 15?
+
 - **App Router**: Better performance, streaming
 - **Server Components**: Reduced client JS
 - **Built-in optimizations**: Images, fonts, scripts
 - **TypeScript-first**: Excellent DX
 
 ### Why NestJS?
+
 - **Modular architecture**: Scales well
 - **Dependency injection**: Testable code
 - **TypeScript**: Type safety throughout
@@ -576,24 +610,28 @@ pnpm dev
 - **OpenAPI**: Auto-generated docs
 
 ### Why Prisma?
+
 - **Type safety**: Generated types
 - **Migration system**: Version-controlled schema
 - **Developer experience**: Excellent tooling
 - **Performance**: Efficient queries
 
 ### Why PostgreSQL?
+
 - **ACID compliance**: Data integrity
 - **JSON support**: Flexible metadata
 - **Performance**: Excellent for relational data
 - **Ecosystem**: Mature, well-supported
 
 ### Why Turborepo?
+
 - **Fast builds**: Incremental compilation
 - **Remote caching**: Share build artifacts
 - **Simple config**: Works out of the box
 - **Monorepo-native**: Built for this use case
 
 ### Why pnpm?
+
 - **Disk efficiency**: Shared dependencies
 - **Speed**: Faster than npm/yarn
 - **Workspace support**: Native monorepo
@@ -604,6 +642,7 @@ pnpm dev
 ## Performance Considerations
 
 ### Frontend
+
 - **Code splitting**: Automatic with Next.js
 - **Image optimization**: Next/Image component
 - **Font optimization**: next/font
@@ -611,6 +650,7 @@ pnpm dev
 - **Caching**: TanStack Query
 
 ### Backend
+
 - **Database indexes**: Optimize queries
 - **Connection pooling**: Prisma built-in
 - **Redis caching**: Hot data
@@ -618,6 +658,7 @@ pnpm dev
 - **N+1 prevention**: Prisma includes
 
 ### Network
+
 - **CDN**: CloudFront for static assets
 - **Compression**: gzip/brotli
 - **HTTP/2**: Multiplexing
@@ -628,12 +669,14 @@ pnpm dev
 ## Scalability Strategy
 
 ### Horizontal Scaling
+
 - **Stateless API**: Scale ECS tasks
 - **Load balancing**: ALB distributes traffic
 - **Database**: RDS read replicas
 - **Cache**: Redis cluster
 
 ### Vertical Scaling
+
 - **Database**: Upgrade RDS instance
 - **Cache**: Upgrade ElastiCache nodes
 - **API**: Larger ECS tasks
@@ -643,17 +686,20 @@ pnpm dev
 ## Monitoring & Observability
 
 ### Logging
+
 - **Structured logs**: Pino JSON format
 - **Correlation IDs**: Track requests
 - **Log levels**: info, warn, error
 - **Centralized**: CloudWatch (production)
 
 ### Metrics
+
 - **Health checks**: `/health`, `/health/ready`
 - **Custom metrics**: Prometheus format
 - **Performance**: Response times, throughput
 
 ### Tracing (Future)
+
 - **OpenTelemetry**: Distributed tracing
 - **Spans**: Track request flow
 - **Correlation**: Link logs and traces
@@ -663,6 +709,7 @@ pnpm dev
 ## Future Considerations
 
 ### Planned Enhancements
+
 - **GraphQL API**: Alongside REST
 - **WebSockets**: Real-time features
 - **Microservices**: Split large modules

@@ -8,11 +8,7 @@ import {
   MinLength,
   IsDateString,
 } from 'class-validator';
-import {
-  ChallengeStatus,
-  ChallengeVisibility,
-  RewardType,
-} from '@prisma/client';
+import { ChallengeStatus, ChallengeVisibility, RewardType } from '@prisma/client';
 
 export class CreateChallengeDto {
   @ApiProperty({

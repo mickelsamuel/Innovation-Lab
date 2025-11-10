@@ -77,7 +77,7 @@ export class EmailService {
     let result = template;
 
     // Replace all {{variable}} with actual values
-    Object.keys(context).forEach((key) => {
+    Object.keys(context).forEach(key => {
       const regex = new RegExp(`{{${key}}}`, 'g');
       result = result.replace(regex, context[key]);
     });
@@ -128,7 +128,12 @@ export class EmailService {
     });
   }
 
-  async sendLevelUpEmail(email: string, name: string, level: number, levelName: string): Promise<void> {
+  async sendLevelUpEmail(
+    email: string,
+    name: string,
+    level: number,
+    levelName: string
+  ): Promise<void> {
     await this.sendEmail({
       to: email,
       subject: `Congratulations! You reached Level ${level} 🎉`,
@@ -142,7 +147,13 @@ export class EmailService {
     });
   }
 
-  async sendBadgeUnlockedEmail(email: string, name: string, badgeName: string, badgeIcon: string, badgeDescription: string): Promise<void> {
+  async sendBadgeUnlockedEmail(
+    email: string,
+    name: string,
+    badgeName: string,
+    badgeIcon: string,
+    badgeDescription: string
+  ): Promise<void> {
     await this.sendEmail({
       to: email,
       subject: `New Badge Unlocked: ${badgeName} ${badgeIcon}`,
@@ -162,7 +173,7 @@ export class EmailService {
     name: string,
     hackathonTitle: string,
     rank: number,
-    prize?: string,
+    prize?: string
   ): Promise<void> {
     const rankText = rank === 1 ? '1st Place 🥇' : rank === 2 ? '2nd Place 🥈' : '3rd Place 🥉';
 
@@ -184,7 +195,7 @@ export class EmailService {
     email: string,
     name: string,
     challengeTitle: string,
-    challengeSlug: string,
+    challengeSlug: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -204,7 +215,7 @@ export class EmailService {
     name: string,
     challengeTitle: string,
     challengeSlug: string,
-    reward?: string,
+    reward?: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -226,7 +237,7 @@ export class EmailService {
     teamName: string,
     inviterName: string,
     hackathonTitle: string,
-    hackathonSlug: string,
+    hackathonSlug: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -247,7 +258,7 @@ export class EmailService {
     email: string,
     inviterName: string,
     inviteeName: string,
-    teamName: string,
+    teamName: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -267,7 +278,7 @@ export class EmailService {
     name: string,
     hackathonTitle: string,
     hackathonSlug: string,
-    teamName: string,
+    teamName: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -291,7 +302,7 @@ export class EmailService {
     teamName: string,
     startsAt: string,
     endsAt: string,
-    location: string,
+    location: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -317,7 +328,7 @@ export class EmailService {
     submissionTitle: string,
     teamName: string,
     submittedAt: string,
-    resultsDate: string,
+    resultsDate: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -344,7 +355,7 @@ export class EmailService {
     submissionCount: number,
     judgesCount: number,
     judgingStartDate: string,
-    judgingEndDate: string,
+    judgingEndDate: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -370,7 +381,7 @@ export class EmailService {
     hackathonSlug: string,
     hackathonDescription: string,
     startsAt: string,
-    endsAt: string,
+    endsAt: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -396,7 +407,7 @@ export class EmailService {
     teamName: string,
     totalScore: number,
     feedbackSummary: string,
-    announcementDate: string,
+    announcementDate: string
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -421,7 +432,7 @@ export class EmailService {
     challengeTitle: string,
     challengeSlug: string,
     submittedAt: string,
-    reviewDays: number,
+    reviewDays: number
   ): Promise<void> {
     await this.sendEmail({
       to: email,
@@ -444,7 +455,7 @@ export class EmailService {
     challengeSlug: string,
     status: string,
     feedback: string,
-    score?: number,
+    score?: number
   ): Promise<void> {
     await this.sendEmail({
       to: email,

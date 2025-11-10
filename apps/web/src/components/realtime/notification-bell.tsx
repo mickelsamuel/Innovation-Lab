@@ -42,8 +42,8 @@ export function NotificationBell() {
         read: false,
       };
 
-      setNotifications((prev) => [newNotification, ...prev.slice(0, 9)]); // Keep last 10
-      setUnreadCount((prev) => prev + 1);
+      setNotifications(prev => [newNotification, ...prev.slice(0, 9)]); // Keep last 10
+      setUnreadCount(prev => prev + 1);
     };
 
     // Listen for team invitations
@@ -57,8 +57,8 @@ export function NotificationBell() {
         read: false,
       };
 
-      setNotifications((prev) => [notification, ...prev.slice(0, 9)]);
-      setUnreadCount((prev) => prev + 1);
+      setNotifications(prev => [notification, ...prev.slice(0, 9)]);
+      setUnreadCount(prev => prev + 1);
     };
 
     // Listen for submission events
@@ -72,8 +72,8 @@ export function NotificationBell() {
         read: false,
       };
 
-      setNotifications((prev) => [notification, ...prev.slice(0, 9)]);
-      setUnreadCount((prev) => prev + 1);
+      setNotifications(prev => [notification, ...prev.slice(0, 9)]);
+      setUnreadCount(prev => prev + 1);
     };
 
     socket.on('notification:new', handleNewNotification);
@@ -88,14 +88,12 @@ export function NotificationBell() {
   }, [socket]);
 
   const markAsRead = (id: string) => {
-    setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
-    );
-    setUnreadCount((prev) => Math.max(0, prev - 1));
+    setNotifications(prev => prev.map(n => (n.id === id ? { ...n, read: true } : n)));
+    setUnreadCount(prev => Math.max(0, prev - 1));
   };
 
   const markAllAsRead = () => {
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    setNotifications(prev => prev.map(n => ({ ...n, read: true })));
     setUnreadCount(0);
   };
 
@@ -130,12 +128,7 @@ export function NotificationBell() {
         <div className="flex items-center justify-between px-2 py-2 border-b">
           <h3 className="font-semibold">Notifications</h3>
           {unreadCount > 0 && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={markAllAsRead}
-              className="text-xs"
-            >
+            <Button variant="ghost" size="sm" onClick={markAllAsRead} className="text-xs">
               Mark all read
             </Button>
           )}
@@ -147,7 +140,7 @@ export function NotificationBell() {
               <p>No notifications yet</p>
             </div>
           ) : (
-            notifications.map((notification) => (
+            notifications.map(notification => (
               <DropdownMenuItem
                 key={notification.id}
                 className={`flex flex-col items-start p-3 cursor-pointer ${
@@ -158,9 +151,7 @@ export function NotificationBell() {
                 <div className="flex items-start justify-between w-full">
                   <div className="flex-1">
                     <p className="font-medium text-sm">{notification.title}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      {notification.message}
-                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">{notification.message}</p>
                     <p className="text-xs text-muted-foreground mt-1">
                       {formatTimestamp(notification.timestamp)}
                     </p>

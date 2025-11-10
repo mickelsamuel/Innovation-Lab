@@ -19,9 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {/* Wrap your app with WebSocketProvider after SessionProvider */}
         <SessionProvider>
-          <WebSocketProvider>
-            {children}
-          </WebSocketProvider>
+          <WebSocketProvider>{children}</WebSocketProvider>
         </SessionProvider>
       </body>
     </html>
@@ -38,9 +36,7 @@ export function Header() {
   return (
     <header className="border-b">
       <nav className="flex items-center justify-between p-4">
-        <div className="flex items-center gap-4">
-          {/* Logo and nav items */}
-        </div>
+        <div className="flex items-center gap-4">{/* Logo and nav items */}</div>
 
         <div className="flex items-center gap-2">
           {/* Add the real-time notification bell */}
@@ -59,11 +55,7 @@ export function Header() {
 
 import { LiveLeaderboard } from '@/components/realtime';
 
-export default async function LeaderboardPage({
-  params
-}: {
-  params: { slug: string }
-}) {
+export default async function LeaderboardPage({ params }: { params: { slug: string } }) {
   // Fetch initial data server-side
   const hackathon = await fetchHackathon(params.slug);
   const submissions = await fetchSubmissions(hackathon.id);
@@ -71,10 +63,7 @@ export default async function LeaderboardPage({
   return (
     <div className="container mx-auto py-8">
       {/* LiveLeaderboard will auto-update in real-time */}
-      <LiveLeaderboard
-        hackathonId={hackathon.id}
-        initialData={submissions}
-      />
+      <LiveLeaderboard hackathonId={hackathon.id} initialData={submissions} />
     </div>
   );
 }
@@ -83,10 +72,7 @@ export default async function LeaderboardPage({
 // =============================================================
 // File: apps/web/src/app/dashboard/page.tsx
 
-import {
-  OnlineUsersCount,
-  LiveSubmissionCounter,
-} from '@/components/realtime';
+import { OnlineUsersCount, LiveSubmissionCounter } from '@/components/realtime';
 import { useWebSocket } from '@/providers/websocket-provider';
 
 export default function Dashboard() {
@@ -98,17 +84,12 @@ export default function Dashboard() {
         <h1 className="text-3xl font-bold">Dashboard</h1>
 
         {/* Show connection status and online users */}
-        <div className="flex items-center gap-4">
-          {isConnected && <OnlineUsersCount />}
-        </div>
+        <div className="flex items-center gap-4">{isConnected && <OnlineUsersCount />}</div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Live submission counter */}
-        <LiveSubmissionCounter
-          hackathonId="current-hackathon-id"
-          initialCount={0}
-        />
+        <LiveSubmissionCounter hackathonId="current-hackathon-id" initialCount={0} />
 
         {/* Other dashboard cards */}
       </div>
@@ -122,11 +103,7 @@ export default function Dashboard() {
 
 import { LiveTeamMembers } from '@/components/realtime';
 
-export default async function TeamPage({
-  params
-}: {
-  params: { id: string }
-}) {
+export default async function TeamPage({ params }: { params: { id: string } }) {
   const team = await fetchTeam(params.id);
 
   return (
@@ -134,10 +111,7 @@ export default async function TeamPage({
       <h1 className="text-3xl font-bold mb-8">{team.name}</h1>
 
       {/* Live team members list with online status */}
-      <LiveTeamMembers
-        teamId={team.id}
-        initialMembers={team.members}
-      />
+      <LiveTeamMembers teamId={team.id} initialMembers={team.members} />
     </div>
   );
 }
@@ -237,7 +211,7 @@ export function JudgeDashboard({ hackathonId }: { hackathonId: string }) {
           description: `${data.submission.title} was just submitted!`,
         });
 
-        setNewSubmissions((prev) => [data.submission, ...prev]);
+        setNewSubmissions(prev => [data.submission, ...prev]);
       };
 
       socket.on('submission:new', handleNewSubmission);

@@ -1,5 +1,15 @@
 import Link from 'next/link';
-import { ArrowLeft, Heart, Users, Shield, Sparkles, CheckCircle, XCircle, Ban, FileText } from 'lucide-react';
+import {
+  ArrowLeft,
+  Heart,
+  Users,
+  Shield,
+  Sparkles,
+  CheckCircle,
+  XCircle,
+  Ban,
+  FileText,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Code of Honor',
@@ -42,10 +52,11 @@ export default function CodeOfConductPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                In the interest of fostering an open and welcoming arena, we pledge to make participation
-                in Innovation Lab a harassment-free experience for every warrior, regardless of age, body size, disability,
-                ethnicity, gender identity and expression, level of experience, nationality, personal appearance,
-                race, religion, or sexual identity and orientation.
+                In the interest of fostering an open and welcoming arena, we pledge to make
+                participation in Innovation Lab a harassment-free experience for every warrior,
+                regardless of age, body size, disability, ethnicity, gender identity and expression,
+                level of experience, nationality, personal appearance, race, religion, or sexual
+                identity and orientation.
               </p>
             </div>
           </div>
@@ -85,7 +96,10 @@ export default function CodeOfConductPage() {
                   <li>Publishing others' private information without explicit permission</li>
                   <li>Cheating or plagiarism in raids or boss challenges</li>
                   <li>Spamming or excessive self-promotion in the arena</li>
-                  <li>Other conduct which could reasonably be considered inappropriate in a competitive setting</li>
+                  <li>
+                    Other conduct which could reasonably be considered inappropriate in a
+                    competitive setting
+                  </li>
                 </ul>
               </div>
             </div>
@@ -99,13 +113,15 @@ export default function CodeOfConductPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                Arena administrators are responsible for clarifying the standards of honorable conduct and are expected
-                to take appropriate and fair corrective action in response to any instances of dishonorable behavior.
+                Arena administrators are responsible for clarifying the standards of honorable
+                conduct and are expected to take appropriate and fair corrective action in response
+                to any instances of dishonorable behavior.
               </p>
               <p>
-                Administrators have the right and responsibility to remove, edit, or reject quest submissions, comments, and other
-                contributions that are not aligned with this Code of Honor, or to ban temporarily or permanently any warrior
-                for behaviors that they deem inappropriate, threatening, offensive, or harmful.
+                Administrators have the right and responsibility to remove, edit, or reject quest
+                submissions, comments, and other contributions that are not aligned with this Code
+                of Honor, or to ban temporarily or permanently any warrior for behaviors that they
+                deem inappropriate, threatening, offensive, or harmful.
               </p>
             </div>
           </div>
@@ -118,9 +134,9 @@ export default function CodeOfConductPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                This Code of Honor applies to all Innovation Lab arena spaces, including raids, boss challenges, guild forums,
-                and any other warrior interactions. It also applies when a warrior is representing Innovation Lab
-                in public spaces.
+                This Code of Honor applies to all Innovation Lab arena spaces, including raids, boss
+                challenges, guild forums, and any other warrior interactions. It also applies when a
+                warrior is representing Innovation Lab in public spaces.
               </p>
             </div>
           </div>
@@ -133,12 +149,19 @@ export default function CodeOfConductPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                Instances of dishonorable, harassing, or otherwise unacceptable behavior may be reported by contacting
-                the moderation team at <a href="mailto:conduct@innovationlab.com" className="text-primary font-bold hover:underline">conduct@innovationlab.com</a>.
-                All complaints will be reviewed and investigated promptly and fairly.
+                Instances of dishonorable, harassing, or otherwise unacceptable behavior may be
+                reported by contacting the moderation team at{' '}
+                <a
+                  href="mailto:conduct@innovationlab.com"
+                  className="text-primary font-bold hover:underline"
+                >
+                  conduct@innovationlab.com
+                </a>
+                . All complaints will be reviewed and investigated promptly and fairly.
               </p>
               <p>
-                All moderators are obligated to respect the privacy and security of the reporter of any incident.
+                All moderators are obligated to respect the privacy and security of the reporter of
+                any incident.
               </p>
             </div>
           </div>
@@ -153,21 +176,22 @@ export default function CodeOfConductPage() {
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">1. Warning</h3>
                 <p className="text-slate-700 font-semibold">
-                  For minor violations, a private warning may be issued explaining the nature of the dishonor and why
-                  the behavior was inappropriate in the arena.
+                  For minor violations, a private warning may be issued explaining the nature of the
+                  dishonor and why the behavior was inappropriate in the arena.
                 </p>
               </div>
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">2. Temporary Suspension</h3>
                 <p className="text-slate-700 font-semibold">
-                  For more serious violations or repeated minor violations, a temporary suspension from the arena or specific
-                  battle features may be imposed.
+                  For more serious violations or repeated minor violations, a temporary suspension
+                  from the arena or specific battle features may be imposed.
                 </p>
               </div>
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">3. Permanent Ban</h3>
                 <p className="text-slate-700 font-semibold">
-                  For severe violations or repeated serious violations, a permanent ban from the arena may be enforced.
+                  For severe violations or repeated serious violations, a permanent ban from the
+                  arena may be enforced.
                 </p>
               </div>
             </div>
@@ -182,9 +206,15 @@ export default function CodeOfConductPage() {
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
                 This Code of Honor is adapted from the{' '}
-                <a href="https://www.contributor-covenant.org/" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">
+                <a
+                  href="https://www.contributor-covenant.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary font-bold hover:underline"
+                >
                   Contributor Covenant
-                </a>, version 2.0.
+                </a>
+                , version 2.0.
               </p>
             </div>
           </div>

@@ -73,10 +73,7 @@ export default function ChallengeManagementPage() {
   }
 
   // Calculate stats
-  const totalSubmissions = challenges.reduce(
-    (sum, c) => sum + (c._count?.submissions || 0),
-    0
-  );
+  const totalSubmissions = challenges.reduce((sum, c) => sum + (c._count?.submissions || 0), 0);
 
   return (
     <div className="space-y-8">
@@ -87,9 +84,7 @@ export default function ChallengeManagementPage() {
             <Target className="w-8 h-8 text-primary" />
             Challenge Management
           </h1>
-          <p className="text-slate-400 mt-2">
-            Create and manage your challenges
-          </p>
+          <p className="text-slate-400 mt-2">Create and manage your challenges</p>
         </div>
         <Link href="/admin/challenges/create">
           <Button size="lg" className="gap-2">
@@ -106,9 +101,7 @@ export default function ChallengeManagementPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-slate-600 font-medium">Total Challenges</p>
-                <p className="text-3xl font-bold text-slate-900 mt-1">
-                  {challenges.length}
-                </p>
+                <p className="text-3xl font-bold text-slate-900 mt-1">{challenges.length}</p>
               </div>
               <Target className="w-10 h-10 text-primary opacity-50" />
             </div>
@@ -120,9 +113,7 @@ export default function ChallengeManagementPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-slate-600 font-medium">Total Submissions</p>
-                <p className="text-3xl font-bold text-slate-900 mt-1">
-                  {totalSubmissions}
-                </p>
+                <p className="text-3xl font-bold text-slate-900 mt-1">{totalSubmissions}</p>
               </div>
               <Users className="w-10 h-10 text-blue-500 opacity-50" />
             </div>
@@ -135,7 +126,7 @@ export default function ChallengeManagementPage() {
               <div>
                 <p className="text-sm text-slate-600 font-medium">Open Challenges</p>
                 <p className="text-3xl font-bold text-slate-900 mt-1">
-                  {challenges.filter((c) => c.status === 'OPEN').length}
+                  {challenges.filter(c => c.status === 'OPEN').length}
                 </p>
               </div>
               <CheckCircle2 className="w-10 h-10 text-green-500 opacity-50" />
@@ -149,7 +140,7 @@ export default function ChallengeManagementPage() {
               <div>
                 <p className="text-sm text-slate-600 font-medium">Draft Challenges</p>
                 <p className="text-3xl font-bold text-slate-900 mt-1">
-                  {challenges.filter((c) => c.status === 'DRAFT').length}
+                  {challenges.filter(c => c.status === 'DRAFT').length}
                 </p>
               </div>
               <Trophy className="w-10 h-10 text-yellow-500 opacity-50" />
@@ -166,12 +157,8 @@ export default function ChallengeManagementPage() {
           <Card className="bg-slate-800/50 border-slate-700">
             <CardContent className="pt-12 pb-12 text-center">
               <Target className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-white mb-2">
-                No challenges yet
-              </h3>
-              <p className="text-slate-400 mb-6">
-                Create your first challenge to get started
-              </p>
+              <h3 className="text-xl font-semibold text-white mb-2">No challenges yet</h3>
+              <p className="text-slate-400 mb-6">Create your first challenge to get started</p>
               <Link href="/admin/challenges/create">
                 <Button size="lg" className="gap-2">
                   <Plus className="w-5 h-5" />
@@ -182,7 +169,7 @@ export default function ChallengeManagementPage() {
           </Card>
         ) : (
           <div className="grid grid-cols-1 gap-4">
-            {challenges.map((challenge) => (
+            {challenges.map(challenge => (
               <Card
                 key={challenge.id}
                 className="bg-slate-800/50 border-slate-700 hover:border-slate-600 transition-colors"
@@ -200,9 +187,7 @@ export default function ChallengeManagementPage() {
                             <Badge variant={getStatusVariant(challenge.status)}>
                               {challenge.status}
                             </Badge>
-                            <Badge variant="secondary">
-                              {challenge.visibility}
-                            </Badge>
+                            <Badge variant="secondary">{challenge.visibility}</Badge>
                             {challenge.rewardType && (
                               <Badge className="bg-primary/20 text-primary border-primary/30">
                                 {challenge.rewardType}
@@ -215,9 +200,7 @@ export default function ChallengeManagementPage() {
                           <div className="flex flex-wrap gap-4 text-sm text-slate-400">
                             <div className="flex items-center gap-1">
                               <Users className="w-4 h-4" />
-                              <span>
-                                {challenge._count?.submissions || 0} submissions
-                              </span>
+                              <span>{challenge._count?.submissions || 0} submissions</span>
                             </div>
                             {challenge.deadlineAt && (
                               <div className="flex items-center gap-1">

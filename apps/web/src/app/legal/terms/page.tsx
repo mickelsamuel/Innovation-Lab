@@ -1,5 +1,18 @@
 import Link from 'next/link';
-import { ArrowLeft, FileText, Sparkles, CheckCircle, User, Trophy, XCircle, Copyright, Ban, AlertTriangle, FileEdit, Mail } from 'lucide-react';
+import {
+  ArrowLeft,
+  FileText,
+  Sparkles,
+  CheckCircle,
+  User,
+  Trophy,
+  XCircle,
+  Copyright,
+  Ban,
+  AlertTriangle,
+  FileEdit,
+  Mail,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Arena Rules',
@@ -29,7 +42,9 @@ export default function TermsPage() {
             <Sparkles className="inline w-6 h-6 mr-2 animate-sparkle" />
             Terms of Service for all warriors in the arena
           </p>
-          <p className="text-white/90 font-semibold mt-2">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-white/90 font-semibold mt-2">
+            Last updated: {new Date().toLocaleDateString()}
+          </p>
         </div>
       </div>
 
@@ -43,8 +58,9 @@ export default function TermsPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                By entering Innovation Lab arena, you agree to be bound by these Arena Rules and all applicable
-                battle regulations. If you do not agree with any of these terms, you are prohibited from entering the arena.
+                By entering Innovation Lab arena, you agree to be bound by these Arena Rules and all
+                applicable battle regulations. If you do not agree with any of these terms, you are
+                prohibited from entering the arena.
               </p>
             </div>
           </div>
@@ -63,7 +79,9 @@ export default function TermsPage() {
                 <li>Interact with other warriors and guilds through the arena</li>
                 <li>View and download publicly available loot for personal use</li>
               </ul>
-              <p>This license shall automatically terminate if you violate any of these arena rules.</p>
+              <p>
+                This license shall automatically terminate if you violate any of these arena rules.
+              </p>
             </div>
           </div>
 
@@ -94,12 +112,15 @@ export default function TermsPage() {
               <p>By submitting quest content to Innovation Lab, you:</p>
               <ul className="space-y-2">
                 <li>Retain ownership of your quest content</li>
-                <li>Grant us a license to display, reproduce, and distribute your content in the arena</li>
+                <li>
+                  Grant us a license to display, reproduce, and distribute your content in the arena
+                </li>
                 <li>Represent that you have the right to submit the quest content</li>
                 <li>Agree that your quest submissions may be publicly visible</li>
               </ul>
               <p>
-                You are responsible for the content you submit and must ensure it does not violate any laws or third-party rights.
+                You are responsible for the content you submit and must ensure it does not violate
+                any laws or third-party rights.
               </p>
             </div>
           </div>
@@ -118,7 +139,9 @@ export default function TermsPage() {
                 <li>Submit false or misleading battle information</li>
                 <li>Attempt to gain unauthorized access to the arena or other players' accounts</li>
                 <li>Interfere with the proper functioning of the arena</li>
-                <li>Engage in any form of cheating or unfair tactics in raids or boss challenges</li>
+                <li>
+                  Engage in any form of cheating or unfair tactics in raids or boss challenges
+                </li>
                 <li>Use automated bots to access or interact with the arena without permission</li>
               </ul>
             </div>
@@ -132,9 +155,10 @@ export default function TermsPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                The arena, including its design, features, and content (excluding quest submissions), is owned by
-                Innovation Lab and protected by intellectual property laws. You may not reproduce, distribute, or create
-                derivative works without our express permission.
+                The arena, including its design, features, and content (excluding quest
+                submissions), is owned by Innovation Lab and protected by intellectual property
+                laws. You may not reproduce, distribute, or create derivative works without our
+                express permission.
               </p>
             </div>
           </div>
@@ -147,9 +171,9 @@ export default function TermsPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                We reserve the right to terminate or suspend your player account and arena access at any time,
-                without notice, for conduct that violates these Arena Rules or is harmful to other warriors
-                or the arena.
+                We reserve the right to terminate or suspend your player account and arena access at
+                any time, without notice, for conduct that violates these Arena Rules or is harmful
+                to other warriors or the arena.
               </p>
             </div>
           </div>
@@ -162,8 +186,9 @@ export default function TermsPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                The arena is provided "as is" without warranties of any kind. We do not guarantee that the arena
-                will be error-free, secure, or available at all times. Use of the arena is at your own risk.
+                The arena is provided "as is" without warranties of any kind. We do not guarantee
+                that the arena will be error-free, secure, or available at all times. Use of the
+                arena is at your own risk.
               </p>
             </div>
           </div>
@@ -176,8 +201,8 @@ export default function TermsPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                In no event shall Innovation Lab be liable for any indirect, incidental, special, consequential, or
-                punitive damages arising from your participation in the arena.
+                In no event shall Innovation Lab be liable for any indirect, incidental, special,
+                consequential, or punitive damages arising from your participation in the arena.
               </p>
             </div>
           </div>
@@ -190,8 +215,8 @@ export default function TermsPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                We may revise these Arena Rules at any time. By continuing to battle in the arena after changes are made,
-                you agree to be bound by the revised rules.
+                We may revise these Arena Rules at any time. By continuing to battle in the arena
+                after changes are made, you agree to be bound by the revised rules.
               </p>
             </div>
           </div>
@@ -203,11 +228,15 @@ export default function TermsPage() {
               11. Contact Information
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+              <p>Questions about the Arena Rules should be sent to Support HQ:</p>
               <p>
-                Questions about the Arena Rules should be sent to Support HQ:
-              </p>
-              <p>
-                <strong>Email:</strong> <a href="mailto:legal@innovationlab.com" className="text-primary font-bold hover:underline">legal@innovationlab.com</a>
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:legal@innovationlab.com"
+                  className="text-primary font-bold hover:underline"
+                >
+                  legal@innovationlab.com
+                </a>
               </p>
             </div>
           </div>

@@ -62,7 +62,9 @@ export function Header() {
         setUser(userData);
 
         try {
-          const gamificationData = await apiFetch<GamificationProfile>('/gamification/profile', { token });
+          const gamificationData = await apiFetch<GamificationProfile>('/gamification/profile', {
+            token,
+          });
           setGamification(gamificationData);
         } catch (err) {
           console.error('Failed to fetch gamification data:', err);
@@ -127,7 +129,7 @@ export function Header() {
 
           {/* Desktop navigation */}
           <div className="hidden lg:flex lg:gap-x-8">
-            {navigation.map((item) => {
+            {navigation.map(item => {
               const Icon = item.icon;
               const isActive = pathname === item.href;
 
@@ -151,14 +153,16 @@ export function Header() {
 
           {/* Desktop actions */}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-x-4">
-            {!isLoading && (
-              user ? (
+            {!isLoading &&
+              (user ? (
                 <div className="flex items-center gap-4">
                   {/* Vault Keys Display */}
                   {gamification && (
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30">
                       <Zap className="w-4 h-4 text-accent" />
-                      <span className="text-sm font-bold text-slate-900">{gamification.vaultKeys}</span>
+                      <span className="text-sm font-bold text-slate-900">
+                        {gamification.vaultKeys}
+                      </span>
                     </div>
                   )}
 
@@ -170,15 +174,15 @@ export function Header() {
                     <DropdownMenuTrigger asChild>
                       <button className="flex items-center gap-3 rounded-full hover:bg-slate-100 transition-colors p-1 pr-3">
                         <Avatar className="w-9 h-9 border-2 border-primary">
-                          {user.avatarUrl && (
-                            <AvatarImage src={user.avatarUrl} alt={user.name} />
-                          )}
+                          {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
                           <AvatarFallback className="bg-primary text-white font-bold text-sm">
                             {getInitials(user.name)}
                           </AvatarFallback>
                         </Avatar>
                         <div className="text-left hidden xl:block">
-                          <p className="text-sm font-bold text-slate-900">{user.name.split(' ')[0]}</p>
+                          <p className="text-sm font-bold text-slate-900">
+                            {user.name.split(' ')[0]}
+                          </p>
                           {gamification && (
                             <p className="text-xs text-slate-500">Level {gamification.level}</p>
                           )}
@@ -206,7 +210,10 @@ export function Header() {
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-red-600">
+                      <DropdownMenuItem
+                        onClick={handleLogout}
+                        className="cursor-pointer text-red-600"
+                      >
                         <LogOut className="w-4 h-4 mr-2" />
                         Logout
                       </DropdownMenuItem>
@@ -225,8 +232,7 @@ export function Header() {
                     <Button size="sm">Get Started</Button>
                   </Link>
                 </>
-              )
-            )}
+              ))}
           </div>
         </div>
 
@@ -239,9 +245,7 @@ export function Header() {
                 <div className="px-3 py-4 border-b border-slate-200">
                   <div className="flex items-center gap-3 mb-3">
                     <Avatar className="w-12 h-12 border-2 border-primary">
-                      {user.avatarUrl && (
-                        <AvatarImage src={user.avatarUrl} alt={user.name} />
-                      )}
+                      {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
                       <AvatarFallback className="bg-primary text-white font-bold">
                         {getInitials(user.name)}
                       </AvatarFallback>
@@ -267,7 +271,7 @@ export function Header() {
               )}
 
               {/* Navigation Links */}
-              {navigation.map((item) => {
+              {navigation.map(item => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
 
@@ -277,9 +281,7 @@ export function Header() {
                     href={item.href}
                     className={cn(
                       'flex items-center gap-3 rounded-lg px-3 py-2 text-base font-medium transition-colors',
-                      isActive
-                        ? 'bg-primary/10 text-primary'
-                        : 'text-slate-700 hover:bg-slate-50'
+                      isActive ? 'bg-primary/10 text-primary' : 'text-slate-700 hover:bg-slate-50'
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >

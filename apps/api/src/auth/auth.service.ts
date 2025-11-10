@@ -9,7 +9,11 @@ import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { LoginDto, LoginResponseDto } from './dto/login.dto';
 import { RegisterDto, RegisterResponseDto } from './dto/register.dto';
-import { ForgotPasswordDto, ResetPasswordDto, PasswordResetResponseDto } from './dto/password-reset.dto';
+import {
+  ForgotPasswordDto,
+  ResetPasswordDto,
+  PasswordResetResponseDto,
+} from './dto/password-reset.dto';
 import * as bcrypt from 'bcryptjs';
 import * as speakeasy from 'speakeasy';
 import * as crypto from 'crypto';
@@ -55,7 +59,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     private readonly config: ConfigService,
     private readonly gamificationService: GamificationService,
-    private readonly emailService: EmailService,
+    private readonly emailService: EmailService
   ) {}
 
   /**
@@ -279,7 +283,11 @@ export class AuthService {
   /**
    * Generate access token (short-lived)
    */
-  private async generateAccessToken(userId: string, email: string, roles: string[]): Promise<string> {
+  private async generateAccessToken(
+    userId: string,
+    email: string,
+    roles: string[]
+  ): Promise<string> {
     const payload = { sub: userId, email, roles };
     return this.jwtService.signAsync(payload, {
       secret: this.config.get('JWT_SECRET'),
@@ -417,7 +425,8 @@ export class AuthService {
     if (!user) {
       return {
         success: true,
-        message: 'If an account exists with this email, you will receive password reset instructions',
+        message:
+          'If an account exists with this email, you will receive password reset instructions',
       };
     }
 
@@ -551,7 +560,7 @@ export class AuthService {
   async changePassword(
     userId: string,
     currentPassword: string,
-    newPassword: string,
+    newPassword: string
   ): Promise<{ success: boolean; message: string }> {
     // Get user with password
     const user = await this.prisma.user.findUnique({
@@ -597,7 +606,10 @@ export class AuthService {
   /**
    * Delete user account
    */
-  async deleteAccount(userId: string, password: string): Promise<{ success: boolean; message: string }> {
+  async deleteAccount(
+    userId: string,
+    password: string
+  ): Promise<{ success: boolean; message: string }> {
     // Get user with password
     const user = await this.prisma.user.findUnique({
       where: { id: userId },

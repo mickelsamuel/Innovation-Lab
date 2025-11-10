@@ -161,7 +161,7 @@ export class MentorsService {
 
     // Check if mentor has upcoming sessions
     const upcomingSessions = mentor.sessions.filter(
-      (session) => new Date(session.startsAt) > new Date()
+      session => new Date(session.startsAt) > new Date()
     );
 
     if (upcomingSessions.length > 0) {
@@ -194,12 +194,7 @@ export class MentorsService {
   /**
    * Update mentor profile
    */
-  async updateMentor(
-    hackathonId: string,
-    userId: string,
-    dto: UpdateMentorDto,
-    actorId: string
-  ) {
+  async updateMentor(hackathonId: string, userId: string, dto: UpdateMentorDto, actorId: string) {
     const mentor = await this.prisma.mentor.findUnique({
       where: {
         userId_hackathonId: {
@@ -337,22 +332,13 @@ export class MentorsService {
         mentorId,
         OR: [
           {
-            AND: [
-              { startsAt: { lte: startsAt } },
-              { endsAt: { gte: startsAt } },
-            ],
+            AND: [{ startsAt: { lte: startsAt } }, { endsAt: { gte: startsAt } }],
           },
           {
-            AND: [
-              { startsAt: { lte: endsAt } },
-              { endsAt: { gte: endsAt } },
-            ],
+            AND: [{ startsAt: { lte: endsAt } }, { endsAt: { gte: endsAt } }],
           },
           {
-            AND: [
-              { startsAt: { gte: startsAt } },
-              { endsAt: { lte: endsAt } },
-            ],
+            AND: [{ startsAt: { gte: startsAt } }, { endsAt: { lte: endsAt } }],
           },
         ],
       },

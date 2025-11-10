@@ -21,7 +21,10 @@ test.describe('Notifications Flow', () => {
   test.describe('Notification Bell', () => {
     test('should display notification bell in header', async ({ page }) => {
       // Check for notification bell icon
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await expect(notificationBell).toBeVisible();
     });
 
@@ -30,7 +33,11 @@ test.describe('Notifications Flow', () => {
       await page.waitForTimeout(2000);
 
       // Check if badge is visible (if there are unread notifications)
-      const badge = page.locator('button').filter({ has: page.locator('svg') }).locator('span').first();
+      const badge = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .locator('span')
+        .first();
 
       // Badge might not be visible if no unread notifications
       const isVisible = await badge.isVisible({ timeout: 3000 }).catch(() => false);
@@ -43,7 +50,10 @@ test.describe('Notifications Flow', () => {
     });
 
     test('should open notifications dropdown on click', async ({ page }) => {
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await notificationBell.click();
 
       // Should see dropdown menu
@@ -51,14 +61,17 @@ test.describe('Notifications Flow', () => {
     });
 
     test('should display notification items in dropdown', async ({ page }) => {
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await notificationBell.click();
 
       // Wait for dropdown
       await expect(page.locator('text=Notifications')).toBeVisible({ timeout: 5000 });
 
       // Check for notification items or empty state
-      const hasNotifications = await page.locator('[role="menuitem"]').count() > 0;
+      const hasNotifications = (await page.locator('[role="menuitem"]').count()) > 0;
 
       if (hasNotifications) {
         // Verify notification structure
@@ -71,16 +84,27 @@ test.describe('Notifications Flow', () => {
     });
 
     test('should mark notification as read when clicked', async ({ page }) => {
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await notificationBell.click();
 
       await expect(page.locator('text=Notifications')).toBeVisible({ timeout: 5000 });
 
       // Find an unread notification (has blue dot or bg-primary class)
-      const unreadNotification = page.locator('[role="menuitem"]').filter({ hasText: /.+/ }).first();
+      const unreadNotification = page
+        .locator('[role="menuitem"]')
+        .filter({ hasText: /.+/ })
+        .first();
 
       if (await unreadNotification.isVisible({ timeout: 3000 })) {
-        const initialCount = await page.locator('button').filter({ has: page.locator('svg') }).locator('span').textContent().catch(() => '0');
+        const initialCount = await page
+          .locator('button')
+          .filter({ has: page.locator('svg') })
+          .locator('span')
+          .textContent()
+          .catch(() => '0');
 
         // Click notification
         await unreadNotification.click();
@@ -93,7 +117,10 @@ test.describe('Notifications Flow', () => {
         await page.waitForTimeout(500);
 
         // Count should have decreased or badge should be gone
-        const newBadge = page.locator('button').filter({ has: page.locator('svg') }).locator('span');
+        const newBadge = page
+          .locator('button')
+          .filter({ has: page.locator('svg') })
+          .locator('span');
         const newCount = await newBadge.textContent().catch(() => '0');
 
         // Either count decreased or badge is no longer visible
@@ -102,7 +129,10 @@ test.describe('Notifications Flow', () => {
     });
 
     test('should mark all notifications as read', async ({ page }) => {
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await notificationBell.click();
 
       await expect(page.locator('text=Notifications')).toBeVisible({ timeout: 5000 });
@@ -117,13 +147,19 @@ test.describe('Notifications Flow', () => {
         await page.waitForTimeout(1000);
 
         // Badge should disappear
-        const badge = page.locator('button').filter({ has: page.locator('svg') }).locator('span');
+        const badge = page
+          .locator('button')
+          .filter({ has: page.locator('svg') })
+          .locator('span');
         await expect(badge).not.toBeVisible({ timeout: 5000 });
       }
     });
 
     test('should navigate to all notifications page', async ({ page }) => {
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await notificationBell.click();
 
       await expect(page.locator('text=Notifications')).toBeVisible({ timeout: 5000 });
@@ -142,7 +178,9 @@ test.describe('Notifications Flow', () => {
     });
 
     test('should display notifications page', async ({ page }) => {
-      await expect(page.locator('h1, h2').filter({ hasText: /Notifications/i })).toBeVisible({ timeout: 10000 });
+      await expect(page.locator('h1, h2').filter({ hasText: /Notifications/i })).toBeVisible({
+        timeout: 10000,
+      });
     });
 
     test('should display list of all notifications', async ({ page }) => {
@@ -150,11 +188,13 @@ test.describe('Notifications Flow', () => {
       await page.waitForTimeout(2000);
 
       // Check for notifications or empty state
-      const hasNotifications = await page.locator('text=/notification/i').count() > 0;
+      const hasNotifications = (await page.locator('text=/notification/i').count()) > 0;
 
       if (hasNotifications) {
         // Verify notifications are displayed
-        expect(await page.locator('[data-notification-id], .notification-item').count()).toBeGreaterThan(0);
+        expect(
+          await page.locator('[data-notification-id], .notification-item').count()
+        ).toBeGreaterThan(0);
       } else {
         // Should show empty state
         await expect(page.locator('text=/No notifications/i')).toBeVisible();
@@ -163,7 +203,9 @@ test.describe('Notifications Flow', () => {
 
     test('should filter unread notifications', async ({ page }) => {
       // Look for unread filter toggle/button
-      const unreadFilter = page.locator('button:has-text("Unread"), input[type="checkbox"]').first();
+      const unreadFilter = page
+        .locator('button:has-text("Unread"), input[type="checkbox"]')
+        .first();
 
       if (await unreadFilter.isVisible({ timeout: 3000 })) {
         await unreadFilter.click();
@@ -188,7 +230,9 @@ test.describe('Notifications Flow', () => {
 
     test('should paginate notifications', async ({ page }) => {
       // Check if pagination controls exist
-      const nextButton = page.locator('button:has-text("Next"), button[aria-label*="next"]').first();
+      const nextButton = page
+        .locator('button:has-text("Next"), button[aria-label*="next"]')
+        .first();
 
       if (await nextButton.isVisible({ timeout: 3000 })) {
         await nextButton.click();
@@ -203,7 +247,10 @@ test.describe('Notifications Flow', () => {
 
     test('should mark notification as read from list', async ({ page }) => {
       // Find first unread notification
-      const unreadNotification = page.locator('[data-notification-id], .notification-item').filter({ hasText: /.+/ }).first();
+      const unreadNotification = page
+        .locator('[data-notification-id], .notification-item')
+        .filter({ hasText: /.+/ })
+        .first();
 
       if (await unreadNotification.isVisible({ timeout: 3000 })) {
         // Click to mark as read or click dedicated button
@@ -219,7 +266,9 @@ test.describe('Notifications Flow', () => {
 
     test('should navigate to linked resource from notification', async ({ page }) => {
       // Find notification with a link
-      const notificationLink = page.locator('[data-notification-id] a, .notification-item a').first();
+      const notificationLink = page
+        .locator('[data-notification-id] a, .notification-item a')
+        .first();
 
       if (await notificationLink.isVisible({ timeout: 3000 })) {
         const href = await notificationLink.getAttribute('href');
@@ -238,17 +287,25 @@ test.describe('Notifications Flow', () => {
       await page.goto('/notifications');
 
       // Look for preferences/settings link
-      const preferencesLink = page.locator('a:has-text("Preferences"), a:has-text("Settings"), button:has-text("Preferences")').first();
+      const preferencesLink = page
+        .locator(
+          'a:has-text("Preferences"), a:has-text("Settings"), button:has-text("Preferences")'
+        )
+        .first();
 
       if (await preferencesLink.isVisible({ timeout: 3000 })) {
         await preferencesLink.click();
 
         // Should be on preferences page
-        await expect(page.locator('text=/Notification.*Preferences/i, text=/Settings/i')).toBeVisible({ timeout: 10000 });
+        await expect(
+          page.locator('text=/Notification.*Preferences/i, text=/Settings/i')
+        ).toBeVisible({ timeout: 10000 });
       } else {
         // Try direct navigation
         await page.goto('/notifications/preferences');
-        await expect(page.locator('text=/Notification.*Preferences/i')).toBeVisible({ timeout: 10000 });
+        await expect(page.locator('text=/Notification.*Preferences/i')).toBeVisible({
+          timeout: 10000,
+        });
       }
     });
 
@@ -256,7 +313,10 @@ test.describe('Notifications Flow', () => {
       await page.goto('/notifications/preferences');
 
       // Find email preference toggles
-      const emailToggle = page.locator('input[type="checkbox"]').filter({ hasText: /email/i }).first();
+      const emailToggle = page
+        .locator('input[type="checkbox"]')
+        .filter({ hasText: /email/i })
+        .first();
 
       if (await emailToggle.isVisible({ timeout: 3000 })) {
         const wasChecked = await emailToggle.isChecked();
@@ -280,7 +340,10 @@ test.describe('Notifications Flow', () => {
       await page.goto('/notifications/preferences');
 
       // Find in-app preference toggles
-      const inAppToggle = page.locator('input[type="checkbox"]').filter({ hasText: /in-app/i }).first();
+      const inAppToggle = page
+        .locator('input[type="checkbox"]')
+        .filter({ hasText: /in-app/i })
+        .first();
 
       if (await inAppToggle.isVisible({ timeout: 3000 })) {
         const wasChecked = await inAppToggle.isChecked();
@@ -320,7 +383,9 @@ test.describe('Notifications Flow', () => {
           await saveButton.click();
 
           // Should show success message
-          await expect(page.locator('text=/saved/i, text=/updated/i')).toBeVisible({ timeout: 5000 });
+          await expect(page.locator('text=/saved/i, text=/updated/i')).toBeVisible({
+            timeout: 5000,
+          });
         }
       }
     });
@@ -332,7 +397,10 @@ test.describe('Notifications Flow', () => {
       await page.goto('/dashboard');
 
       // Get initial notification count
-      const badge = page.locator('button').filter({ has: page.locator('svg') }).locator('span');
+      const badge = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .locator('span');
       const initialCount = await badge.textContent().catch(() => '0');
 
       // Wait for polling interval (30 seconds in real app, but we'll wait a bit)
@@ -348,7 +416,10 @@ test.describe('Notifications Flow', () => {
 
   test.describe('Notification Types', () => {
     test('should display different notification icons', async ({ page }) => {
-      const notificationBell = page.locator('button').filter({ has: page.locator('svg') }).first();
+      const notificationBell = page
+        .locator('button')
+        .filter({ has: page.locator('svg') })
+        .first();
       await notificationBell.click();
 
       await expect(page.locator('text=Notifications')).toBeVisible({ timeout: 5000 });
@@ -360,7 +431,9 @@ test.describe('Notifications Flow', () => {
       if (count > 0) {
         // Verify icons are present (emojis)
         const firstNotification = notifications.first();
-        const hasEmoji = await firstNotification.locator('text=/[🎉🎯⚖️🎓📊🏆✅📝👥⬆️🏅🔔]/').isVisible({ timeout: 3000 });
+        const hasEmoji = await firstNotification
+          .locator('text=/[🎉🎯⚖️🎓📊🏆✅📝👥⬆️🏅🔔]/')
+          .isVisible({ timeout: 3000 });
         expect(hasEmoji).toBeTruthy();
       }
     });

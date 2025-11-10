@@ -82,7 +82,9 @@ test.describe('Complete User Journey', () => {
     await expect(page).toHaveURL('/leaderboard');
 
     // Should show leaderboard content
-    await expect(page.locator('h1, h2').filter({ hasText: /leaderboard|hall of fame/i })).toBeVisible();
+    await expect(
+      page.locator('h1, h2').filter({ hasText: /leaderboard|hall of fame/i })
+    ).toBeVisible();
   });
 
   test('User can view challenges', async ({ page }) => {
@@ -96,7 +98,9 @@ test.describe('Complete User Journey', () => {
     await expect(page.locator('h1, h2').filter({ hasText: /challenge/i })).toBeVisible();
   });
 
-  test('Complete user journey: Register → Login → View Profile → Browse Hackathons', async ({ page }) => {
+  test('Complete user journey: Register → Login → View Profile → Browse Hackathons', async ({
+    page,
+  }) => {
     // Step 1: Register
     await page.goto('/register');
     await page.fill('input[name="name"]', testUser.name);

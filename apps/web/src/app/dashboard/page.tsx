@@ -87,7 +87,11 @@ function _getXPForNextLevel(currentLevel: number): number {
   return currentLevel * 100;
 }
 
-function getProgressToNextLevel(currentXP: number, currentLevelXp: number, nextLevelXp: number): number {
+function getProgressToNextLevel(
+  currentXP: number,
+  currentLevelXp: number,
+  nextLevelXp: number
+): number {
   if (nextLevelXp === currentLevelXp) return 0;
   return ((currentXP - currentLevelXp) / (nextLevelXp - currentLevelXp)) * 100;
 }
@@ -122,7 +126,9 @@ export default function DashboardPage() {
         setUser(userData);
 
         // Fetch gamification profile
-        const gamificationData = await apiFetch<GamificationProfile>('/gamification/profile', { token });
+        const gamificationData = await apiFetch<GamificationProfile>('/gamification/profile', {
+          token,
+        });
         setGamification(gamificationData);
 
         // Fetch user's hackathons
@@ -138,9 +144,10 @@ export default function DashboardPage() {
         setSubmissions(submissionsData);
 
         // Fetch completed challenges count
-        const completedData = await apiFetch<{ count: number }>('/challenges/my/completed', { token });
+        const completedData = await apiFetch<{ count: number }>('/challenges/my/completed', {
+          token,
+        });
         setChallengesCompleted(completedData.count);
-
       } catch (err) {
         console.error('Dashboard error:', err);
         if (err instanceof ApiError && err.status === 401) {
@@ -209,9 +216,7 @@ export default function DashboardPage() {
             {/* Player Avatar with Level Badge */}
             <div className="relative group">
               <Avatar className="w-24 h-24 border-4 border-accent shadow-glow-accent animate-float">
-                {user.avatarUrl && (
-                  <AvatarImage src={user.avatarUrl} alt={user.name} />
-                )}
+                {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
                 <AvatarFallback className="text-3xl bg-white text-primary font-display">
                   {getInitials(user.name)}
                 </AvatarFallback>
@@ -244,15 +249,10 @@ export default function DashboardPage() {
                       LEVEL {gamification.level}
                     </span>
                   </div>
-                  <span className="text-accent font-black text-lg">
-                    {gamification.xp} XP
-                  </span>
+                  <span className="text-accent font-black text-lg">{gamification.xp} XP</span>
                 </div>
                 <div className="xp-bar">
-                  <div
-                    className="xp-bar-fill"
-                    style={{ width: `${progressPercent}%` }}
-                  />
+                  <div className="xp-bar-fill" style={{ width: `${progressPercent}%` }} />
                 </div>
                 <p className="text-xs text-white/90 mt-2 font-bold">
                   <Target className="inline w-3 h-3 mr-1" />
@@ -300,14 +300,10 @@ export default function DashboardPage() {
               </div>
               <div className="flex gap-3">
                 <Link href="/auth/login">
-                  <button className="btn-game-secondary px-6 py-2">
-                    Log In
-                  </button>
+                  <button className="btn-game-secondary px-6 py-2">Log In</button>
                 </Link>
                 <Link href="/auth/register">
-                  <button className="btn-game px-6 py-2">
-                    Sign Up Free
-                  </button>
+                  <button className="btn-game px-6 py-2">Sign Up Free</button>
                 </Link>
               </div>
             </div>
@@ -320,10 +316,34 @@ export default function DashboardPage() {
             {/* Quick Stats - Gaming Style */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {[
-                { icon: Trophy, value: stats.hackathonsParticipated, label: 'Raids Joined', color: 'text-primary', bg: 'bg-primary/10' },
-                { icon: Users, value: stats.teamsJoined, label: 'Guilds', color: 'text-accent2', bg: 'bg-accent2/10' },
-                { icon: FileText, value: stats.submissionsMade, label: 'Quests Done', color: 'text-accent', bg: 'bg-accent/10' },
-                { icon: Target, value: stats.challengesCompleted, label: 'Bosses Defeated', color: 'text-green-500', bg: 'bg-green-100' },
+                {
+                  icon: Trophy,
+                  value: stats.hackathonsParticipated,
+                  label: 'Raids Joined',
+                  color: 'text-primary',
+                  bg: 'bg-primary/10',
+                },
+                {
+                  icon: Users,
+                  value: stats.teamsJoined,
+                  label: 'Guilds',
+                  color: 'text-accent2',
+                  bg: 'bg-accent2/10',
+                },
+                {
+                  icon: FileText,
+                  value: stats.submissionsMade,
+                  label: 'Quests Done',
+                  color: 'text-accent',
+                  bg: 'bg-accent/10',
+                },
+                {
+                  icon: Target,
+                  value: stats.challengesCompleted,
+                  label: 'Bosses Defeated',
+                  color: 'text-green-500',
+                  bg: 'bg-green-100',
+                },
               ].map((stat, index) => (
                 <div
                   key={stat.label}
@@ -331,7 +351,9 @@ export default function DashboardPage() {
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="text-center">
-                    <div className={`${stat.bg} w-14 h-14 rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform`}>
+                    <div
+                      className={`${stat.bg} w-14 h-14 rounded-xl mx-auto mb-3 flex items-center justify-center group-hover:scale-110 transition-transform`}
+                    >
                       <stat.icon className={`w-7 h-7 ${stat.color} group-hover:animate-wiggle`} />
                     </div>
                     <p className="text-3xl font-black font-display stat-counter gradient-text">
@@ -366,12 +388,16 @@ export default function DashboardPage() {
 
               {hackathons.length > 0 ? (
                 <div className="space-y-3">
-                  {hackathons.map((hackathon) => {
+                  {hackathons.map(hackathon => {
                     const content = (
-                      <div className={`quest-card-active p-4 group ${isDemoMode ? 'opacity-75 cursor-not-allowed' : 'cursor-pointer'}`}>
+                      <div
+                        className={`quest-card-active p-4 group ${isDemoMode ? 'opacity-75 cursor-not-allowed' : 'cursor-pointer'}`}
+                      >
                         <div className="flex items-start justify-between gap-4">
                           <div className="flex-1">
-                            <h4 className={`font-bold text-lg mb-1 ${!isDemoMode && 'group-hover:text-primary'} transition-colors`}>
+                            <h4
+                              className={`font-bold text-lg mb-1 ${!isDemoMode && 'group-hover:text-primary'} transition-colors`}
+                            >
                               {hackathon.title}
                             </h4>
                             <div className="flex items-center gap-2 text-sm text-slate-600 font-semibold">
@@ -385,7 +411,11 @@ export default function DashboardPage() {
                           </div>
                           <div className="flex items-center gap-2">
                             <Badge
-                              variant={hackathon.status === 'LIVE' || hackathon.status === 'ONGOING' ? 'live' : 'upcoming'}
+                              variant={
+                                hackathon.status === 'LIVE' || hackathon.status === 'ONGOING'
+                                  ? 'live'
+                                  : 'upcoming'
+                              }
                               className={`text-xs font-bold ${hackathon.status === 'LIVE' || hackathon.status === 'ONGOING' ? 'animate-glow-pulse' : ''}`}
                             >
                               {hackathon.status}
@@ -435,18 +465,26 @@ export default function DashboardPage() {
               <div>
                 {teams.length > 0 ? (
                   <div className="space-y-3">
-                    {teams.map((team) => {
+                    {teams.map(team => {
                       const content = (
-                        <div className={`quest-card p-4 group border-accent2/30 ${isDemoMode ? 'opacity-75 cursor-not-allowed' : 'cursor-pointer'}`}>
+                        <div
+                          className={`quest-card p-4 group border-accent2/30 ${isDemoMode ? 'opacity-75 cursor-not-allowed' : 'cursor-pointer'}`}
+                        >
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex-1">
-                              <h4 className={`font-bold text-lg mb-1 ${!isDemoMode && 'group-hover:text-accent2'} transition-colors`}>
+                              <h4
+                                className={`font-bold text-lg mb-1 ${!isDemoMode && 'group-hover:text-accent2'} transition-colors`}
+                              >
                                 {team.name}
                               </h4>
-                              <p className="text-sm text-slate-600 font-semibold">{team.hackathon.title}</p>
+                              <p className="text-sm text-slate-600 font-semibold">
+                                {team.hackathon.title}
+                              </p>
                               <div className="flex items-center gap-1 mt-2 text-xs text-slate-500">
                                 <Users className="w-3 h-3" />
-                                <span className="font-bold">{team._count.members} party members</span>
+                                <span className="font-bold">
+                                  {team._count.members} party members
+                                </span>
                               </div>
                             </div>
                             <div className="flex flex-col gap-2">
@@ -480,9 +518,7 @@ export default function DashboardPage() {
                     <Users className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-float" />
                     <p className="text-slate-600 font-bold mb-4">No guilds joined yet</p>
                     <Link href="/hackathons">
-                      <button className="btn-game-secondary">
-                        Find a Guild
-                      </button>
+                      <button className="btn-game-secondary">Find a Guild</button>
                     </Link>
                   </div>
                 )}
@@ -501,15 +537,24 @@ export default function DashboardPage() {
               <div>
                 {submissions.length > 0 ? (
                   <div className="space-y-3">
-                    {submissions.map((submission) => (
-                      <div key={submission.id} className={isDemoMode ? 'cursor-not-allowed' : 'cursor-pointer'}>
-                        <div className={`quest-card p-4 group border-accent/30 ${isDemoMode ? 'opacity-75' : ''}`}>
+                    {submissions.map(submission => (
+                      <div
+                        key={submission.id}
+                        className={isDemoMode ? 'cursor-not-allowed' : 'cursor-pointer'}
+                      >
+                        <div
+                          className={`quest-card p-4 group border-accent/30 ${isDemoMode ? 'opacity-75' : ''}`}
+                        >
                           <div className="flex items-start justify-between gap-4">
                             <div className="flex-1">
-                              <h4 className={`font-bold text-lg mb-1 ${!isDemoMode && 'group-hover:text-accent'} transition-colors`}>
+                              <h4
+                                className={`font-bold text-lg mb-1 ${!isDemoMode && 'group-hover:text-accent'} transition-colors`}
+                              >
                                 {submission.title}
                               </h4>
-                              <p className="text-sm text-slate-600 font-semibold">{submission.hackathon.title}</p>
+                              <p className="text-sm text-slate-600 font-semibold">
+                                {submission.hackathon.title}
+                              </p>
                             </div>
                             <div className="flex flex-col gap-2">
                               <Badge
@@ -517,8 +562,8 @@ export default function DashboardPage() {
                                   submission.status === 'FINAL'
                                     ? 'live'
                                     : submission.status === 'DRAFT'
-                                    ? 'draft'
-                                    : 'warning'
+                                      ? 'draft'
+                                      : 'warning'
                                 }
                                 className="font-bold"
                               >
@@ -540,9 +585,7 @@ export default function DashboardPage() {
                     <FileText className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-float" />
                     <p className="text-slate-600 font-bold mb-4">No completed quests yet</p>
                     <Link href="/hackathons">
-                      <button className="btn-game">
-                        Start a Quest
-                      </button>
+                      <button className="btn-game">Start a Quest</button>
                     </Link>
                   </div>
                 )}
@@ -567,9 +610,7 @@ export default function DashboardPage() {
                   <div
                     key={badge}
                     className={`aspect-square rounded-xl flex items-center justify-center group cursor-pointer ${
-                      index === 0 ? 'badge-legendary' :
-                      index === 1 ? 'badge-epic' :
-                      'badge-rare'
+                      index === 0 ? 'badge-legendary' : index === 1 ? 'badge-epic' : 'badge-rare'
                     }`}
                     title={badge.replace(/_/g, ' ')}
                   >
@@ -589,15 +630,11 @@ export default function DashboardPage() {
 
               {isDemoMode ? (
                 <Link href="/auth/register">
-                  <button className="btn-game w-full">
-                    Sign Up to Collect Badges
-                  </button>
+                  <button className="btn-game w-full">Sign Up to Collect Badges</button>
                 </Link>
               ) : (
                 <Link href="/badges">
-                  <button className="btn-game w-full">
-                    View Full Collection
-                  </button>
+                  <button className="btn-game w-full">View Full Collection</button>
                 </Link>
               )}
             </div>
@@ -615,7 +652,10 @@ export default function DashboardPage() {
               {gamification.recentXpEvents && gamification.recentXpEvents.length > 0 ? (
                 <div className="space-y-4">
                   {gamification.recentXpEvents.map((activity: any) => (
-                    <div key={activity.id} className="border-l-4 border-accent pl-4 group hover:border-primary transition-colors">
+                    <div
+                      key={activity.id}
+                      className="border-l-4 border-accent pl-4 group hover:border-primary transition-colors"
+                    >
                       <p className="text-sm text-slate-700 font-semibold group-hover:text-primary transition-colors">
                         {activity.eventType.replace(/_/g, ' ')}
                       </p>

@@ -45,13 +45,13 @@ export function LiveTeamMembers({ teamId, initialMembers }: LiveTeamMembersProps
     if (!socket) return;
 
     const handleNewMember = (data: { member: TeamMember }) => {
-      setMembers((prev) => [...prev, data.member]);
+      setMembers(prev => [...prev, data.member]);
       setRecentUpdate('added');
       setTimeout(() => setRecentUpdate(null), 3000);
     };
 
     const handleMemberRemoved = (data: { memberId: string }) => {
-      setMembers((prev) => prev.filter((m) => m.id !== data.memberId));
+      setMembers(prev => prev.filter(m => m.id !== data.memberId));
       setRecentUpdate('removed');
       setTimeout(() => setRecentUpdate(null), 3000);
     };
@@ -113,7 +113,7 @@ export function LiveTeamMembers({ teamId, initialMembers }: LiveTeamMembersProps
 
       <AnimatePresence mode="popLayout">
         <div className="space-y-3">
-          {members.map((member) => (
+          {members.map(member => (
             <motion.div
               key={member.id}
               layout
@@ -139,7 +139,10 @@ export function LiveTeamMembers({ teamId, initialMembers }: LiveTeamMembersProps
 
               <div className="flex items-center gap-2">
                 {member.role === 'LEAD' && (
-                  <Badge variant="default" className="bg-gradient-to-r from-yellow-500 to-orange-500">
+                  <Badge
+                    variant="default"
+                    className="bg-gradient-to-r from-yellow-500 to-orange-500"
+                  >
                     Team Lead
                   </Badge>
                 )}

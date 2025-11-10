@@ -21,9 +21,7 @@ export interface SubmissionFilters {
 /**
  * Fetch submissions for a hackathon
  */
-export async function getSubmissions(
-  filters: SubmissionFilters
-): Promise<Submission[]> {
+export async function getSubmissions(filters: SubmissionFilters): Promise<Submission[]> {
   const queryString = buildQueryString(filters);
   return apiFetch<Submission[]>(`/submissions${queryString}`);
 }
@@ -67,10 +65,7 @@ export async function updateSubmission(
 /**
  * Finalize submission (team lead only)
  */
-export async function finalizeSubmission(
-  id: string,
-  token: string
-): Promise<Submission> {
+export async function finalizeSubmission(id: string, token: string): Promise<Submission> {
   return apiFetch<Submission>(`/submissions/${id}/submit`, {
     method: 'POST',
     token,
@@ -80,10 +75,7 @@ export async function finalizeSubmission(
 /**
  * Delete submission
  */
-export async function deleteSubmission(
-  id: string,
-  token: string
-): Promise<void> {
+export async function deleteSubmission(id: string, token: string): Promise<void> {
   return apiFetch<void>(`/submissions/${id}`, {
     method: 'DELETE',
     token,

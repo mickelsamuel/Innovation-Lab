@@ -68,7 +68,7 @@ export async function getNotifications(
     unreadOnly?: boolean;
     limit?: number;
     offset?: number;
-  } = {},
+  } = {}
 ): Promise<NotificationsResponse> {
   const params = new URLSearchParams();
   if (options.unreadOnly) params.append('unreadOnly', 'true');
@@ -121,7 +121,7 @@ export async function getNotificationPreferences(token: string): Promise<Notific
  */
 export async function updateNotificationPreferences(
   token: string,
-  preferences: Partial<NotificationPreferences>,
+  preferences: Partial<NotificationPreferences>
 ): Promise<NotificationPreferences> {
   return apiFetch<NotificationPreferences>('/notifications/preferences', {
     method: 'PATCH',

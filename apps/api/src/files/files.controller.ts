@@ -26,11 +26,7 @@ import { FilesService } from './files.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Role } from '@prisma/client';
-import {
-  FileUploadResponseDto,
-  UploadFileQueryDto,
-  FileType,
-} from './dto/upload-file.dto';
+import { FileUploadResponseDto, UploadFileQueryDto, FileType } from './dto/upload-file.dto';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -126,8 +122,7 @@ export class FilesController {
   @ApiResponse({ status: 404, description: 'File not found' })
   async deleteFile(@Param('id') id: string, @Req() req: any): Promise<{ message: string }> {
     const userId = req.user.id;
-    const isAdmin =
-      req.user.role === Role.BANK_ADMIN;
+    const isAdmin = req.user.role === Role.BANK_ADMIN;
 
     await this.filesService.deleteFile(id, userId, isAdmin);
 

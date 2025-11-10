@@ -17,12 +17,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import { KPICard, ExportButton } from '@/components/analytics';
-import {
-  chartColors,
-  multiSeriesColors,
-  lineChartConfig,
-  barChartConfig,
-} from '@/lib/analytics';
+import { chartColors, multiSeriesColors, lineChartConfig, barChartConfig } from '@/lib/analytics';
 
 interface HackathonAnalytics {
   hackathonId: string;
@@ -93,9 +88,21 @@ export default function HackathonAnalyticsPage() {
   // Transform funnel data for visualization
   const funnelData = analytics
     ? [
-        { name: 'Registered', value: analytics.registrationFunnel.registered, fill: multiSeriesColors[0] },
-        { name: 'Formed Team', value: analytics.registrationFunnel.formedTeam, fill: multiSeriesColors[1] },
-        { name: 'Submitted', value: analytics.registrationFunnel.submitted, fill: multiSeriesColors[2] },
+        {
+          name: 'Registered',
+          value: analytics.registrationFunnel.registered,
+          fill: multiSeriesColors[0],
+        },
+        {
+          name: 'Formed Team',
+          value: analytics.registrationFunnel.formedTeam,
+          fill: multiSeriesColors[1],
+        },
+        {
+          name: 'Submitted',
+          value: analytics.registrationFunnel.submitted,
+          fill: multiSeriesColors[2],
+        },
         { name: 'Judged', value: analytics.registrationFunnel.judged, fill: multiSeriesColors[3] },
       ]
     : [];
@@ -109,9 +116,7 @@ export default function HackathonAnalyticsPage() {
             <h1 className="text-4xl font-bold text-white">
               {analytics?.hackathonName || 'Hackathon Analytics'}
             </h1>
-            <p className="mt-2 text-slate-400">
-              Detailed performance metrics and insights
-            </p>
+            <p className="mt-2 text-slate-400">Detailed performance metrics and insights</p>
           </div>
           {analytics && (
             <ExportButton
@@ -130,13 +135,15 @@ export default function HackathonAnalyticsPage() {
         {/* Status Badge */}
         {analytics && (
           <div className="mb-6">
-            <span className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-medium ${
-              analytics.status === 'LIVE'
-                ? 'bg-green-500/10 text-green-400'
-                : analytics.status === 'JUDGING'
-                ? 'bg-yellow-500/10 text-yellow-400'
-                : 'bg-slate-500/10 text-slate-400'
-            }`}>
+            <span
+              className={`inline-flex items-center rounded-full px-4 py-2 text-sm font-medium ${
+                analytics.status === 'LIVE'
+                  ? 'bg-green-500/10 text-green-400'
+                  : analytics.status === 'JUDGING'
+                    ? 'bg-yellow-500/10 text-yellow-400'
+                    : 'bg-slate-500/10 text-slate-400'
+              }`}
+            >
               {analytics.status}
             </span>
           </div>
@@ -149,7 +156,12 @@ export default function HackathonAnalyticsPage() {
             value={analytics?.totalRegistrations || 0}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"
+                />
               </svg>
             }
             loading={loading}
@@ -159,7 +171,12 @@ export default function HackathonAnalyticsPage() {
             value={analytics?.totalTeams || 0}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
+                />
               </svg>
             }
             loading={loading}
@@ -169,7 +186,12 @@ export default function HackathonAnalyticsPage() {
             value={analytics?.totalSubmissions || 0}
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                />
               </svg>
             }
             loading={loading}
@@ -180,7 +202,12 @@ export default function HackathonAnalyticsPage() {
             format="percentage"
             icon={
               <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             }
             loading={loading}
@@ -196,7 +223,12 @@ export default function HackathonAnalyticsPage() {
               <BarChart data={funnelData} layout="vertical">
                 <CartesianGrid {...barChartConfig.grid} />
                 <XAxis type="number" {...barChartConfig.axisStyle} {...barChartConfig.labelStyle} />
-                <YAxis type="category" dataKey="name" {...barChartConfig.axisStyle} {...barChartConfig.labelStyle} />
+                <YAxis
+                  type="category"
+                  dataKey="name"
+                  {...barChartConfig.axisStyle}
+                  {...barChartConfig.labelStyle}
+                />
                 <Tooltip {...barChartConfig.tooltip} />
                 <Bar dataKey="value" radius={[0, 8, 8, 0] as [number, number, number, number]}>
                   {funnelData.map((entry, index) => (
@@ -213,7 +245,11 @@ export default function HackathonAnalyticsPage() {
             <ResponsiveContainer width="100%" height={300}>
               <LineChart data={analytics?.submissionTimeline || []}>
                 <CartesianGrid {...lineChartConfig.grid} />
-                <XAxis dataKey="date" {...lineChartConfig.axisStyle} {...lineChartConfig.labelStyle} />
+                <XAxis
+                  dataKey="date"
+                  {...lineChartConfig.axisStyle}
+                  {...lineChartConfig.labelStyle}
+                />
                 <YAxis {...lineChartConfig.axisStyle} {...lineChartConfig.labelStyle} />
                 <Tooltip {...lineChartConfig.tooltip} />
                 <Line
@@ -239,8 +275,11 @@ export default function HackathonAnalyticsPage() {
                   cx="50%"
                   cy="50%"
                   labelLine={false}
-                  label={(props) => {
-                    const { department, percentage } = props.payload as { department: string; percentage: number };
+                  label={props => {
+                    const { department, percentage } = props.payload as {
+                      department: string;
+                      percentage: number;
+                    };
                     return `${department}: ${percentage.toFixed(1)}%`;
                   }}
                   outerRadius={100}
@@ -248,7 +287,10 @@ export default function HackathonAnalyticsPage() {
                   dataKey="count"
                 >
                   {analytics?.departmentDistribution.map((_, index) => (
-                    <Cell key={`cell-${index}`} fill={multiSeriesColors[index % multiSeriesColors.length]} />
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={multiSeriesColors[index % multiSeriesColors.length]}
+                    />
                   ))}
                 </Pie>
                 <Tooltip {...lineChartConfig.tooltip} />
@@ -262,10 +304,19 @@ export default function HackathonAnalyticsPage() {
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={analytics?.scoreDistribution || []}>
                 <CartesianGrid {...barChartConfig.grid} />
-                <XAxis dataKey="range" {...barChartConfig.axisStyle} {...barChartConfig.labelStyle} />
+                <XAxis
+                  dataKey="range"
+                  {...barChartConfig.axisStyle}
+                  {...barChartConfig.labelStyle}
+                />
                 <YAxis {...barChartConfig.axisStyle} {...barChartConfig.labelStyle} />
                 <Tooltip {...barChartConfig.tooltip} />
-                <Bar dataKey="count" fill={chartColors.secondary} radius={barChartConfig.radius} name="Teams" />
+                <Bar
+                  dataKey="count"
+                  fill={chartColors.secondary}
+                  radius={barChartConfig.radius}
+                  name="Teams"
+                />
               </BarChart>
             </ResponsiveContainer>
           </div>
@@ -315,15 +366,17 @@ export default function HackathonAnalyticsPage() {
                 {analytics?.topTeams.map((team, index) => (
                   <tr key={team.teamId} className="border-b border-slate-700/50">
                     <td className="py-4 text-slate-300">
-                      <span className={`inline-flex h-8 w-8 items-center justify-center rounded-full font-bold ${
-                        index === 0
-                          ? 'bg-yellow-500/20 text-yellow-400'
-                          : index === 1
-                          ? 'bg-slate-400/20 text-slate-300'
-                          : index === 2
-                          ? 'bg-orange-500/20 text-orange-400'
-                          : 'bg-slate-700 text-slate-400'
-                      }`}>
+                      <span
+                        className={`inline-flex h-8 w-8 items-center justify-center rounded-full font-bold ${
+                          index === 0
+                            ? 'bg-yellow-500/20 text-yellow-400'
+                            : index === 1
+                              ? 'bg-slate-400/20 text-slate-300'
+                              : index === 2
+                                ? 'bg-orange-500/20 text-orange-400'
+                                : 'bg-slate-700 text-slate-400'
+                        }`}
+                      >
                         {index + 1}
                       </span>
                     </td>

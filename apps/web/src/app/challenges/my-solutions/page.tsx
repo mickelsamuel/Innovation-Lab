@@ -93,21 +93,21 @@ export default function MySolutionsPage() {
             <div className="glass-game p-5 border-2">
               <CheckCircle className="w-7 h-7 text-green-500 mb-2 animate-wiggle" />
               <p className="text-3xl font-black stat-counter">
-                {submissions.filter((s) => s.status === 'ACCEPTED' || s.status === 'WINNER').length}
+                {submissions.filter(s => s.status === 'ACCEPTED' || s.status === 'WINNER').length}
               </p>
               <p className="text-sm font-bold uppercase">Accepted</p>
             </div>
             <div className="glass-game p-5 border-2">
               <Clock className="w-7 h-7 text-yellow-500 mb-2 animate-float" />
               <p className="text-3xl font-black stat-counter">
-                {submissions.filter((s) => s.status === 'UNDER_REVIEW').length}
+                {submissions.filter(s => s.status === 'UNDER_REVIEW').length}
               </p>
               <p className="text-sm font-bold uppercase">Under Review</p>
             </div>
             <div className="glass-game p-5 border-2">
               <Trophy className="w-7 h-7 text-primary mb-2 animate-sparkle" />
               <p className="text-3xl font-black stat-counter">
-                {submissions.filter((s) => s.status === 'WINNER').length}
+                {submissions.filter(s => s.status === 'WINNER').length}
               </p>
               <p className="text-sm font-bold uppercase">Won</p>
             </div>
@@ -128,7 +128,7 @@ export default function MySolutionsPage() {
         {/* Submissions List */}
         {submissions.length > 0 ? (
           <div className="grid grid-cols-1 gap-6">
-            {submissions.map((submission) => {
+            {submissions.map(submission => {
               const statusIcons: Record<string, any> = {
                 SUBMITTED: Code,
                 UNDER_REVIEW: Clock,
@@ -215,9 +215,7 @@ export default function MySolutionsPage() {
           /* Empty State */
           <div className="text-center py-16">
             <Code className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-700 mb-2">
-              No submissions yet
-            </h3>
+            <h3 className="text-xl font-semibold text-slate-700 mb-2">No submissions yet</h3>
             <p className="text-slate-500 mb-6">
               Start competing in challenges to see your solutions here!
             </p>

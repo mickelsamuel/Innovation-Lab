@@ -143,7 +143,7 @@ describe('HealthService', () => {
       mockPrismaService.hackathon.count.mockResolvedValue(10);
       mockPrismaService.hackathon.findMany.mockResolvedValue([
         { prizePool: '5000' }, // String value
-        { prizePool: 3000 },   // Number value
+        { prizePool: 3000 }, // Number value
       ]);
 
       const result = await service.getPlatformStats();

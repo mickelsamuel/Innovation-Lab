@@ -3,18 +3,12 @@
  */
 
 import { apiFetch, buildQueryString } from './api';
-import type {
-  Hackathon,
-  HackathonsResponse,
-  HackathonFilters,
-} from '@/types/hackathon';
+import type { Hackathon, HackathonsResponse, HackathonFilters } from '@/types/hackathon';
 
 /**
  * Fetch all hackathons with optional filters
  */
-export async function getHackathons(
-  filters: HackathonFilters = {}
-): Promise<HackathonsResponse> {
+export async function getHackathons(filters: HackathonFilters = {}): Promise<HackathonsResponse> {
   const queryString = buildQueryString(filters);
   return apiFetch<HackathonsResponse>(`/hackathons${queryString}`);
 }
@@ -43,10 +37,7 @@ export async function getHackathonStats(id: string): Promise<any> {
 /**
  * Create a new hackathon
  */
-export async function createHackathon(
-  data: any,
-  token: string
-): Promise<Hackathon> {
+export async function createHackathon(data: any, token: string): Promise<Hackathon> {
   return apiFetch<Hackathon>('/hackathons', {
     method: 'POST',
     body: JSON.stringify(data),
@@ -57,11 +48,7 @@ export async function createHackathon(
 /**
  * Update a hackathon
  */
-export async function updateHackathon(
-  id: string,
-  data: any,
-  token: string
-): Promise<Hackathon> {
+export async function updateHackathon(id: string, data: any, token: string): Promise<Hackathon> {
   return apiFetch<Hackathon>(`/hackathons/${id}`, {
     method: 'PUT',
     body: JSON.stringify(data),
@@ -72,10 +59,7 @@ export async function updateHackathon(
 /**
  * Delete a hackathon
  */
-export async function deleteHackathon(
-  id: string,
-  token: string
-): Promise<void> {
+export async function deleteHackathon(id: string, token: string): Promise<void> {
   return apiFetch<void>(`/hackathons/${id}`, {
     method: 'DELETE',
     token,
@@ -156,10 +140,7 @@ export async function removeMentor(
 /**
  * Calculate rankings for a hackathon
  */
-export async function calculateRankings(
-  hackathonId: string,
-  token: string
-): Promise<any> {
+export async function calculateRankings(hackathonId: string, token: string): Promise<any> {
   return apiFetch<any>(`/hackathons/${hackathonId}/calculate-rankings`, {
     method: 'POST',
     token,

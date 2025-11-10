@@ -47,7 +47,11 @@ describe('DropdownMenu', () => {
       <DropdownMenu>
         <DropdownMenuTrigger>Open</DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => { clicked = true; }}>
+          <DropdownMenuItem
+            onClick={() => {
+              clicked = true;
+            }}
+          >
             Click Me
           </DropdownMenuItem>
         </DropdownMenuContent>

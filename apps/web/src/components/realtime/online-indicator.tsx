@@ -11,7 +11,11 @@ interface OnlineIndicatorProps {
   className?: string;
 }
 
-export function OnlineIndicator({ userId, showLabel = true, className = '' }: OnlineIndicatorProps) {
+export function OnlineIndicator({
+  userId,
+  showLabel = true,
+  className = '',
+}: OnlineIndicatorProps) {
   const { onlineUsers, isConnected } = useWebSocket();
   const [isOnline, setIsOnline] = useState(false);
 
@@ -49,7 +53,9 @@ export function OnlineIndicator({ userId, showLabel = true, className = '' }: On
           variant={isOnline ? 'default' : 'secondary'}
           className={`gap-1 ${isOnline ? 'bg-green-500 hover:bg-green-600' : ''}`}
         >
-          <span className={`h-2 w-2 rounded-full ${isOnline ? 'bg-white animate-pulse' : 'bg-gray-400'}`} />
+          <span
+            className={`h-2 w-2 rounded-full ${isOnline ? 'bg-white animate-pulse' : 'bg-gray-400'}`}
+          />
           {isOnline ? 'Online' : 'Offline'}
         </Badge>
       ) : (

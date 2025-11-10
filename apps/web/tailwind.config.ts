@@ -129,7 +129,7 @@ const config: Config = {
         sm: 'calc(var(--radius) - 4px)',
       },
       boxShadow: {
-        'glow': '0 0 20px rgba(228, 0, 43, 0.5)',
+        glow: '0 0 20px rgba(228, 0, 43, 0.5)',
         'glow-accent': '0 0 20px rgba(200, 167, 94, 0.5)',
         'glow-accent2': '0 0 20px rgba(15, 181, 186, 0.5)',
         'glow-green': '0 0 20px rgba(16, 185, 129, 0.5)',
@@ -179,7 +179,7 @@ const config: Config = {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '.5' },
         },
-        'float': {
+        float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-10px)' },
         },
@@ -191,11 +191,11 @@ const config: Config = {
           '0%, 100%': { boxShadow: '0 0 20px rgba(228, 0, 43, 0.3)' },
           '50%': { boxShadow: '0 0 40px rgba(228, 0, 43, 0.6)' },
         },
-        'wiggle': {
+        wiggle: {
           '0%, 100%': { transform: 'rotate(-3deg)' },
           '50%': { transform: 'rotate(3deg)' },
         },
-        'shake': {
+        shake: {
           '0%, 100%': { transform: 'translateX(0)' },
           '25%': { transform: 'translateX(-5px)' },
           '75%': { transform: 'translateX(5px)' },
@@ -204,11 +204,11 @@ const config: Config = {
           '0%': { transform: 'scale(0.95)' },
           '100%': { transform: 'scale(1)' },
         },
-        'sparkle': {
+        sparkle: {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
           '50%': { opacity: '0.5', transform: 'scale(1.1)' },
         },
-        'levitate': {
+        levitate: {
           '0%, 100%': { transform: 'translateY(0) rotateX(0deg)' },
           '50%': { transform: 'translateY(-15px) rotateX(5deg)' },
         },
@@ -236,14 +236,14 @@ const config: Config = {
         'slide-in-from-right': 'slide-in-from-right 0.3s ease-out',
         shimmer: 'shimmer 2s infinite linear',
         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-        'float': 'float 3s ease-in-out infinite',
+        float: 'float 3s ease-in-out infinite',
         'bounce-subtle': 'bounce-subtle 2s ease-in-out infinite',
         'glow-pulse': 'glow-pulse 2s ease-in-out infinite',
-        'wiggle': 'wiggle 1s ease-in-out infinite',
-        'shake': 'shake 0.5s ease-in-out',
+        wiggle: 'wiggle 1s ease-in-out infinite',
+        shake: 'shake 0.5s ease-in-out',
         'scale-up': 'scale-up 0.2s ease-out',
-        'sparkle': 'sparkle 1.5s ease-in-out infinite',
-        'levitate': 'levitate 3s ease-in-out infinite',
+        sparkle: 'sparkle 1.5s ease-in-out infinite',
+        levitate: 'levitate 3s ease-in-out infinite',
         'tilt-left': 'tilt-left 0.3s ease-out forwards',
         'tilt-right': 'tilt-right 0.3s ease-out forwards',
         'slide-up-fade': 'slide-up-fade 0.5s ease-out',

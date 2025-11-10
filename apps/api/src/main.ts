@@ -71,9 +71,7 @@ async function bootstrap() {
   if (isDevelopment) {
     const config = new DocumentBuilder()
       .setTitle('Innovation Lab API')
-      .setDescription(
-        'API for Innovation Lab - Virtual Hackathons & Challenges Platform'
-      )
+      .setDescription('API for Innovation Lab - Virtual Hackathons & Challenges Platform')
       .setVersion('1.0')
       .setContact(
         'Innovation Lab Team',

@@ -1,5 +1,16 @@
 import Link from 'next/link';
-import { ArrowLeft, HelpCircle, Sparkles, Zap, Swords, Skull, Trophy, Target, Shield, User } from 'lucide-react';
+import {
+  ArrowLeft,
+  HelpCircle,
+  Sparkles,
+  Zap,
+  Swords,
+  Skull,
+  Trophy,
+  Target,
+  Shield,
+  User,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Battle Manual (FAQ)',
@@ -8,7 +19,7 @@ export const metadata = {
 
 const faqs = [
   {
-    category: 'Beginner\'s Quest',
+    category: "Beginner's Quest",
     icon: Target,
     questions: [
       {
@@ -47,7 +58,7 @@ const faqs = [
       },
       {
         q: 'Can I update my submission after submitting?',
-        a: 'Yes, you can edit your quest submission while it\'s in draft status. Once finalized by the guild leader, submissions are locked!',
+        a: "Yes, you can edit your quest submission while it's in draft status. Once finalized by the guild leader, submissions are locked!",
       },
     ],
   },
@@ -65,7 +76,7 @@ const faqs = [
       },
       {
         q: 'How are boss challenge submissions reviewed?',
-        a: 'Challenge owners review your performance based on defined victory criteria. You\'ll receive feedback and a score once the boss has been evaluated!',
+        a: "Challenge owners review your performance based on defined victory criteria. You'll receive feedback and a score once the boss has been evaluated!",
       },
     ],
   },
@@ -101,11 +112,11 @@ const faqs = [
       },
       {
         q: 'Can I see my scores?',
-        a: 'Yes! Once judging is complete, you can view your guild\'s detailed scores and battle feedback on your submission page.',
+        a: "Yes! Once judging is complete, you can view your guild's detailed scores and battle feedback on your submission page.",
       },
       {
         q: 'Who can be a judge?',
-        a: 'Judges are typically selected by raid organizers. If you\'re interested in judging battles, contact the organizer or platform administrators!',
+        a: "Judges are typically selected by raid organizers. If you're interested in judging battles, contact the organizer or platform administrators!",
       },
     ],
   },
@@ -167,7 +178,10 @@ export default function FAQPage() {
                 </div>
                 <div className="space-y-6">
                   {category.questions.map((faq, qIdx) => (
-                    <div key={qIdx} className="border-l-4 border-primary pl-4 hover:border-accent transition-colors">
+                    <div
+                      key={qIdx}
+                      className="border-l-4 border-primary pl-4 hover:border-accent transition-colors"
+                    >
                       <h3 className="font-bold text-lg mb-2 text-slate-900">{faq.q}</h3>
                       <p className="text-slate-700 font-semibold leading-relaxed">{faq.a}</p>
                     </div>

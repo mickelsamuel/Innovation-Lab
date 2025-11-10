@@ -18,7 +18,6 @@ import type { Challenge, ChallengeStatus } from '@/types/challenge';
 import {
   Search,
   Trophy,
-  
   Users,
   Code,
   Tag,
@@ -29,7 +28,6 @@ import {
   Flame,
   Swords,
   Skull,
-  
 } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
 
@@ -77,22 +75,16 @@ export default function ChallengesPage() {
   }
 
   // Get all unique categories
-  const allCategories = Array.from(
-    new Set(challenges.flatMap((c) => c.categories))
-  ).sort();
+  const allCategories = Array.from(new Set(challenges.flatMap(c => c.categories))).sort();
 
   // Filter challenges
-  const filteredChallenges = challenges.filter((challenge) => {
+  const filteredChallenges = challenges.filter(challenge => {
     // Search filter
     if (searchTerm) {
       const searchLower = searchTerm.toLowerCase();
       const matchesTitle = challenge.title.toLowerCase().includes(searchLower);
-      const matchesDescription = challenge.problemStatement
-        .toLowerCase()
-        .includes(searchLower);
-      const matchesSkills = challenge.skills.some((s) =>
-        s.toLowerCase().includes(searchLower)
-      );
+      const matchesDescription = challenge.problemStatement.toLowerCase().includes(searchLower);
+      const matchesSkills = challenge.skills.some(s => s.toLowerCase().includes(searchLower));
 
       if (!matchesTitle && !matchesDescription && !matchesSkills) {
         return false;
@@ -157,7 +149,7 @@ export default function ChallengesPage() {
             <div className="glass-game p-5 border-2">
               <Flame className="w-7 h-7 mb-2 animate-wiggle" />
               <p className="text-3xl font-black stat-counter">
-                {challenges.filter((c) => c.status === 'OPEN').length}
+                {challenges.filter(c => c.status === 'OPEN').length}
               </p>
               <p className="text-sm font-bold uppercase">Active Now</p>
             </div>
@@ -196,7 +188,7 @@ export default function ChallengesPage() {
               type="text"
               placeholder="Search challenges by title, description, or skills..."
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               className="pl-10 h-12 text-base"
             />
           </div>
@@ -208,7 +200,7 @@ export default function ChallengesPage() {
               Status
             </label>
             <div className="flex flex-wrap gap-2">
-              {STATUS_OPTIONS.map((option) => (
+              {STATUS_OPTIONS.map(option => (
                 <Badge
                   key={option.value}
                   variant={selectedStatus === option.value ? 'default' : 'outline'}
@@ -236,7 +228,7 @@ export default function ChallengesPage() {
                 >
                   All Categories
                 </Badge>
-                {allCategories.map((category) => (
+                {allCategories.map(category => (
                   <Badge
                     key={category}
                     variant={selectedCategory === category ? 'default' : 'outline'}
@@ -269,7 +261,7 @@ export default function ChallengesPage() {
         {/* Challenges Grid */}
         {sortedChallenges.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {sortedChallenges.map((challenge) => {
+            {sortedChallenges.map(challenge => {
               const isOpen = isAcceptingSubmissions(challenge);
 
               return (
@@ -321,7 +313,7 @@ export default function ChallengesPage() {
                     {/* Categories */}
                     {challenge.categories.length > 0 && (
                       <div className="flex flex-wrap gap-1">
-                        {challenge.categories.slice(0, 3).map((category) => (
+                        {challenge.categories.slice(0, 3).map(category => (
                           <Badge key={category} variant="secondary" className="text-xs">
                             {category}
                           </Badge>
@@ -337,7 +329,7 @@ export default function ChallengesPage() {
                     {/* Skills */}
                     {challenge.skills.length > 0 && (
                       <div className="flex flex-wrap gap-1">
-                        {challenge.skills.slice(0, 3).map((skill) => (
+                        {challenge.skills.slice(0, 3).map(skill => (
                           <Badge key={skill} variant="outline" className="text-xs">
                             {skill}
                           </Badge>

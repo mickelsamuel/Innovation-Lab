@@ -65,9 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html>
       <body>
         <SessionProvider>
-          <WebSocketProvider>
-            {children}
-          </WebSocketProvider>
+          <WebSocketProvider>{children}</WebSocketProvider>
         </SessionProvider>
       </body>
     </html>
@@ -104,12 +102,7 @@ export default async function LeaderboardPage({ params }) {
   const submissions = await fetchSubmissions(params.slug);
   const hackathonId = await getHackathonId(params.slug);
 
-  return (
-    <LiveLeaderboard
-      hackathonId={hackathonId}
-      initialData={submissions}
-    />
-  );
+  return <LiveLeaderboard hackathonId={hackathonId} initialData={submissions} />;
 }
 ```
 
@@ -257,6 +250,7 @@ export class WebSocketGateway implements OnGatewayConnection, OnGatewayDisconnec
 ```
 
 **Features:**
+
 - JWT authentication via handshake token
 - Connection/disconnection management
 - Room-based messaging (user, hackathon, team rooms)
@@ -270,6 +264,7 @@ export class WebSocketGateway implements OnGatewayConnection, OnGatewayDisconnec
 The service provides broadcasting and event emission methods:
 
 **Broadcasting Methods:**
+
 ```typescript
 // Broadcast to all users in a hackathon
 broadcastToHackathon(hackathonId: string, event: string, data: any)
@@ -288,19 +283,21 @@ broadcastToAll(event: string, data: any)
 ```
 
 **Specialized Event Emitters:**
+
 ```typescript
-emitHackathonUpdate(hackathonId, data)      // Hackathon status changes
-emitNewSubmission(hackathonId, submission)   // New submission alerts
-emitSubmissionScored(hackathonId, submission) // Judge scoring
-emitLeaderboardUpdate(hackathonId, leaderboard) // Live rankings
-emitTeamUpdate(teamId, data)                 // Team changes
-emitNewTeamMember(teamId, member)            // Member joins
-emitTeamMemberRemoved(teamId, memberId)      // Member leaves
-emitNotification(userId, notification)       // Notifications
-emitTeamInvitation(userId, invitation)       // Invitations
+emitHackathonUpdate(hackathonId, data); // Hackathon status changes
+emitNewSubmission(hackathonId, submission); // New submission alerts
+emitSubmissionScored(hackathonId, submission); // Judge scoring
+emitLeaderboardUpdate(hackathonId, leaderboard); // Live rankings
+emitTeamUpdate(teamId, data); // Team changes
+emitNewTeamMember(teamId, member); // Member joins
+emitTeamMemberRemoved(teamId, memberId); // Member leaves
+emitNotification(userId, notification); // Notifications
+emitTeamInvitation(userId, invitation); // Invitations
 ```
 
 **Online Presence Tracking:**
+
 ```typescript
 addOnlineUser(userId: string)       // Track user connection
 removeOnlineUser(userId: string)    // Handle disconnection
@@ -312,6 +309,7 @@ getOnlineUserCount()                // Get count
 #### 3. Integration with Services
 
 **SubmissionsService** (`apps/api/src/submissions/submissions.service.ts`):
+
 ```typescript
 async create(data) {
   const submission = await this.prisma.submission.create({ data });
@@ -327,6 +325,7 @@ async create(data) {
 ```
 
 **JudgingService** (`apps/api/src/judging/judging.service.ts`):
+
 ```typescript
 async scoreSubmission(submissionId, score) {
   const submission = await this.prisma.submission.update({
@@ -360,6 +359,7 @@ async scoreSubmission(submissionId, score) {
 The provider manages WebSocket connection state and provides context to components:
 
 **Features:**
+
 - Automatic connection when user is authenticated
 - Auto-reconnect with exponential backoff (max 5 attempts)
 - JWT token-based authentication
@@ -368,26 +368,27 @@ The provider manages WebSocket connection state and provides context to componen
 - Global context via React Context API
 
 **Usage:**
+
 ```tsx
 import { useWebSocket } from '@/providers/websocket-provider';
 
 function MyComponent() {
   const {
-    socket,              // Socket instance
-    isConnected,         // Connection status
-    joinHackathon,       // Join hackathon room
-    leaveHackathon,      // Leave hackathon room
-    joinTeam,            // Join team room
-    leaveTeam,           // Leave team room
-    onlineUsers,         // Set of online user IDs
-    isUserOnline,        // Check if user is online
+    socket, // Socket instance
+    isConnected, // Connection status
+    joinHackathon, // Join hackathon room
+    leaveHackathon, // Leave hackathon room
+    joinTeam, // Join team room
+    leaveTeam, // Leave team room
+    onlineUsers, // Set of online user IDs
+    isUserOnline, // Check if user is online
   } = useWebSocket();
 
   // Listen to events
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('custom:event', (data) => {
+    socket.on('custom:event', data => {
       console.log('Received:', data);
     });
 
@@ -409,10 +410,11 @@ Displays live notification count with dropdown:
 ```tsx
 import { NotificationBell } from '@/components/realtime';
 
-<NotificationBell />
+<NotificationBell />;
 ```
 
 **Features:**
+
 - Live notification badge with pulse animation
 - Real-time count updates
 - Dropdown with recent notifications
@@ -425,13 +427,11 @@ import { NotificationBell } from '@/components/realtime';
 Animated leaderboard with live updates:
 
 ```tsx
-<LiveLeaderboard
-  hackathonId="hack-123"
-  initialData={submissions}
-/>
+<LiveLeaderboard hackathonId="hack-123" initialData={submissions} />
 ```
 
 **Features:**
+
 - Auto-updates on `leaderboard:update`
 - Animated rank changes (Framer Motion)
 - Live indicator badge
@@ -453,6 +453,7 @@ Shows online/offline status:
 ```
 
 **Features:**
+
 - Pulse animation for online status
 - Auto-updates on `user:online`, `user:offline`
 - Global online user count
@@ -468,6 +469,7 @@ Real-time submission counter:
 ```
 
 **Features:**
+
 - Animated count updates
 - Trending indicator
 - Auto-updates on `submission:new`
@@ -483,6 +485,7 @@ Team roster with online status:
 ```
 
 **Features:**
+
 - Online status for each member
 - Animated member join/leave
 - Auto-updates on `team:member:new`, `team:member:removed`
@@ -493,30 +496,30 @@ Team roster with online status:
 
 ### Server → Client Events
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `hackathon:update` | `{ hackathonId, ...data, timestamp }` | Hackathon status/details changed |
-| `submission:new` | `{ hackathonId, submission, timestamp }` | New submission created |
-| `submission:scored` | `{ hackathonId, submission, timestamp }` | Submission received score |
-| `leaderboard:update` | `{ hackathonId, leaderboard, timestamp }` | Rankings updated |
-| `team:update` | `{ teamId, ...data, timestamp }` | Team details changed |
-| `team:member:new` | `{ teamId, member, timestamp }` | New team member joined |
-| `team:member:removed` | `{ teamId, memberId, timestamp }` | Team member left |
-| `notification:new` | `{ notification, timestamp }` | New notification |
-| `invitation:new` | `{ invitation, timestamp }` | Team invitation received |
-| `user:online` | `{ userId, timestamp }` | User came online |
-| `user:offline` | `{ userId, timestamp }` | User went offline |
-| `users:online` | `{ userIds, count, timestamp }` | Online users update |
+| Event                 | Payload                                   | Description                      |
+| --------------------- | ----------------------------------------- | -------------------------------- |
+| `hackathon:update`    | `{ hackathonId, ...data, timestamp }`     | Hackathon status/details changed |
+| `submission:new`      | `{ hackathonId, submission, timestamp }`  | New submission created           |
+| `submission:scored`   | `{ hackathonId, submission, timestamp }`  | Submission received score        |
+| `leaderboard:update`  | `{ hackathonId, leaderboard, timestamp }` | Rankings updated                 |
+| `team:update`         | `{ teamId, ...data, timestamp }`          | Team details changed             |
+| `team:member:new`     | `{ teamId, member, timestamp }`           | New team member joined           |
+| `team:member:removed` | `{ teamId, memberId, timestamp }`         | Team member left                 |
+| `notification:new`    | `{ notification, timestamp }`             | New notification                 |
+| `invitation:new`      | `{ invitation, timestamp }`               | Team invitation received         |
+| `user:online`         | `{ userId, timestamp }`                   | User came online                 |
+| `user:offline`        | `{ userId, timestamp }`                   | User went offline                |
+| `users:online`        | `{ userIds, count, timestamp }`           | Online users update              |
 
 ### Client → Server Events
 
-| Event | Payload | Description |
-|-------|---------|-------------|
-| `join:hackathon` | `{ hackathonId }` | Join hackathon room |
+| Event             | Payload           | Description          |
+| ----------------- | ----------------- | -------------------- |
+| `join:hackathon`  | `{ hackathonId }` | Join hackathon room  |
 | `leave:hackathon` | `{ hackathonId }` | Leave hackathon room |
-| `join:team` | `{ teamId }` | Join team room |
-| `leave:team` | `{ teamId }` | Leave team room |
-| `ping` | - | Heartbeat ping |
+| `join:team`       | `{ teamId }`      | Join team room       |
+| `leave:team`      | `{ teamId }`      | Leave team room      |
+| `ping`            | -                 | Heartbeat ping       |
 
 ---
 
@@ -612,6 +615,7 @@ io.adapter(createAdapter(pubClient, subClient));
 ```
 
 This enables horizontal scaling:
+
 ```
 Clients → Load Balancer → [API Server 1, API Server 2, API Server 3]
                           ↓           ↓           ↓
@@ -627,6 +631,7 @@ Clients → Load Balancer → [API Server 1, API Server 2, API Server 3]
 **Problem**: WebSocket won't connect
 
 **Solutions**:
+
 1. Check JWT token is valid in session
 2. Verify `NEXT_PUBLIC_WS_URL` is set correctly
 3. Ensure CORS allows frontend origin
@@ -634,6 +639,7 @@ Clients → Load Balancer → [API Server 1, API Server 2, API Server 3]
 5. Look for connection errors in browser console and API logs
 
 **Debug**:
+
 ```javascript
 // Check connection in browser console
 console.log('Socket connected:', socket.connected);
@@ -645,12 +651,14 @@ console.log('Socket ID:', socket.id);
 **Problem**: Client not receiving events
 
 **Solutions**:
+
 1. Verify client joined correct room (`joinHackathon`, `joinTeam`)
 2. Check event names match exactly (case-sensitive)
 3. Ensure user is authorized for the room
 4. Confirm event listener is registered before event fires
 
 **Debug**:
+
 ```javascript
 // Log all received events
 socket.onAny((event, ...args) => {
@@ -663,12 +671,14 @@ socket.onAny((event, ...args) => {
 **Problem**: Memory usage grows over time
 
 **Solutions**:
+
 1. Always remove event listeners on component unmount
 2. Call `leaveHackathon`/`leaveTeam` when navigating away
 3. Check for orphaned event listeners
 4. Monitor connection count in production
 
 **Debug**:
+
 ```javascript
 // Check number of listeners
 console.log('Listeners:', socket.listeners('event:name').length);
@@ -679,15 +689,17 @@ console.log('Listeners:', socket.listeners('event:name').length);
 **Problem**: Connection rejected with auth error
 
 **Solutions**:
+
 1. Ensure user is logged in before connecting
 2. Verify JWT token is not expired
 3. Check token is sent in handshake
 4. Confirm backend JWT secret matches
 
 **Debug**:
+
 ```javascript
 // Log auth errors
-socket.on('connect_error', (error) => {
+socket.on('connect_error', error => {
   console.error('Connection error:', error.message);
 });
 ```
@@ -697,6 +709,7 @@ socket.on('connect_error', (error) => {
 **Problem**: Slow event delivery or high latency
 
 **Solutions**:
+
 1. Check network latency (ping/pong times)
 2. Reduce event payload sizes
 3. Use room-based messaging (not broadcast)
@@ -704,6 +717,7 @@ socket.on('connect_error', (error) => {
 5. Monitor server CPU/memory usage
 
 **Debug**:
+
 ```javascript
 // Measure round-trip time
 const start = Date.now();
@@ -732,12 +746,14 @@ socket.emit('ping', () => {
 ### Environment Variables
 
 **Production Backend**:
+
 ```bash
 FRONTEND_URL=https://innovation-lab.com
 REDIS_URL=redis://redis:6379  # If using Redis adapter
 ```
 
 **Production Frontend**:
+
 ```bash
 NEXT_PUBLIC_WS_URL=wss://api.innovation-lab.com
 ```

@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Delete,
-  Body,
-  Param,
-  Query,
-  UseGuards,
-  Req,
-} from '@nestjs/common';
+import { Controller, Get, Post, Delete, Body, Param, Query, UseGuards, Req } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -98,7 +88,7 @@ export class GamificationController {
       query.scope,
       query.period,
       query.scopeId,
-      query.limit,
+      query.limit
     );
   }
 
@@ -147,7 +137,7 @@ export class GamificationController {
   async getMyXpEvents(@Req() req: any, @Query('limit') limit?: number) {
     return this.gamificationService.getUserXpEvents(
       req.user.id,
-      limit ? parseInt(limit.toString()) : 50,
+      limit ? parseInt(limit.toString()) : 50
     );
   }
 
@@ -165,13 +155,10 @@ export class GamificationController {
     description: 'XP events retrieved',
     type: [XpEventDto],
   })
-  async getUserXpEvents(
-    @Param('userId') userId: string,
-    @Query('limit') limit?: number,
-  ) {
+  async getUserXpEvents(@Param('userId') userId: string, @Query('limit') limit?: number) {
     return this.gamificationService.getUserXpEvents(
       userId,
-      limit ? parseInt(limit.toString()) : 50,
+      limit ? parseInt(limit.toString()) : 50
     );
   }
 
@@ -191,7 +178,7 @@ export class GamificationController {
       awardXpDto.points,
       awardXpDto.refType,
       awardXpDto.refId,
-      awardXpDto.metadata,
+      awardXpDto.metadata
     );
     return { message: 'XP awarded successfully' };
   }
@@ -206,10 +193,7 @@ export class GamificationController {
   @ApiOperation({ summary: 'Award badge to user (Admin only)' })
   @ApiResponse({ status: 201, description: 'Badge awarded successfully' })
   async awardBadge(@Body() awardBadgeDto: AwardBadgeDto) {
-    await this.gamificationService.awardBadge(
-      awardBadgeDto.userId,
-      awardBadgeDto.badgeSlug,
-    );
+    await this.gamificationService.awardBadge(awardBadgeDto.userId, awardBadgeDto.badgeSlug);
     return { message: 'Badge awarded successfully' };
   }
 

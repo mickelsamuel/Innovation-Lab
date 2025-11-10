@@ -1,6 +1,7 @@
 # Innovation Lab Backend API - Comprehensive Map
 
 ## Project Overview
+
 - **Framework**: NestJS (Node.js backend framework)
 - **Database**: PostgreSQL with Prisma ORM
 - **API Base URL**: `/v1` (configured in main.ts)
@@ -12,6 +13,7 @@
 ## Architecture Overview
 
 ### Technology Stack
+
 - **Backend Framework**: NestJS 10.3.0
 - **ORM**: Prisma
 - **Database**: PostgreSQL
@@ -25,6 +27,7 @@
 - **Queue System**: BullMQ (temporarily disabled)
 
 ### Module Structure
+
 ```
 apps/api/src/
 ├── app.module.ts           # Root module with all imports
@@ -49,6 +52,7 @@ apps/api/src/
 ## API Endpoints
 
 ### Global Configuration
+
 - **API Version**: v1 (URI-based versioning enabled)
 - **Global Prefix**: `/v1`
 - **CORS**: Configured for development (localhost:3000)
@@ -62,6 +66,7 @@ apps/api/src/
 ### Endpoints
 
 #### POST `/v1/auth/register`
+
 - **Summary**: Register new user
 - **Authentication**: Public
 - **Rate Limit**: 5 requests/minute
@@ -78,6 +83,7 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (validation error), 409 (email/handle exists)
 
 #### POST `/v1/auth/login`
+
 - **Summary**: User login with credentials
 - **Authentication**: Public
 - **Rate Limit**: 10 requests/minute
@@ -92,6 +98,7 @@ apps/api/src/
 - **Status Codes**: 200 (success), 401 (invalid credentials)
 
 #### POST `/v1/auth/refresh`
+
 - **Summary**: Refresh access token
 - **Authentication**: Public
 - **Request Body**:
@@ -104,18 +111,21 @@ apps/api/src/
 - **Status Codes**: 200 (success), 401 (invalid token)
 
 #### GET `/v1/auth/me`
+
 - **Summary**: Get current authenticated user
 - **Authentication**: Bearer JWT
 - **Response**: Current user details (id, email, name, handle, roles, avatar)
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### POST `/v1/auth/2fa/setup`
+
 - **Summary**: Setup 2FA for user
 - **Authentication**: Bearer JWT
 - **Response**: Secret key and QR code for TOTP
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### POST `/v1/auth/2fa/enable`
+
 - **Summary**: Enable 2FA after verification
 - **Authentication**: Bearer JWT
 - **Request Body**:
@@ -129,12 +139,14 @@ apps/api/src/
 - **Status Codes**: 200 (success), 400 (invalid token), 401 (unauthorized)
 
 #### POST `/v1/auth/2fa/disable`
+
 - **Summary**: Disable 2FA
 - **Authentication**: Bearer JWT
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### POST `/v1/auth/forgot-password`
+
 - **Summary**: Request password reset email
 - **Authentication**: Public
 - **Rate Limit**: 3 requests/minute
@@ -148,6 +160,7 @@ apps/api/src/
 - **Status Codes**: 200 (success)
 
 #### POST `/v1/auth/reset-password`
+
 - **Summary**: Reset password with token
 - **Authentication**: Public
 - **Rate Limit**: 5 requests/minute
@@ -162,6 +175,7 @@ apps/api/src/
 - **Status Codes**: 200 (success), 400 (invalid/expired token)
 
 #### POST `/v1/auth/logout`
+
 - **Summary**: Logout user
 - **Authentication**: Bearer JWT
 - **Response**: Success confirmation
@@ -176,11 +190,13 @@ apps/api/src/
 ### Endpoints
 
 #### GET `/v1/users/me`
+
 - **Summary**: Get current user's full profile
 - **Response**: User profile with all details
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### PUT `/v1/users/me`
+
 - **Summary**: Update current user profile
 - **Request Body** (partial):
   ```json
@@ -196,6 +212,7 @@ apps/api/src/
 - **Status Codes**: 200 (success), 409 (handle taken), 401 (unauthorized)
 
 #### PUT `/v1/users/me/password`
+
 - **Summary**: Change user password
 - **Request Body**:
   ```json
@@ -208,23 +225,27 @@ apps/api/src/
 - **Status Codes**: 200 (success), 400 (wrong password), 401 (unauthorized)
 
 #### GET `/v1/users/me/stats`
+
 - **Summary**: Get current user's statistics
 - **Response**: User stats (joined hackathons, submissions, wins, etc.)
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### GET `/v1/users/me/activity?limit=50`
+
 - **Summary**: Get current user's activity feed
-- **Query Params**: 
+- **Query Params**:
   - `limit` (optional): Number of activities to return (default: 50)
 - **Response**: Array of recent activities
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### DELETE `/v1/users/me`
+
 - **Summary**: Delete user account
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### GET `/v1/users/search?q=query&limit=10`
+
 - **Summary**: Search for users
 - **Query Params**:
   - `q` (required): Search query (name or handle)
@@ -233,22 +254,25 @@ apps/api/src/
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### GET `/v1/users/:id`
+
 - **Summary**: Get user by ID
-- **Path Params**: 
+- **Path Params**:
   - `id`: User ID
 - **Response**: User profile
 - **Status Codes**: 200 (success), 404 (not found), 401 (unauthorized)
 
 #### GET `/v1/users/handle/:handle`
+
 - **Summary**: Get user by handle/username
-- **Path Params**: 
+- **Path Params**:
   - `handle`: User handle
 - **Response**: User profile
 - **Status Codes**: 200 (success), 404 (not found), 401 (unauthorized)
 
 #### GET `/v1/users/:id/stats`
+
 - **Summary**: Get user statistics by ID
-- **Path Params**: 
+- **Path Params**:
   - `id`: User ID
 - **Response**: User statistics
 - **Status Codes**: 200 (success), 404 (not found), 401 (unauthorized)
@@ -260,6 +284,7 @@ apps/api/src/
 ### Endpoints
 
 #### POST `/v1/hackathons`
+
 - **Summary**: Create new hackathon
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
@@ -289,6 +314,7 @@ apps/api/src/
 - **Status Codes**: 201 (success), 403 (forbidden), 409 (slug exists), 400 (validation error)
 
 #### GET `/v1/hackathons?status=LIVE&page=1&limit=10`
+
 - **Summary**: Get all hackathons with filters
 - **Authentication**: Public
 - **Query Params**:
@@ -299,53 +325,59 @@ apps/api/src/
 - **Status Codes**: 200 (success)
 
 #### GET `/v1/hackathons/slug/:slug`
+
 - **Summary**: Get hackathon by slug
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `slug`: Hackathon slug
 - **Response**: Hackathon details
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### GET `/v1/hackathons/:id`
+
 - **Summary**: Get hackathon by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `id`: Hackathon ID
 - **Response**: Hackathon details
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### GET `/v1/hackathons/:id/stats`
+
 - **Summary**: Get hackathon statistics
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Hackathon ID
 - **Response**: Stats (teams count, submissions, finalists, etc.)
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### PUT `/v1/hackathons/:id`
+
 - **Summary**: Update hackathon
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
-- **Path Params**: 
+- **Path Params**:
   - `id`: Hackathon ID
 - **Request Body**: Same fields as POST (partial update allowed)
 - **Response**: Updated hackathon
 - **Status Codes**: 200 (success), 403 (forbidden), 404 (not found)
 
 #### DELETE `/v1/hackathons/:id`
+
 - **Summary**: Delete hackathon
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN only
-- **Path Params**: 
+- **Path Params**:
   - `id`: Hackathon ID
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 403 (forbidden), 404 (not found)
 
 #### POST `/v1/hackathons/:id/winners`
+
 - **Summary**: Announce winners and award XP
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
-- **Path Params**: 
+- **Path Params**:
   - `id`: Hackathon ID
 - **Request Body**:
   ```json
@@ -369,6 +401,7 @@ apps/api/src/
 ### Endpoints
 
 #### POST `/v1/teams`
+
 - **Summary**: Create new team
 - **Authentication**: Bearer JWT
 - **Request Body**:
@@ -384,6 +417,7 @@ apps/api/src/
 - **Status Codes**: 201 (success), 404 (hackathon not found), 409 (already in team)
 
 #### GET `/v1/teams?hackathonId=xxx&lookingForMembers=true`
+
 - **Summary**: Get teams for a hackathon
 - **Authentication**: Public
 - **Query Params**:
@@ -396,17 +430,19 @@ apps/api/src/
 - **Status Codes**: 200 (success)
 
 #### GET `/v1/teams/:id`
+
 - **Summary**: Get team by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `id`: Team ID
 - **Response**: Team details with members
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### PUT `/v1/teams/:id`
+
 - **Summary**: Update team (Lead only)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Team ID
 - **Request Body** (partial):
   ```json
@@ -423,9 +459,10 @@ apps/api/src/
 - **Status Codes**: 200 (success), 403 (not lead), 404 (not found)
 
 #### POST `/v1/teams/:id/members`
+
 - **Summary**: Add member to team (Lead only)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Team ID
 - **Request Body**:
   ```json
@@ -437,18 +474,20 @@ apps/api/src/
 - **Status Codes**: 200 (success), 400 (team full or user already member), 403 (not lead)
 
 #### DELETE `/v1/teams/:id/members/:userId`
+
 - **Summary**: Remove member from team (Lead or self)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Team ID
   - `userId`: User ID to remove
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 403 (insufficient permissions)
 
 #### DELETE `/v1/teams/:id`
+
 - **Summary**: Delete team (Lead only)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Team ID
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 400 (has submissions), 403 (not lead)
@@ -460,6 +499,7 @@ apps/api/src/
 ### Endpoints
 
 #### POST `/v1/submissions`
+
 - **Summary**: Create new hackathon submission
 - **Authentication**: Bearer JWT
 - **Request Body**:
@@ -479,6 +519,7 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (team already has submission or deadline passed), 403 (not team member)
 
 #### GET `/v1/submissions?hackathonId=xxx&status=SUBMITTED&page=1`
+
 - **Summary**: Get submissions for hackathon
 - **Authentication**: Public
 - **Query Params**:
@@ -490,17 +531,19 @@ apps/api/src/
 - **Status Codes**: 200 (success)
 
 #### GET `/v1/submissions/:id`
+
 - **Summary**: Get submission by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `id`: Submission ID
 - **Response**: Submission details with scores
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### PUT `/v1/submissions/:id`
+
 - **Summary**: Update submission (Team member, before deadline)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Submission ID
 - **Request Body** (partial):
   ```json
@@ -516,17 +559,19 @@ apps/api/src/
 - **Status Codes**: 200 (success), 400 (finalized or past deadline), 403 (not member)
 
 #### POST `/v1/submissions/:id/submit`
+
 - **Summary**: Finalize submission (Team lead only)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Submission ID
 - **Response**: Finalized submission
 - **Status Codes**: 200 (success), 400 (already finalized or past deadline), 403 (not lead)
 
 #### DELETE `/v1/submissions/:id`
+
 - **Summary**: Delete submission (Team lead, before scoring)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Submission ID
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 400 (has scores), 403 (not lead)
@@ -538,6 +583,7 @@ apps/api/src/
 ### Endpoints
 
 #### POST `/v1/challenges`
+
 - **Summary**: Create new challenge
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
@@ -560,6 +606,7 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (validation error), 403 (forbidden)
 
 #### GET `/v1/challenges?status=OPEN&category=web&skill=react&search=query`
+
 - **Summary**: Get all challenges with filters
 - **Authentication**: Public
 - **Query Params**:
@@ -572,42 +619,47 @@ apps/api/src/
 - **Status Codes**: 200 (success)
 
 #### GET `/v1/challenges/:id`
+
 - **Summary**: Get challenge by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `id`: Challenge ID
 - **Response**: Challenge details
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### GET `/v1/challenges/slug/:slug`
+
 - **Summary**: Get challenge by slug
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `slug`: Challenge slug
 - **Response**: Challenge details
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### PUT `/v1/challenges/:id`
+
 - **Summary**: Update challenge (Owner or admin)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Challenge ID
 - **Request Body**: Same as POST (partial allowed)
 - **Response**: Updated challenge
 - **Status Codes**: 200 (success), 403 (not owner), 404 (not found)
 
 #### DELETE `/v1/challenges/:id`
+
 - **Summary**: Delete challenge (Owner or admin)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Challenge ID
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 403 (not owner), 404 (not found)
 
 #### POST `/v1/challenges/:id/submit`
+
 - **Summary**: Submit solution to challenge
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Challenge ID
 - **Request Body**:
   ```json
@@ -621,23 +673,26 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (challenge closed or duplicate), 404 (challenge not found)
 
 #### GET `/v1/challenges/:id/submissions`
+
 - **Summary**: Get all submissions for a challenge
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `id`: Challenge ID
 - **Response**: Array of submissions
 - **Status Codes**: 200 (success), 404 (challenge not found)
 
 #### GET `/v1/challenges/user/submissions`
+
 - **Summary**: Get current user's challenge submissions
 - **Authentication**: Bearer JWT
 - **Response**: Array of user's submissions
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### POST `/v1/challenges/submissions/:id/review`
+
 - **Summary**: Review challenge submission (Owner or admin)
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: Submission ID
 - **Request Body**:
   ```json
@@ -657,10 +712,11 @@ apps/api/src/
 ### Judge Management Endpoints
 
 #### POST `/v1/hackathons/:hackathonId/judges`
+
 - **Summary**: Assign a judge to hackathon
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
-- **Path Params**: 
+- **Path Params**:
   - `hackathonId`: Hackathon ID
 - **Request Body**:
   ```json
@@ -672,18 +728,20 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (not a judge), 409 (already assigned)
 
 #### GET `/v1/hackathons/:hackathonId/judges`
+
 - **Summary**: Get all judges for a hackathon
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `hackathonId`: Hackathon ID
 - **Response**: Array of judges
 - **Status Codes**: 200 (success)
 
 #### DELETE `/v1/hackathons/:hackathonId/judges/:userId`
+
 - **Summary**: Remove judge from hackathon
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
-- **Path Params**: 
+- **Path Params**:
   - `hackathonId`: Hackathon ID
   - `userId`: Judge user ID
 - **Response**: Success confirmation
@@ -692,10 +750,11 @@ apps/api/src/
 ### Scoring Endpoints
 
 #### POST `/v1/submissions/:submissionId/scores`
+
 - **Summary**: Create score for submission
 - **Authentication**: Bearer JWT
 - **Required Roles**: JUDGE, BANK_ADMIN
-- **Path Params**: 
+- **Path Params**:
   - `submissionId`: Submission ID
 - **Request Body**:
   ```json
@@ -709,18 +768,20 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (invalid score), 403 (not assigned judge), 409 (already scored)
 
 #### GET `/v1/submissions/:submissionId/scores`
+
 - **Summary**: Get all scores for submission
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `submissionId`: Submission ID
 - **Response**: Array of scores with judge feedback
 - **Status Codes**: 200 (success)
 
 #### PUT `/v1/scores/:scoreId`
+
 - **Summary**: Update score
 - **Authentication**: Bearer JWT
 - **Required Roles**: JUDGE, BANK_ADMIN
-- **Path Params**: 
+- **Path Params**:
   - `scoreId`: Score ID
 - **Request Body**:
   ```json
@@ -733,10 +794,11 @@ apps/api/src/
 - **Status Codes**: 200 (success), 403 (not your score)
 
 #### DELETE `/v1/scores/:scoreId`
+
 - **Summary**: Delete score
 - **Authentication**: Bearer JWT
 - **Required Roles**: JUDGE, BANK_ADMIN
-- **Path Params**: 
+- **Path Params**:
   - `scoreId`: Score ID
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 403 (not your score)
@@ -744,6 +806,7 @@ apps/api/src/
 ### Judge Dashboard Endpoints
 
 #### GET `/v1/judge/assignments?hackathonId=xxx`
+
 - **Summary**: Get submissions assigned to judge
 - **Authentication**: Bearer JWT
 - **Required Roles**: JUDGE, BANK_ADMIN
@@ -755,10 +818,11 @@ apps/api/src/
 ### Rankings Endpoints
 
 #### POST `/v1/hackathons/:hackathonId/calculate-rankings`
+
 - **Summary**: Calculate rankings for hackathon
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN, ORGANIZER
-- **Path Params**: 
+- **Path Params**:
   - `hackathonId`: Hackathon ID
 - **Response**: Rankings calculation summary
 - **Status Codes**: 200 (success)
@@ -770,9 +834,10 @@ apps/api/src/
 ### User Profile Endpoints
 
 #### GET `/v1/gamification/profile`
+
 - **Summary**: Get current user's gamification profile
 - **Authentication**: Bearer JWT
-- **Response**: 
+- **Response**:
   ```json
   {
     "userId": "string",
@@ -786,9 +851,10 @@ apps/api/src/
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### GET `/v1/gamification/profile/:userId`
+
 - **Summary**: Get user's gamification profile by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `userId`: User ID
 - **Response**: User's gamification profile
 - **Status Codes**: 200 (success), 404 (user not found)
@@ -796,6 +862,7 @@ apps/api/src/
 ### Leaderboard Endpoints
 
 #### GET `/v1/gamification/leaderboard?scope=GLOBAL&period=MONTH&limit=100`
+
 - **Summary**: Get leaderboard
 - **Authentication**: Public
 - **Query Params**:
@@ -809,12 +876,14 @@ apps/api/src/
 ### Badge Endpoints
 
 #### GET `/v1/gamification/badges`
+
 - **Summary**: Get all available badges
 - **Authentication**: Public
 - **Response**: Array of badge definitions
 - **Status Codes**: 200 (success)
 
 #### POST `/v1/gamification/badges`
+
 - **Summary**: Create new badge (Admin only)
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN
@@ -833,6 +902,7 @@ apps/api/src/
 - **Status Codes**: 201 (success), 403 (forbidden)
 
 #### POST `/v1/gamification/award-badge`
+
 - **Summary**: Award badge to user (Admin only)
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN
@@ -849,6 +919,7 @@ apps/api/src/
 ### XP Events Endpoints
 
 #### GET `/v1/gamification/xp-events?limit=50`
+
 - **Summary**: Get current user's XP events history
 - **Authentication**: Bearer JWT
 - **Query Params**:
@@ -857,9 +928,10 @@ apps/api/src/
 - **Status Codes**: 200 (success), 401 (unauthorized)
 
 #### GET `/v1/gamification/xp-events/:userId?limit=50`
+
 - **Summary**: Get user's XP events by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `userId`: User ID
 - **Query Params**:
   - `limit` (optional): Max events
@@ -867,6 +939,7 @@ apps/api/src/
 - **Status Codes**: 200 (success), 404 (user not found)
 
 #### POST `/v1/gamification/award-xp`
+
 - **Summary**: Award XP to user (Admin only)
 - **Authentication**: Bearer JWT
 - **Required Roles**: BANK_ADMIN
@@ -887,6 +960,7 @@ apps/api/src/
 ### Streak Endpoints
 
 #### POST `/v1/gamification/update-streak`
+
 - **Summary**: Update daily login streak
 - **Authentication**: Bearer JWT
 - **Response**: Success confirmation
@@ -899,6 +973,7 @@ apps/api/src/
 ### Endpoints
 
 #### POST `/v1/files/upload?type=document&entityType=submission&entityId=xxx`
+
 - **Summary**: Upload a file
 - **Authentication**: Bearer JWT
 - **Content-Type**: multipart/form-data
@@ -924,31 +999,35 @@ apps/api/src/
 - **Status Codes**: 201 (success), 400 (no file), 401 (unauthorized)
 
 #### GET `/v1/files/:id`
+
 - **Summary**: Get file metadata by ID
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `id`: File ID
 - **Response**: File metadata
 - **Status Codes**: 200 (success), 404 (not found)
 
 #### GET `/v1/files/entity/:entityType/:entityId`
+
 - **Summary**: Get all files for an entity
 - **Authentication**: Public
-- **Path Params**: 
+- **Path Params**:
   - `entityType`: Type of entity
   - `entityId`: Entity ID
 - **Response**: Array of files
 - **Status Codes**: 200 (success)
 
 #### DELETE `/v1/files/:id`
+
 - **Summary**: Delete a file
 - **Authentication**: Bearer JWT
-- **Path Params**: 
+- **Path Params**:
   - `id`: File ID
 - **Response**: Success confirmation
 - **Status Codes**: 200 (success), 403 (not owner), 404 (not found)
 
 #### GET `/v1/files/serve/*`
+
 - **Summary**: Serve local files (development only)
 - **Authentication**: Public
 - **Response**: File content
@@ -961,18 +1040,21 @@ apps/api/src/
 ### Endpoints
 
 #### GET `/health`
+
 - **Summary**: Health check endpoint
 - **Authentication**: Public
 - **Response**: Service health status
 - **Status Codes**: 200 (healthy), 503 (unhealthy)
 
 #### GET `/health/ready`
+
 - **Summary**: Readiness probe (Kubernetes)
 - **Authentication**: Public
 - **Response**: Readiness status
 - **Status Codes**: 200 (ready), 503 (not ready)
 
 #### GET `/health/live`
+
 - **Summary**: Liveness probe (Kubernetes)
 - **Authentication**: Public
 - **Response**: Service uptime and status
@@ -985,6 +1067,7 @@ apps/api/src/
 ### Core Models
 
 #### User
+
 ```prisma
 - id: String @id
 - email: String @unique
@@ -1006,6 +1089,7 @@ apps/api/src/
 ```
 
 #### Roles (Enum)
+
 - BANK_ADMIN
 - ORGANIZER
 - MODERATOR
@@ -1017,6 +1101,7 @@ apps/api/src/
 - VIEWER
 
 #### Hackathon
+
 ```prisma
 - id: String @id
 - slug: String @unique
@@ -1039,6 +1124,7 @@ apps/api/src/
 ```
 
 #### Team
+
 ```prisma
 - id: String @id
 - hackathonId: String
@@ -1052,6 +1138,7 @@ apps/api/src/
 ```
 
 #### Submission (Hackathon)
+
 ```prisma
 - id: String @id
 - hackathonId: String
@@ -1070,6 +1157,7 @@ apps/api/src/
 ```
 
 #### Challenge
+
 ```prisma
 - id: String @id
 - slug: String @unique
@@ -1088,6 +1176,7 @@ apps/api/src/
 ```
 
 #### ChallengeSubmission
+
 ```prisma
 - id: String @id
 - challengeId: String
@@ -1102,6 +1191,7 @@ apps/api/src/
 ```
 
 #### Judge
+
 ```prisma
 - id: String @id
 - userId: String
@@ -1111,6 +1201,7 @@ apps/api/src/
 ```
 
 #### Score
+
 ```prisma
 - id: String @id
 - submissionId: String
@@ -1123,6 +1214,7 @@ apps/api/src/
 ```
 
 #### GamificationProfile
+
 ```prisma
 - userId: String @id
 - xp: Int (default: 0)
@@ -1134,6 +1226,7 @@ apps/api/src/
 ```
 
 #### File
+
 ```prisma
 - id: String @id
 - filename: String
@@ -1160,6 +1253,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ### Core API Utilities
 
 #### `api.ts`
+
 - **API_URL**: `process.env.NEXT_PUBLIC_API_URL || http://localhost:4000/v1`
 - **apiFetch()**: Generic fetch wrapper with error handling and JWT support
 - **ApiError**: Custom error class with status and data
@@ -1168,8 +1262,9 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ### Service Client Functions
 
 #### `auth.ts` - NextAuth Configuration
+
 - Authentication uses NextAuth.js (not REST API)
-- **Providers**: 
+- **Providers**:
   - Credentials (email/password)
   - Azure AD (Microsoft Entra ID)
 - **Adapter**: PrismaAdapter
@@ -1177,6 +1272,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 - **Session Duration**: 30 days
 
 #### `hackathons.ts`
+
 ```typescript
 - getHackathons(filters): Promise<Hackathon[]>
 - getHackathonById(id): Promise<Hackathon>
@@ -1185,6 +1281,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `teams.ts`
+
 ```typescript
 - getTeams(filters): Promise<Team[]>
 - getTeamById(id): Promise<Team>
@@ -1196,6 +1293,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `submissions.ts`
+
 ```typescript
 - getSubmissions(filters): Promise<Submission[]>
 - getSubmissionById(id): Promise<Submission>
@@ -1206,6 +1304,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `challenges.ts`
+
 ```typescript
 - getChallenges(filters): Promise<Challenge[]>
 - getChallengeById(id): Promise<Challenge>
@@ -1221,6 +1320,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `judging.ts`
+
 ```typescript
 - assignJudge(hackathonId, userId, token): Promise<Judge>
 - getJudges(hackathonId): Promise<Judge[]>
@@ -1234,6 +1334,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `gamification.ts`
+
 ```typescript
 - getMyGamificationProfile(token): Promise<GamificationProfile>
 - getUserGamificationProfile(userId): Promise<GamificationProfile>
@@ -1246,6 +1347,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `files.ts`
+
 ```typescript
 - uploadFile(file, token, options): Promise<FileUploadResponse>
 - getFileById(id): Promise<FileUploadResponse>
@@ -1255,6 +1357,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ```
 
 #### `utils.ts` - General Utilities
+
 ```typescript
 - cn(): Tailwind class merger
 - formatDate(): Date formatting
@@ -1273,6 +1376,7 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
 ## Authentication & Authorization
 
 ### Authentication Methods
+
 1. **Credentials (Email/Password)**
    - Backend: JWT-based
    - Frontend: NextAuth.js with Credentials provider
@@ -1287,7 +1391,9 @@ The frontend uses a custom API client library (not a third-party SDK) for all ba
    - Disable: `/auth/2fa/disable`
 
 ### Authorization (Role-Based)
+
 All protected endpoints use role-based access control (RBAC):
+
 - **BANK_ADMIN**: Full system access
 - **ORGANIZER**: Can create/manage hackathons
 - **JUDGE**: Can score submissions
@@ -1296,6 +1402,7 @@ All protected endpoints use role-based access control (RBAC):
 - **VIEWER**: Read-only access
 
 ### Token Management
+
 - **Access Token**: JWT token in Authorization header
 - **Refresh Token**: Used to get new access token
 - **Storage**: localStorage (frontend)
@@ -1306,6 +1413,7 @@ All protected endpoints use role-based access control (RBAC):
 ## Error Handling
 
 ### Error Response Format
+
 ```json
 {
   "status": 400,
@@ -1317,6 +1425,7 @@ All protected endpoints use role-based access control (RBAC):
 ```
 
 ### Common Status Codes
+
 - **200**: Success
 - **201**: Created
 - **204**: No content
@@ -1333,6 +1442,7 @@ All protected endpoints use role-based access control (RBAC):
 ## Rate Limiting
 
 Global rate limiting applied:
+
 - **Default Limit**: 100 requests per minute per client
 - **TTL**: 60 seconds (configurable)
 - **Specific Limits**:
@@ -1346,6 +1456,7 @@ Global rate limiting applied:
 ## Global Configuration
 
 ### Environment Variables Required
+
 ```
 NODE_ENV=development
 API_PORT=4000
@@ -1359,6 +1470,7 @@ RATE_LIMIT_MAX=100
 ```
 
 ### Optional Environment Variables
+
 ```
 AWS_ACCESS_KEY_ID
 AWS_SECRET_ACCESS_KEY
@@ -1380,6 +1492,7 @@ REDIS_PORT
 ### By Module
 
 #### Authentication & Security
+
 - Email/password authentication
 - Social login (Azure AD)
 - 2FA setup/enable/disable
@@ -1388,6 +1501,7 @@ REDIS_PORT
 - JWT refresh
 
 #### User Management
+
 - User profile retrieval/update
 - Password change
 - User statistics
@@ -1396,36 +1510,42 @@ REDIS_PORT
 - Account deletion
 
 #### Hackathons
+
 - Create/read/update/delete hackathons
 - Filter by status, date range
 - Hackathon statistics
 - Announce winners with XP rewards
 
 #### Teams
+
 - Create teams for hackathons
 - Add/remove team members
 - Team management (lead-only actions)
 - Search for teams looking for members
 
 #### Submissions
+
 - Create/update/delete submissions
 - Finalize submissions (team lead)
 - Filter submissions by status
 - Track submission scores
 
 #### Challenges
+
 - Create/read/update/delete challenges
 - Filter challenges by status, category, skills
 - Submit solutions to challenges
 - Review submissions (owner/admin)
 
 #### Judging
+
 - Assign judges to hackathons
 - Create/update/delete scores
 - Calculate rankings
 - Judge dashboard with assignments
 
 #### Gamification
+
 - User XP and leveling system
 - Badge system with rarities
 - Daily streak tracking
@@ -1434,6 +1554,7 @@ REDIS_PORT
 - Award XP and badges (admin)
 
 #### Files
+
 - Upload files with progress tracking
 - Store metadata and public URLs
 - Retrieve files by ID or entity
@@ -1441,6 +1562,7 @@ REDIS_PORT
 - Support for images, videos, documents, avatars
 
 #### Health Checks
+
 - Service health status
 - Readiness probe (Kubernetes)
 - Liveness probe (Kubernetes)
@@ -1467,4 +1589,3 @@ REDIS_PORT
 8. **Token expiry**: Implement token refresh logic using the refresh endpoint
 9. **Rate limiting**: Implement exponential backoff for rate-limited requests
 10. **Timestamps**: All dates are ISO 8601 format
-

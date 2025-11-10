@@ -10,13 +10,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiParam,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { InvitationsService } from './invitations.service';
 import { SendInvitationDto } from './dto/send-invitation.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -39,7 +33,7 @@ export class InvitationsController {
   async sendInvitation(
     @Param('teamId') teamId: string,
     @Body() dto: SendInvitationDto,
-    @GetCurrentUser() user: CurrentUser,
+    @GetCurrentUser() user: CurrentUser
   ) {
     return this.invitationsService.sendInvitation(teamId, dto, user.id);
   }
@@ -57,7 +51,7 @@ export class InvitationsController {
   @Get('users/me/invitations')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
-  @ApiOperation({ summary: 'Get current user\'s pending invitations' })
+  @ApiOperation({ summary: "Get current user's pending invitations" })
   @ApiResponse({ status: 200, description: 'User invitations retrieved successfully' })
   async getUserInvitations(@GetCurrentUser() user: CurrentUser) {
     return this.invitationsService.getUserInvitations(user.id);
@@ -72,10 +66,7 @@ export class InvitationsController {
   @ApiResponse({ status: 400, description: 'Invitation expired or team full' })
   @ApiResponse({ status: 403, description: 'Not authorized to accept this invitation' })
   @ApiResponse({ status: 404, description: 'Invitation not found' })
-  async acceptInvitation(
-    @Param('id') id: string,
-    @GetCurrentUser() user: CurrentUser,
-  ) {
+  async acceptInvitation(@Param('id') id: string, @GetCurrentUser() user: CurrentUser) {
     return this.invitationsService.acceptInvitation(id, user.id);
   }
 
@@ -88,10 +79,7 @@ export class InvitationsController {
   @ApiResponse({ status: 200, description: 'Invitation rejected successfully' })
   @ApiResponse({ status: 403, description: 'Not authorized to reject this invitation' })
   @ApiResponse({ status: 404, description: 'Invitation not found' })
-  async rejectInvitation(
-    @Param('id') id: string,
-    @GetCurrentUser() user: CurrentUser,
-  ) {
+  async rejectInvitation(@Param('id') id: string, @GetCurrentUser() user: CurrentUser) {
     return this.invitationsService.rejectInvitation(id, user.id);
   }
 
@@ -104,10 +92,7 @@ export class InvitationsController {
   @ApiResponse({ status: 200, description: 'Invitation cancelled successfully' })
   @ApiResponse({ status: 403, description: 'Not authorized to cancel this invitation' })
   @ApiResponse({ status: 404, description: 'Invitation not found' })
-  async cancelInvitation(
-    @Param('id') id: string,
-    @GetCurrentUser() user: CurrentUser,
-  ) {
+  async cancelInvitation(@Param('id') id: string, @GetCurrentUser() user: CurrentUser) {
     return this.invitationsService.cancelInvitation(id, user.id);
   }
 }

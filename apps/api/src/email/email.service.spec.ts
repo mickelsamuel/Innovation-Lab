@@ -334,12 +334,7 @@ describe('EmailService', () => {
     });
 
     it('should send winner announcement email with 2nd place', async () => {
-      await service.sendWinnerAnnouncementEmail(
-        'user@example.com',
-        'John',
-        'Test Hackathon',
-        2
-      );
+      await service.sendWinnerAnnouncementEmail('user@example.com', 'John', 'Test Hackathon', 2);
 
       expect(mockSendMail).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -349,12 +344,7 @@ describe('EmailService', () => {
     });
 
     it('should send winner announcement email with 3rd place', async () => {
-      await service.sendWinnerAnnouncementEmail(
-        'user@example.com',
-        'John',
-        'Test Hackathon',
-        3
-      );
+      await service.sendWinnerAnnouncementEmail('user@example.com', 'John', 'Test Hackathon', 3);
 
       expect(mockSendMail).toHaveBeenCalledWith(
         expect.objectContaining({

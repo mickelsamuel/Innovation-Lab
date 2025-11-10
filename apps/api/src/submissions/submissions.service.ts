@@ -16,7 +16,7 @@ export class SubmissionsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly gamificationService: GamificationService,
-    private readonly webSocketService: WebSocketService,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   /**
@@ -112,7 +112,7 @@ export class SubmissionsService {
         'SUBMIT_PROJECT',
         XP_POINTS.SUBMIT_PROJECT,
         'submission',
-        submission.id,
+        submission.id
       );
     }
 
@@ -399,7 +399,7 @@ export class SubmissionsService {
         'FINALIZE_SUBMISSION',
         XP_POINTS.FINALIZE_SUBMISSION,
         'submission',
-        id,
+        id
       );
     }
 

@@ -1,5 +1,15 @@
 import Link from 'next/link';
-import { ArrowLeft, Cookie, Sparkles, Shield, Settings, Eye, Globe, FileText, Mail } from 'lucide-react';
+import {
+  ArrowLeft,
+  Cookie,
+  Sparkles,
+  Shield,
+  Settings,
+  Eye,
+  Globe,
+  FileText,
+  Mail,
+} from 'lucide-react';
 
 export const metadata = {
   title: 'Cookie Vault',
@@ -29,7 +39,9 @@ export default function CookiesPage() {
             <Sparkles className="inline w-6 h-6 mr-2 animate-sparkle" />
             How we use cookies to enhance your arena experience
           </p>
-          <p className="text-white/90 font-semibold mt-2">Last updated: {new Date().toLocaleDateString()}</p>
+          <p className="text-white/90 font-semibold mt-2">
+            Last updated: {new Date().toLocaleDateString()}
+          </p>
         </div>
       </div>
 
@@ -43,8 +55,9 @@ export default function CookiesPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                Cookies are small data files that are stored on your device when you enter the arena.
-                They are widely used to make the arena work more efficiently and provide information to arena administrators.
+                Cookies are small data files that are stored on your device when you enter the
+                arena. They are widely used to make the arena work more efficiently and provide
+                information to arena administrators.
               </p>
             </div>
           </div>
@@ -77,33 +90,34 @@ export default function CookiesPage() {
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">1. Essential Cookies</h3>
                 <p className="text-slate-700 font-semibold">
-                  These cookies are necessary for the arena to function. They enable core functionality such as
-                  security, player authentication, and maintaining your battle session. Without these cookies, the arena would
-                  not work properly.
+                  These cookies are necessary for the arena to function. They enable core
+                  functionality such as security, player authentication, and maintaining your battle
+                  session. Without these cookies, the arena would not work properly.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">2. Functional Cookies</h3>
                 <p className="text-slate-700 font-semibold">
-                  These cookies enable enhanced functionality and personalization, such as remembering your battle preferences,
-                  language settings, and region.
+                  These cookies enable enhanced functionality and personalization, such as
+                  remembering your battle preferences, language settings, and region.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">3. Performance Cookies</h3>
                 <p className="text-slate-700 font-semibold">
-                  These cookies help us understand how warriors interact with the arena by collecting and reporting
-                  information anonymously. This helps us improve how the arena performs.
+                  These cookies help us understand how warriors interact with the arena by
+                  collecting and reporting information anonymously. This helps us improve how the
+                  arena performs.
                 </p>
               </div>
 
               <div>
                 <h3 className="text-lg font-bold mb-2 text-slate-900">4. Analytics Cookies</h3>
                 <p className="text-slate-700 font-semibold">
-                  We use analytics cookies to gather statistics about arena usage, including which raids are most popular
-                  and if players encounter errors during battle.
+                  We use analytics cookies to gather statistics about arena usage, including which
+                  raids are most popular and if players encounter errors during battle.
                 </p>
               </div>
             </div>
@@ -117,8 +131,8 @@ export default function CookiesPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                In addition to our own cookies, we may use various third-party cookies to report arena usage statistics
-                and deliver content based on your battle interests.
+                In addition to our own cookies, we may use various third-party cookies to report
+                arena usage statistics and deliver content based on your battle interests.
               </p>
               <p>These third parties may include:</p>
               <ul className="space-y-2">
@@ -137,19 +151,57 @@ export default function CookiesPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                You can control and/or delete cookies as you wish. You can delete all cookies that are already stored on your
-                device and you can set most browsers to prevent them from being placed.
+                You can control and/or delete cookies as you wish. You can delete all cookies that
+                are already stored on your device and you can set most browsers to prevent them from
+                being placed.
               </p>
               <p>
-                However, if you do this, you may have to manually adjust some preferences every time you enter the
-                arena, and some battle services and functionalities may not work properly.
+                However, if you do this, you may have to manually adjust some preferences every time
+                you enter the arena, and some battle services and functionalities may not work
+                properly.
               </p>
               <h3 className="font-bold mt-4 mb-2 text-slate-900">Browser Settings:</h3>
               <ul className="space-y-2">
-                <li><a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">Chrome</a></li>
-                <li><a href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">Firefox</a></li>
-                <li><a href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">Safari</a></li>
-                <li><a href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" target="_blank" rel="noopener noreferrer" className="text-primary font-bold hover:underline">Edge</a></li>
+                <li>
+                  <a
+                    href="https://support.google.com/chrome/answer/95647"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Chrome
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://support.mozilla.org/en-US/kb/enhanced-tracking-protection-firefox-desktop"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Firefox
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Safari
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary font-bold hover:underline"
+                  >
+                    Edge
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -162,8 +214,9 @@ export default function CookiesPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                We may update this Cookie Vault policy from time to time to reflect changes in our arena practices or for other
-                operational, legal, or regulatory reasons. Please review this policy periodically for any updates.
+                We may update this Cookie Vault policy from time to time to reflect changes in our
+                arena practices or for other operational, legal, or regulatory reasons. Please
+                review this policy periodically for any updates.
               </p>
             </div>
           </div>
@@ -176,10 +229,17 @@ export default function CookiesPage() {
             </h2>
             <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
               <p>
-                If you have questions about our use of cookies in the arena, please contact Support HQ at:
+                If you have questions about our use of cookies in the arena, please contact Support
+                HQ at:
               </p>
               <p>
-                <strong>Email:</strong> <a href="mailto:privacy@innovationlab.com" className="text-primary font-bold hover:underline">privacy@innovationlab.com</a>
+                <strong>Email:</strong>{' '}
+                <a
+                  href="mailto:privacy@innovationlab.com"
+                  className="text-primary font-bold hover:underline"
+                >
+                  privacy@innovationlab.com
+                </a>
               </p>
             </div>
           </div>

@@ -152,7 +152,7 @@ export default function ChallengeDetailPage() {
 
   const canSubmit = isAcceptingSubmissions(challenge);
   const _isOwner = session?.user?.id === challenge.ownerId;
-  const userSubmission = submissions.find((s) => s.userId === session?.user?.id);
+  const userSubmission = submissions.find(s => s.userId === session?.user?.id);
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -295,7 +295,7 @@ export default function ChallengeDetailPage() {
                         </label>
                         <Input
                           value={submitTitle}
-                          onChange={(e) => setSubmitTitle(e.target.value)}
+                          onChange={e => setSubmitTitle(e.target.value)}
                           placeholder="My implementation of..."
                           required
                         />
@@ -308,7 +308,7 @@ export default function ChallengeDetailPage() {
                         <Input
                           type="url"
                           value={submitRepoUrl}
-                          onChange={(e) => setSubmitRepoUrl(e.target.value)}
+                          onChange={e => setSubmitRepoUrl(e.target.value)}
                           placeholder="https://github.com/username/repo"
                         />
                       </div>
@@ -319,7 +319,7 @@ export default function ChallengeDetailPage() {
                         </label>
                         <Textarea
                           value={submitContent}
-                          onChange={(e) => setSubmitContent(e.target.value)}
+                          onChange={e => setSubmitContent(e.target.value)}
                           placeholder="Describe your approach, technologies used, challenges faced..."
                           rows={8}
                           required
@@ -412,7 +412,7 @@ export default function ChallengeDetailPage() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {submissions.map((submission) => (
+                    {submissions.map(submission => (
                       <div
                         key={submission.id}
                         className="p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors"
@@ -493,7 +493,7 @@ export default function ChallengeDetailPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {challenge.categories.map((category) => (
+                    {challenge.categories.map(category => (
                       <Badge key={category} variant="secondary">
                         {category}
                       </Badge>
@@ -514,7 +514,7 @@ export default function ChallengeDetailPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2">
-                    {challenge.skills.map((skill) => (
+                    {challenge.skills.map(skill => (
                       <Badge key={skill} variant="outline">
                         {skill}
                       </Badge>

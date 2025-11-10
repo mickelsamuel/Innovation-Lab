@@ -17,13 +17,14 @@ describe('JwtAuthGuard', () => {
     reflector = module.get<Reflector>(Reflector);
   });
 
-  const mockExecutionContext = (): ExecutionContext => ({
-    switchToHttp: () => ({
-      getRequest: () => ({}),
-    }),
-    getHandler: jest.fn(),
-    getClass: jest.fn(),
-  } as any);
+  const mockExecutionContext = (): ExecutionContext =>
+    ({
+      switchToHttp: () => ({
+        getRequest: () => ({}),
+      }),
+      getHandler: jest.fn(),
+      getClass: jest.fn(),
+    }) as any;
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -50,7 +51,8 @@ describe('JwtAuthGuard', () => {
     it('should call super.canActivate for non-public routes', () => {
       jest.spyOn(reflector, 'getAllAndOverride').mockReturnValue(false);
       const context = mockExecutionContext();
-      const superCanActivate = jest.spyOn(Object.getPrototypeOf(JwtAuthGuard.prototype), 'canActivate')
+      const superCanActivate = jest
+        .spyOn(Object.getPrototypeOf(JwtAuthGuard.prototype), 'canActivate')
         .mockReturnValue(true);
 
       guard.canActivate(context);
@@ -65,7 +67,8 @@ describe('JwtAuthGuard', () => {
     it('should call super.canActivate when isPublic is not set', () => {
       jest.spyOn(reflector, 'getAllAndOverride').mockReturnValue(undefined);
       const context = mockExecutionContext();
-      const superCanActivate = jest.spyOn(Object.getPrototypeOf(JwtAuthGuard.prototype), 'canActivate')
+      const superCanActivate = jest
+        .spyOn(Object.getPrototypeOf(JwtAuthGuard.prototype), 'canActivate')
         .mockReturnValue(true);
 
       guard.canActivate(context);

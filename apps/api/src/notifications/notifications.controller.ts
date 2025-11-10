@@ -25,7 +25,7 @@ export class NotificationsController {
     @GetCurrentUser('id') userId: string,
     @Query('unreadOnly') unreadOnly?: string,
     @Query('limit') limit?: string,
-    @Query('offset') offset?: string,
+    @Query('offset') offset?: string
   ) {
     return this.notificationsService.getUserNotifications(userId, {
       unreadOnly: unreadOnly === 'true',
@@ -46,19 +46,13 @@ export class NotificationsController {
   }
 
   @Patch('preferences')
-  async updatePreferences(
-    @GetCurrentUser('id') userId: string,
-    @Body() dto: UpdatePreferencesDto,
-  ) {
+  async updatePreferences(@GetCurrentUser('id') userId: string, @Body() dto: UpdatePreferencesDto) {
     return this.notificationsService.updatePreferences(userId, dto);
   }
 
   @Post(':id/read')
   @HttpCode(HttpStatus.OK)
-  async markAsRead(
-    @GetCurrentUser('id') userId: string,
-    @Param('id') notificationId: string,
-  ) {
+  async markAsRead(@GetCurrentUser('id') userId: string, @Param('id') notificationId: string) {
     return this.notificationsService.markAsRead(notificationId, userId);
   }
 

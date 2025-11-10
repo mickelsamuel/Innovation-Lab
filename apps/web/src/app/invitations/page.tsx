@@ -84,16 +84,15 @@ export default function InvitationsPage() {
           </div>
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Team Invitations</h1>
-            <p className="text-muted-foreground">
-              Manage your pending team invitations
-            </p>
+            <p className="text-muted-foreground">Manage your pending team invitations</p>
           </div>
         </div>
 
         {invitations.length > 0 && (
           <div className="mt-4">
             <p className="text-sm text-muted-foreground">
-              You have {invitations.length} pending {invitations.length === 1 ? 'invitation' : 'invitations'}
+              You have {invitations.length} pending{' '}
+              {invitations.length === 1 ? 'invitation' : 'invitations'}
             </p>
           </div>
         )}

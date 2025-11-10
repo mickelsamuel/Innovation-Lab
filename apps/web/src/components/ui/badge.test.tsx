@@ -15,7 +15,11 @@ describe('Badge', () => {
   });
 
   it('should render secondary variant', () => {
-    render(<Badge variant="secondary" data-testid="badge">Secondary</Badge>);
+    render(
+      <Badge variant="secondary" data-testid="badge">
+        Secondary
+      </Badge>
+    );
     const badge = screen.getByTestId('badge');
     expect(badge).toBeInTheDocument();
     expect(screen.getByText('Secondary')).toBeInTheDocument();
@@ -72,13 +76,25 @@ describe('Badge', () => {
   });
 
   it('should apply custom className', () => {
-    render(<Badge className="custom-badge" data-testid="badge">Custom</Badge>);
+    render(
+      <Badge className="custom-badge" data-testid="badge">
+        Custom
+      </Badge>
+    );
     expect(screen.getByTestId('badge')).toHaveClass('custom-badge');
   });
 
   it('should handle onClick event', () => {
     let clicked = false;
-    render(<Badge onClick={() => { clicked = true; }}>Clickable</Badge>);
+    render(
+      <Badge
+        onClick={() => {
+          clicked = true;
+        }}
+      >
+        Clickable
+      </Badge>
+    );
     screen.getByText('Clickable').click();
     expect(clicked).toBe(true);
   });

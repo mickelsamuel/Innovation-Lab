@@ -4,28 +4,18 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import {
-  getLeaderboard,
-  getAllBadges,
-  getLevelName,
-  formatXp,
-} from '@/lib/gamification';
+import { getLeaderboard, getAllBadges, getLevelName, formatXp } from '@/lib/gamification';
 import { getHackathons } from '@/lib/hackathons';
 import { getChallenges } from '@/lib/challenges';
-import type { LeaderboardEntry, Badge as BadgeType, LeaderboardScope, LeaderboardPeriod } from '@/types/gamification';
+import type {
+  LeaderboardEntry,
+  Badge as BadgeType,
+  LeaderboardScope,
+  LeaderboardPeriod,
+} from '@/types/gamification';
 import type { Hackathon } from '@/types/hackathon';
 import type { Challenge } from '@/types/challenge';
-import {
-  Trophy,
-  Medal,
-  Award,
-  TrendingUp,
-  Crown,
-  Star,
-  Users,
-  
-  Flame,
-} from 'lucide-react';
+import { Trophy, Medal, Award, TrendingUp, Crown, Star, Users, Flame } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
 
 const SCOPE_OPTIONS: { value: LeaderboardScope; label: string }[] = [
@@ -49,8 +39,12 @@ export default function LeaderboardPage() {
   const [error, setError] = useState<string | null>(null);
 
   // Filters
-  const [selectedScope, setSelectedScope] = useState<LeaderboardScope>('GLOBAL' as LeaderboardScope);
-  const [selectedPeriod, setSelectedPeriod] = useState<LeaderboardPeriod>('ALLTIME' as LeaderboardPeriod);
+  const [selectedScope, setSelectedScope] = useState<LeaderboardScope>(
+    'GLOBAL' as LeaderboardScope
+  );
+  const [selectedPeriod, setSelectedPeriod] = useState<LeaderboardPeriod>(
+    'ALLTIME' as LeaderboardPeriod
+  );
   const [selectedScopeId, setSelectedScopeId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
@@ -112,7 +106,7 @@ export default function LeaderboardPage() {
 
   // Get badge info by slug
   const getBadgeInfo = (badgeSlug: string) => {
-    return badges.find((b) => b.slug === badgeSlug);
+    return badges.find(b => b.slug === badgeSlug);
   };
 
   // Get rank icon/color
@@ -223,7 +217,7 @@ export default function LeaderboardPage() {
               Leaderboard Scope
             </label>
             <div className="flex flex-wrap gap-2">
-              {SCOPE_OPTIONS.map((option) => (
+              {SCOPE_OPTIONS.map(option => (
                 <Badge
                   key={option.value}
                   variant={selectedScope === option.value ? 'default' : 'outline'}
@@ -246,7 +240,7 @@ export default function LeaderboardPage() {
                 Select Hackathon
               </label>
               <div className="flex flex-wrap gap-2">
-                {hackathons.slice(0, 10).map((hackathon) => (
+                {hackathons.slice(0, 10).map(hackathon => (
                   <Badge
                     key={hackathon.id}
                     variant={selectedScopeId === hackathon.id ? 'default' : 'outline'}
@@ -266,7 +260,7 @@ export default function LeaderboardPage() {
                 Select Challenge
               </label>
               <div className="flex flex-wrap gap-2">
-                {challenges.slice(0, 10).map((challenge) => (
+                {challenges.slice(0, 10).map(challenge => (
                   <Badge
                     key={challenge.id}
                     variant={selectedScopeId === challenge.id ? 'default' : 'outline'}
@@ -286,7 +280,7 @@ export default function LeaderboardPage() {
               Battle Period
             </label>
             <div className="flex flex-wrap gap-2">
-              {PERIOD_OPTIONS.map((option) => (
+              {PERIOD_OPTIONS.map(option => (
                 <Badge
                   key={option.value}
                   variant={selectedPeriod === option.value ? 'default' : 'outline'}
@@ -332,7 +326,7 @@ export default function LeaderboardPage() {
                 </p>
                 {leaderboard[1].badges.length > 0 && (
                   <div className="flex justify-center gap-1">
-                    {leaderboard[1].badges.slice(0, 5).map((badgeSlug) => {
+                    {leaderboard[1].badges.slice(0, 5).map(badgeSlug => {
                       const badge = getBadgeInfo(badgeSlug);
                       return badge ? (
                         <span key={badge.slug} className="text-2xl" title={badge.name}>
@@ -374,7 +368,7 @@ export default function LeaderboardPage() {
                 </p>
                 {leaderboard[0].badges.length > 0 && (
                   <div className="flex justify-center gap-1">
-                    {leaderboard[0].badges.slice(0, 5).map((badgeSlug) => {
+                    {leaderboard[0].badges.slice(0, 5).map(badgeSlug => {
                       const badge = getBadgeInfo(badgeSlug);
                       return badge ? (
                         <span key={badge.slug} className="text-3xl" title={badge.name}>
@@ -416,7 +410,7 @@ export default function LeaderboardPage() {
                 </p>
                 {leaderboard[2].badges.length > 0 && (
                   <div className="flex justify-center gap-1">
-                    {leaderboard[2].badges.slice(0, 5).map((badgeSlug) => {
+                    {leaderboard[2].badges.slice(0, 5).map(badgeSlug => {
                       const badge = getBadgeInfo(badgeSlug);
                       return badge ? (
                         <span key={badge.slug} className="text-2xl" title={badge.name}>
@@ -450,7 +444,7 @@ export default function LeaderboardPage() {
               </div>
             ) : (
               <div className="space-y-2">
-                {leaderboard.map((entry) => {
+                {leaderboard.map(entry => {
                   const rankDisplay = getRankDisplay(entry.rank);
 
                   return (
@@ -472,23 +466,17 @@ export default function LeaderboardPage() {
                       </Avatar>
 
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-slate-900 truncate">
-                          {entry.user.name}
-                        </p>
+                        <p className="font-bold text-slate-900 truncate">{entry.user.name}</p>
                         <p className="text-sm text-slate-700 font-semibold">@{entry.user.handle}</p>
                       </div>
 
                       {/* Badges */}
                       {entry.badges.length > 0 && (
                         <div className="hidden md:flex gap-1">
-                          {entry.badges.slice(0, 3).map((badgeSlug) => {
+                          {entry.badges.slice(0, 3).map(badgeSlug => {
                             const badge = getBadgeInfo(badgeSlug);
                             return badge ? (
-                              <span
-                                key={badge.slug}
-                                className="text-xl"
-                                title={badge.name}
-                              >
+                              <span key={badge.slug} className="text-xl" title={badge.name}>
                                 {badge.icon}
                               </span>
                             ) : null;
@@ -506,9 +494,7 @@ export default function LeaderboardPage() {
 
                       {/* XP */}
                       <div className="text-right min-w-[100px]">
-                        <p className="text-lg font-black text-primary">
-                          {formatXp(entry.xp)}
-                        </p>
+                        <p className="text-lg font-black text-primary">{formatXp(entry.xp)}</p>
                         <p className="text-xs text-slate-600 font-bold">XP</p>
                       </div>
                     </div>

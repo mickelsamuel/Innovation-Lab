@@ -11,14 +11,17 @@ interface HackathonCardProps {
   hackathon: Hackathon;
 }
 
-function getStatusVariant(status: HackathonStatus): 'draft' | 'upcoming' | 'live' | 'judging' | 'closed' {
-  const variantMap: Record<HackathonStatus, 'draft' | 'upcoming' | 'live' | 'judging' | 'closed'> = {
-    DRAFT: 'draft',
-    UPCOMING: 'upcoming',
-    LIVE: 'live',
-    JUDGING: 'judging',
-    CLOSED: 'closed',
-  };
+function getStatusVariant(
+  status: HackathonStatus
+): 'draft' | 'upcoming' | 'live' | 'judging' | 'closed' {
+  const variantMap: Record<HackathonStatus, 'draft' | 'upcoming' | 'live' | 'judging' | 'closed'> =
+    {
+      DRAFT: 'draft',
+      UPCOMING: 'upcoming',
+      LIVE: 'live',
+      JUDGING: 'judging',
+      CLOSED: 'closed',
+    };
   return variantMap[status];
 }
 
@@ -52,8 +55,8 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
     hackathon.location === 'VIRTUAL'
       ? 'Virtual'
       : hackathon.location === 'IN_PERSON'
-      ? hackathon.city || 'In Person'
-      : 'Hybrid';
+        ? hackathon.city || 'In Person'
+        : 'Hybrid';
 
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-200 border-slate-200 hover:border-primary/50">
@@ -70,22 +73,16 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
           )}
         </div>
 
-        <CardTitle className="text-xl font-display line-clamp-2">
-          {hackathon.title}
-        </CardTitle>
+        <CardTitle className="text-xl font-display line-clamp-2">{hackathon.title}</CardTitle>
 
         {hackathon.subtitle && (
-          <CardDescription className="line-clamp-1">
-            {hackathon.subtitle}
-          </CardDescription>
+          <CardDescription className="line-clamp-1">{hackathon.subtitle}</CardDescription>
         )}
       </CardHeader>
 
       <CardContent className="space-y-4">
         {hackathon.description && (
-          <p className="text-sm text-slate-600 line-clamp-3">
-            {hackathon.description}
-          </p>
+          <p className="text-sm text-slate-600 line-clamp-3">{hackathon.description}</p>
         )}
 
         <div className="space-y-2">
@@ -105,8 +102,9 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
             <div className="flex items-center gap-2 text-sm text-slate-600">
               <Users className="w-4 h-4" />
               <span>
-                {hackathon._count.teams} team{hackathon._count.teams !== 1 ? 's' : ''}, {' '}
-                {hackathon._count.submissions} submission{hackathon._count.submissions !== 1 ? 's' : ''}
+                {hackathon._count.teams} team{hackathon._count.teams !== 1 ? 's' : ''},{' '}
+                {hackathon._count.submissions} submission
+                {hackathon._count.submissions !== 1 ? 's' : ''}
               </span>
             </div>
           )}
@@ -121,7 +119,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
 
         {hackathon.tracks && hackathon.tracks.length > 0 && (
           <div className="flex flex-wrap gap-1">
-            {hackathon.tracks.slice(0, 3).map((track) => (
+            {hackathon.tracks.slice(0, 3).map(track => (
               <Badge key={track.id} variant="secondary" className="text-xs">
                 {track.title}
               </Badge>

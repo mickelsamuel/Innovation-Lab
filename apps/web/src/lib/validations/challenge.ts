@@ -86,10 +86,7 @@ export const reviewSubmissionSchema = z.object({
     .min(0, 'Score must be at least 0')
     .max(100, 'Score must be at most 100')
     .optional(),
-  feedback: z
-    .string()
-    .max(5000, 'Feedback must be less than 5000 characters')
-    .optional(),
+  feedback: z.string().max(5000, 'Feedback must be less than 5000 characters').optional(),
 });
 
 export type ReviewSubmissionFormData = z.infer<typeof reviewSubmissionSchema>;

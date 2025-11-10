@@ -18,25 +18,19 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
 
     const status =
-      exception instanceof HttpException
-        ? exception.getStatus()
-        : HttpStatus.INTERNAL_SERVER_ERROR;
+      exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
 
     const message =
-      exception instanceof HttpException
-        ? exception.message
-        : 'Internal server error';
+      exception instanceof HttpException ? exception.message : 'Internal server error';
 
     // Log full error for debugging (including stack trace)
     if (status === HttpStatus.INTERNAL_SERVER_ERROR) {
       this.logger.error(
         `Internal server error on ${request.method} ${request.url}`,
-        exception instanceof Error ? exception.stack : exception,
+        exception instanceof Error ? exception.stack : exception
       );
     } else {
-      this.logger.warn(
-        `HTTP ${status} on ${request.method} ${request.url}: ${message}`,
-      );
+      this.logger.warn(`HTTP ${status} on ${request.method} ${request.url}: ${message}`);
     }
 
     // Return safe error to client (no stack traces in production)

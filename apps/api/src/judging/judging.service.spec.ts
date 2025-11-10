@@ -66,7 +66,13 @@ describe('JudgingService', () => {
         id: 'assignment-1',
         hackathonId: 'hackathon-1',
         userId: 'judge-1',
-        user: { id: 'judge-1', name: 'Judge User', handle: 'judge', email: 'judge@test.com', avatarUrl: null },
+        user: {
+          id: 'judge-1',
+          name: 'Judge User',
+          handle: 'judge',
+          email: 'judge@test.com',
+          avatarUrl: null,
+        },
       };
 
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
@@ -91,7 +97,9 @@ describe('JudgingService', () => {
     it('should throw NotFoundException if hackathon not found', async () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
 
-      await expect(service.assignJudge('non-existent', assignDto, 'admin-1')).rejects.toThrow(NotFoundException);
+      await expect(service.assignJudge('non-existent', assignDto, 'admin-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.judge.create).not.toHaveBeenCalled();
     });
@@ -102,7 +110,9 @@ describe('JudgingService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
       prismaMock.user.findUnique.mockResolvedValue(null);
 
-      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(NotFoundException);
+      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.judge.create).not.toHaveBeenCalled();
     });
@@ -114,8 +124,12 @@ describe('JudgingService', () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
       prismaMock.user.findUnique.mockResolvedValue(user as any);
 
-      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(BadRequestException);
-      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow('User must have JUDGE or BANK_ADMIN role');
+      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
+        'User must have JUDGE or BANK_ADMIN role'
+      );
 
       expect(prismaMock.judge.create).not.toHaveBeenCalled();
     });
@@ -129,7 +143,9 @@ describe('JudgingService', () => {
       prismaMock.user.findUnique.mockResolvedValue(user as any);
       prismaMock.judge.findUnique.mockResolvedValue(existingJudge as any);
 
-      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(ConflictException);
+      await expect(service.assignJudge('hackathon-1', assignDto, 'admin-1')).rejects.toThrow(
+        ConflictException
+      );
 
       expect(prismaMock.judge.create).not.toHaveBeenCalled();
     });
@@ -141,7 +157,13 @@ describe('JudgingService', () => {
         id: 'assignment-1',
         hackathonId: 'hackathon-1',
         userId: 'admin-1',
-        user: { id: 'admin-1', name: 'Admin', handle: 'admin', email: 'admin@test.com', avatarUrl: null },
+        user: {
+          id: 'admin-1',
+          name: 'Admin',
+          handle: 'admin',
+          email: 'admin@test.com',
+          avatarUrl: null,
+        },
       };
 
       prismaMock.hackathon.findUnique.mockResolvedValue(hackathon as any);
@@ -162,12 +184,24 @@ describe('JudgingService', () => {
       const judges = [
         {
           id: 'judge-1',
-          user: { id: 'user-1', name: 'Judge 1', handle: 'judge1', email: 'j1@test.com', avatarUrl: null },
+          user: {
+            id: 'user-1',
+            name: 'Judge 1',
+            handle: 'judge1',
+            email: 'j1@test.com',
+            avatarUrl: null,
+          },
           _count: { scores: 5 },
         },
         {
           id: 'judge-2',
-          user: { id: 'user-2', name: 'Judge 2', handle: 'judge2', email: 'j2@test.com', avatarUrl: null },
+          user: {
+            id: 'user-2',
+            name: 'Judge 2',
+            handle: 'judge2',
+            email: 'j2@test.com',
+            avatarUrl: null,
+          },
           _count: { scores: 3 },
         },
       ];
@@ -212,7 +246,9 @@ describe('JudgingService', () => {
     it('should throw NotFoundException if judge assignment not found', async () => {
       prismaMock.judge.findUnique.mockResolvedValue(null);
 
-      await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow(NotFoundException);
+      await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.judge.delete).not.toHaveBeenCalled();
     });
@@ -223,8 +259,12 @@ describe('JudgingService', () => {
       prismaMock.judge.findUnique.mockResolvedValue(judge as any);
       prismaMock.score.count.mockResolvedValue(5);
 
-      await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow(BadRequestException);
-      await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow('Cannot remove judge who has already scored submissions');
+      await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.removeJudge('hackathon-1', 'judge-1', 'admin-1')).rejects.toThrow(
+        'Cannot remove judge who has already scored submissions'
+      );
 
       expect(prismaMock.judge.delete).not.toHaveBeenCalled();
     });
@@ -243,15 +283,10 @@ describe('JudgingService', () => {
         hackathonId: 'hackathon-1',
         status: 'FINAL',
         hackathon: {
-          criteria: [
-            { id: 'criterion-1', name: 'Innovation', maxScore: 10 },
-          ],
+          criteria: [{ id: 'criterion-1', name: 'Innovation', maxScore: 10 }],
         },
         team: {
-          members: [
-            { userId: 'user-1' },
-            { userId: 'user-2' },
-          ],
+          members: [{ userId: 'user-1' }, { userId: 'user-2' }],
         },
       };
 
@@ -298,7 +333,9 @@ describe('JudgingService', () => {
     it('should throw NotFoundException if submission not found', async () => {
       prismaMock.submission.findUnique.mockResolvedValue(null);
 
-      await expect(service.createScore('non-existent', createDto, 'judge-user')).rejects.toThrow(NotFoundException);
+      await expect(service.createScore('non-existent', createDto, 'judge-user')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -313,8 +350,12 @@ describe('JudgingService', () => {
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(BadRequestException);
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow('Can only score finalized submissions');
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        'Can only score finalized submissions'
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -325,17 +366,19 @@ describe('JudgingService', () => {
         hackathonId: 'hackathon-1',
         status: 'FINAL',
         hackathon: {
-          criteria: [
-            { id: 'criterion-2', name: 'Other', maxScore: 10 },
-          ],
+          criteria: [{ id: 'criterion-2', name: 'Other', maxScore: 10 }],
         },
         team: { members: [] },
       };
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(NotFoundException);
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow('Criterion not found for this hackathon');
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        NotFoundException
+      );
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        'Criterion not found for this hackathon'
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -346,17 +389,19 @@ describe('JudgingService', () => {
         hackathonId: 'hackathon-1',
         status: 'FINAL',
         hackathon: {
-          criteria: [
-            { id: 'criterion-1', name: 'Innovation', maxScore: 5 },
-          ],
+          criteria: [{ id: 'criterion-1', name: 'Innovation', maxScore: 5 }],
         },
         team: { members: [] },
       };
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
 
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(BadRequestException);
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow('Score cannot exceed maximum of 5 for this criterion');
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        'Score cannot exceed maximum of 5 for this criterion'
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -367,9 +412,7 @@ describe('JudgingService', () => {
         hackathonId: 'hackathon-1',
         status: 'FINAL',
         hackathon: {
-          criteria: [
-            { id: 'criterion-1', name: 'Innovation', maxScore: 10 },
-          ],
+          criteria: [{ id: 'criterion-1', name: 'Innovation', maxScore: 10 }],
         },
         team: { members: [] },
       };
@@ -377,8 +420,12 @@ describe('JudgingService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
       prismaMock.judge.findUnique.mockResolvedValue(null);
 
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(ForbiddenException);
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow('You are not assigned as a judge for this hackathon');
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        'You are not assigned as a judge for this hackathon'
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -389,15 +436,10 @@ describe('JudgingService', () => {
         hackathonId: 'hackathon-1',
         status: 'FINAL',
         hackathon: {
-          criteria: [
-            { id: 'criterion-1', name: 'Innovation', maxScore: 10 },
-          ],
+          criteria: [{ id: 'criterion-1', name: 'Innovation', maxScore: 10 }],
         },
         team: {
-          members: [
-            { userId: 'judge-user' },
-            { userId: 'user-2' },
-          ],
+          members: [{ userId: 'judge-user' }, { userId: 'user-2' }],
         },
       };
 
@@ -406,8 +448,12 @@ describe('JudgingService', () => {
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
       prismaMock.judge.findUnique.mockResolvedValue(judge as any);
 
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(ForbiddenException);
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow('Cannot score your own team\'s submission');
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        "Cannot score your own team's submission"
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -418,9 +464,7 @@ describe('JudgingService', () => {
         hackathonId: 'hackathon-1',
         status: 'FINAL',
         hackathon: {
-          criteria: [
-            { id: 'criterion-1', name: 'Innovation', maxScore: 10 },
-          ],
+          criteria: [{ id: 'criterion-1', name: 'Innovation', maxScore: 10 }],
         },
         team: {
           members: [{ userId: 'user-1' }],
@@ -428,13 +472,20 @@ describe('JudgingService', () => {
       };
 
       const judge = { id: 'judge-1', userId: 'judge-user', hackathonId: 'hackathon-1' };
-      const existingScore = { id: 'score-1', submissionId: 'submission-1', judgeId: 'judge-1', criterionId: 'criterion-1' };
+      const existingScore = {
+        id: 'score-1',
+        submissionId: 'submission-1',
+        judgeId: 'judge-1',
+        criterionId: 'criterion-1',
+      };
 
       prismaMock.submission.findUnique.mockResolvedValue(submission as any);
       prismaMock.judge.findUnique.mockResolvedValue(judge as any);
       prismaMock.score.findUnique.mockResolvedValue(existingScore as any);
 
-      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(ConflictException);
+      await expect(service.createScore('submission-1', createDto, 'judge-user')).rejects.toThrow(
+        ConflictException
+      );
 
       expect(prismaMock.score.create).not.toHaveBeenCalled();
     });
@@ -526,7 +577,9 @@ describe('JudgingService', () => {
     it('should throw NotFoundException if score not found', async () => {
       prismaMock.score.findUnique.mockResolvedValue(null);
 
-      await expect(service.updateScore('non-existent', updateDto, 'judge-user')).rejects.toThrow(NotFoundException);
+      await expect(service.updateScore('non-existent', updateDto, 'judge-user')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.score.update).not.toHaveBeenCalled();
     });
@@ -543,8 +596,12 @@ describe('JudgingService', () => {
 
       prismaMock.score.findUnique.mockResolvedValue(score as any);
 
-      await expect(service.updateScore('score-1', updateDto, 'judge-user')).rejects.toThrow(ForbiddenException);
-      await expect(service.updateScore('score-1', updateDto, 'judge-user')).rejects.toThrow('You can only update your own scores');
+      await expect(service.updateScore('score-1', updateDto, 'judge-user')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.updateScore('score-1', updateDto, 'judge-user')).rejects.toThrow(
+        'You can only update your own scores'
+      );
 
       expect(prismaMock.score.update).not.toHaveBeenCalled();
     });
@@ -564,8 +621,12 @@ describe('JudgingService', () => {
 
       prismaMock.score.findUnique.mockResolvedValue(score as any);
 
-      await expect(service.updateScore('score-1', { value: 8 }, 'judge-user')).rejects.toThrow(BadRequestException);
-      await expect(service.updateScore('score-1', { value: 8 }, 'judge-user')).rejects.toThrow('Score cannot exceed maximum of 5 for this criterion');
+      await expect(service.updateScore('score-1', { value: 8 }, 'judge-user')).rejects.toThrow(
+        BadRequestException
+      );
+      await expect(service.updateScore('score-1', { value: 8 }, 'judge-user')).rejects.toThrow(
+        'Score cannot exceed maximum of 5 for this criterion'
+      );
 
       expect(prismaMock.score.update).not.toHaveBeenCalled();
     });
@@ -601,7 +662,9 @@ describe('JudgingService', () => {
     it('should throw NotFoundException if score not found', async () => {
       prismaMock.score.findUnique.mockResolvedValue(null);
 
-      await expect(service.deleteScore('non-existent', 'judge-user')).rejects.toThrow(NotFoundException);
+      await expect(service.deleteScore('non-existent', 'judge-user')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.score.delete).not.toHaveBeenCalled();
     });
@@ -616,8 +679,12 @@ describe('JudgingService', () => {
 
       prismaMock.score.findUnique.mockResolvedValue(score as any);
 
-      await expect(service.deleteScore('score-1', 'judge-user')).rejects.toThrow(ForbiddenException);
-      await expect(service.deleteScore('score-1', 'judge-user')).rejects.toThrow('You can only delete your own scores');
+      await expect(service.deleteScore('score-1', 'judge-user')).rejects.toThrow(
+        ForbiddenException
+      );
+      await expect(service.deleteScore('score-1', 'judge-user')).rejects.toThrow(
+        'You can only delete your own scores'
+      );
 
       expect(prismaMock.score.delete).not.toHaveBeenCalled();
     });
@@ -645,9 +712,7 @@ describe('JudgingService', () => {
                 _count: { scores: 3 },
               },
             ],
-            criteria: [
-              { id: 'criterion-1', name: 'Innovation' },
-            ],
+            criteria: [{ id: 'criterion-1', name: 'Innovation' }],
           },
         },
       ];
@@ -713,21 +778,29 @@ describe('JudgingService', () => {
       expect(result.message).toBe('Rankings calculated successfully');
       expect(result.submissionsRanked).toBe(3);
       expect(prismaMock.submission.update).toHaveBeenCalledTimes(3);
-      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(1, expect.objectContaining({
-        where: { id: 'submission-1' },
-        data: { rank: 1 },
-      }));
-      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(2, expect.objectContaining({
-        where: { id: 'submission-2' },
-        data: { rank: 2 },
-      }));
+      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(
+        1,
+        expect.objectContaining({
+          where: { id: 'submission-1' },
+          data: { rank: 1 },
+        })
+      );
+      expect(prismaMock.submission.update).toHaveBeenNthCalledWith(
+        2,
+        expect.objectContaining({
+          where: { id: 'submission-2' },
+          data: { rank: 2 },
+        })
+      );
       expect(prismaMock.auditLog.create).toHaveBeenCalled();
     });
 
     it('should throw NotFoundException if hackathon not found', async () => {
       prismaMock.hackathon.findUnique.mockResolvedValue(null);
 
-      await expect(service.calculateRankings('non-existent', 'admin-1')).rejects.toThrow(NotFoundException);
+      await expect(service.calculateRankings('non-existent', 'admin-1')).rejects.toThrow(
+        NotFoundException
+      );
 
       expect(prismaMock.submission.findMany).not.toHaveBeenCalled();
     });

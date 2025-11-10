@@ -101,8 +101,12 @@ export default function MentorDashboardPage() {
           <Card className="bg-slate-900/50 border-slate-700">
             <CardContent className="pt-16 pb-16 text-center">
               <Users className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-slate-300 mb-2">No Mentor Assignments Yet</h3>
-              <p className="text-slate-500">You haven't been assigned to mentor any hackathons yet.</p>
+              <h3 className="text-xl font-semibold text-slate-300 mb-2">
+                No Mentor Assignments Yet
+              </h3>
+              <p className="text-slate-500">
+                You haven't been assigned to mentor any hackathons yet.
+              </p>
             </CardContent>
           </Card>
         ) : (
@@ -110,14 +114,15 @@ export default function MentorDashboardPage() {
             {/* Assignments */}
             <div className="lg:col-span-2 space-y-6">
               <h2 className="text-2xl font-bold text-cyan-400">Your Hackathons</h2>
-              {assignments.map((assignment) => (
+              {assignments.map(assignment => (
                 <Card key={assignment.id} className="bg-slate-900/50 border-slate-700">
                   <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <CardTitle className="text-white">{assignment.hackathon.title}</CardTitle>
                         <p className="text-sm text-slate-400 mt-2">
-                          {assignment._count.sessions} total session{assignment._count.sessions !== 1 ? 's' : ''} •{' '}
+                          {assignment._count.sessions} total session
+                          {assignment._count.sessions !== 1 ? 's' : ''} •{' '}
                           {assignment.sessions.length} upcoming
                         </p>
                       </div>
@@ -140,7 +145,11 @@ export default function MentorDashboardPage() {
                         Schedule Office Hours
                       </Button>
                       <Link href={`/hackathons/${assignment.hackathon.slug}`}>
-                        <Button size="sm" variant="outline" className="border-slate-700 hover:bg-slate-800">
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="border-slate-700 hover:bg-slate-800"
+                        >
                           View Hackathon
                         </Button>
                       </Link>

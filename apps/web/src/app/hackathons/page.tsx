@@ -5,8 +5,23 @@ import { HackathonCard } from '@/components/hackathons/hackathon-card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { getHackathons } from '@/lib/hackathons';
-import type { Hackathon, HackathonsResponse, HackathonStatus, HackathonLocation } from '@/types/hackathon';
-import { Search, Filter, ChevronLeft, ChevronRight, Swords, Flame, Trophy, Clock, Target } from 'lucide-react';
+import type {
+  Hackathon,
+  HackathonsResponse,
+  HackathonStatus,
+  HackathonLocation,
+} from '@/types/hackathon';
+import {
+  Search,
+  Filter,
+  ChevronLeft,
+  ChevronRight,
+  Swords,
+  Flame,
+  Trophy,
+  Clock,
+  Target,
+} from 'lucide-react';
 
 const STATUS_OPTIONS: { value: HackathonStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'All Raids' },
@@ -16,7 +31,10 @@ const STATUS_OPTIONS: { value: HackathonStatus | 'ALL'; label: string }[] = [
   { value: 'CLOSED', label: 'Completed' },
 ];
 
-const LOCATION_OPTIONS: { value: HackathonLocation | 'ALL'; label: 'All Locations' | 'Virtual' | 'In Person' | 'Hybrid' }[] = [
+const LOCATION_OPTIONS: {
+  value: HackathonLocation | 'ALL';
+  label: 'All Locations' | 'Virtual' | 'In Person' | 'Hybrid';
+}[] = [
   { value: 'ALL', label: 'All Locations' },
   { value: 'VIRTUAL', label: 'Virtual' },
   { value: 'ONSITE', label: 'In Person' },
@@ -114,7 +132,8 @@ export default function HackathonsPage() {
           </div>
           <p className="text-xl font-bold text-white/95 max-w-3xl">
             <Flame className="inline w-6 h-6 mr-2 animate-wiggle" />
-            Choose your next epic coding raid! Team up with legendary developers and compete for massive loot.
+            Choose your next epic coding raid! Team up with legendary developers and compete for
+            massive loot.
           </p>
           <div className="mt-6 flex items-center gap-4 text-white/90 font-semibold">
             <div className="flex items-center gap-2 px-4 py-2 glass-game rounded-lg">
@@ -140,7 +159,7 @@ export default function HackathonsPage() {
               type="text"
               placeholder="Search raids by name, description..."
               value={searchTerm}
-              onChange={(e) => handleSearchChange(e.target.value)}
+              onChange={e => handleSearchChange(e.target.value)}
               className="pl-12 h-14 text-base font-semibold border-2 focus:border-primary"
             />
           </div>
@@ -153,7 +172,7 @@ export default function HackathonsPage() {
                 Raid Status
               </label>
               <div className="flex flex-wrap gap-2">
-                {STATUS_OPTIONS.map((option) => (
+                {STATUS_OPTIONS.map(option => (
                   <Badge
                     key={option.value}
                     variant={selectedStatus === option.value ? 'default' : 'outline'}
@@ -174,7 +193,7 @@ export default function HackathonsPage() {
                 Location Type
               </label>
               <div className="flex flex-wrap gap-2">
-                {LOCATION_OPTIONS.map((option) => (
+                {LOCATION_OPTIONS.map(option => (
                   <Badge
                     key={option.value}
                     variant={selectedLocation === option.value ? 'default' : 'outline'}
@@ -199,7 +218,8 @@ export default function HackathonsPage() {
             ) : (
               <>
                 <Trophy className="inline w-4 h-4 mr-1 text-accent" />
-                Showing {(currentPage - 1) * limit + 1}-{Math.min(currentPage * limit, total)} of {total} raid{total !== 1 ? 's' : ''}
+                Showing {(currentPage - 1) * limit + 1}-{Math.min(currentPage * limit, total)} of{' '}
+                {total} raid{total !== 1 ? 's' : ''}
               </>
             )}
           </div>
@@ -225,7 +245,7 @@ export default function HackathonsPage() {
         {/* Hackathons Grid */}
         {!isLoading && !error && hackathons.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {hackathons.map((hackathon) => (
+            {hackathons.map(hackathon => (
               <HackathonCard key={hackathon.id} hackathon={hackathon} />
             ))}
           </div>

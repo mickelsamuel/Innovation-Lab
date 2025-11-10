@@ -111,12 +111,16 @@ export default function HackathonMentorsPage() {
           <Users className="w-10 h-10 text-purple-500" />
           Mentors
         </h1>
-        <p className="text-slate-400 mb-8">Connect with experienced mentors for guidance and support</p>
+        <p className="text-slate-400 mb-8">
+          Connect with experienced mentors for guidance and support
+        </p>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Mentors List */}
           <div className="lg:col-span-2 space-y-4">
-            <h2 className="text-2xl font-bold text-cyan-400 mb-4">Available Mentors ({mentors.length})</h2>
+            <h2 className="text-2xl font-bold text-cyan-400 mb-4">
+              Available Mentors ({mentors.length})
+            </h2>
             {mentors.length === 0 ? (
               <Card className="bg-slate-900/50 border-slate-700">
                 <CardContent className="pt-16 pb-16 text-center">
@@ -126,12 +130,8 @@ export default function HackathonMentorsPage() {
               </Card>
             ) : (
               <div className="grid md:grid-cols-2 gap-4">
-                {mentors.map((mentor) => (
-                  <MentorCard
-                    key={mentor.id}
-                    mentor={mentor}
-                    onSchedule={handleSchedule}
-                  />
+                {mentors.map(mentor => (
+                  <MentorCard key={mentor.id} mentor={mentor} onSchedule={handleSchedule} />
                 ))}
               </div>
             )}

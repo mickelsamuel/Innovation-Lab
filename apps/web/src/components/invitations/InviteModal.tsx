@@ -31,13 +31,7 @@ interface InviteModalProps {
   onSuccess?: () => void;
 }
 
-export function InviteModal({
-  isOpen,
-  onClose,
-  teamId,
-  teamName,
-  onSuccess,
-}: InviteModalProps) {
+export function InviteModal({ isOpen, onClose, teamId, teamName, onSuccess }: InviteModalProps) {
   const { data: session } = useSession();
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
@@ -91,9 +85,7 @@ export function InviteModal({
 
       toast({
         title: 'Success',
-        description: `Invitation sent successfully to ${
-          inviteType === 'email' ? email : 'user'
-        }`,
+        description: `Invitation sent successfully to ${inviteType === 'email' ? email : 'user'}`,
       });
 
       setEmail('');
@@ -147,7 +139,7 @@ export function InviteModal({
                   type="email"
                   placeholder="user@example.com"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
+                  onChange={e => setEmail(e.target.value)}
                   required
                 />
               </div>
@@ -159,7 +151,7 @@ export function InviteModal({
                   type="text"
                   placeholder="clxxx..."
                   value={userId}
-                  onChange={(e) => setUserId(e.target.value)}
+                  onChange={e => setUserId(e.target.value)}
                   required
                 />
               </div>

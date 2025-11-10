@@ -161,16 +161,13 @@ export default function ManageMentorsPage() {
                 <Input
                   placeholder="Enter user email to add as mentor..."
                   value={newMentorEmail}
-                  onChange={(e) => setNewMentorEmail(e.target.value)}
-                  onKeyDown={(e) => {
+                  onChange={e => setNewMentorEmail(e.target.value)}
+                  onKeyDown={e => {
                     if (e.key === 'Enter') handleAddMentor();
                   }}
                   className="flex-1"
                 />
-                <Button
-                  onClick={handleAddMentor}
-                  disabled={isAdding || !newMentorEmail.trim()}
-                >
+                <Button onClick={handleAddMentor} disabled={isAdding || !newMentorEmail.trim()}>
                   {isAdding ? (
                     <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                   ) : (
@@ -186,7 +183,7 @@ export default function ManageMentorsPage() {
                     No mentors assigned yet. Add mentors using their email address.
                   </p>
                 ) : (
-                  mentors.map((mentor) => (
+                  mentors.map(mentor => (
                     <div
                       key={mentor.id}
                       className="flex items-center justify-between p-4 border rounded-lg hover:border-primary/50 transition-colors"
@@ -210,11 +207,7 @@ export default function ManageMentorsPage() {
                           )}
                         </div>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => handleRemoveMentor(mentor)}
-                      >
+                      <Button variant="ghost" size="sm" onClick={() => handleRemoveMentor(mentor)}>
                         <Trash2 className="w-4 h-4 text-red-500" />
                       </Button>
                     </div>

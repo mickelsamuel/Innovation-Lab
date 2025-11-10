@@ -336,7 +336,7 @@ describe('NotificationsService', () => {
       mockPrismaService.notification.findFirst.mockResolvedValue(null);
 
       await expect(service.markAsRead(notificationId, 'different-user')).rejects.toThrow(
-        NotFoundException,
+        NotFoundException
       );
     });
   });

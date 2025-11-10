@@ -49,9 +49,9 @@ describe('Utils', () => {
 
     it('should handle objects', () => {
       const result = cn({
-        'class1': true,
-        'class2': false,
-        'class3': true,
+        class1: true,
+        class2: false,
+        class3: true,
       });
       expect(result).toContain('class1');
       expect(result).not.toContain('class2');

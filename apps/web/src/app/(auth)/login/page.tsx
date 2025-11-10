@@ -78,7 +78,9 @@ export default function LoginPage() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="font-bold text-slate-900">Player Email</Label>
+              <Label htmlFor="email" className="font-bold text-slate-900">
+                Player Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -95,7 +97,9 @@ export default function LoginPage() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="font-bold text-slate-900">Password</Label>
+                <Label htmlFor="password" className="font-bold text-slate-900">
+                  Password
+                </Label>
                 <Link
                   href="/auth/forgot-password"
                   className="text-sm text-primary font-bold hover:underline"

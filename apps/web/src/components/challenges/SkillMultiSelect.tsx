@@ -104,7 +104,7 @@ export function SkillMultiSelect({
 
   const toggleSkill = (skill: string) => {
     if (value.includes(skill)) {
-      onChange(value.filter((s) => s !== skill));
+      onChange(value.filter(s => s !== skill));
     } else {
       if (maxSelections && value.length >= maxSelections) {
         return;
@@ -114,7 +114,7 @@ export function SkillMultiSelect({
   };
 
   const removeSkill = (skill: string) => {
-    onChange(value.filter((s) => s !== skill));
+    onChange(value.filter(s => s !== skill));
   };
 
   const addCustomSkill = () => {
@@ -130,7 +130,7 @@ export function SkillMultiSelect({
   };
 
   // Filter skills based on search
-  const filteredSkills = AVAILABLE_SKILLS.filter((skill) =>
+  const filteredSkills = AVAILABLE_SKILLS.filter(skill =>
     skill.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -138,7 +138,7 @@ export function SkillMultiSelect({
     <div className={cn('relative', className)}>
       {/* Selected Skills */}
       <div className="flex flex-wrap gap-2 mb-3">
-        {value.map((skill) => (
+        {value.map(skill => (
           <Badge key={skill} variant="secondary" className="pl-3 pr-1 py-1">
             {skill}
             <button
@@ -150,9 +150,7 @@ export function SkillMultiSelect({
             </button>
           </Badge>
         ))}
-        {value.length === 0 && (
-          <p className="text-sm text-slate-500">No skills selected</p>
-        )}
+        {value.length === 0 && <p className="text-sm text-slate-500">No skills selected</p>}
       </div>
 
       {/* Dropdown Trigger */}
@@ -182,7 +180,7 @@ export function SkillMultiSelect({
             <input
               type="text"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={e => setSearchTerm(e.target.value)}
               placeholder="Search skills..."
               className="w-full px-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary mb-2"
             />
@@ -192,7 +190,7 @@ export function SkillMultiSelect({
           <div className="flex-1 overflow-auto px-2 pb-2">
             <div className="space-y-1">
               {filteredSkills.length > 0 ? (
-                filteredSkills.map((skill) => (
+                filteredSkills.map(skill => (
                   <button
                     key={skill}
                     type="button"
@@ -214,22 +212,16 @@ export function SkillMultiSelect({
                     <div
                       className={cn(
                         'w-4 h-4 border-2 rounded flex items-center justify-center',
-                        value.includes(skill)
-                          ? 'border-primary bg-primary'
-                          : 'border-slate-300'
+                        value.includes(skill) ? 'border-primary bg-primary' : 'border-slate-300'
                       )}
                     >
-                      {value.includes(skill) && (
-                        <Check className="w-3 h-3 text-white" />
-                      )}
+                      {value.includes(skill) && <Check className="w-3 h-3 text-white" />}
                     </div>
                     <span className="flex-1 text-left">{skill}</span>
                   </button>
                 ))
               ) : (
-                <p className="text-sm text-slate-500 text-center py-4">
-                  No skills found
-                </p>
+                <p className="text-sm text-slate-500 text-center py-4">No skills found</p>
               )}
             </div>
 
@@ -251,8 +243,8 @@ export function SkillMultiSelect({
                   <input
                     type="text"
                     value={customSkill}
-                    onChange={(e) => setCustomSkill(e.target.value)}
-                    onKeyDown={(e) => {
+                    onChange={e => setCustomSkill(e.target.value)}
+                    onKeyDown={e => {
                       if (e.key === 'Enter') {
                         e.preventDefault();
                         addCustomSkill();

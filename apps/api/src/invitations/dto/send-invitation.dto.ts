@@ -8,10 +8,13 @@ export class SendInvitationDto {
   @IsString()
   inviteeId?: string;
 
-  @ApiPropertyOptional({ example: 'user@example.com', description: 'Email to invite (if non-existing user)' })
+  @ApiPropertyOptional({
+    example: 'user@example.com',
+    description: 'Email to invite (if non-existing user)',
+  })
   @IsOptional()
   @IsEmail()
-  @ValidateIf((o) => !o.inviteeId)
+  @ValidateIf(o => !o.inviteeId)
   inviteeEmail?: string;
 
   @ApiProperty({ enum: TeamMemberRole, default: TeamMemberRole.MEMBER })

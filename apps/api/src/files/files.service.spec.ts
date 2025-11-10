@@ -1,9 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import {
-  BadRequestException,
-  NotFoundException,
-  ForbiddenException,
-} from '@nestjs/common';
+import { BadRequestException, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { PrismaService } from '../common/prisma/prisma.service';
 import { StorageService } from './storage.service';
@@ -129,9 +125,9 @@ describe('FilesService', () => {
         size: 50 * 1024 * 1024, // 50MB (exceeds 25MB limit for documents)
       } as Express.Multer.File;
 
-      await expect(
-        service.uploadFile(oversizedFile, 'user-1', FileType.DOCUMENT)
-      ).rejects.toThrow(BadRequestException);
+      await expect(service.uploadFile(oversizedFile, 'user-1', FileType.DOCUMENT)).rejects.toThrow(
+        BadRequestException
+      );
     });
 
     it('should throw BadRequestException for invalid mimetype', async () => {
@@ -141,17 +137,17 @@ describe('FilesService', () => {
         size: 1024,
       } as Express.Multer.File;
 
-      await expect(
-        service.uploadFile(invalidFile, 'user-1', FileType.DOCUMENT)
-      ).rejects.toThrow(BadRequestException);
+      await expect(service.uploadFile(invalidFile, 'user-1', FileType.DOCUMENT)).rejects.toThrow(
+        BadRequestException
+      );
     });
 
     it('should throw BadRequestException when upload fails', async () => {
       mockStorageService.uploadFile.mockRejectedValue(new Error('Storage error'));
 
-      await expect(
-        service.uploadFile(validFile, 'user-1', FileType.DOCUMENT)
-      ).rejects.toThrow(BadRequestException);
+      await expect(service.uploadFile(validFile, 'user-1', FileType.DOCUMENT)).rejects.toThrow(
+        BadRequestException
+      );
     });
   });
 
@@ -294,18 +290,14 @@ describe('FilesService', () => {
         deletedAt: new Date(),
       });
 
-      await expect(service.deleteFile('file-1', 'user-1')).rejects.toThrow(
-        BadRequestException
-      );
+      await expect(service.deleteFile('file-1', 'user-1')).rejects.toThrow(BadRequestException);
     });
 
     it('should throw BadRequestException when deletion fails', async () => {
       mockPrismaService.file.findUnique.mockResolvedValue(file);
       mockPrismaService.file.update.mockRejectedValue(new Error('DB error'));
 
-      await expect(service.deleteFile('file-1', 'user-1')).rejects.toThrow(
-        BadRequestException
-      );
+      await expect(service.deleteFile('file-1', 'user-1')).rejects.toThrow(BadRequestException);
     });
   });
 });

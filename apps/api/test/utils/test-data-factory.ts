@@ -234,7 +234,12 @@ export class TestDataFactory {
     };
   }
 
-  static createScore(submissionId: string, judgeId: string, criteriaId: string, overrides: any = {}) {
+  static createScore(
+    submissionId: string,
+    judgeId: string,
+    criteriaId: string,
+    overrides: any = {}
+  ) {
     return {
       id: `score-${Date.now()}`,
       submissionId,
