@@ -36,6 +36,7 @@ export interface Team {
   };
   _count?: {
     members: number;
+    submissions?: number;
   };
 }
 

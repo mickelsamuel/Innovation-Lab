@@ -92,7 +92,7 @@ export default function HackathonSubmissionsPage() {
   // Sort by rank (if available), then score, then submission date
   const sortedSubmissions = [...filteredSubmissions].sort((a, b) => {
     if (a.rank && b.rank) return a.rank - b.rank;
-    if (a.scoreAggregate !== null && b.scoreAggregate !== null) {
+    if (a.scoreAggregate != null && b.scoreAggregate != null) {
       return b.scoreAggregate - a.scoreAggregate;
     }
     if (a.submittedAt && b.submittedAt) {

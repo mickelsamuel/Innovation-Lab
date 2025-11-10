@@ -51,11 +51,11 @@ export default function PublicUserProfilePage() {
       setError(null);
 
       // Fetch user by handle
-      const userData = await apiFetch(`/users/handle/${handle}`);
+      const userData = await apiFetch<UserProfile>(`/users/handle/${handle}`);
 
       // Fetch gamification profile
       try {
-        const gamification = await apiFetch(`/gamification/profile/${userData.id}`);
+        const gamification = await apiFetch<any>(`/gamification/profile/${userData.id}`);
         userData.gamificationProfile = gamification;
       } catch (err) {
         console.log('Could not fetch gamification profile');
@@ -63,7 +63,7 @@ export default function PublicUserProfilePage() {
 
       // Fetch user badges
       try {
-        const badges = await apiFetch(`/gamification/badges/user/${userData.id}`);
+        const badges = await apiFetch<any[]>(`/gamification/badges/user/${userData.id}`);
         userData.badges = badges;
       } catch (err) {
         console.log('Could not fetch badges');

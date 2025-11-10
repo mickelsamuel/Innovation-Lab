@@ -432,7 +432,7 @@ export default function ScoreSubmissionPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               {submission.hackathon.criteria
-                ?.sort((a, b) => a.order - b.order)
+                ?.sort((a, b) => (a.order || 0) - (b.order || 0))
                 .map(criterion => {
                   const score = scores[criterion.id];
                   const currentValue = score?.value || 0;
@@ -458,7 +458,7 @@ export default function ScoreSubmissionPage() {
                           <p className="text-sm text-slate-600 mb-2">{criterion.description}</p>
                           <p className="text-xs text-slate-500">
                             Max Score: {criterion.maxScore} | Weight:{' '}
-                            {(criterion.weight * 100).toFixed(0)}%
+                            {((criterion.weight || 0) * 100).toFixed(0)}%
                           </p>
                         </div>
                       </div>

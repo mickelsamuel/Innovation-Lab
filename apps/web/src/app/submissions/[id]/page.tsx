@@ -367,7 +367,7 @@ export default function SubmissionDetailPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 {submission.hackathon.criteria
-                  ?.sort((a, b) => a.order - b.order)
+                  ?.sort((a, b) => (a.order || 0) - (b.order || 0))
                   .map(criterion => {
                     const criterionScores = scoresByCriterion[criterion.id] || [];
                     const avgScore = criterionAverages[criterion.id] || 0;
@@ -383,7 +383,7 @@ export default function SubmissionDetailPage() {
                               </h3>
                               <p className="text-sm text-slate-600">{criterion.description}</p>
                               <p className="text-xs text-slate-500 mt-1">
-                                Weight: {(criterion.weight * 100).toFixed(0)}% • Max Score:{' '}
+                                Weight: {((criterion.weight || 0) * 100).toFixed(0)}% • Max Score:{' '}
                                 {criterion.maxScore}
                               </p>
                             </div>
@@ -503,7 +503,7 @@ export default function SubmissionDetailPage() {
 
           {/* Danger Zone - Only for Team Members */}
           {submission.team &&
-            submission.team.members?.some(m => m.userId === session?.user?.id) && (
+            submission.team.members?.some(m => m.user.id === session?.user?.id) && (
               <Card className="border-red-200 bg-red-50/30">
                 <CardHeader>
                   <CardTitle className="text-red-900">Danger Zone</CardTitle>

@@ -47,7 +47,7 @@ export default function SecuritySettingsPage() {
         return;
       }
 
-      const user = await apiFetch('/auth/me', { token });
+      const user = await apiFetch<{ totpEnabled?: boolean }>('/auth/me', { token });
       setIs2FAEnabled(user.totpEnabled || false);
     } catch (err) {
       console.error('Error fetching user status:', err);
@@ -59,7 +59,7 @@ export default function SecuritySettingsPage() {
       const token = getAuthToken();
       if (!token) return;
 
-      const response = await apiFetch('/auth/2fa/setup', {
+      const response = await apiFetch<{ secret: string; qrCode: string }>('/auth/2fa/setup', {
         method: 'POST',
         token,
       });
@@ -86,7 +86,7 @@ export default function SecuritySettingsPage() {
       const token = getAuthToken();
       if (!token) return;
 
-      const response = await apiFetch('/auth/2fa/enable', {
+      const response = await apiFetch<{ success: boolean; message?: string }>('/auth/2fa/enable', {
         method: 'POST',
         body: JSON.stringify({ secret, token: totpToken }),
         token,

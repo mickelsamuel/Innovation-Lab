@@ -2,19 +2,19 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FileUpload } from './file-upload';
+import { FileType } from '@/lib/files';
 
 // Mock file operations
-vi.mock('@/lib/files', () => ({
-  uploadFile: vi.fn(),
-  formatFileSize: vi.fn(size => `${size} bytes`),
-  validateFileSize: vi.fn(() => true),
-  validateFileType: vi.fn(() => true),
-  FileType: {
-    DOCUMENT: 'DOCUMENT',
-    IMAGE: 'IMAGE',
-    VIDEO: 'VIDEO',
-  },
-}));
+vi.mock('@/lib/files', async () => {
+  const actual = await vi.importActual('@/lib/files');
+  return {
+    ...actual,
+    uploadFile: vi.fn(),
+    formatFileSize: vi.fn(size => `${size} bytes`),
+    validateFileSize: vi.fn(() => true),
+    validateFileType: vi.fn(() => true),
+  };
+});
 
 vi.mock('@/lib/api', () => ({
   getAuthToken: vi.fn(() => 'fake-token'),
@@ -31,7 +31,7 @@ describe('FileUpload', () => {
       url: 'https://example.com/test.jpg',
       size: 1024,
       mimetype: 'image/jpeg',
-      type: 'IMAGE',
+      type: FileType.IMAGE,
       key: 'key-123',
       uploadedAt: '2024-01-01T00:00:00Z',
     });

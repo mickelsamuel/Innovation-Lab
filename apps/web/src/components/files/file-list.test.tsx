@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { FileList } from './file-list';
-import type { FileUploadResponse } from '@/lib/files';
+import { FileType, type FileUploadResponse } from '@/lib/files';
 
 const mockFiles: FileUploadResponse[] = [
   {
@@ -11,7 +11,7 @@ const mockFiles: FileUploadResponse[] = [
     url: 'https://example.com/test-file.pdf',
     size: 1024,
     mimetype: 'application/pdf',
-    type: 'DOCUMENT',
+    type: FileType.DOCUMENT,
     key: 'file-key-1',
     uploadedAt: '2024-01-01T00:00:00Z',
   },
@@ -21,7 +21,7 @@ const mockFiles: FileUploadResponse[] = [
     url: 'https://example.com/test-image.jpg',
     size: 2048,
     mimetype: 'image/jpeg',
-    type: 'IMAGE',
+    type: FileType.IMAGE,
     key: 'file-key-2',
     uploadedAt: '2024-01-01T00:00:00Z',
   },
@@ -31,7 +31,7 @@ const mockFiles: FileUploadResponse[] = [
     url: 'https://example.com/test-video.mp4',
     size: 5120,
     mimetype: 'video/mp4',
-    type: 'VIDEO',
+    type: FileType.VIDEO,
     key: 'file-key-3',
     uploadedAt: '2024-01-01T00:00:00Z',
   },
@@ -201,7 +201,7 @@ describe('FileList', () => {
         url: 'https://example.com/image.jpg',
         size: 1024,
         mimetype: 'image/jpeg',
-        type: 'IMAGE' as const,
+        type: FileType.IMAGE,
         key: 'key-1',
         uploadedAt: '2024-01-01T00:00:00Z',
       },
@@ -227,7 +227,7 @@ describe('FileList', () => {
         url: 'https://example.com/video.mp4',
         size: 5120,
         mimetype: 'video/mp4',
-        type: 'VIDEO' as const,
+        type: FileType.VIDEO,
         key: 'key-1',
         uploadedAt: '2024-01-01T00:00:00Z',
       },
