@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Trophy, Mail, Lock, User, Users, Target } from 'lucide-react';
+import { ArrowLeft, Trophy, Mail, Lock, User } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 

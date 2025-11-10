@@ -39,7 +39,7 @@ import {
 import { getInitials } from '@/lib/utils';
 
 export default function ChallengeDetailPage() {
-  const router = useRouter();
+  const _router = useRouter();
   const params = useParams();
   const slug = params.slug as string;
   const { data: session } = useSession();
@@ -151,7 +151,7 @@ export default function ChallengeDetailPage() {
   }
 
   const canSubmit = isAcceptingSubmissions(challenge);
-  const isOwner = session?.user?.id === challenge.ownerId;
+  const _isOwner = session?.user?.id === challenge.ownerId;
   const userSubmission = submissions.find((s) => s.userId === session?.user?.id);
 
   return (

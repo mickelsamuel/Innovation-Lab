@@ -49,7 +49,6 @@ export default function EditHackathonPage() {
     formState: { errors },
     control,
     watch,
-    setValue,
     reset,
   } = useForm<CreateHackathonInput>({
     resolver: zodResolver(createHackathonSchema),

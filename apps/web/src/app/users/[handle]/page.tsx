@@ -10,17 +10,17 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { apiFetch } from '@/lib/api';
 import { getInitials } from '@/lib/utils';
 import {
-  User,
+  
   Trophy,
-  Star,
+  
   Award,
   Users,
   FileText,
   Building2,
-  Mail,
+  
   Calendar,
   ArrowLeft,
-  ExternalLink,
+  
 } from 'lucide-react';
 
 interface UserProfile {

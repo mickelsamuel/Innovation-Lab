@@ -224,7 +224,7 @@ import { useWebSocket } from '@/providers/websocket-provider';
 
 export function JudgeDashboard({ hackathonId }: { hackathonId: string }) {
   const { socket, joinHackathon } = useWebSocket();
-  const [newSubmissions, setNewSubmissions] = useState<any[]>([]);
+  const [_newSubmissions, setNewSubmissions] = useState<any[]>([]);
 
   useEffect(() => {
     if (socket && hackathonId) {

@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -84,7 +83,7 @@ interface Submission {
   };
 }
 
-function getXPForNextLevel(currentLevel: number): number {
+function _getXPForNextLevel(currentLevel: number): number {
   return currentLevel * 100;
 }
 

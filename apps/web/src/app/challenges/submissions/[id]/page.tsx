@@ -28,7 +28,7 @@ import { getSubmissionStatusVariant } from '@/lib/challenges';
 import { cn } from '@/lib/utils';
 
 export default function SubmissionDetailPage() {
-  const router = useRouter();
+  const _router = useRouter();
   const params = useParams();
   const id = params.id as string;
 

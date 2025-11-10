@@ -162,7 +162,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       // For credentials, check email verification
-      const dbUser = await prisma.user.findUnique({
+      const _dbUser = await prisma.user.findUnique({
         where: { id: user.id },
         select: { emailVerified: true },
       });

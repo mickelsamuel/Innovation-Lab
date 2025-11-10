@@ -17,9 +17,9 @@ export default function HackathonMentorsPage() {
 
   const [mentors, setMentors] = useState<Mentor[]>([]);
   const [sessions, setSessions] = useState<MentorSession[]>([]);
-  const [hackathonId, setHackathonId] = useState<string>('');
+  const [_hackathonId, setHackathonId] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchData();

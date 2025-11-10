@@ -17,7 +17,7 @@ export default function MentorDashboardPage() {
   const [assignments, setAssignments] = useState<MentorAssignment[]>([]);
   const [selectedMentorId, setSelectedMentorId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [_error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const token = getAuthToken();

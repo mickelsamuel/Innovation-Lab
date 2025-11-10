@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { getHackathonBySlug } from '@/lib/hackathons';
 import { getUserTeams } from '@/lib/teams';
 import { createSubmission, updateSubmission, getSubmissions } from '@/lib/submissions';
@@ -48,7 +47,7 @@ export default function SubmitProjectPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-  const [uploadedFiles, setUploadedFiles] = useState<FileUploadResponse[]>([]);
+  const [_uploadedFiles, _setUploadedFiles] = useState<FileUploadResponse[]>([]);
 
   const {
     register,
@@ -126,7 +125,7 @@ export default function SubmitProjectPage() {
     }
   }
 
-  async function onSubmit(data: CreateSubmissionInput, isDraft: boolean = true) {
+  async function onSubmit(data: CreateSubmissionInput, _isDraft: boolean = true) {
     try {
       setIsSubmitting(true);
       setError(null);

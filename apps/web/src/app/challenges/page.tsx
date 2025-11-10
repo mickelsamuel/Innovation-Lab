@@ -18,7 +18,7 @@ import type { Challenge, ChallengeStatus } from '@/types/challenge';
 import {
   Search,
   Trophy,
-  Clock,
+  
   Users,
   Code,
   Tag,
@@ -29,7 +29,7 @@ import {
   Flame,
   Swords,
   Skull,
-  Zap,
+  
 } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
 

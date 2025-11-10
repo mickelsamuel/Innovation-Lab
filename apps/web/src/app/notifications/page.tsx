@@ -20,7 +20,6 @@ import {
   type NotificationPreferences,
 } from '@/lib/notifications';
 import { formatDistanceToNow } from 'date-fns';
-import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 export default function NotificationsPage() {

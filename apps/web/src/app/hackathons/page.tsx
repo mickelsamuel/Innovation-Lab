@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { HackathonCard } from '@/components/hackathons/hackathon-card';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { getHackathons } from '@/lib/hackathons';

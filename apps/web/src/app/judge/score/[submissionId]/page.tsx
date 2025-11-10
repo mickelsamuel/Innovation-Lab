@@ -43,7 +43,7 @@ export default function ScoreSubmissionPage() {
   const submissionId = params.submissionId as string;
 
   const [submission, setSubmission] = useState<Submission | null>(null);
-  const [existingScores, setExistingScores] = useState<Score[]>([]);
+  const [_existingScores, setExistingScores] = useState<Score[]>([]);
   const [scores, setScores] = useState<Record<string, CriterionScore>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);

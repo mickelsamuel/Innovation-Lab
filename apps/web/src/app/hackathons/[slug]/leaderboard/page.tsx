@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button';
 import {
   Trophy,
   Medal,
-  Award,
+  
   Crown,
   Star,
   TrendingUp,

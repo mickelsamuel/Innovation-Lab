@@ -13,7 +13,7 @@ import { getTeams } from '@/lib/teams';
 import { getHackathonBySlug } from '@/lib/hackathons';
 import type { Team } from '@/types/team';
 import type { Hackathon } from '@/types/hackathon';
-import { Search, Filter, Users, UserPlus, ArrowLeft, Plus } from 'lucide-react';
+import { Search,  Users, UserPlus, ArrowLeft, Plus } from 'lucide-react';
 import { getAuthToken } from '@/lib/api';
 
 export default function HackathonTeamsPage() {

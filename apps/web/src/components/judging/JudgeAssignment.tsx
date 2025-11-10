@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
-import { assignJudge, removeJudge, getJudges } from '@/lib/judging';
+import { assignJudge, removeJudge } from '@/lib/judging';
 import { getAuthToken } from '@/lib/api';
 
 interface User {

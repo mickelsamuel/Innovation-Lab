@@ -11,7 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/toast';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { getHackathonById, calculateRankings, announceWinners, createAnnouncement, getAnnouncements, deleteAnnouncement } from '@/lib/hackathons';
+import { getHackathonById, calculateRankings, createAnnouncement, getAnnouncements, deleteAnnouncement } from '@/lib/hackathons';
 import { getAuthToken } from '@/lib/api';
 import type { Hackathon } from '@/types/hackathon';
 import {
@@ -27,9 +27,6 @@ import {
   Loader2,
   FileText,
   CheckCircle2,
-  Plus,
-  X,
-  AlertCircle,
   Trash2,
   GraduationCap,
 } from 'lucide-react';
@@ -44,11 +41,6 @@ export default function ManageHackathonPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('overview');
   const [isCalculating, setIsCalculating] = useState(false);
-  const [isAnnouncing, setIsAnnouncing] = useState(false);
-
-  // Judge/Mentor management
-  const [judgeEmail, setJudgeEmail] = useState('');
-  const [mentorEmail, setMentorEmail] = useState('');
 
   // Announcement
   const [announcementTitle, setAnnouncementTitle] = useState('');
@@ -108,42 +100,6 @@ export default function ManageHackathonPage() {
   async function handleAnnounceWinners() {
     // Navigate to winner selection page
     router.push(`/admin/hackathons/${hackathonId}/winners`);
-  }
-
-  async function handleAddJudge() {
-    if (!judgeEmail) {
-      addToast({
-        type: 'error',
-        title: 'Email required',
-        description: 'Please enter a judge email address.',
-      });
-      return;
-    }
-
-    addToast({
-      type: 'info',
-      title: 'Feature Coming Soon',
-      description: 'Judge assignment will be implemented with user search functionality.',
-    });
-    setJudgeEmail('');
-  }
-
-  async function handleAddMentor() {
-    if (!mentorEmail) {
-      addToast({
-        type: 'error',
-        title: 'Email required',
-        description: 'Please enter a mentor email address.',
-      });
-      return;
-    }
-
-    addToast({
-      type: 'info',
-      title: 'Feature Coming Soon',
-      description: 'Mentor assignment will be implemented with user search functionality.',
-    });
-    setMentorEmail('');
   }
 
   async function fetchAnnouncements() {
@@ -401,21 +357,12 @@ export default function ManageHackathonPage() {
 
                   <Button
                     onClick={handleAnnounceWinners}
-                    disabled={isAnnouncing || hackathon.status !== 'JUDGING'}
+                    disabled={hackathon.status !== 'JUDGING'}
                     variant="outline"
                     className="w-full"
                   >
-                    {isAnnouncing ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Announcing...
-                      </>
-                    ) : (
-                      <>
-                        <Trophy className="w-4 h-4 mr-2" />
-                        Announce Winners
-                      </>
-                    )}
+                    <Trophy className="w-4 h-4 mr-2" />
+                    Announce Winners
                   </Button>
 
                   <Link href={`/hackathons/${hackathon.slug}`} className="block">

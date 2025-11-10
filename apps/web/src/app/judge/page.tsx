@@ -10,7 +10,7 @@ import { getJudgeAssignments } from '@/lib/judging';
 import { getAuthToken } from '@/lib/api';
 import type { JudgeAssignment } from '@/types/judging';
 import {
-  Trophy,
+  
   Users,
   Star,
   ArrowRight,

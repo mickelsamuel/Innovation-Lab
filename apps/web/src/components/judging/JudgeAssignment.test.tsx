@@ -94,7 +94,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should search for judges', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     const mockSearchResults = [
       {
         id: 'user-3',
@@ -126,7 +126,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should filter out already assigned judges from search results', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     const mockSearchResults = [
       mockJudges[0].user,
       {
@@ -159,7 +159,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should assign a judge successfully', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (assignJudge as any).mockResolvedValue({ success: true });
     (global.fetch as any).mockResolvedValue({
       ok: true,
@@ -197,7 +197,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should show loading state while assigning', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (assignJudge as any).mockImplementation(
       () => new Promise((resolve) => setTimeout(resolve, 1000))
     );
@@ -236,7 +236,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should remove a judge without scores', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (removeJudge as any).mockResolvedValue({ success: true });
 
     render(<JudgeAssignment {...defaultProps} />);
@@ -251,7 +251,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should not remove a judge with scores', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
 
     render(<JudgeAssignment {...defaultProps} />);
 
@@ -266,7 +266,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should show error when search fails', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (global.fetch as any).mockRejectedValue(new Error('Network error'));
 
     render(<JudgeAssignment {...defaultProps} />);
@@ -292,7 +292,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should show error when search query is empty', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
 
     render(<JudgeAssignment {...defaultProps} />);
 
@@ -303,7 +303,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should search on Enter key press', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (global.fetch as any).mockResolvedValue({
       ok: true,
       json: async () => [],
@@ -320,7 +320,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should show confirmation dialog before removing judge', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (global.confirm as any).mockReturnValue(false);
     (removeJudge as any).mockResolvedValue({ success: true });
 
@@ -334,7 +334,7 @@ describe('JudgeAssignment', () => {
   });
 
   it('should handle authentication error', async () => {
-    const user = userEvent.setup();
+    const _user = userEvent.setup();
     (getAuthToken as any).mockReturnValue(null);
     (global.fetch as any).mockResolvedValue({
       ok: true,

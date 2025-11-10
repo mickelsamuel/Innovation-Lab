@@ -2,9 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { getAllBadges } from '@/lib/gamification';
 import type { Badge as BadgeType } from '@/types/gamification';
 import { Award, Trophy, Star, Crown, ArrowLeft, Sparkles } from 'lucide-react';

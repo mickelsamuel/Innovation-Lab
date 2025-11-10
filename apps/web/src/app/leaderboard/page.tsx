@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -24,7 +23,7 @@ import {
   Crown,
   Star,
   Users,
-  Sparkles,
+  
   Flame,
 } from 'lucide-react';
 import { getInitials } from '@/lib/utils';

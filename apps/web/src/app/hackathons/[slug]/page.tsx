@@ -20,9 +20,9 @@ import {
   ExternalLink,
   Target,
   Award,
-  ChevronRight,
+  
   ArrowLeft,
-  CircleDollarSign,
+  
   UserPlus,
   FileText,
   Megaphone,
@@ -66,7 +66,7 @@ export default function HackathonDetailPage() {
   const { toast } = useToast();
 
   const [hackathon, setHackathon] = useState<Hackathon | null>(null);
-  const [stats, setStats] = useState<any>(null);
+  const [_stats, setStats] = useState<any>(null);
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

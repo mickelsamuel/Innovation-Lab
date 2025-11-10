@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { useForm, useFieldArray } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,20 +11,16 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/toast';
-import { FileUpload } from '@/components/files/file-upload';
 import { createHackathon } from '@/lib/hackathons';
 import { getAuthToken } from '@/lib/api';
 import { createHackathonSchema, type CreateHackathonInput } from '@/lib/validations/hackathon';
 import { HackathonStatus, HackathonLocation } from '@/types/hackathon';
-import { FileType } from '@/lib/files';
 import {
   ArrowLeft,
   Calendar,
   MapPin,
   Users,
   Trophy,
-  Plus,
-  X,
   Loader2,
   Save,
   Image as ImageIcon,
@@ -43,9 +39,7 @@ export default function CreateHackathonPage() {
     register,
     handleSubmit,
     formState: { errors },
-    control,
     watch,
-    setValue,
   } = useForm<CreateHackathonInput>({
     resolver: zodResolver(createHackathonSchema),
     defaultValues: {
@@ -59,16 +53,6 @@ export default function CreateHackathonPage() {
       tracks: [],
       criteria: [],
     },
-  });
-
-  const { fields: trackFields, append: appendTrack, remove: removeTrack } = useFieldArray({
-    control,
-    name: 'tracks',
-  });
-
-  const { fields: criteriaFields, append: appendCriterion, remove: removeCriterion } = useFieldArray({
-    control,
-    name: 'criteria',
   });
 
   const location = watch('location');

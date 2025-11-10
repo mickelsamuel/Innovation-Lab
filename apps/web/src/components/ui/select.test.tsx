@@ -57,7 +57,7 @@ describe('Select Components', () => {
   });
 
   it('should handle controlled value', () => {
-    const { container } = render(
+    const { container: _container } = render(
       <Select value="option2">
         <SelectTrigger>
           <SelectValue />
@@ -74,7 +74,7 @@ describe('Select Components', () => {
   });
 
   it('should handle default value', () => {
-    const { container } = render(
+    const { container: _container } = render(
       <Select defaultValue="default">
         <SelectTrigger>
           <SelectValue />
@@ -149,7 +149,7 @@ describe('Select Components', () => {
 
   it('should render separator with custom className', async () => {
     const user = userEvent.setup();
-    const { container } = render(
+    const { container: _container } = render(
       <Select>
         <SelectTrigger>
           <SelectValue placeholder="Choose" />

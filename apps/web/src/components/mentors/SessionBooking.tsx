@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/components/ui/use-toast';
-import { Calendar, Clock, Users, Video } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { createMentorSession } from '@/lib/mentors';
 import { getAuthToken } from '@/lib/api';
 

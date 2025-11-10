@@ -4,7 +4,7 @@ import { Avatar } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Calendar, ExternalLink, Users } from 'lucide-react';
+import { Calendar, ExternalLink } from 'lucide-react';
 import type { Mentor } from '@/lib/mentors';
 
 interface MentorCardProps {
