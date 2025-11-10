@@ -22,14 +22,12 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { formatDeadline, getStatusVariant } from '@/lib/challenges';
-import { cn } from '@/lib/utils';
 
 export default function ChallengeManagementPage() {
   const router = useRouter();
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [userId, setUserId] = useState<string>('');
 
   useEffect(() => {
     const fetchChallenges = async () => {
@@ -42,13 +40,12 @@ export default function ChallengeManagementPage() {
 
         // Decode token to get user ID
         const payload = JSON.parse(atob(token.split('.')[1]));
-        setUserId(payload.id);
 
         // Fetch user's challenges
         const data = await getChallenges({ ownerId: payload.id });
         setChallenges(data);
-      } catch (err: any) {
-        setError(err.message || 'Failed to load challenges');
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to load challenges');
       } finally {
         setIsLoading(false);
       }

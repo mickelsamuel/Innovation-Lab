@@ -32,7 +32,7 @@ export default function CreateChallengePage() {
       }
 
       // Create the challenge
-      const challenge = await createChallenge(data, token);
+      await createChallenge(data, token);
 
       addToast({
         type: 'success',
@@ -42,12 +42,12 @@ export default function CreateChallengePage() {
 
       // Redirect to the challenge page or management dashboard
       router.push(`/admin/challenges`);
-    } catch (error: any) {
+    } catch (error) {
       console.error('Create challenge error:', error);
       addToast({
         type: 'error',
         title: 'Error',
-        description: error.message || 'Failed to create challenge',
+        description: error instanceof Error ? error.message : 'Failed to create challenge',
       });
     } finally {
       setIsLoading(false);

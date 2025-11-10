@@ -24,7 +24,6 @@ import {
   multiSeriesColors,
   lineChartConfig,
   barChartConfig,
-  areaChartConfig,
   TimeRange,
 } from '@/lib/analytics';
 

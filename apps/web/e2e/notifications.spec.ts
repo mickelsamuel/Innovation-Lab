@@ -97,7 +97,7 @@ test.describe('Notifications Flow', () => {
         const newCount = await newBadge.textContent().catch(() => '0');
 
         // Either count decreased or badge is no longer visible
-        expect(parseInt(newCount) <= parseInt(initialCount)).toBeTruthy();
+        expect(parseInt(newCount || '0') <= parseInt(initialCount || '0')).toBeTruthy();
       }
     });
 
@@ -342,7 +342,7 @@ test.describe('Notifications Flow', () => {
       const newCount = await badge.textContent().catch(() => '0');
 
       // Count should be same or increased (not decreased without user action)
-      expect(parseInt(newCount) >= parseInt(initialCount)).toBeTruthy();
+      expect(parseInt(newCount || '0') >= parseInt(initialCount || '0')).toBeTruthy();
     });
   });
 

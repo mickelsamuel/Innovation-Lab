@@ -23,12 +23,20 @@ import {
   Trash2,
 } from 'lucide-react';
 
+interface LeaderboardUser {
+  id: string;
+  name: string;
+  handle: string;
+  level: number;
+  xp: number;
+}
+
 interface Badge {
   id: string;
   name: string;
   description: string;
   imageUrl: string | null;
-  criteria: any;
+  criteria: Record<string, unknown>;
   createdAt: string;
 }
 
@@ -52,7 +60,6 @@ export default function AdminGamificationPage() {
   const [badges, setBadges] = useState<Badge[]>([]);
   const [stats, setStats] = useState<XPStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   // Badge creation state
   const [showCreateBadge, setShowCreateBadge] = useState(false);
@@ -70,7 +77,6 @@ export default function AdminGamificationPage() {
   async function fetchData() {
     try {
       setIsLoading(true);
-      setError(null);
 
       const token = getAuthToken();
       if (!token) {
@@ -79,15 +85,15 @@ export default function AdminGamificationPage() {
       }
 
       // Fetch badges
-      const badgesData = await apiFetch('/gamification/badges', { token });
+      const badgesData = await apiFetch('/gamification/badges', { token }) as Badge[];
       setBadges(badgesData);
 
       // Fetch gamification stats (using leaderboard as proxy)
       try {
-        const leaderboard = await apiFetch('/gamification/leaderboard?limit=10', { token });
+        const leaderboard = await apiFetch('/gamification/leaderboard?limit=10', { token }) as LeaderboardUser[];
 
-        const totalXP = leaderboard.reduce((sum: number, user: any) => sum + user.xp, 0);
-        const avgLevel = leaderboard.reduce((sum: number, user: any) => sum + user.level, 0) / leaderboard.length;
+        const totalXP = leaderboard.reduce((sum, user) => sum + user.xp, 0);
+        const avgLevel = leaderboard.reduce((sum, user) => sum + user.level, 0) / leaderboard.length;
 
         setStats({
           totalXPAwarded: totalXP,
@@ -98,9 +104,13 @@ export default function AdminGamificationPage() {
       } catch (err) {
         console.log('Could not fetch gamification stats');
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching gamification data:', err);
-      setError(err.message || 'Failed to load gamification data');
+      toast({
+        title: 'Error',
+        description: err instanceof Error ? err.message : 'Failed to load gamification data',
+        variant: 'destructive',
+      });
     } finally {
       setIsLoading(false);
     }

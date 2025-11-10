@@ -3,12 +3,10 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { getAuthToken, apiFetch } from '@/lib/api';
-import { getInitials } from '@/lib/utils';
 import {
   Activity,
   Trophy,
@@ -18,10 +16,17 @@ import {
   Award,
   UserPlus,
   Star,
-  Calendar,
   ArrowLeft,
-  Filter,
 } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
+
+interface ActivityMetadata {
+  hackathonName?: string;
+  teamName?: string;
+  challengeName?: string;
+  level?: number;
+  streak?: number;
+}
 
 interface ActivityEvent {
   id: string;
@@ -30,10 +35,18 @@ interface ActivityEvent {
   description: string;
   points?: number;
   createdAt: string;
-  metadata?: any;
+  metadata?: ActivityMetadata;
 }
 
-const activityIcons: Record<string, any> = {
+interface XPEvent {
+  id: string;
+  eventType: string;
+  points: number;
+  createdAt: string;
+  metadata?: ActivityMetadata;
+}
+
+const activityIcons: Record<string, LucideIcon> = {
   SIGNUP: UserPlus,
   JOIN_HACKATHON: Trophy,
   CREATE_TEAM: Users,
@@ -112,11 +125,11 @@ export default function ActivityFeedPage() {
       }
 
       // Fetch XP events which represent user activity
-      const user = await apiFetch('/auth/me', { token });
+      const user = await apiFetch('/auth/me', { token }) as { id: string };
       const xpEvents = await apiFetch(`/gamification/xp-events/${user.id}`, { token });
 
       // Transform XP events into activity feed format
-      const activityEvents: ActivityEvent[] = xpEvents.map((event: any) => ({
+      const activityEvents: ActivityEvent[] = (xpEvents as XPEvent[]).map((event) => ({
         id: event.id,
         type: event.eventType,
         title: getActivityTitle(event.eventType),
@@ -127,9 +140,9 @@ export default function ActivityFeedPage() {
       }));
 
       setActivities(activityEvents);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Error fetching activity:', err);
-      setError(err.message || 'Failed to load activity feed');
+      setError(err instanceof Error ? err.message : 'Failed to load activity feed');
     } finally {
       setIsLoading(false);
     }
@@ -151,7 +164,7 @@ export default function ActivityFeedPage() {
     return titles[type] || 'Activity';
   }
 
-  function getActivityDescription(type: string, metadata?: any): string {
+  function getActivityDescription(type: string, metadata?: ActivityMetadata): string {
     if (type === 'SIGNUP') return 'Welcome to the Innovation Lab community!';
     if (type === 'JOIN_HACKATHON' && metadata?.hackathonName) return `Registered for ${metadata.hackathonName}`;
     if (type === 'CREATE_TEAM' && metadata?.teamName) return `Created team "${metadata.teamName}"`;

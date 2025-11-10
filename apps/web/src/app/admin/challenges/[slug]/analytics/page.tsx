@@ -3,10 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import {
-  LineChart,
-  Line,
-  BarChart,
-  Bar,
   AreaChart,
   Area,
   XAxis,
@@ -15,17 +11,10 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
 } from 'recharts';
 import { KPICard, ExportButton } from '@/components/analytics';
 import {
   chartColors,
-  lineChartConfig,
-  barChartConfig,
   areaChartConfig,
   formatDuration,
 } from '@/lib/analytics';

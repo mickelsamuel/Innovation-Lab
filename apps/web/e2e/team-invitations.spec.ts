@@ -115,7 +115,7 @@ test.describe('Team Invitation Flow', () => {
   });
 
   test.describe('Accept Team Invitation', () => {
-    test('should view pending invitations', async ({ page, context }) => {
+    test('should view pending invitations', async ({ page }) => {
       // Login as team member
       await page.goto('/login');
       await page.fill('input[name="email"]', teamMember.email);

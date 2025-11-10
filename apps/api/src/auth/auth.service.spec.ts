@@ -47,8 +47,8 @@ describe('AuthService', () => {
         {
           provide: ConfigService,
           useValue: {
-            get: jest.fn((key: string, defaultValue?: any) => {
-              const config: Record<string, any> = {
+            get: jest.fn((key: string, defaultValue?: string) => {
+              const config: Record<string, string> = {
                 JWT_SECRET: 'test-secret',
                 JWT_EXPIRY: '15m',
                 JWT_REFRESH_EXPIRY: '7d',
@@ -106,10 +106,53 @@ describe('AuthService', () => {
         ...expectedUser,
         password: 'hashed',
         roles: [Role.PARTICIPANT],
-      } as any);
-      prismaMock.gamificationProfile.create.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        organization: 'Test Org',
+        bio: null,
+        location: null,
+        website: null,
+        github: null,
+        linkedin: null,
+        twitter: null,
+        avatar: null,
+        emailVerified: false,
+        isActive: true,
+        isBanned: false,
+        banReason: null,
+        bannedAt: null,
+        bannedBy: null,
+        lastLoginAt: null,
+        twoFactorEnabled: false,
+        twoFactorSecret: null,
+      });
+      prismaMock.gamificationProfile.create.mockResolvedValue({
+        id: 'profile-1',
+        userId: 'user-1',
+        xp: 50,
+        level: 1,
+        streak: 0,
+        lastActivityDate: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      prismaMock.xpEvent.create.mockResolvedValue({
+        id: 'xp-1',
+        userId: 'user-1',
+        points: 50,
+        eventType: 'SIGNUP',
+        metadata: {},
+        createdAt: new Date(),
+      });
+      prismaMock.auditLog.create.mockResolvedValue({
+        id: 'audit-1',
+        action: 'REGISTER',
+        userId: 'user-1',
+        metadata: {},
+        ipAddress: null,
+        userAgent: null,
+        createdAt: new Date(),
+      });
 
       const result = await service.register(registerDto);
 
@@ -149,7 +192,7 @@ describe('AuthService', () => {
 
     it('should throw ConflictException if email already exists', async () => {
       const existingUser = TestDataFactory.createUser({ email: registerDto.email });
-      prismaMock.user.findUnique.mockResolvedValue(existingUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(existingUser);
 
       await expect(service.register(registerDto)).rejects.toThrow(ConflictException);
 
@@ -160,7 +203,7 @@ describe('AuthService', () => {
       const existingUser = TestDataFactory.createUser({ handle: registerDto.handle });
       prismaMock.user.findUnique
         .mockResolvedValueOnce(null) // Email check passes
-        .mockResolvedValue(existingUser as any); // Handle check fails
+        .mockResolvedValue(existingUser); // Handle check fails
 
       await expect(service.register(registerDto)).rejects.toThrow(ConflictException);
 
@@ -176,10 +219,10 @@ describe('AuthService', () => {
         handle: 'johndoe',
         password: 'hashed-password',
         roles: [Role.PARTICIPANT],
-      } as any);
-      prismaMock.gamificationProfile.create.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      });
+      prismaMock.gamificationProfile.create.mockResolvedValue({});
+      prismaMock.xpEvent.create.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.register(registerDto);
 
@@ -206,10 +249,10 @@ describe('AuthService', () => {
         handle: 'johndoe',
         password: 'hashed',
         roles: [Role.PARTICIPANT],
-      } as any);
-      prismaMock.gamificationProfile.create.mockResolvedValue({} as any);
-      prismaMock.xpEvent.create.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      });
+      prismaMock.gamificationProfile.create.mockResolvedValue({});
+      prismaMock.xpEvent.create.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.register(dtoWithMixedCase);
 
@@ -242,9 +285,9 @@ describe('AuthService', () => {
     };
 
     it('should successfully login a user', async () => {
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       const result = await service.login(loginDto);
 
@@ -282,7 +325,7 @@ describe('AuthService', () => {
     });
 
     it('should throw UnauthorizedException for invalid password', async () => {
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
       const invalidDto = { ...loginDto, password: 'WrongPassword123!' };
@@ -295,7 +338,7 @@ describe('AuthService', () => {
 
     it('should throw UnauthorizedException for banned account', async () => {
       const bannedUser = { ...mockUser, isBanned: true };
-      prismaMock.user.findUnique.mockResolvedValue(bannedUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(bannedUser);
 
       await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
       await expect(service.login(loginDto)).rejects.toThrow('Account has been banned');
@@ -305,7 +348,7 @@ describe('AuthService', () => {
 
     it('should throw UnauthorizedException for inactive account', async () => {
       const inactiveUser = { ...mockUser, isActive: false };
-      prismaMock.user.findUnique.mockResolvedValue(inactiveUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(inactiveUser);
 
       await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
       await expect(service.login(loginDto)).rejects.toThrow('Account is not active');
@@ -315,7 +358,7 @@ describe('AuthService', () => {
 
     it('should throw UnauthorizedException for missing password (OAuth account)', async () => {
       const oauthUser = { ...mockUser, password: null };
-      prismaMock.user.findUnique.mockResolvedValue(oauthUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(oauthUser);
 
       await expect(service.login(loginDto)).rejects.toThrow(UnauthorizedException);
       await expect(service.login(loginDto)).rejects.toThrow('Invalid authentication method');
@@ -325,9 +368,9 @@ describe('AuthService', () => {
 
     it('should handle email case-insensitively', async () => {
       const dtoWithUpperCase = { ...loginDto, email: 'JOHN@TEST.COM' };
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.login(dtoWithUpperCase);
 
@@ -352,7 +395,7 @@ describe('AuthService', () => {
       const mockPayload = { sub: mockUser.id };
 
       (jwtService.verify as jest.Mock).mockReturnValue(mockPayload);
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
 
       const result = await service.refreshToken(refreshToken);
 
@@ -387,7 +430,7 @@ describe('AuthService', () => {
       const bannedUser = { ...mockUser, isBanned: true };
 
       (jwtService.verify as jest.Mock).mockReturnValue(mockPayload);
-      prismaMock.user.findUnique.mockResolvedValue(bannedUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(bannedUser);
 
       await expect(service.refreshToken(refreshToken)).rejects.toThrow(UnauthorizedException);
       await expect(service.refreshToken(refreshToken)).rejects.toThrow('Invalid refresh token');
@@ -399,7 +442,7 @@ describe('AuthService', () => {
       const inactiveUser = { ...mockUser, isActive: false };
 
       (jwtService.verify as jest.Mock).mockReturnValue(mockPayload);
-      prismaMock.user.findUnique.mockResolvedValue(inactiveUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(inactiveUser);
 
       await expect(service.refreshToken(refreshToken)).rejects.toThrow(UnauthorizedException);
       await expect(service.refreshToken(refreshToken)).rejects.toThrow('Invalid refresh token');
@@ -422,13 +465,13 @@ describe('AuthService', () => {
       const userId = 'user-123';
       const mockUser = { email: 'test@example.com' };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
 
       // Mock speakeasy.generateSecret
       jest.spyOn(speakeasy, 'generateSecret').mockReturnValue({
         base32: 'JBSWY3DPEHPK3PXP',
         otpauth_url: 'otpauth://totp/Innovation%20Lab%20(test@example.com)?secret=JBSWY3DPEHPK3PXP&issuer=Innovation%20Lab',
-      } as any);
+      });
 
       const result = await service.setup2FA(userId);
 
@@ -476,8 +519,8 @@ describe('AuthService', () => {
       const userId = 'user-123';
       const secret = 'JBSWY3DPEHPK3PXP';
 
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.enable2FA(userId, secret);
 
@@ -503,8 +546,8 @@ describe('AuthService', () => {
     it('should disable 2FA for user', async () => {
       const userId = 'user-123';
 
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
 
       await service.disable2FA(userId);
 
@@ -535,9 +578,9 @@ describe('AuthService', () => {
         name: 'Test User',
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
       emailService.sendEmail = jest.fn().mockResolvedValue(undefined);
 
       const result = await service.forgotPassword(dto);
@@ -580,9 +623,9 @@ describe('AuthService', () => {
         name: 'Test User',
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
       emailService.sendEmail = jest.fn().mockResolvedValue(undefined);
 
       await service.forgotPassword(dto);
@@ -600,9 +643,9 @@ describe('AuthService', () => {
         name: 'Test User',
       };
 
-      prismaMock.user.findUnique.mockResolvedValue(mockUser as any);
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.findUnique.mockResolvedValue(mockUser);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
       emailService.sendEmail = jest.fn().mockRejectedValue(new Error('SMTP error'));
 
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
@@ -631,11 +674,11 @@ describe('AuthService', () => {
         passwordResetExpires: new Date(Date.now() + 3600000),
       };
 
-      prismaMock.user.findMany.mockResolvedValue([mockUser] as any);
+      prismaMock.user.findMany.mockResolvedValue([mockUser]);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
       (bcrypt.hash as jest.Mock).mockResolvedValue('new-hashed-password');
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
       emailService.sendEmail = jest.fn().mockResolvedValue(undefined);
 
       const result = await service.resetPassword(dto);
@@ -663,7 +706,7 @@ describe('AuthService', () => {
         passwordResetExpires: new Date(Date.now() + 3600000),
       };
 
-      prismaMock.user.findMany.mockResolvedValue([mockUser] as any);
+      prismaMock.user.findMany.mockResolvedValue([mockUser]);
       (bcrypt.compare as jest.Mock).mockResolvedValue(false);
 
       await expect(service.resetPassword(dto)).rejects.toThrow('Invalid or expired password reset token');
@@ -695,11 +738,11 @@ describe('AuthService', () => {
         passwordResetExpires: new Date(Date.now() + 3600000),
       };
 
-      prismaMock.user.findMany.mockResolvedValue([mockUser] as any);
+      prismaMock.user.findMany.mockResolvedValue([mockUser]);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
       (bcrypt.hash as jest.Mock).mockResolvedValue('new-hashed-password');
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
       emailService.sendEmail = jest.fn().mockResolvedValue(undefined);
 
       await service.resetPassword(dto);
@@ -727,11 +770,11 @@ describe('AuthService', () => {
         passwordResetExpires: new Date(Date.now() + 3600000),
       };
 
-      prismaMock.user.findMany.mockResolvedValue([mockUser] as any);
+      prismaMock.user.findMany.mockResolvedValue([mockUser]);
       (bcrypt.compare as jest.Mock).mockResolvedValue(true);
       (bcrypt.hash as jest.Mock).mockResolvedValue('new-hashed-password');
-      prismaMock.user.update.mockResolvedValue({} as any);
-      prismaMock.auditLog.create.mockResolvedValue({} as any);
+      prismaMock.user.update.mockResolvedValue({});
+      prismaMock.auditLog.create.mockResolvedValue({});
       emailService.sendEmail = jest.fn().mockRejectedValue(new Error('Email error'));
 
       const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
