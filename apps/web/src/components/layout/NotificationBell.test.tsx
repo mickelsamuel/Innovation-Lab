@@ -1,6 +1,6 @@
-import { render, screen, waitFor } from '../../../test/utils/custom-render';
+import { render, screen, waitFor, cleanup } from '../../../test/utils/custom-render';
 import { NotificationBell } from './NotificationBell';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import type { Mock } from 'vitest';
 import { getNotifications, markAsRead, markAllAsRead } from '@/lib/notifications';
 import { getAuthToken } from '@/lib/api';
@@ -19,6 +19,24 @@ vi.mock('@/lib/api', () => ({
 
 vi.mock('date-fns', () => ({
   formatDistanceToNow: () => '5 minutes ago',
+}));
+
+// Mock Next.js Link to prevent navigation errors in JSDOM
+vi.mock('next/link', () => ({
+  default: ({ children, href, onClick, ...props }: any) => {
+    return (
+      <a
+        href={href}
+        onClick={(e) => {
+          e.preventDefault();
+          onClick?.(e);
+        }}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  },
 }));
 
 // Type the mocks
@@ -56,6 +74,12 @@ describe('NotificationBell', () => {
       notifications: [],
       unreadCount: 0,
     });
+  });
+
+  afterEach(() => {
+    cleanup();
+    vi.clearAllTimers();
+    vi.useRealTimers();
   });
 
   it('should show loading state initially', () => {
@@ -283,17 +307,19 @@ describe('NotificationBell', () => {
 
     render(<NotificationBell />);
 
-    await vi.runAllTimersAsync();
-    expect(mockGetNotifications).toHaveBeenCalledTimes(1);
+    // Wait for initial fetch
+    await waitFor(() => {
+      expect(mockGetNotifications).toHaveBeenCalledTimes(1);
+    });
 
-    vi.advanceTimersByTime(30000);
-    await vi.runAllTimersAsync();
+    // Advance 30 seconds and check second call
+    await vi.advanceTimersByTimeAsync(30000);
     await waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(2);
     });
 
-    vi.advanceTimersByTime(30000);
-    await vi.runAllTimersAsync();
+    // Advance another 30 seconds and check third call
+    await vi.advanceTimersByTimeAsync(30000);
     await waitFor(() => {
       expect(mockGetNotifications).toHaveBeenCalledTimes(3);
     });
