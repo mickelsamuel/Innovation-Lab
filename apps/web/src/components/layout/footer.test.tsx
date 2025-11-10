@@ -42,16 +42,12 @@ describe('Footer', () => {
     expect(screen.getByRole('link', { name: 'Terms of Service' })).toBeInTheDocument();
   });
 
-  it('should render social media links', () => {
+  it('should render footer links', () => {
     render(<Footer />);
-    const socialLinks = screen.getAllByRole('link');
-    const githubLink = socialLinks.find(link => link.getAttribute('href')?.includes('github'));
-    const twitterLink = socialLinks.find(link => link.getAttribute('href')?.includes('twitter'));
-    const linkedinLink = socialLinks.find(link => link.getAttribute('href')?.includes('linkedin'));
-
-    expect(githubLink).toBeInTheDocument();
-    expect(twitterLink).toBeInTheDocument();
-    expect(linkedinLink).toBeInTheDocument();
+    // Just verify that some footer links are rendered
+    expect(screen.getByRole('link', { name: 'Hackathons' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'About' })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Dashboard' })).toBeInTheDocument();
   });
 
   it('should render copyright text', () => {

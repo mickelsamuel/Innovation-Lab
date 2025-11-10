@@ -22,6 +22,16 @@ import { ForgotPasswordDto, ResetPasswordDto, PasswordResetResponseDto } from '.
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { Throttle } from '@nestjs/throttler';
 
+interface AuthenticatedRequest {
+  user: {
+    id: string;
+    email: string;
+    name: string;
+    handle: string;
+    roles: string[];
+  };
+}
+
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
@@ -102,7 +112,7 @@ export class AuthController {
     },
   })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async getMe(@Request() req: any) {
+  async getMe(@Request() req: AuthenticatedRequest) {
     return req.user;
   }
 
@@ -121,7 +131,7 @@ export class AuthController {
       },
     },
   })
-  async setup2FA(@Request() req: any) {
+  async setup2FA(@Request() req: AuthenticatedRequest) {
     return this.authService.setup2FA(req.user.id);
   }
 
@@ -140,7 +150,7 @@ export class AuthController {
   })
   @ApiResponse({ status: 200, description: '2FA enabled successfully' })
   @ApiResponse({ status: 400, description: 'Invalid token' })
-  async enable2FA(@Request() req: any, @Body() body: { secret: string; token: string }) {
+  async enable2FA(@Request() req: AuthenticatedRequest, @Body() body: { secret: string; token: string }) {
     const isValid = this.authService.verify2FA(body.secret, body.token);
     if (!isValid) {
       return { success: false, message: 'Invalid 2FA token' };
@@ -155,7 +165,7 @@ export class AuthController {
   @ApiBearerAuth('JWT')
   @ApiOperation({ summary: 'Disable 2FA' })
   @ApiResponse({ status: 200, description: '2FA disabled successfully' })
-  async disable2FA(@Request() req: any) {
+  async disable2FA(@Request() req: AuthenticatedRequest) {
     await this.authService.disable2FA(req.user.id);
     return { success: true, message: '2FA disabled successfully' };
   }
@@ -219,7 +229,7 @@ export class AuthController {
   @ApiResponse({ status: 401, description: 'Current password is incorrect' })
   @ApiResponse({ status: 400, description: 'Bad request' })
   async changePassword(
-    @Request() req: any,
+    @Request() req: AuthenticatedRequest,
     @Body() body: { currentPassword: string; newPassword: string },
   ) {
     return this.authService.changePassword(req.user.id, body.currentPassword, body.newPassword);
@@ -242,7 +252,7 @@ export class AuthController {
   @ApiResponse({ status: 200, description: 'Account deleted successfully' })
   @ApiResponse({ status: 401, description: 'Password is incorrect' })
   @ApiResponse({ status: 400, description: 'Bad request' })
-  async deleteAccount(@Request() req: any, @Body() body: { password: string }) {
+  async deleteAccount(@Request() req: AuthenticatedRequest, @Body() body: { password: string }) {
     return this.authService.deleteAccount(req.user.id, body.password);
   }
 }

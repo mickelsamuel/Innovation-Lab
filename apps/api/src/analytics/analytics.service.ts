@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../common/prisma/prisma.service';
+import { Decimal } from '@prisma/client/runtime/library';
 import {
   AnalyticsFilterDto,
   TimeRange,
@@ -856,7 +857,13 @@ export class AnalyticsService {
       .sort((a, b) => b.count - a.count);
   }
 
-  private getScoreDistribution(teams: any[]): Array<{ range: string; count: number }> {
+  private getScoreDistribution(
+    teams: Array<{
+      submissions: Array<{
+        scoreAggregate: Decimal | null;
+      }>;
+    }>,
+  ): Array<{ range: string; count: number }> {
     const ranges = [
       { min: 0, max: 20, label: '0-20' },
       { min: 20, max: 40, label: '20-40' },

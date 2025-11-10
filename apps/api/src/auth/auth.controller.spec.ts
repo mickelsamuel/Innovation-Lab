@@ -48,7 +48,8 @@ describe('AuthController', () => {
         password: 'password123',
         name: 'Test User',
         handle: 'testuser',
-      } as any;
+        acceptTerms: true,
+      };
       const response = {
         user: { id: 'user-1', email: 'test@example.com' },
         accessToken: 'token',
@@ -68,7 +69,7 @@ describe('AuthController', () => {
       const loginDto = {
         email: 'test@example.com',
         password: 'password123',
-      } as any;
+      };
       const response = {
         user: { id: 'user-1', email: 'test@example.com' },
         accessToken: 'token',
@@ -168,7 +169,7 @@ describe('AuthController', () => {
 
   describe('forgotPassword', () => {
     it('should send password reset email', async () => {
-      const dto = { email: 'test@example.com' } as any;
+      const dto = { email: 'test@example.com' };
       const response = {
         success: true,
         message: 'If the email exists, a reset link has been sent',
@@ -186,8 +187,8 @@ describe('AuthController', () => {
     it('should reset password with valid token', async () => {
       const dto = {
         token: 'reset-token',
-        password: 'newPassword123',
-      } as any;
+        newPassword: 'newPassword123',
+      };
       const response = {
         success: true,
         message: 'Password reset successfully',
