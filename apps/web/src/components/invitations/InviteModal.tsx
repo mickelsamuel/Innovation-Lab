@@ -119,7 +119,7 @@ export function InviteModal({ isOpen, onClose, teamId, teamName, onSuccess }: In
               <Label>Invite By</Label>
               <Select
                 value={inviteType}
-                onValueChange={(value: 'email' | 'userId') => setInviteType(value)}
+                onValueChange={value => setInviteType(value as 'email' | 'userId')}
               >
                 <SelectTrigger>
                   <SelectValue placeholder="Select invite method" />
@@ -159,7 +159,7 @@ export function InviteModal({ isOpen, onClose, teamId, teamName, onSuccess }: In
 
             <div className="space-y-2">
               <Label htmlFor="role">Role</Label>
-              <Select value={role} onValueChange={(value: 'MEMBER' | 'LEAD') => setRole(value)}>
+              <Select value={role} onValueChange={value => setRole(value as 'MEMBER' | 'LEAD')}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select role" />
                 </SelectTrigger>

@@ -33,13 +33,13 @@ interface RequestOptions extends RequestInit {
 export async function apiFetch<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
   const { token, headers: customHeaders, ...fetchOptions } = options;
 
-  const headers: Record<string, string> = {
+  const headers: HeadersInit = {
     'Content-Type': 'application/json',
-    ...customHeaders,
+    ...(customHeaders as Record<string, string>),
   };
 
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
+    (headers as Record<string, string>)['Authorization'] = `Bearer ${token}`;
   }
 
   const url = endpoint.startsWith('http') ? endpoint : `${API_URL}${endpoint}`;

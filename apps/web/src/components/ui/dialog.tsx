@@ -85,6 +85,7 @@ export function DialogContent({ children, className = '', showClose = true }: Di
       document.addEventListener('keydown', handleEscape);
       return () => document.removeEventListener('keydown', handleEscape);
     }
+    return undefined;
   }, [open, setOpen]);
 
   if (!open) return null;

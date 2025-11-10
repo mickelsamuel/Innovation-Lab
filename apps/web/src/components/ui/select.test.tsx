@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   Select,
   SelectTrigger,
@@ -157,7 +157,7 @@ describe('Select Components', () => {
 
   it('should render separator with custom className', async () => {
     const user = userEvent.setup();
-    const { container: _container } = render(
+    const { container } = render(
       <Select>
         <SelectTrigger>
           <SelectValue placeholder="Choose" />

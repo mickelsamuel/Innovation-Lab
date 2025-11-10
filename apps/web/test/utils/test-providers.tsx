@@ -10,7 +10,7 @@ export function TestProviders({ children }: { children: React.ReactNode }) {
     defaultOptions: {
       queries: {
         retry: false,
-        cacheTime: 0,
+        gcTime: 0,
       },
     },
   });
@@ -41,7 +41,7 @@ export function createTestProvidersWithSession(session: any) {
       defaultOptions: {
         queries: {
           retry: false,
-          cacheTime: 0,
+          gcTime: 0,
         },
       },
     });

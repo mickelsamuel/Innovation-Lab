@@ -43,10 +43,11 @@ export function LiveLeaderboard({ hackathonId, initialData }: LiveLeaderboardPro
         setIsLive(false);
       };
     }
+    return undefined;
   }, [socket, hackathonId, joinHackathon, leaveHackathon]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket) return undefined;
 
     const handleLeaderboardUpdate = (data: { leaderboard: LeaderboardEntry[] }) => {
       setLeaderboard(data.leaderboard);

@@ -35,10 +35,11 @@ describe('InvitationCard', () => {
     teamId: 'team-1',
     invitedById: 'user-2',
     inviteeId: 'user-1',
-    inviteeEmail: null,
+    inviteeEmail: undefined,
     role: 'MEMBER' as const,
     status: InvitationStatus.PENDING,
     createdAt: new Date('2024-01-01').toISOString(),
+    updatedAt: new Date('2024-01-01').toISOString(),
     expiresAt: new Date('2024-12-31').toISOString(),
     invitedBy: {
       id: 'user-2',
@@ -54,14 +55,14 @@ describe('InvitationCard', () => {
     team: {
       id: 'team-1',
       name: 'Team Alpha',
-      hackathonId: 'hack-1',
-      _count: {
-        members: 3,
-      },
       hackathon: {
         id: 'hack-1',
         title: 'Innovation Hackathon 2024',
+        slug: 'innovation-hackathon-2024',
         maxTeamSize: 5,
+      },
+      _count: {
+        members: 3,
       },
     },
   };
@@ -127,7 +128,7 @@ describe('InvitationCard', () => {
     it('should show invitee email when user not registered', () => {
       const invitationWithEmail = {
         ...mockInvitation,
-        invitee: null,
+        invitee: undefined,
         inviteeEmail: 'newuser@example.com',
       };
 
@@ -364,7 +365,7 @@ describe('InvitationCard', () => {
         ...mockInvitation,
         invitedBy: {
           ...mockInvitation.invitedBy,
-          avatarUrl: null,
+          avatarUrl: undefined,
         },
       };
 
@@ -378,8 +379,8 @@ describe('InvitationCard', () => {
         ...mockInvitation,
         invitedBy: {
           ...mockInvitation.invitedBy,
-          name: null,
-          avatarUrl: null,
+          name: '' as any,
+          avatarUrl: undefined,
         },
       };
 
@@ -393,7 +394,7 @@ describe('InvitationCard', () => {
     it('should handle invitation without team data', () => {
       const invitationNoTeam = {
         ...mockInvitation,
-        team: null,
+        team: undefined,
       };
 
       render(<InvitationCard invitation={invitationNoTeam} variant="user" />);
@@ -405,7 +406,7 @@ describe('InvitationCard', () => {
     it('should handle invitation without expiry date', () => {
       const invitationNoExpiry = {
         ...mockInvitation,
-        expiresAt: null,
+        expiresAt: undefined,
       };
 
       render(<InvitationCard invitation={invitationNoExpiry} variant="user" />);

@@ -47,13 +47,13 @@ export function NotificationBell() {
     };
 
     // Listen for team invitations
-    const handleTeamInvitation = (data: { invitation: any }) => {
+    const handleTeamInvitation = (data: { invitation: any; timestamp?: string }) => {
       const notification: Notification = {
         id: `invitation-${data.invitation.id}`,
         title: 'Team Invitation',
         message: `You've been invited to join a team!`,
         type: 'info',
-        timestamp: new Date(data.timestamp),
+        timestamp: new Date(data.timestamp || Date.now()),
         read: false,
       };
 
@@ -62,13 +62,13 @@ export function NotificationBell() {
     };
 
     // Listen for submission events
-    const handleSubmissionScored = (data: { submission: any }) => {
+    const handleSubmissionScored = (data: { submission: any; timestamp?: string }) => {
       const notification: Notification = {
         id: `score-${data.submission.id}`,
         title: 'Submission Scored',
         message: 'Your submission has received a new score!',
         type: 'success',
-        timestamp: new Date(data.timestamp),
+        timestamp: new Date(data.timestamp || Date.now()),
         read: false,
       };
 

@@ -28,7 +28,8 @@ const loginSchema = z.object({
   password: z.string().min(8),
 });
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const authConfig = NextAuth({
+  // @ts-expect-error - Adapter type compatibility issue with NextAuth v5
   adapter: PrismaAdapter(prisma),
   session: {
     strategy: 'jwt',
@@ -107,7 +108,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             name: user.name,
             image: user.avatarUrl,
             roles: user.roles,
-            handle: user.handle,
+            handle: user.handle || undefined,
           };
         } catch (error) {
           console.error('Auth error:', error);
@@ -182,8 +183,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         },
       });
     },
-    async signOut({ token }) {
+    async signOut(params) {
       // Log sign out event
+      const token = 'token' in params ? params.token : null;
       if (token?.id) {
         await prisma.auditLog.create({
           data: {
@@ -198,6 +200,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   debug: process.env.NODE_ENV === 'development',
 });
+
+export const handlers = authConfig.handlers;
+export const signIn = authConfig.signIn;
+export const signOut = authConfig.signOut;
+export const auth: typeof authConfig.auth = authConfig.auth;
 
 // Helper function to get session on server
 export async function getSession() {

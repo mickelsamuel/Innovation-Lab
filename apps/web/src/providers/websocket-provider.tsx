@@ -131,6 +131,7 @@ export function WebSocketProvider({ children }: WebSocketProviderProps) {
       setSocket(null);
       setIsConnected(false);
     }
+    return undefined;
   }, [status, session?.accessToken, connect, socket]);
 
   const joinHackathon = useCallback(

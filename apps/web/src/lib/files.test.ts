@@ -207,7 +207,7 @@ describe('Files Utility Functions', () => {
         json: async () => {
           throw new Error('Invalid JSON');
         },
-      } as Response);
+      } as unknown as Response);
 
       const file = new File(['content'], 'test.jpg', { type: 'image/jpeg' });
 

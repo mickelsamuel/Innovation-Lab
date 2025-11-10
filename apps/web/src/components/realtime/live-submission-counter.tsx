@@ -24,10 +24,11 @@ export function LiveSubmissionCounter({ hackathonId, initialCount }: LiveSubmiss
         leaveHackathon(hackathonId);
       };
     }
+    return undefined;
   }, [socket, hackathonId, joinHackathon, leaveHackathon]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket) return undefined;
 
     const handleNewSubmission = () => {
       setCount(prev => prev + 1);

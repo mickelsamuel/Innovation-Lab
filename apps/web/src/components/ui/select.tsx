@@ -75,6 +75,7 @@ export function SelectTrigger({ children, className = '', placeholder }: SelectT
       document.addEventListener('mousedown', handleClickOutside);
       return () => document.removeEventListener('mousedown', handleClickOutside);
     }
+    return undefined;
   }, [open, setOpen]);
 
   return (

@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { HackathonCard } from './hackathon-card';
 import type { Hackathon } from '@/types/hackathon';
+import { HackathonStatus, HackathonLocation } from '@/types/hackathon';
 
 const mockHackathon: Hackathon = {
   id: '1',
@@ -9,22 +10,28 @@ const mockHackathon: Hackathon = {
   subtitle: 'Test Subtitle',
   description: 'Test description for hackathon',
   slug: 'test-hackathon',
-  status: 'LIVE',
-  location: 'VIRTUAL',
-  city: null,
+  status: HackathonStatus.LIVE,
+  location: HackathonLocation.VIRTUAL,
+  city: undefined,
   startsAt: '2024-01-01T00:00:00Z',
   endsAt: '2024-12-31T23:59:59Z',
   prizePool: 10000,
   maxTeamSize: 4,
+  minTeamSize: 1,
+  allowSoloTeams: true,
+  requireApproval: false,
+  isPublished: true,
   createdAt: '2024-01-01T00:00:00Z',
   updatedAt: '2024-01-01T00:00:00Z',
   _count: {
     teams: 5,
     submissions: 10,
+    judges: 3,
+    mentors: 2,
   },
   tracks: [
-    { id: '1', title: 'Frontend', description: 'Frontend track', hackathonId: '1' },
-    { id: '2', title: 'Backend', description: 'Backend track', hackathonId: '1' },
+    { id: '1', title: 'Frontend', description: 'Frontend track', order: 1, createdAt: '2024-01-01T00:00:00Z' },
+    { id: '2', title: 'Backend', description: 'Backend track', order: 2, createdAt: '2024-01-01T00:00:00Z' },
   ],
 };
 
@@ -85,7 +92,7 @@ describe('HackathonCard', () => {
   it('should render in-person location with city', () => {
     const inPersonHackathon = {
       ...mockHackathon,
-      location: 'IN_PERSON' as const,
+      location: HackathonLocation.ONSITE,
       city: 'New York',
     };
     render(<HackathonCard hackathon={inPersonHackathon} />);
@@ -96,11 +103,11 @@ describe('HackathonCard', () => {
     const manyTracksHackathon = {
       ...mockHackathon,
       tracks: [
-        { id: '1', title: 'Track 1', description: '', hackathonId: '1' },
-        { id: '2', title: 'Track 2', description: '', hackathonId: '1' },
-        { id: '3', title: 'Track 3', description: '', hackathonId: '1' },
-        { id: '4', title: 'Track 4', description: '', hackathonId: '1' },
-        { id: '5', title: 'Track 5', description: '', hackathonId: '1' },
+        { id: '1', title: 'Track 1', description: '', order: 1, createdAt: '2024-01-01T00:00:00Z' },
+        { id: '2', title: 'Track 2', description: '', order: 2, createdAt: '2024-01-01T00:00:00Z' },
+        { id: '3', title: 'Track 3', description: '', order: 3, createdAt: '2024-01-01T00:00:00Z' },
+        { id: '4', title: 'Track 4', description: '', order: 4, createdAt: '2024-01-01T00:00:00Z' },
+        { id: '5', title: 'Track 5', description: '', order: 5, createdAt: '2024-01-01T00:00:00Z' },
       ],
     };
     render(<HackathonCard hackathon={manyTracksHackathon} />);
@@ -110,7 +117,7 @@ describe('HackathonCard', () => {
   it('should render hybrid location', () => {
     const hybridHackathon = {
       ...mockHackathon,
-      location: 'HYBRID' as const,
+      location: HackathonLocation.HYBRID,
       city: 'Toronto',
     };
     render(<HackathonCard hackathon={hybridHackathon} />);
@@ -120,8 +127,8 @@ describe('HackathonCard', () => {
   it('should render in-person without city as "In Person"', () => {
     const inPersonHackathon = {
       ...mockHackathon,
-      location: 'IN_PERSON' as const,
-      city: null,
+      location: HackathonLocation.ONSITE,
+      city: undefined,
     };
     render(<HackathonCard hackathon={inPersonHackathon} />);
     expect(screen.getByText('In Person')).toBeInTheDocument();
@@ -143,7 +150,7 @@ describe('HackathonCard', () => {
 
     const oneDayHackathon = {
       ...mockHackathon,
-      status: 'LIVE' as const,
+      status: HackathonStatus.LIVE,
       endsAt: tomorrow.toISOString(),
     };
     render(<HackathonCard hackathon={oneDayHackathon} />);
@@ -157,7 +164,7 @@ describe('HackathonCard', () => {
 
     const oneHourHackathon = {
       ...mockHackathon,
-      status: 'LIVE' as const,
+      status: HackathonStatus.LIVE,
       endsAt: oneHour.toISOString(),
     };
     render(<HackathonCard hackathon={oneHourHackathon} />);

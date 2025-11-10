@@ -13,7 +13,7 @@ describe('MentorCard', () => {
     bio: 'Experienced software engineer with 10+ years in web development',
     expertise: ['React', 'Node.js', 'TypeScript', 'Architecture'],
     calendlyUrl: 'https://calendly.com/mentor1',
-    isActive: true,
+    createdAt: new Date('2024-01-01').toISOString(),
     user: {
       id: 'user-1',
       name: 'John Mentor',
@@ -23,8 +23,28 @@ describe('MentorCard', () => {
       bio: 'Alternative bio',
     },
     sessions: [
-      { id: 'session-1', scheduledAt: new Date().toISOString() },
-      { id: 'session-2', scheduledAt: new Date().toISOString() },
+      {
+        id: 'session-1',
+        mentorId: 'mentor-1',
+        title: 'Office Hours',
+        startsAt: new Date().toISOString(),
+        endsAt: new Date(Date.now() + 3600000).toISOString(),
+        capacity: 5,
+        booked: 2,
+        meetingUrl: 'https://meet.example.com/1',
+        createdAt: new Date('2024-01-01').toISOString(),
+      },
+      {
+        id: 'session-2',
+        mentorId: 'mentor-1',
+        title: 'Office Hours',
+        startsAt: new Date(Date.now() + 86400000).toISOString(),
+        endsAt: new Date(Date.now() + 90000000).toISOString(),
+        capacity: 5,
+        booked: 3,
+        meetingUrl: 'https://meet.example.com/2',
+        createdAt: new Date('2024-01-01').toISOString(),
+      },
     ],
   };
 
@@ -65,7 +85,19 @@ describe('MentorCard', () => {
   it('should show singular session text for one session', () => {
     const mentorWithOneSession = {
       ...mockMentor,
-      sessions: [{ id: 'session-1', scheduledAt: new Date().toISOString() }],
+      sessions: [
+        {
+          id: 'session-1',
+          mentorId: 'mentor-1',
+          title: 'Office Hours',
+          startsAt: new Date().toISOString(),
+          endsAt: new Date(Date.now() + 3600000).toISOString(),
+          capacity: 5,
+          booked: 2,
+          meetingUrl: 'https://meet.example.com/1',
+          createdAt: new Date('2024-01-01').toISOString(),
+        },
+      ],
     };
 
     render(<MentorCard mentor={mentorWithOneSession} showSessions={true} />);

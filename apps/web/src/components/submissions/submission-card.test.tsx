@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import { SubmissionCard } from './submission-card';
 import type { Submission } from '@/types/submission';
+import { SubmissionStatus } from '@/types/submission';
 
 const mockSubmission: Submission = {
   id: '1',
@@ -10,8 +11,7 @@ const mockSubmission: Submission = {
   repoUrl: 'https://github.com/test/repo',
   demoUrl: 'https://demo.test.com',
   videoUrl: 'https://youtube.com/watch?v=test',
-  status: 'SUBMITTED',
-  rank: null,
+  status: SubmissionStatus.SUBMITTED,
   scoreAggregate: 85.5,
   teamId: 'team-1',
   trackId: 'track-1',
@@ -25,25 +25,21 @@ const mockSubmission: Submission = {
       {
         id: '1',
         role: 'LEAD',
-        userId: 'user-1',
-        teamId: 'team-1',
         user: {
           id: 'user-1',
           name: 'John Doe',
           handle: 'johndoe',
-          avatarUrl: null,
+          avatarUrl: undefined,
         },
       },
       {
         id: '2',
         role: 'MEMBER',
-        userId: 'user-2',
-        teamId: 'team-1',
         user: {
           id: 'user-2',
           name: 'Jane Smith',
           handle: 'janesmith',
-          avatarUrl: null,
+          avatarUrl: undefined,
         },
       },
     ],
@@ -51,6 +47,7 @@ const mockSubmission: Submission = {
   track: {
     id: 'track-1',
     title: 'Frontend Track',
+    description: 'Frontend development track',
   },
 };
 
@@ -143,13 +140,11 @@ describe('SubmissionCard', () => {
         members: Array.from({ length: 6 }, (_, i) => ({
           id: `${i + 1}`,
           role: i === 0 ? ('LEAD' as const) : ('MEMBER' as const),
-          userId: `user-${i + 1}`,
-          teamId: 'team-1',
           user: {
             id: `user-${i + 1}`,
             name: `User ${i + 1}`,
             handle: `user${i + 1}`,
-            avatarUrl: null,
+            avatarUrl: undefined,
           },
         })),
       },
@@ -161,9 +156,9 @@ describe('SubmissionCard', () => {
   it('should not render links section when no links provided', () => {
     const noLinksSubmission = {
       ...mockSubmission,
-      repoUrl: null,
-      demoUrl: null,
-      videoUrl: null,
+      repoUrl: undefined,
+      demoUrl: undefined,
+      videoUrl: undefined,
     };
     render(<SubmissionCard submission={noLinksSubmission} />);
     expect(screen.queryByText('Code')).not.toBeInTheDocument();

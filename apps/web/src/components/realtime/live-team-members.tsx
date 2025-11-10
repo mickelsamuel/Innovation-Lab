@@ -39,10 +39,11 @@ export function LiveTeamMembers({ teamId, initialMembers }: LiveTeamMembersProps
         leaveTeam(teamId);
       };
     }
+    return undefined;
   }, [socket, teamId, joinTeam, leaveTeam]);
 
   useEffect(() => {
-    if (!socket) return;
+    if (!socket) return undefined;
 
     const handleNewMember = (data: { member: TeamMember }) => {
       setMembers(prev => [...prev, data.member]);

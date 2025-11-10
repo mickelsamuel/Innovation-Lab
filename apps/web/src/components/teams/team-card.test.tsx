@@ -9,11 +9,16 @@ const mockTeam: Team = {
   name: 'Test Team',
   bio: 'Test team bio',
   lookingForMembers: true,
+  currentSize: 2,
   hackathonId: 'hackathon-1',
   createdAt: '2024-01-01T00:00:00Z',
   updatedAt: '2024-01-01T00:00:00Z',
   hackathon: {
+    id: 'hackathon-1',
+    title: 'Test Hackathon',
+    slug: 'test-hackathon',
     maxTeamSize: 4,
+    minTeamSize: 1,
   },
   members: [
     {
@@ -21,11 +26,12 @@ const mockTeam: Team = {
       role: 'LEAD',
       userId: 'user-1',
       teamId: '1',
+      joinedAt: '2024-01-01T00:00:00Z',
       user: {
         id: 'user-1',
         name: 'John Doe',
         handle: 'johndoe',
-        avatarUrl: null,
+        avatarUrl: undefined,
       },
     },
     {
@@ -33,11 +39,12 @@ const mockTeam: Team = {
       role: 'MEMBER',
       userId: 'user-2',
       teamId: '1',
+      joinedAt: '2024-01-02T00:00:00Z',
       user: {
         id: 'user-2',
         name: 'Jane Smith',
         handle: 'janesmith',
-        avatarUrl: null,
+        avatarUrl: undefined,
       },
     },
   ],
@@ -79,14 +86,16 @@ describe('TeamCard', () => {
           role: 'MEMBER' as const,
           userId: 'user-3',
           teamId: '1',
-          user: { id: 'user-3', name: 'User 3', handle: 'user3', avatarUrl: null },
+          joinedAt: '2024-01-03T00:00:00Z',
+          user: { id: 'user-3', name: 'User 3', handle: 'user3', avatarUrl: undefined },
         },
         {
           id: '4',
           role: 'MEMBER' as const,
           userId: 'user-4',
           teamId: '1',
-          user: { id: 'user-4', name: 'User 4', handle: 'user4', avatarUrl: null },
+          joinedAt: '2024-01-04T00:00:00Z',
+          user: { id: 'user-4', name: 'User 4', handle: 'user4', avatarUrl: undefined },
         },
       ],
     };
@@ -127,14 +136,16 @@ describe('TeamCard', () => {
           role: 'MEMBER' as const,
           userId: 'user-3',
           teamId: '1',
-          user: { id: 'user-3', name: 'User 3', handle: 'user3', avatarUrl: null },
+          joinedAt: '2024-01-03T00:00:00Z',
+          user: { id: 'user-3', name: 'User 3', handle: 'user3', avatarUrl: undefined },
         },
         {
           id: '4',
           role: 'MEMBER' as const,
           userId: 'user-4',
           teamId: '1',
-          user: { id: 'user-4', name: 'User 4', handle: 'user4', avatarUrl: null },
+          joinedAt: '2024-01-04T00:00:00Z',
+          user: { id: 'user-4', name: 'User 4', handle: 'user4', avatarUrl: undefined },
         },
       ],
     };
@@ -146,17 +157,24 @@ describe('TeamCard', () => {
   it('should show +N indicator when more than 5 members', () => {
     const largeTeam = {
       ...mockTeam,
-      hackathon: { maxTeamSize: 10 },
+      hackathon: {
+        id: 'hackathon-1',
+        title: 'Test Hackathon',
+        slug: 'test-hackathon',
+        maxTeamSize: 10,
+        minTeamSize: 1,
+      },
       members: Array.from({ length: 7 }, (_, i) => ({
         id: `${i + 1}`,
         role: i === 0 ? ('LEAD' as const) : ('MEMBER' as const),
         userId: `user-${i + 1}`,
         teamId: '1',
+        joinedAt: `2024-01-0${i + 1}T00:00:00Z`,
         user: {
           id: `user-${i + 1}`,
           name: `User ${i + 1}`,
           handle: `user${i + 1}`,
-          avatarUrl: null,
+          avatarUrl: undefined,
         },
       })),
     };
