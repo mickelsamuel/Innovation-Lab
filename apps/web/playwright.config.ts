@@ -9,7 +9,8 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env.e2e') });
 
 const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
+const API_PORT = process.env.API_PORT || 4001; // Use different port to avoid conflicts with API E2E tests
+const API_URL = process.env.API_URL || `http://localhost:${API_PORT}`;
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -77,12 +78,18 @@ export default defineConfig({
       url: BASE_URL,
       reuseExistingServer: !process.env.CI,
       timeout: 120000,
+      env: {
+        NEXT_PUBLIC_API_URL: `${API_URL}/v1`,
+      },
     },
     {
       command: 'pnpm --filter api dev',
       url: `${API_URL}/health`,
       reuseExistingServer: !process.env.CI,
       timeout: 120000,
+      env: {
+        API_PORT: String(API_PORT),
+      },
     },
   ],
 });
