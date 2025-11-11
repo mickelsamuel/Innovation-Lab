@@ -53,10 +53,15 @@ export function DropdownMenuTrigger({ children, asChild, className }: DropdownMe
   const { open, setOpen } = useDropdownMenu();
 
   if (asChild && React.isValidElement(children)) {
+    const originalOnClick = (children.props as any).onClick;
     return React.cloneElement(children, {
       onClick: (e: React.MouseEvent) => {
         e.stopPropagation();
         setOpen(!open);
+        // Call original onClick if it exists
+        if (originalOnClick) {
+          originalOnClick(e);
+        }
       },
       'aria-expanded': open,
       'aria-haspopup': true,
