@@ -1,10 +1,11 @@
 import { defineConfig, devices } from '@playwright/test';
+import * as path from 'path';
+import * as dotenv from 'dotenv';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
+ * Read environment variables from .env.e2e file for E2E tests
  */
-// require('dotenv').config();
+dotenv.config({ path: path.resolve(__dirname, '../../.env.e2e') });
 
 const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;

@@ -31,7 +31,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     ConfigModule.forRoot({
       isGlobal: true,
       cache: true,
-      envFilePath: ['../../.env.local', '../../.env'],
+      envFilePath: ['../../.env.e2e', '../../.env.local', '../../.env'],
       validate,
     }),
 

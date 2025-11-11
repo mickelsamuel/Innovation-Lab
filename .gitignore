@@ -65,3 +65,4 @@ Thumbs.db
 
 # Local Docker volumes
 .docker-data/
+.env.e2e
