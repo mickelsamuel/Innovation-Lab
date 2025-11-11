@@ -52,12 +52,19 @@ interface DropdownMenuTriggerProps {
 export function DropdownMenuTrigger({ children, asChild, className }: DropdownMenuTriggerProps) {
   const { open, setOpen } = useDropdownMenu();
 
+  const handleClick = React.useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      setOpen(prev => !prev);
+    },
+    [setOpen]
+  );
+
   if (asChild && React.isValidElement(children)) {
     const originalOnClick = (children.props as any).onClick;
     return React.cloneElement(children, {
       onClick: (e: React.MouseEvent) => {
-        e.stopPropagation();
-        setOpen(!open);
+        handleClick(e);
         // Call original onClick if it exists
         if (originalOnClick) {
           originalOnClick(e);
@@ -72,10 +79,7 @@ export function DropdownMenuTrigger({ children, asChild, className }: DropdownMe
     <button
       type="button"
       className={className}
-      onClick={e => {
-        e.stopPropagation();
-        setOpen(!open);
-      }}
+      onClick={handleClick}
       aria-expanded={open}
       aria-haspopup="true"
     >
