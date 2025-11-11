@@ -17,6 +17,11 @@ describe('Authentication (E2E)', () => {
 
     app = moduleFixture.createNestApplication();
 
+    // Apply global prefix like in main.ts
+    app.setGlobalPrefix('v1', {
+      exclude: ['health', 'metrics'],
+    });
+
     // Apply global pipes like in main.ts
     app.useGlobalPipes(
       new ValidationPipe({
@@ -63,7 +68,7 @@ describe('Authentication (E2E)', () => {
           expect(res.body).toHaveProperty('message');
           expect(res.body).not.toHaveProperty('password');
 
-          userId = res.body.id;
+          _userId = res.body.id;
         });
     });
 
@@ -229,7 +234,7 @@ describe('Authentication (E2E)', () => {
           expect(res.body).toHaveProperty('id');
           expect(res.body).toHaveProperty('email', 'e2e@test.com');
           expect(res.body).toHaveProperty('gamificationProfile');
-          expect(res.body.gamificationProfile).toHaveProperty('xp', 50); // Welcome XP
+          expect(res.body.gamificationProfile).toHaveProperty('xp', 55); // Welcome XP (50) + Daily login (5)
           expect(res.body.gamificationProfile).toHaveProperty('level', 1);
         });
     });

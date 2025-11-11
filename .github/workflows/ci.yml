@@ -199,9 +199,9 @@ jobs:
       postgres:
         image: postgres:16-alpine
         env:
-          POSTGRES_USER: testuser
-          POSTGRES_PASSWORD: testpass
-          POSTGRES_DB: testdb
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: innovationlab_e2e
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -267,7 +267,7 @@ jobs:
       - name: Setup database
         run: pnpm db:push
         env:
-          DATABASE_URL: postgresql://testuser:testpass@localhost:5432/testdb
+          DATABASE_URL: postgresql://test:test@localhost:5432/innovationlab_e2e
 
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
@@ -275,7 +275,7 @@ jobs:
       - name: Run E2E tests
         run: pnpm test:e2e
         env:
-          DATABASE_URL: postgresql://testuser:testpass@localhost:5432/testdb
+          DATABASE_URL: postgresql://test:test@localhost:5432/innovationlab_e2e
           REDIS_URL: redis://localhost:6379
           NEXTAUTH_SECRET: test-secret-key-for-e2e
           NEXTAUTH_URL: http://localhost:3000

@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import helmet from 'helmet';
@@ -48,11 +48,6 @@ async function bootstrap() {
   // Global prefix
   app.setGlobalPrefix('v1', {
     exclude: ['health', 'metrics'],
-  });
-
-  // API versioning
-  app.enableVersioning({
-    type: VersioningType.URI,
   });
 
   // Global validation pipe
