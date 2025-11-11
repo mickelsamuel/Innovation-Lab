@@ -8,7 +8,7 @@
   },
   "moduleNameMapper": {
     "^@/(.*)$": "<rootDir>/../src/$1",
-    "^@innovation-lab/database$": "<rootDir>/../../packages/database/src"
+    "^@innovation-lab/database$": "<rootDir>/../../../packages/database/src"
   },
   "setupFilesAfterEnv": ["<rootDir>/setup-e2e.ts"],
   "testTimeout": 30000,
