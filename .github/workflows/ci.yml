@@ -235,11 +235,34 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
 
+      - name: Cache Prisma binaries
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cache/prisma
+            node_modules/.prisma
+            packages/database/node_modules/.prisma
+          key: ${{ runner.os }}-prisma-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-prisma-
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Generate Prisma Client
-        run: pnpm db:generate
+        run: |
+          # Retry logic for Prisma generation in case of network issues
+          max_attempts=3
+          attempt=1
+          until pnpm db:generate; do
+            if [ $attempt -eq $max_attempts ]; then
+              echo "Failed to generate Prisma client after $max_attempts attempts"
+              exit 1
+            fi
+            echo "Attempt $attempt failed. Retrying in 5 seconds..."
+            sleep 5
+            attempt=$((attempt + 1))
+          done
 
       - name: Setup database
         run: pnpm db:push
