@@ -11,7 +11,8 @@
       "Bash(pnpm test:e2e:*)",
       "Bash(pnpm docker:up:*)",
       "Bash(docker-compose up:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(pnpm format:*)"
     ],
     "deny": [],
     "ask": []

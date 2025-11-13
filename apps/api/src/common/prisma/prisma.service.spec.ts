@@ -72,7 +72,9 @@ describe('PrismaService', () => {
       service.hackathon = { deleteMany: jest.fn().mockResolvedValue({}) };
 
       // Mock Reflect.ownKeys to only return the mocked models
-      jest.spyOn(Reflect, 'ownKeys').mockReturnValue(['user', 'hackathon', '$connect', '$disconnect']);
+      jest
+        .spyOn(Reflect, 'ownKeys')
+        .mockReturnValue(['user', 'hackathon', '$connect', '$disconnect']);
 
       await service.cleanDatabase();
 
