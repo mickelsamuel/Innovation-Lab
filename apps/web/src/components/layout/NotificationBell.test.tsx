@@ -158,17 +158,29 @@ describe('NotificationBell', () => {
 
     render(<NotificationBell />);
 
+    // Wait for data to load and button to be enabled
     await waitFor(() => {
-      expect(screen.getByRole('button')).toBeInTheDocument();
+      const button = screen.getByRole('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toBeDisabled();
     });
 
     const bellButton = screen.getByRole('button');
+
+    // Click and wait for dropdown to open
     await user.click(bellButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('Notifications')).toBeInTheDocument();
-      expect(screen.getByText('Hackathon Registration')).toBeInTheDocument();
-    }, { timeout: 3000 });
+    // Wait for menu role to appear
+    await waitFor(
+      () => {
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
+
+    // Now check for content
+    expect(screen.getByText('Notifications')).toBeInTheDocument();
+    expect(screen.getByText('Hackathon Registration')).toBeInTheDocument();
   });
 
   it('should display notification items with correct icons', async () => {
@@ -180,17 +192,27 @@ describe('NotificationBell', () => {
 
     render(<NotificationBell />);
 
+    // Wait for data to load and button to be enabled
     await waitFor(() => {
-      expect(screen.getByRole('button')).toBeInTheDocument();
+      const button = screen.getByRole('button');
+      expect(button).toBeInTheDocument();
+      expect(button).not.toBeDisabled();
     });
 
     const bellButton = screen.getByRole('button');
     await user.click(bellButton);
 
-    await waitFor(() => {
-      expect(screen.getByText('🎉')).toBeInTheDocument();
-      expect(screen.getByText('👥')).toBeInTheDocument();
-    }, { timeout: 3000 });
+    // Wait for menu to open
+    await waitFor(
+      () => {
+        expect(screen.getByRole('menu')).toBeInTheDocument();
+      },
+      { timeout: 3000 }
+    );
+
+    // Now check for icons
+    expect(screen.getByText('🎉')).toBeInTheDocument();
+    expect(screen.getByText('👥')).toBeInTheDocument();
   });
 
   it('should show unread indicator for unread notifications', async () => {
