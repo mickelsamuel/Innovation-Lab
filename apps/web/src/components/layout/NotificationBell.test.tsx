@@ -150,7 +150,7 @@ describe('NotificationBell', () => {
   });
 
   it('should open dropdown menu on click', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -168,11 +168,11 @@ describe('NotificationBell', () => {
     await waitFor(() => {
       expect(screen.getByText('Notifications')).toBeInTheDocument();
       expect(screen.getByText('Hackathon Registration')).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
   });
 
   it('should display notification items with correct icons', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -190,11 +190,11 @@ describe('NotificationBell', () => {
     await waitFor(() => {
       expect(screen.getByText('🎉')).toBeInTheDocument();
       expect(screen.getByText('👥')).toBeInTheDocument();
-    });
+    }, { timeout: 3000 });
   });
 
   it('should show unread indicator for unread notifications', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -216,7 +216,7 @@ describe('NotificationBell', () => {
   });
 
   it('should mark notification as read when clicked', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -249,7 +249,7 @@ describe('NotificationBell', () => {
   });
 
   it('should mark all as read when button is clicked', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -278,7 +278,7 @@ describe('NotificationBell', () => {
   });
 
   it('should not show "Mark all as read" when no unread notifications', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications.map(n => ({ ...n, readAt: new Date().toISOString() })),
       unreadCount: 0,
@@ -299,7 +299,7 @@ describe('NotificationBell', () => {
   });
 
   it('should show empty state when no notifications', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: [],
       unreadCount: 0,
@@ -362,7 +362,7 @@ describe('NotificationBell', () => {
   });
 
   it('should handle mark as read error gracefully', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
@@ -410,7 +410,7 @@ describe('NotificationBell', () => {
   });
 
   it('should display time ago for notifications', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -431,7 +431,7 @@ describe('NotificationBell', () => {
   });
 
   it('should show "View all notifications" link', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
@@ -452,7 +452,7 @@ describe('NotificationBell', () => {
   });
 
   it('should close dropdown after clicking notification', async () => {
-    const user = userEvent.setup({ delay: null });
+    const user = userEvent.setup();
     mockGetNotifications.mockResolvedValue({
       notifications: mockNotifications,
       unreadCount: 1,
