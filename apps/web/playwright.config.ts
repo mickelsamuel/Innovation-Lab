@@ -87,28 +87,59 @@ export default defineConfig({
       ],
 
   /* Run your local dev server before starting the tests */
-  webServer: [
-    {
-      command: 'pnpm --filter web dev',
-      url: BASE_URL,
-      reuseExistingServer: !process.env.CI,
-      timeout: 180000, // 3 minutes for server startup
-      stdout: 'pipe',
-      stderr: 'pipe',
-      env: {
-        NEXT_PUBLIC_API_URL: `${API_URL}/v1`,
-      },
-    },
-    {
-      command: 'pnpm --filter api dev',
-      url: `${API_URL}/health`,
-      reuseExistingServer: !process.env.CI,
-      timeout: 180000, // 3 minutes for server startup
-      stdout: 'pipe',
-      stderr: 'pipe',
-      env: {
-        API_PORT: String(API_PORT),
-      },
-    },
-  ],
+  webServer: process.env.CI
+    ? [
+        // In CI, start servers directly without pnpm filter to avoid Turborepo nesting issues
+        {
+          cwd: path.resolve(__dirname),
+          command: 'PORT=3000 pnpm dev',
+          url: BASE_URL,
+          reuseExistingServer: false,
+          timeout: 240000, // 4 minutes for server startup in CI
+          stdout: 'pipe',
+          stderr: 'pipe',
+          env: {
+            NEXT_PUBLIC_API_URL: `${API_URL}/v1`,
+            PORT: '3000',
+          },
+        },
+        {
+          cwd: path.resolve(__dirname, '../api'),
+          command: 'pnpm dev',
+          url: `${API_URL}/health`,
+          reuseExistingServer: false,
+          timeout: 240000, // 4 minutes for server startup in CI
+          stdout: 'pipe',
+          stderr: 'pipe',
+          env: {
+            API_PORT: String(API_PORT),
+            PORT: String(API_PORT),
+          },
+        },
+      ]
+    : [
+        // In local dev, use pnpm filter as before
+        {
+          command: 'pnpm --filter web dev',
+          url: BASE_URL,
+          reuseExistingServer: true,
+          timeout: 180000, // 3 minutes for server startup
+          stdout: 'pipe',
+          stderr: 'pipe',
+          env: {
+            NEXT_PUBLIC_API_URL: `${API_URL}/v1`,
+          },
+        },
+        {
+          command: 'pnpm --filter api dev',
+          url: `${API_URL}/health`,
+          reuseExistingServer: true,
+          timeout: 180000, // 3 minutes for server startup
+          stdout: 'pipe',
+          stderr: 'pipe',
+          env: {
+            API_PORT: String(API_PORT),
+          },
+        },
+      ],
 });
