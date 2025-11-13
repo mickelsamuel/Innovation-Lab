@@ -71,10 +71,14 @@ describe('PrismaService', () => {
       service.user = { deleteMany: jest.fn().mockResolvedValue({}) };
       service.hackathon = { deleteMany: jest.fn().mockResolvedValue({}) };
 
+      // Mock Reflect.ownKeys to only return the mocked models
+      jest.spyOn(Reflect, 'ownKeys').mockReturnValue(['user', 'hackathon', '$connect', '$disconnect']);
+
       await service.cleanDatabase();
 
-      // Should attempt to clean models (exact count depends on schema)
-      expect(true).toBe(true);
+      // Verify deleteMany was called on mocked models
+      expect(service.user.deleteMany).toHaveBeenCalled();
+      expect(service.hackathon.deleteMany).toHaveBeenCalled();
     });
 
     it('should handle errors when cleaning models', async () => {
@@ -83,14 +87,17 @@ describe('PrismaService', () => {
       const warnSpy = jest.spyOn(Logger.prototype, 'warn');
 
       // Mock a model that throws an error
-      service.invalidModel = {
+      service.user = {
         deleteMany: jest.fn().mockRejectedValue(new Error('Delete failed')),
       };
+
+      // Mock Reflect.ownKeys to only return the mocked model
+      jest.spyOn(Reflect, 'ownKeys').mockReturnValue(['user', '$connect', '$disconnect']);
 
       await service.cleanDatabase();
 
       // Should log warning for failed model cleanup
-      expect(warnSpy).toHaveBeenCalled();
+      expect(warnSpy).toHaveBeenCalledWith('Could not clean user: Delete failed');
     });
   });
 

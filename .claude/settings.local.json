@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm lint:*)",
+      "Bash(npm:*)",
+      "Bash(node --version:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm db:generate:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm test:e2e:*)",
+      "Bash(pnpm docker:up:*)",
+      "Bash(docker-compose up:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

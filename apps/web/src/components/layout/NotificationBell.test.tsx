@@ -24,11 +24,15 @@ vi.mock('date-fns', () => ({
 // Mock Next.js Link to prevent navigation errors in JSDOM and work with Radix UI's asChild
 vi.mock('next/link', async () => {
   const React = await import('react');
-  const MockLink = React.forwardRef((allProps: any, ref: any) => {
+  interface MockLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    href?: string;
+    onSelect?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
+  }
+  const MockLink = React.forwardRef<HTMLAnchorElement, MockLinkProps>((allProps, ref) => {
     const { children, href, onClick, onSelect, ...restProps } = allProps;
 
     // Create onClick handler that prevents default navigation and handles Radix UI's onSelect
-    const handleClick = (e: any) => {
+    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
       e.preventDefault();
       // Call Radix UI's onSelect if it exists (for DropdownMenuItem compatibility)
       if (onSelect) {
