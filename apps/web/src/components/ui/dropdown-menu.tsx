@@ -55,9 +55,9 @@ export function DropdownMenuTrigger({ children, asChild, className }: DropdownMe
   const handleClick = React.useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      setOpen(prev => !prev);
+      setOpen(!open);
     },
-    [setOpen]
+    [setOpen, open]
   );
 
   if (asChild && React.isValidElement(children)) {
