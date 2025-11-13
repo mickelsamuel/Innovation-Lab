@@ -92,7 +92,9 @@ export default defineConfig({
       command: 'pnpm --filter web dev',
       url: BASE_URL,
       reuseExistingServer: !process.env.CI,
-      timeout: 120000,
+      timeout: 180000, // 3 minutes for server startup
+      stdout: 'pipe',
+      stderr: 'pipe',
       env: {
         NEXT_PUBLIC_API_URL: `${API_URL}/v1`,
       },
@@ -101,7 +103,9 @@ export default defineConfig({
       command: 'pnpm --filter api dev',
       url: `${API_URL}/health`,
       reuseExistingServer: !process.env.CI,
-      timeout: 120000,
+      timeout: 180000, // 3 minutes for server startup
+      stdout: 'pipe',
+      stderr: 'pipe',
       env: {
         API_PORT: String(API_PORT),
       },
