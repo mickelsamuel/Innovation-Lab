@@ -183,7 +183,6 @@ export default function ProfilePage() {
             <Card className="game-card">
               <CardHeader>
                 <CardTitle className="font-display">Profile Picture</CardTitle>
-                <CardDescription>Your avatar is generated from your initials</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex items-center gap-6">
@@ -193,14 +192,6 @@ export default function ProfilePage() {
                       {getInitials(user.name)}
                     </AvatarFallback>
                   </Avatar>
-                  <div>
-                    <p className="text-sm text-slate-600 font-semibold mb-2">
-                      Custom avatar uploads coming soon!
-                    </p>
-                    <p className="text-xs text-slate-500">
-                      Currently showing initials: {getInitials(user.name)}
-                    </p>
-                  </div>
                 </div>
               </CardContent>
             </Card>

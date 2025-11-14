@@ -15,6 +15,7 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
+    "screenshots": "tsx scripts/capture-screenshots.ts",
     "clean": "rm -rf .next"
   },
   "dependencies": {
@@ -78,6 +79,7 @@
     "jsdom": "^23.2.0",
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.3.3",
     "vitest": "^1.2.0"
   }

@@ -66,3 +66,10 @@ Thumbs.db
 # Local Docker volumes
 .docker-data/
 .env.e2e
+
+# Screenshots
+apps/web/screenshots/
+*.zip
+
+# Windows artifacts
+nul
