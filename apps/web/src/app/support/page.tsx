@@ -46,7 +46,7 @@ export default function SupportPage() {
             <div className="game-card p-8 group">
               <Mail className="w-12 h-12 text-primary mb-4 group-hover:animate-wiggle" />
               <h2 className="text-2xl font-display font-black mb-3">Request Aid</h2>
-              <p className="text-slate-700 font-semibold mb-6">
+              <p className="text-slate-700 dark:text-slate-300 font-semibold mb-6">
                 Need help? Send us a message and we'll respond within 24 hours!
               </p>
               <a href="mailto:support@innovationlab.com" className="btn-game">
@@ -58,7 +58,7 @@ export default function SupportPage() {
             <div className="game-card p-8 group">
               <MessageCircle className="w-12 h-12 text-accent2 mb-4 group-hover:animate-wiggle" />
               <h2 className="text-2xl font-display font-black mb-3">Guild Chat</h2>
-              <p className="text-slate-700 font-semibold mb-6">
+              <p className="text-slate-700 dark:text-slate-300 font-semibold mb-6">
                 Join community discussions and get help from fellow players!
               </p>
               <button className="btn-game-secondary opacity-50 cursor-not-allowed" disabled>
@@ -70,7 +70,7 @@ export default function SupportPage() {
             <div className="game-card p-8 group">
               <Book className="w-12 h-12 text-accent mb-4 group-hover:animate-wiggle" />
               <h2 className="text-2xl font-display font-black mb-3">Battle Manual</h2>
-              <p className="text-slate-700 font-semibold mb-6">
+              <p className="text-slate-700 dark:text-slate-300 font-semibold mb-6">
                 Browse comprehensive guides and documentation!
               </p>
               <button className="btn-game-secondary opacity-50 cursor-not-allowed" disabled>
@@ -82,7 +82,7 @@ export default function SupportPage() {
             <div className="game-card p-8 group">
               <HelpCircle className="w-12 h-12 text-green-500 mb-4 group-hover:animate-wiggle" />
               <h2 className="text-2xl font-display font-black mb-3">Quick Answers</h2>
-              <p className="text-slate-700 font-semibold mb-6">
+              <p className="text-slate-700 dark:text-slate-300 font-semibold mb-6">
                 Find answers to commonly asked questions!
               </p>
               <Link href="/faq">
@@ -102,14 +102,14 @@ export default function SupportPage() {
             <div className="space-y-6">
               <div>
                 <h3 className="text-xl font-bold mb-2 text-primary">How do I join a raid?</h3>
-                <p className="text-slate-700 font-semibold">
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   Browse available raids, click on one that interests you, and hit "Join Raid" to
                   enter the battle!
                 </p>
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2 text-primary">How do I submit a quest?</h3>
-                <p className="text-slate-700 font-semibold">
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   After joining a guild for a raid, navigate to the raid page and click "Submit
                   Quest" to upload your team's work!
                 </p>
@@ -118,7 +118,7 @@ export default function SupportPage() {
                 <h3 className="text-xl font-bold mb-2 text-primary">
                   How does the XP system work?
                 </h3>
-                <p className="text-slate-700 font-semibold">
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   You earn XP by participating in raids, defeating bosses, and contributing to your
                   guild. XP helps you level up and unlock legendary trophies!
                 </p>

@@ -9,7 +9,7 @@ import { PrismaService } from '../common/prisma/prisma.service';
 import { AssignJudgeDto } from './dto/assign-judge.dto';
 import { CreateScoreDto } from './dto/create-score.dto';
 import { UpdateScoreDto } from './dto/update-score.dto';
-import { Role } from '@innovation-lab/database';
+import { Role, HackathonStatus } from '@innovation-lab/database';
 import { GamificationService, XP_POINTS } from '../gamification/gamification.service';
 import { WebSocketService } from '../websocket/websocket.service';
 
@@ -530,6 +530,37 @@ export class JudgingService {
     });
 
     return judges;
+  }
+
+  /**
+   * Get judging statistics
+   */
+  async getStats() {
+    // Count total distinct judges (users with JUDGE role who have been assigned)
+    const totalJudges = await this.prisma.judge.findMany({
+      distinct: ['userId'],
+      select: {
+        userId: true,
+      },
+    });
+
+    // Count active assignments (judges assigned to active hackathons)
+    const activeAssignments = await this.prisma.judge.count({
+      where: {
+        hackathon: {
+          status: HackathonStatus.LIVE,
+        },
+      },
+    });
+
+    // Count completed reviews (total number of scores)
+    const completedReviews = await this.prisma.score.count();
+
+    return {
+      totalJudges: totalJudges.length,
+      activeAssignments,
+      completedReviews,
+    };
   }
 
   /**

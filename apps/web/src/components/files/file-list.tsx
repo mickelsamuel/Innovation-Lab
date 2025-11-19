@@ -97,7 +97,7 @@ export function FileList({
   const getFilePreview = (file: FileUploadResponse) => {
     if (file.mimetype.startsWith('image/')) {
       return (
-        <div className="relative w-12 h-12 rounded overflow-hidden bg-slate-100">
+        <div className="relative w-12 h-12 rounded overflow-hidden bg-slate-100 dark:bg-slate-800">
           <img src={file.url} alt={file.filename} className="w-full h-full object-cover" />
         </div>
       );
@@ -105,7 +105,7 @@ export function FileList({
 
     return (
       <Avatar className="w-12 h-12">
-        <AvatarFallback className="bg-slate-100 text-slate-600">
+        <AvatarFallback className="bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
           {getFileIcon(file.mimetype)}
         </AvatarFallback>
       </Avatar>
@@ -117,7 +117,7 @@ export function FileList({
     return (
       <div className={cn('text-center py-8', className)}>
         <Loader2 className="w-8 h-8 text-slate-400 animate-spin mx-auto mb-2" />
-        <p className="text-sm text-slate-600">Loading files...</p>
+        <p className="text-sm text-slate-600 dark:text-slate-300">Loading files...</p>
       </div>
     );
   }
@@ -142,15 +142,15 @@ export function FileList({
   if (files.length === 0) {
     return (
       <div className={cn('text-center py-8', className)}>
-        <FileIcon className="w-12 h-12 text-slate-300 mx-auto mb-2" />
-        <p className="text-sm text-slate-600">No files uploaded yet</p>
+        <FileIcon className="w-12 h-12 text-slate-300 dark:text-slate-700 mx-auto mb-2" />
+        <p className="text-sm text-slate-600 dark:text-slate-300">No files uploaded yet</p>
       </div>
     );
   }
 
   return (
     <div className={cn('space-y-2', className)}>
-      <p className="text-sm font-medium text-slate-700 mb-3">
+      <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">
         {files.length} file{files.length !== 1 ? 's' : ''}
       </p>
 
@@ -164,8 +164,8 @@ export function FileList({
                 {getFilePreview(file)}
 
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-slate-800 truncate">{file.filename}</p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-sm font-medium text-slate-800 dark:text-slate-200 truncate">{file.filename}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-300">
                     {formatFileSize(file.size)} • {file.type}
                   </p>
                 </div>

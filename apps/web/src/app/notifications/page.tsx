@@ -128,7 +128,7 @@ export default function NotificationsPage() {
         <div className="flex items-center justify-center min-h-[400px]">
           <div className="text-center">
             <Bell className="h-12 w-12 mx-auto mb-4 animate-pulse text-slate-400" />
-            <p className="text-slate-500">Loading notifications...</p>
+            <p className="text-slate-500 dark:text-slate-300">Loading notifications...</p>
           </div>
         </div>
       </div>
@@ -140,7 +140,7 @@ export default function NotificationsPage() {
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">Notifications</h1>
-          <p className="text-slate-600">
+          <p className="text-slate-600 dark:text-slate-300">
             Stay updated with your hackathons, challenges, and achievements
           </p>
         </div>
@@ -184,7 +184,7 @@ export default function NotificationsPage() {
                 <CardContent className="p-12 text-center">
                   <Bell className="h-16 w-16 mx-auto mb-4 opacity-20" />
                   <h3 className="text-lg font-semibold mb-2">No notifications</h3>
-                  <p className="text-slate-500">You're all caught up!</p>
+                  <p className="text-slate-500 dark:text-slate-300">You're all caught up!</p>
                 </CardContent>
               </Card>
             ) : (
@@ -192,7 +192,7 @@ export default function NotificationsPage() {
                 <Card
                   key={notification.id}
                   className={cn(
-                    'transition-colors hover:bg-slate-50 cursor-pointer',
+                    'transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer',
                     !notification.readAt && 'border-l-4 border-l-primary bg-primary/5'
                   )}
                   onClick={() => {
@@ -238,14 +238,14 @@ export default function NotificationsPage() {
                 <CardContent className="p-12 text-center">
                   <Check className="h-16 w-16 mx-auto mb-4 opacity-20 text-green-500" />
                   <h3 className="text-lg font-semibold mb-2">All caught up!</h3>
-                  <p className="text-slate-500">You have no unread notifications</p>
+                  <p className="text-slate-500 dark:text-slate-300">You have no unread notifications</p>
                 </CardContent>
               </Card>
             ) : (
               filteredNotifications.map(notification => (
                 <Card
                   key={notification.id}
-                  className="border-l-4 border-l-primary bg-primary/5 transition-colors hover:bg-slate-50 cursor-pointer"
+                  className="border-l-4 border-l-primary bg-primary/5 transition-colors hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
                   onClick={() => {
                     handleMarkAsRead(notification.id);
                     if (notification.link) {
@@ -296,7 +296,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="email-registration">Hackathon Registration</Label>
-                          <p className="text-sm text-slate-500">
+                          <p className="text-sm text-slate-500 dark:text-slate-300">
                             When you register for a hackathon
                           </p>
                         </div>
@@ -331,7 +331,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="submission">Submission Received</Label>
-                          <p className="text-sm text-slate-500">When your submission is received</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When your submission is received</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
@@ -364,7 +364,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="judging">Judging Complete</Label>
-                          <p className="text-sm text-slate-500">When judges finish evaluating</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When judges finish evaluating</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
@@ -397,7 +397,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="winner">Winner Announcement</Label>
-                          <p className="text-sm text-slate-500">When winners are announced</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When winners are announced</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
@@ -436,7 +436,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="challenge-reviewed">Challenge Reviewed</Label>
-                          <p className="text-sm text-slate-500">
+                          <p className="text-sm text-slate-500 dark:text-slate-300">
                             When your challenge solution is reviewed
                           </p>
                         </div>
@@ -471,7 +471,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="challenge-accepted">Challenge Accepted</Label>
-                          <p className="text-sm text-slate-500">When your solution is accepted</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When your solution is accepted</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
@@ -504,7 +504,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="challenge-winner">Challenge Winner</Label>
-                          <p className="text-sm text-slate-500">When you win a challenge</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When you win a challenge</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
@@ -543,7 +543,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="team-invitation">Team Invitations</Label>
-                          <p className="text-sm text-slate-500">
+                          <p className="text-sm text-slate-500 dark:text-slate-300">
                             When you're invited to join a team
                           </p>
                         </div>
@@ -578,7 +578,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="level-up">Level Up</Label>
-                          <p className="text-sm text-slate-500">When you reach a new level</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When you reach a new level</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">
@@ -611,7 +611,7 @@ export default function NotificationsPage() {
                       <div className="flex items-center justify-between">
                         <div className="space-y-0.5">
                           <Label htmlFor="badge">Badge Unlocked</Label>
-                          <p className="text-sm text-slate-500">When you unlock a new badge</p>
+                          <p className="text-sm text-slate-500 dark:text-slate-300">When you unlock a new badge</p>
                         </div>
                         <div className="flex gap-4">
                           <div className="flex items-center gap-2">

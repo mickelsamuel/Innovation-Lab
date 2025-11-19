@@ -29,6 +29,7 @@ import {
   Flame,
   Swords,
   Skull,
+  ChevronRight,
 } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
 
@@ -112,10 +113,10 @@ export default function ChallengesPage() {
   // Initial Loading State
   if (isInitialLoad && isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading challenges...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading challenges...</p>
         </div>
       </div>
     );
@@ -167,15 +168,26 @@ export default function ChallengesPage() {
               <p className="text-sm font-bold uppercase">Boss Types</p>
             </div>
           </div>
+
+          {/* My Solutions Link */}
+          <div className="mt-6 flex justify-center">
+            <Link href="/challenges/my-solutions">
+              <button className="btn-game-secondary px-6 py-3 inline-flex items-center gap-2">
+                <Trophy className="w-5 h-5" />
+                View My Solutions
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8">
         {/* Error Message */}
         {error && (
-          <Card className="mb-6 border-red-200 bg-red-50">
+          <Card className="mb-6 border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-950">
             <CardContent className="pt-6">
-              <p className="text-red-900">{error}</p>
+              <p className="text-red-900 dark:text-red-200">{error}</p>
             </CardContent>
           </Card>
         )}
@@ -196,7 +208,7 @@ export default function ChallengesPage() {
 
           {/* Status Filter */}
           <div>
-            <label className="text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
               <Filter className="w-4 h-4" />
               Status
             </label>
@@ -217,7 +229,7 @@ export default function ChallengesPage() {
           {/* Category Filter */}
           {allCategories.length > 0 && (
             <div>
-              <label className="text-sm font-medium text-slate-700 mb-2 flex items-center gap-2">
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
                 <Tag className="w-4 h-4" />
                 Categories
               </label>
@@ -245,7 +257,7 @@ export default function ChallengesPage() {
         </div>
 
         {/* Results Count */}
-        <div className="mb-4 text-sm text-slate-600">
+        <div className="mb-4 text-sm text-slate-600 dark:text-slate-300">
           {sortedChallenges.length === 0 ? (
             'No challenges found'
           ) : (
@@ -296,7 +308,7 @@ export default function ChallengesPage() {
                     {challenge.rewardType && (
                       <div className="flex items-center gap-2 text-sm">
                         <Trophy className="w-4 h-4 text-accent" />
-                        <span className="font-medium text-slate-700">
+                        <span className="font-medium text-slate-700 dark:text-slate-300">
                           {getRewardTypeLabel(challenge.rewardType)}
                           {challenge.rewardValue && `: ${challenge.rewardValue}`}
                         </span>
@@ -305,7 +317,7 @@ export default function ChallengesPage() {
 
                     {/* Deadline */}
                     {challenge.deadlineAt && (
-                      <div className="flex items-center gap-2 text-sm text-slate-600">
+                      <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                         <Calendar className="w-4 h-4" />
                         {formatDeadline(challenge.deadlineAt)}
                       </div>
@@ -344,7 +356,7 @@ export default function ChallengesPage() {
                     )}
 
                     {/* Owner & Submissions */}
-                    <div className="flex items-center justify-between text-sm text-slate-600 mt-auto pt-4 border-t border-slate-100">
+                    <div className="flex items-center justify-between text-sm text-slate-600 dark:text-slate-300 mt-auto pt-4 border-t border-slate-100 dark:border-slate-800">
                       <div className="flex items-center gap-2">
                         <Avatar className="w-6 h-6">
                           {challenge.owner.avatarUrl && (
@@ -381,12 +393,12 @@ export default function ChallengesPage() {
           /* Empty State */
           <div className="text-center py-16">
             <Code className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-700 mb-2">
+            <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">
               {searchTerm || selectedStatus !== 'ALL' || selectedCategory !== 'ALL'
                 ? 'No challenges match your filters'
                 : 'No challenges yet'}
             </h3>
-            <p className="text-slate-500 mb-6">
+            <p className="text-slate-500 dark:text-slate-300 mb-6">
               {searchTerm || selectedStatus !== 'ALL' || selectedCategory !== 'ALL'
                 ? 'Try adjusting your filters or search term'
                 : 'Check back soon for new coding challenges!'}

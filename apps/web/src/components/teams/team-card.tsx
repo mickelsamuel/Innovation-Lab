@@ -33,8 +33,8 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
       <CardHeader>
         <div className="flex items-start justify-between gap-2 mb-2">
           <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-slate-500" />
-            <span className="text-sm text-slate-600">
+            <Users className="w-5 h-5 text-slate-500 dark:text-slate-300" />
+            <span className="text-sm text-slate-600 dark:text-slate-300">
               {currentSize}/{maxSize} members
             </span>
           </div>
@@ -62,16 +62,16 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
       </CardHeader>
 
       <CardContent className="space-y-4">
-        {team.bio && <p className="text-sm text-slate-600 line-clamp-3">{team.bio}</p>}
+        {team.bio && <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3">{team.bio}</p>}
 
         {/* Team Members Preview */}
         <div>
-          <p className="text-xs font-medium text-slate-700 mb-2">Team Members</p>
+          <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mb-2">Team Members</p>
           <div className="flex items-center -space-x-2">
             {team.members.slice(0, 5).map(member => (
               <Avatar
                 key={member.id}
-                className="w-8 h-8 border-2 border-white"
+                className="w-8 h-8 border-2 border-white dark:border-card"
                 title={`${member.user.name} (@${member.user.handle})`}
               >
                 {member.user.avatarUrl && (
@@ -81,8 +81,8 @@ export function TeamCard({ team, onJoinRequest }: TeamCardProps) {
               </Avatar>
             ))}
             {team.members.length > 5 && (
-              <div className="w-8 h-8 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center">
-                <span className="text-xs font-medium text-slate-600">
+              <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-white dark:border-card flex items-center justify-center">
+                <span className="text-xs font-medium text-slate-600 dark:text-slate-300">
                   +{team.members.length - 5}
                 </span>
               </div>

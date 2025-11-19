@@ -62,7 +62,7 @@ export default function LoginPage() {
             <Trophy className="w-10 h-10 text-primary animate-wiggle" />
             <h1 className="text-4xl font-display font-black">Enter Arena</h1>
           </div>
-          <p className="text-slate-700 font-semibold flex items-center gap-2">
+          <p className="text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-accent animate-sparkle" />
             Sign in to access your player account and continue your legendary journey!
           </p>
@@ -78,7 +78,7 @@ export default function LoginPage() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="font-bold text-slate-900">
+              <Label htmlFor="email" className="font-bold text-slate-900 dark:text-slate-100">
                 Player Email
               </Label>
               <Input
@@ -97,7 +97,7 @@ export default function LoginPage() {
 
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <Label htmlFor="password" className="font-bold text-slate-900">
+                <Label htmlFor="password" className="font-bold text-slate-900 dark:text-slate-100">
                   Password
                 </Label>
                 <Link
@@ -137,10 +137,10 @@ export default function LoginPage() {
 
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t-2 border-slate-200" />
+                <span className="w-full border-t-2 border-slate-200 dark:border-slate-800" />
               </div>
               <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-slate-500 font-bold">Or continue with</span>
+                <span className="bg-white dark:bg-card px-2 text-slate-500 dark:text-slate-300 font-bold">Or continue with</span>
               </div>
             </div>
 
@@ -160,8 +160,8 @@ export default function LoginPage() {
             </button>
           </div>
 
-          <div className="mt-6 pt-6 border-t-2 border-slate-200">
-            <p className="text-sm text-center text-slate-700 font-semibold w-full">
+          <div className="mt-6 pt-6 border-t-2 border-slate-200 dark:border-slate-800">
+            <p className="text-sm text-center text-slate-700 dark:text-slate-300 font-semibold w-full">
               Don&apos;t have a player account?{' '}
               <Link href="/auth/register" className="text-primary font-bold hover:underline">
                 Join Arena

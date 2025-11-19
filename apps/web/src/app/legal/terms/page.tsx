@@ -52,11 +52,11 @@ export default function TermsPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Acceptance */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <CheckCircle className="w-7 h-7 text-primary animate-wiggle" />
               1. Acceptance of Arena Rules
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 By entering Innovation Lab arena, you agree to be bound by these Arena Rules and all
                 applicable battle regulations. If you do not agree with any of these terms, you are
@@ -67,11 +67,11 @@ export default function TermsPage() {
 
           {/* Use License */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Trophy className="w-7 h-7 text-primary animate-wiggle" />
               2. Arena Access License
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>Permission is granted to:</p>
               <ul className="space-y-2">
                 <li>Create a player profile and enter raids and boss challenges</li>
@@ -87,11 +87,11 @@ export default function TermsPage() {
 
           {/* User Accounts */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <User className="w-7 h-7 text-primary animate-wiggle" />
               3. Player Accounts
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>You are responsible for:</p>
               <ul className="space-y-2">
                 <li>Maintaining the confidentiality of your player credentials</li>
@@ -104,11 +104,11 @@ export default function TermsPage() {
 
           {/* User Content */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <FileEdit className="w-7 h-7 text-primary animate-wiggle" />
               4. Quest Content and Submissions
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>By submitting quest content to Innovation Lab, you:</p>
               <ul className="space-y-2">
                 <li>Retain ownership of your quest content</li>
@@ -127,11 +127,11 @@ export default function TermsPage() {
 
           {/* Prohibited Conduct */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <XCircle className="w-7 h-7 text-primary animate-wiggle" />
               5. Banned Tactics
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>You agree not to:</p>
               <ul className="space-y-2">
                 <li>Use the arena for any unlawful purpose</li>
@@ -149,11 +149,11 @@ export default function TermsPage() {
 
           {/* Intellectual Property */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Copyright className="w-7 h-7 text-primary animate-wiggle" />
               6. Intellectual Property
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 The arena, including its design, features, and content (excluding quest
                 submissions), is owned by Innovation Lab and protected by intellectual property
@@ -165,11 +165,11 @@ export default function TermsPage() {
 
           {/* Termination */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Ban className="w-7 h-7 text-primary animate-wiggle" />
               7. Account Suspension
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 We reserve the right to terminate or suspend your player account and arena access at
                 any time, without notice, for conduct that violates these Arena Rules or is harmful
@@ -180,11 +180,11 @@ export default function TermsPage() {
 
           {/* Disclaimer */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <AlertTriangle className="w-7 h-7 text-primary animate-wiggle" />
               8. Arena Disclaimer
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 The arena is provided "as is" without warranties of any kind. We do not guarantee
                 that the arena will be error-free, secure, or available at all times. Use of the
@@ -195,11 +195,11 @@ export default function TermsPage() {
 
           {/* Liability */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <AlertTriangle className="w-7 h-7 text-primary animate-wiggle" />
               9. Limitation of Liability
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 In no event shall Innovation Lab be liable for any indirect, incidental, special,
                 consequential, or punitive damages arising from your participation in the arena.
@@ -209,11 +209,11 @@ export default function TermsPage() {
 
           {/* Changes */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <FileText className="w-7 h-7 text-primary animate-wiggle" />
               10. Changes to Arena Rules
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 We may revise these Arena Rules at any time. By continuing to battle in the arena
                 after changes are made, you agree to be bound by the revised rules.
@@ -223,11 +223,11 @@ export default function TermsPage() {
 
           {/* Contact */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Mail className="w-7 h-7 text-primary animate-wiggle" />
               11. Contact Information
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>Questions about the Arena Rules should be sent to Support HQ:</p>
               <p>
                 <strong>Email:</strong>{' '}

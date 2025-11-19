@@ -4,18 +4,17 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { getLeaderboard, getAllBadges, getLevelName, formatXp } from '@/lib/gamification';
+import { getLeaderboard, getLevelName, formatXp } from '@/lib/gamification';
 import { getHackathons } from '@/lib/hackathons';
 import { getChallenges } from '@/lib/challenges';
 import type {
   LeaderboardEntry,
-  Badge as BadgeType,
   LeaderboardScope,
   LeaderboardPeriod,
 } from '@/types/gamification';
 import type { Hackathon } from '@/types/hackathon';
 import type { Challenge } from '@/types/challenge';
-import { Trophy, Medal, Award, TrendingUp, Crown, Star, Users, Flame } from 'lucide-react';
+import { Trophy, Medal, Award, TrendingUp, Crown, Users, Flame } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
 
 const SCOPE_OPTIONS: { value: LeaderboardScope; label: string }[] = [
@@ -32,7 +31,6 @@ const PERIOD_OPTIONS: { value: LeaderboardPeriod; label: string }[] = [
 
 export default function LeaderboardPage() {
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
-  const [badges, setBadges] = useState<BadgeType[]>([]);
   const [hackathons, setHackathons] = useState<Hackathon[]>([]);
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -49,7 +47,6 @@ export default function LeaderboardPage() {
 
   useEffect(() => {
     fetchLeaderboard();
-    fetchBadges();
   }, [selectedScope, selectedPeriod, selectedScopeId]);
 
   useEffect(() => {
@@ -77,15 +74,6 @@ export default function LeaderboardPage() {
     }
   }
 
-  async function fetchBadges() {
-    try {
-      const data = await getAllBadges();
-      setBadges(data);
-    } catch (err) {
-      console.error('Error fetching badges:', err);
-    }
-  }
-
   async function fetchHackathons() {
     try {
       const response = await getHackathons({ limit: 100 });
@@ -104,11 +92,6 @@ export default function LeaderboardPage() {
     }
   }
 
-  // Get badge info by slug
-  const getBadgeInfo = (badgeSlug: string) => {
-    return badges.find(b => b.slug === badgeSlug);
-  };
-
   // Get rank icon/color
   const getRankDisplay = (rank: number) => {
     if (rank === 1) {
@@ -120,22 +103,22 @@ export default function LeaderboardPage() {
     }
     if (rank === 2) {
       return {
-        icon: <Medal className="w-6 h-6 text-slate-400" />,
-        bgColor: 'bg-slate-100',
-        borderColor: 'border-slate-300',
+        icon: <Medal className="w-6 h-6 text-slate-400 dark:text-slate-300" />,
+        bgColor: 'bg-slate-100/50 dark:bg-slate-800/30',
+        borderColor: 'border-slate-300 dark:border-slate-600',
       };
     }
     if (rank === 3) {
       return {
-        icon: <Award className="w-6 h-6 text-amber-600" />,
-        bgColor: 'bg-amber-50',
-        borderColor: 'border-amber-300',
+        icon: <Award className="w-6 h-6 text-amber-600 dark:text-amber-400" />,
+        bgColor: 'bg-amber-100/50 dark:bg-amber-900/30',
+        borderColor: 'border-amber-300 dark:border-amber-700',
       };
     }
     return {
-      icon: <span className="text-xl font-bold text-slate-600">#{rank}</span>,
-      bgColor: 'bg-white',
-      borderColor: 'border-slate-200',
+      icon: <span className="text-xl font-bold text-slate-600 dark:text-slate-300">#{rank}</span>,
+      bgColor: 'bg-white dark:bg-card',
+      borderColor: 'border-slate-200 dark:border-slate-800',
     };
   };
 
@@ -146,7 +129,7 @@ export default function LeaderboardPage() {
         <div className="text-center">
           <Trophy className="w-20 h-20 text-primary mx-auto mb-4 animate-float" />
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-700 font-bold">Loading Hall of Fame...</p>
+          <p className="text-slate-700 dark:text-slate-300 font-bold">Loading Hall of Fame...</p>
         </div>
       </div>
     );
@@ -193,9 +176,9 @@ export default function LeaderboardPage() {
               <p className="text-sm text-white/90 font-bold uppercase">Max Level</p>
             </div>
             <div className="glass-game p-5 border-2 border-white/20">
-              <Star className="w-7 h-7 text-white mb-2 animate-sparkle" />
-              <p className="text-3xl font-black text-white stat-counter">{badges.length}</p>
-              <p className="text-sm text-white/90 font-bold uppercase">Total Trophies</p>
+              <Users className="w-7 h-7 text-white mb-2 animate-wiggle" />
+              <p className="text-3xl font-black text-white stat-counter">{leaderboard.length}</p>
+              <p className="text-sm text-white/90 font-bold uppercase">Competitors</p>
             </div>
           </div>
         </div>
@@ -204,7 +187,7 @@ export default function LeaderboardPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Error Message */}
         {error && (
-          <div className="game-card p-6 mb-6 border-red-300 bg-red-50">
+          <div className="game-card p-6 mb-6 border-red-300 bg-red-50 dark:bg-red-900/20">
             <p className="text-red-900 font-bold">{error}</p>
           </div>
         )}
@@ -213,7 +196,7 @@ export default function LeaderboardPage() {
         <div className="mb-8 space-y-6">
           {/* Scope Filter */}
           <div>
-            <label className="text-sm font-black text-slate-900 mb-2 block uppercase">
+            <label className="text-sm font-black text-slate-900 dark:text-slate-100 mb-2 block uppercase">
               Leaderboard Scope
             </label>
             <div className="flex flex-wrap gap-2">
@@ -236,7 +219,7 @@ export default function LeaderboardPage() {
           {/* Hackathon/Challenge Selector */}
           {selectedScope === 'HACKATHON' && hackathons.length > 0 && (
             <div>
-              <label className="text-sm font-black text-slate-900 mb-2 block uppercase">
+              <label className="text-sm font-black text-slate-900 dark:text-slate-100 mb-2 block uppercase">
                 Select Hackathon
               </label>
               <div className="flex flex-wrap gap-2">
@@ -256,7 +239,7 @@ export default function LeaderboardPage() {
 
           {selectedScope === 'CHALLENGE' && challenges.length > 0 && (
             <div>
-              <label className="text-sm font-black text-slate-900 mb-2 block uppercase">
+              <label className="text-sm font-black text-slate-900 dark:text-slate-100 mb-2 block uppercase">
                 Select Challenge
               </label>
               <div className="flex flex-wrap gap-2">
@@ -276,7 +259,7 @@ export default function LeaderboardPage() {
 
           {/* Period Filter */}
           <div>
-            <label className="text-sm font-black text-slate-900 mb-2 block uppercase">
+            <label className="text-sm font-black text-slate-900 dark:text-slate-100 mb-2 block uppercase">
               Battle Period
             </label>
             <div className="flex flex-wrap gap-2">
@@ -298,12 +281,12 @@ export default function LeaderboardPage() {
         {leaderboard.length >= 3 && (
           <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* 2nd Place */}
-            <Card className="md:mt-8 border-slate-300 bg-slate-50">
+            <Card className="md:mt-8 border-slate-300 dark:border-slate-600 bg-slate-100/50 dark:bg-slate-800/30 ring-2 ring-slate-300 dark:ring-slate-600">
               <CardHeader className="text-center pb-4">
                 <div className="mx-auto mb-3">
-                  <Medal className="w-12 h-12 text-slate-400" />
+                  <Medal className="w-12 h-12 text-slate-400 dark:text-slate-300" />
                 </div>
-                <Avatar className="w-20 h-20 mx-auto mb-3 ring-4 ring-slate-300">
+                <Avatar className="w-20 h-20 mx-auto mb-3 ring-4 ring-slate-300 dark:ring-slate-500">
                   {leaderboard[1].user.avatarUrl && (
                     <AvatarImage
                       src={leaderboard[1].user.avatarUrl}
@@ -321,19 +304,16 @@ export default function LeaderboardPage() {
                 <p className="text-3xl font-bold text-primary mb-2">
                   {formatXp(leaderboard[1].xp)} XP
                 </p>
-                <p className="text-sm text-slate-600 mb-4">
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
                   Level {leaderboard[1].level} • {getLevelName(leaderboard[1].level)}
                 </p>
-                {leaderboard[1].badges.length > 0 && (
-                  <div className="flex justify-center gap-1">
-                    {leaderboard[1].badges.slice(0, 5).map(badgeSlug => {
-                      const badge = getBadgeInfo(badgeSlug);
-                      return badge ? (
-                        <span key={badge.slug} className="text-2xl" title={badge.name}>
-                          {badge.icon}
-                        </span>
-                      ) : null;
-                    })}
+                {leaderboard[1].topBadges && leaderboard[1].topBadges.length > 0 && (
+                  <div className="flex justify-center gap-2">
+                    {leaderboard[1].topBadges.map(badge => (
+                      <span key={badge.slug} className="text-3xl" title={`${badge.name} (${badge.rarity.toUpperCase()})`}>
+                        {badge.icon}
+                      </span>
+                    ))}
                   </div>
                 )}
               </CardContent>
@@ -363,31 +343,28 @@ export default function LeaderboardPage() {
                 <p className="text-4xl font-bold text-accent mb-2">
                   {formatXp(leaderboard[0].xp)} XP
                 </p>
-                <p className="text-sm text-slate-600 mb-4">
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
                   Level {leaderboard[0].level} • {getLevelName(leaderboard[0].level)}
                 </p>
-                {leaderboard[0].badges.length > 0 && (
-                  <div className="flex justify-center gap-1">
-                    {leaderboard[0].badges.slice(0, 5).map(badgeSlug => {
-                      const badge = getBadgeInfo(badgeSlug);
-                      return badge ? (
-                        <span key={badge.slug} className="text-3xl" title={badge.name}>
-                          {badge.icon}
-                        </span>
-                      ) : null;
-                    })}
+                {leaderboard[0].topBadges && leaderboard[0].topBadges.length > 0 && (
+                  <div className="flex justify-center gap-2">
+                    {leaderboard[0].topBadges.map(badge => (
+                      <span key={badge.slug} className="text-4xl" title={`${badge.name} (${badge.rarity.toUpperCase()})`}>
+                        {badge.icon}
+                      </span>
+                    ))}
                   </div>
                 )}
               </CardContent>
             </Card>
 
             {/* 3rd Place */}
-            <Card className="md:mt-8 border-amber-300 bg-amber-50">
+            <Card className="md:mt-8 border-amber-300 dark:border-amber-700 bg-amber-100/50 dark:bg-amber-900/30 ring-2 ring-amber-300 dark:ring-amber-700">
               <CardHeader className="text-center pb-4">
                 <div className="mx-auto mb-3">
-                  <Award className="w-12 h-12 text-amber-600" />
+                  <Award className="w-12 h-12 text-amber-600 dark:text-amber-400" />
                 </div>
-                <Avatar className="w-20 h-20 mx-auto mb-3 ring-4 ring-amber-300">
+                <Avatar className="w-20 h-20 mx-auto mb-3 ring-4 ring-amber-300 dark:ring-amber-600">
                   {leaderboard[2].user.avatarUrl && (
                     <AvatarImage
                       src={leaderboard[2].user.avatarUrl}
@@ -405,19 +382,16 @@ export default function LeaderboardPage() {
                 <p className="text-3xl font-bold text-primary mb-2">
                   {formatXp(leaderboard[2].xp)} XP
                 </p>
-                <p className="text-sm text-slate-600 mb-4">
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
                   Level {leaderboard[2].level} • {getLevelName(leaderboard[2].level)}
                 </p>
-                {leaderboard[2].badges.length > 0 && (
-                  <div className="flex justify-center gap-1">
-                    {leaderboard[2].badges.slice(0, 5).map(badgeSlug => {
-                      const badge = getBadgeInfo(badgeSlug);
-                      return badge ? (
-                        <span key={badge.slug} className="text-2xl" title={badge.name}>
-                          {badge.icon}
-                        </span>
-                      ) : null;
-                    })}
+                {leaderboard[2].topBadges && leaderboard[2].topBadges.length > 0 && (
+                  <div className="flex justify-center gap-2">
+                    {leaderboard[2].topBadges.map(badge => (
+                      <span key={badge.slug} className="text-3xl" title={`${badge.name} (${badge.rarity.toUpperCase()})`}>
+                        {badge.icon}
+                      </span>
+                    ))}
                   </div>
                 )}
               </CardContent>
@@ -432,7 +406,7 @@ export default function LeaderboardPage() {
               <Trophy className="w-8 h-8 text-primary animate-wiggle" />
               Complete Rankings
             </h2>
-            <p className="text-slate-700 font-semibold">
+            <p className="text-slate-700 dark:text-slate-300 font-semibold">
               Showing {leaderboard.length} legendary warriors
             </p>
           </div>
@@ -440,7 +414,7 @@ export default function LeaderboardPage() {
             {leaderboard.length === 0 ? (
               <div className="text-center py-12">
                 <Trophy className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-float" />
-                <p className="text-slate-700 font-bold">No warriors in the Hall of Fame yet</p>
+                <p className="text-slate-700 dark:text-slate-300 font-bold">No warriors in the Hall of Fame yet</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -466,28 +440,25 @@ export default function LeaderboardPage() {
                       </Avatar>
 
                       <div className="flex-1 min-w-0">
-                        <p className="font-bold text-slate-900 truncate">{entry.user.name}</p>
-                        <p className="text-sm text-slate-700 font-semibold">@{entry.user.handle}</p>
+                        <p className="font-bold text-slate-900 dark:text-slate-100 truncate">{entry.user.name}</p>
+                        <p className="text-sm text-slate-700 dark:text-slate-300 font-semibold">@{entry.user.handle}</p>
                       </div>
 
-                      {/* Badges */}
-                      {entry.badges.length > 0 && (
+                      {/* Top Badges */}
+                      {entry.topBadges && entry.topBadges.length > 0 && (
                         <div className="hidden md:flex gap-1">
-                          {entry.badges.slice(0, 3).map(badgeSlug => {
-                            const badge = getBadgeInfo(badgeSlug);
-                            return badge ? (
-                              <span key={badge.slug} className="text-xl" title={badge.name}>
-                                {badge.icon}
-                              </span>
-                            ) : null;
-                          })}
+                          {entry.topBadges.map(badge => (
+                            <span key={badge.slug} className="text-xl" title={`${badge.name} (${badge.rarity.toUpperCase()})`}>
+                              {badge.icon}
+                            </span>
+                          ))}
                         </div>
                       )}
 
                       {/* Level */}
                       <div className="text-right">
-                        <p className="text-sm text-slate-700 font-bold">Level {entry.level}</p>
-                        <p className="text-xs text-slate-600 font-semibold">
+                        <p className="text-sm text-slate-700 dark:text-slate-300 font-bold">Level {entry.level}</p>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold">
                           {getLevelName(entry.level)}
                         </p>
                       </div>
@@ -495,7 +466,7 @@ export default function LeaderboardPage() {
                       {/* XP */}
                       <div className="text-right min-w-[100px]">
                         <p className="text-lg font-black text-primary">{formatXp(entry.xp)}</p>
-                        <p className="text-xs text-slate-600 font-bold">XP</p>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 font-bold">XP</p>
                       </div>
                     </div>
                   );

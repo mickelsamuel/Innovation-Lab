@@ -109,7 +109,7 @@ function ToastItem({ toast }: ToastItemProps) {
       case 'info':
         return 'bg-blue-50 border-blue-200 text-blue-900';
       default:
-        return 'bg-white border-gray-200';
+        return 'bg-white dark:bg-card border-gray-200 dark:border-slate-800';
     }
   };
 

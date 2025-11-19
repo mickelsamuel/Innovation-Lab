@@ -167,7 +167,7 @@ export default function MySolutionsPage() {
                     {/* Solution URL */}
                     {submission.repoUrl && (
                       <div>
-                        <p className="text-sm font-medium text-slate-700 mb-1">Solution Link:</p>
+                        <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Solution Link:</p>
                         <a
                           href={submission.repoUrl}
                           target="_blank"
@@ -182,21 +182,21 @@ export default function MySolutionsPage() {
                     {/* Description */}
                     {submission.content && (
                       <div>
-                        <p className="text-sm font-medium text-slate-700 mb-1">Description:</p>
-                        <p className="text-sm text-slate-600">{submission.content}</p>
+                        <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Description:</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">{submission.content}</p>
                       </div>
                     )}
 
                     {/* Review Feedback */}
                     {submission.feedback && (
-                      <div className="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                        <p className="text-sm font-medium text-slate-700 mb-2">Review Feedback:</p>
-                        <p className="text-sm text-slate-600">{submission.feedback}</p>
+                      <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-lg border border-slate-200 dark:border-slate-800">
+                        <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Review Feedback:</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">{submission.feedback}</p>
                       </div>
                     )}
 
                     {/* Actions */}
-                    <div className="flex gap-3 pt-4 border-t border-slate-100">
+                    <div className="flex gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                       {submission.challenge?.slug && (
                         <Link href={`/challenges/${submission.challenge.slug}`}>
                           <Button variant="outline" size="sm">
@@ -215,8 +215,8 @@ export default function MySolutionsPage() {
           /* Empty State */
           <div className="text-center py-16">
             <Code className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-700 mb-2">No submissions yet</h3>
-            <p className="text-slate-500 mb-6">
+            <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">No submissions yet</h3>
+            <p className="text-slate-500 dark:text-slate-300 mb-6">
               Start competing in challenges to see your solutions here!
             </p>
             <Link href="/challenges">

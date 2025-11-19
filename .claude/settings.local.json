@@ -37,7 +37,19 @@
       "Bash(pnpm exec playwright install:*)",
       "Bash(pnpm screenshots:*)",
       "Bash(git add:*)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(set:*)",
+      "Bash(\"C:\\Program Files\\PostgreSQL\\16\\bin\\psql.exe\" -U postgres -d innovationlab -c \"\\conninfo\")",
+      "Bash(chmod:*)",
+      "Bash(./start.sh:*)",
+      "Bash(./start-local.sh)",
+      "Bash(find:*)",
+      "Bash(git -C \"C:\\Users\\Mickel\\Innovation-Lab\" diff --name-only)",
+      "Bash(pnpm seed:*)",
+      "Bash(\"C:\\Program Files\\PostgreSQL\\16\\bin\\psql.exe\" -U postgres -d innovationlab -c \"SELECT COUNT(*) FROM \"\"User\"\" WHERE ''JUDGE'' = ANY(roles);\")",
+      "Bash(\"C:\\Program Files\\PostgreSQL\\16\\bin\\psql.exe\" -U postgres -d innovationlab -c \"SELECT COUNT(DISTINCT \"\"userId\"\") as total_judges FROM judges;\")",
+      "Bash(C:UsersMickelInnovation-Labappsapisrcmoderationmoderation.module.ts)",
+      "Bash(C:UsersMickelInnovation-Labappsapisrcmoderationmoderation.controller.ts)"
     ],
     "deny": [],
     "ask": []

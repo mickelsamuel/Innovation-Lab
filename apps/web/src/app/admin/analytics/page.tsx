@@ -26,6 +26,7 @@ import {
   barChartConfig,
   TimeRange,
 } from '@/lib/analytics';
+import { getAuthToken, apiFetch } from '@/lib/api';
 
 interface PlatformStats {
   totalUsers: number;
@@ -86,16 +87,16 @@ export default function PlatformAnalyticsPage() {
   const fetchAnalytics = async () => {
     setLoading(true);
     try {
-      const [platformRes, growthRes, engagementRes] = await Promise.all([
-        fetch('/api/analytics/platform'),
-        fetch(`/api/analytics/growth?timeRange=${timeRange}`),
-        fetch('/api/analytics/engagement'),
-      ]);
+      const token = getAuthToken();
+      if (!token) {
+        console.error('No auth token found');
+        return;
+      }
 
       const [platform, growth, engagement] = await Promise.all([
-        platformRes.json(),
-        growthRes.json(),
-        engagementRes.json(),
+        apiFetch<PlatformStats>('/analytics/platform', { token }),
+        apiFetch<GrowthMetrics>(`/analytics/growth?timeRange=${timeRange}`, { token }),
+        apiFetch<EngagementMetrics>('/analytics/engagement', { token }),
       ]);
 
       setPlatformStats(platform);

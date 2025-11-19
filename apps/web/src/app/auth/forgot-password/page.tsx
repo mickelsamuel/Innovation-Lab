@@ -56,7 +56,7 @@ export default function ForgotPasswordPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <p className="text-sm text-slate-600 text-center">
+            <p className="text-sm text-slate-600 dark:text-slate-300 text-center">
               If you don't see the email, please check your spam folder.
             </p>
             <div className="flex flex-col gap-3">
@@ -100,7 +100,7 @@ export default function ForgotPasswordPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Email Address
               </label>
               <Input
@@ -129,7 +129,7 @@ export default function ForgotPasswordPage() {
               )}
             </Button>
 
-            <p className="text-sm text-slate-600 text-center">
+            <p className="text-sm text-slate-600 dark:text-slate-300 text-center">
               Remember your password?{' '}
               <Link href="/auth/login" className="text-primary hover:underline font-medium">
                 Sign in

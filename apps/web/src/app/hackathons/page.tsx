@@ -163,7 +163,7 @@ export default function HackathonsPage() {
           {/* Status and Location Filters */}
           <div className="flex flex-col sm:flex-row gap-6">
             <div className="flex-1">
-              <label className="text-sm font-black text-slate-700 mb-3 block uppercase tracking-wide">
+              <label className="text-sm font-black text-slate-700 dark:text-slate-300 mb-3 block uppercase tracking-wide">
                 <Clock className="inline w-4 h-4 mr-1" />
                 Raid Status
               </label>
@@ -184,7 +184,7 @@ export default function HackathonsPage() {
             </div>
 
             <div className="flex-1">
-              <label className="text-sm font-black text-slate-700 mb-3 block uppercase tracking-wide">
+              <label className="text-sm font-black text-slate-700 dark:text-slate-300 mb-3 block uppercase tracking-wide">
                 <Target className="inline w-4 h-4 mr-1" />
                 Location Type
               </label>
@@ -208,7 +208,7 @@ export default function HackathonsPage() {
 
         {/* Results Count */}
         {!isLoading && (
-          <div className="mb-6 text-sm font-bold text-slate-700 uppercase tracking-wide">
+          <div className="mb-6 text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wide">
             {total === 0 ? (
               '⚠️ No raids found'
             ) : (
@@ -225,14 +225,14 @@ export default function HackathonsPage() {
         {isLoading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[...Array(6)].map((_, i) => (
-              <div key={i} className="h-96 bg-slate-100 animate-pulse rounded-lg" />
+              <div key={i} className="h-96 bg-slate-100 dark:bg-slate-800 animate-pulse rounded-lg" />
             ))}
           </div>
         )}
 
         {/* Error State */}
         {error && !isLoading && (
-          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+          <div className="bg-red-50 dark:bg-red-950 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-200 px-4 py-3 rounded-lg">
             <p className="font-medium">Error loading hackathons</p>
             <p className="text-sm">{error}</p>
           </div>
@@ -252,10 +252,10 @@ export default function HackathonsPage() {
           <div className="text-center py-20">
             <div className="game-card p-12 max-w-lg mx-auto">
               <Swords className="w-20 h-20 text-slate-300 mx-auto mb-6 animate-float" />
-              <h3 className="text-2xl font-display font-black text-slate-700 mb-3">
+              <h3 className="text-2xl font-display font-black text-slate-700 dark:text-slate-300 mb-3">
                 No Raids Found
               </h3>
-              <p className="text-slate-600 font-semibold mb-8">
+              <p className="text-slate-600 dark:text-slate-300 font-semibold mb-8">
                 Try adjusting your filters or search to find more epic raids!
               </p>
               <button
@@ -301,7 +301,7 @@ export default function HackathonsPage() {
                       className={`w-12 h-12 rounded-lg font-black transition-all ${
                         page === currentPage
                           ? 'bg-gradient-to-br from-primary to-accent text-white shadow-glow'
-                          : 'bg-white border-2 border-slate-200 text-slate-700 hover:border-primary hover:scale-105'
+                          : 'bg-white dark:bg-card border-2 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-primary hover:scale-105'
                       }`}
                       onClick={() => handlePageChange(page)}
                     >

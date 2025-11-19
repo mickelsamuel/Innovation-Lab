@@ -50,6 +50,12 @@ export interface LeaderboardEntry {
   xp: number;
   level: number;
   badges: string[];
+  topBadges?: Array<{
+    slug: string;
+    name: string;
+    icon: string;
+    rarity: string;
+  }>;
 }
 
 export interface Badge {

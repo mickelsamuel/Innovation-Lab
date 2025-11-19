@@ -5,7 +5,7 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Users } from 'lucide-react';
+import { ArrowLeft, Users, FileText, Trophy } from 'lucide-react';
 import { MentorCard } from '@/components/mentors/MentorCard';
 import { OfficeHoursCalendar } from '@/components/mentors/OfficeHoursCalendar';
 import { getMentors, getHackathonSessions } from '@/lib/mentors';
@@ -114,6 +114,47 @@ export default function HackathonMentorsPage() {
         <p className="text-slate-400 mb-8">
           Connect with experienced mentors for guidance and support
         </p>
+
+        {/* Navigation Tabs */}
+        <div className="bg-slate-900/50 border-b border-cyan-500/20 mb-8">
+          <nav className="flex gap-6 overflow-x-auto">
+            <Link
+              href={`/hackathons/${slug}`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-400 hover:text-white hover:border-slate-500 font-semibold text-sm whitespace-nowrap"
+            >
+              <FileText className="w-4 h-4" />
+              Overview
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/leaderboard`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-400 hover:text-white hover:border-slate-500 font-semibold text-sm whitespace-nowrap"
+            >
+              <Trophy className="w-4 h-4" />
+              Leaderboard
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/teams`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-400 hover:text-white hover:border-slate-500 font-semibold text-sm whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
+              Teams
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/submissions`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-400 hover:text-white hover:border-slate-500 font-semibold text-sm whitespace-nowrap"
+            >
+              <FileText className="w-4 h-4" />
+              Submissions
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/mentors`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-cyan-500 text-cyan-400 font-semibold text-sm whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
+              Mentors
+            </Link>
+          </nav>
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Mentors List */}

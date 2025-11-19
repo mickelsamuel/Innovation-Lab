@@ -199,10 +199,10 @@ export default function EditHackathonPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-16 h-16 border-4 text-primary animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading hackathon...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading hackathon...</p>
         </div>
       </div>
     );
@@ -210,14 +210,14 @@ export default function EditHackathonPage() {
 
   if (!hackathon) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load hackathon</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">Hackathon not found</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">Hackathon not found</p>
             <Link href="/admin/hackathons">
               <Button variant="outline" className="w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -231,9 +231,9 @@ export default function EditHackathonPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href="/admin/hackathons">
             <Button variant="ghost" size="sm">
@@ -330,7 +330,7 @@ export default function EditHackathonPage() {
                   <select
                     id="status"
                     {...register('status')}
-                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     <option value={HackathonStatus.DRAFT}>Draft</option>
                     <option value={HackathonStatus.UPCOMING}>Upcoming</option>
@@ -345,7 +345,7 @@ export default function EditHackathonPage() {
                   <select
                     id="isPublished"
                     {...register('isPublished', { setValueAs: v => v === 'true' })}
-                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     <option value="false">Unpublished</option>
                     <option value="true">Published</option>
@@ -369,7 +369,7 @@ export default function EditHackathonPage() {
                 <select
                   id="location"
                   {...register('location')}
-                  className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <option value={HackathonLocation.VIRTUAL}>Virtual</option>
                   <option value={HackathonLocation.ONSITE}>Onsite</option>
@@ -637,7 +637,7 @@ export default function EditHackathonPage() {
                 Add Track
               </Button>
               {hasSubmissions && (
-                <p className="text-sm text-yellow-600">
+                <p className="text-sm text-yellow-600 dark:text-yellow-500">
                   Cannot modify tracks with existing submissions
                 </p>
               )}
@@ -730,7 +730,7 @@ export default function EditHackathonPage() {
                 Add Criterion
               </Button>
               {hasSubmissions && (
-                <p className="text-sm text-yellow-600">
+                <p className="text-sm text-yellow-600 dark:text-yellow-500">
                   Cannot modify criteria with existing submissions
                 </p>
               )}

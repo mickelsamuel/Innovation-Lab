@@ -196,10 +196,10 @@ export default function ManageHackathonPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-16 h-16 text-primary animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading hackathon...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading hackathon...</p>
         </div>
       </div>
     );
@@ -207,14 +207,14 @@ export default function ManageHackathonPage() {
 
   if (!hackathon) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load hackathon</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">Hackathon not found</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">Hackathon not found</p>
             <Link href="/admin/hackathons">
               <Button variant="outline" className="w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -228,9 +228,9 @@ export default function ManageHackathonPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href="/admin/hackathons">
             <Button variant="ghost" size="sm">
@@ -303,7 +303,7 @@ export default function ManageHackathonPage() {
                     <div className="flex items-center gap-3">
                       <Users className="w-8 h-8 text-primary" />
                       <div>
-                        <p className="text-sm text-slate-600">Teams</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">Teams</p>
                         <p className="text-2xl font-bold">{hackathon._count?.teams || 0}</p>
                       </div>
                     </div>
@@ -312,7 +312,7 @@ export default function ManageHackathonPage() {
                     <div className="flex items-center gap-3">
                       <FileText className="w-8 h-8 text-primary" />
                       <div>
-                        <p className="text-sm text-slate-600">Submissions</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">Submissions</p>
                         <p className="text-2xl font-bold">{hackathon._count?.submissions || 0}</p>
                       </div>
                     </div>
@@ -321,7 +321,7 @@ export default function ManageHackathonPage() {
                     <div className="flex items-center gap-3">
                       <Gavel className="w-8 h-8 text-primary" />
                       <div>
-                        <p className="text-sm text-slate-600">Judges</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">Judges</p>
                         <p className="text-2xl font-bold">{hackathon._count?.judges || 0}</p>
                       </div>
                     </div>
@@ -330,7 +330,7 @@ export default function ManageHackathonPage() {
                     <div className="flex items-center gap-3">
                       <Users className="w-8 h-8 text-primary" />
                       <div>
-                        <p className="text-sm text-slate-600">Mentors</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">Mentors</p>
                         <p className="text-2xl font-bold">{hackathon._count?.mentors || 0}</p>
                       </div>
                     </div>
@@ -363,7 +363,7 @@ export default function ManageHackathonPage() {
                     )}
                   </Button>
                   {hackathon.status !== 'JUDGING' && (
-                    <p className="text-xs text-slate-500 text-center">
+                    <p className="text-xs text-slate-500 dark:text-slate-300 text-center">
                       Rankings can only be calculated during JUDGING phase
                     </p>
                   )}
@@ -401,24 +401,24 @@ export default function ManageHackathonPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="p-3 bg-slate-50 rounded-lg">
-                      <p className="text-sm text-slate-600 mb-1">Hackathon Period</p>
+                    <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Hackathon Period</p>
                       <p className="font-medium">
                         {new Date(hackathon.startsAt).toLocaleDateString()} -{' '}
                         {new Date(hackathon.endsAt).toLocaleDateString()}
                       </p>
                     </div>
                     {hackathon.registrationClosesAt && (
-                      <div className="p-3 bg-slate-50 rounded-lg">
-                        <p className="text-sm text-slate-600 mb-1">Registration Closes</p>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Registration Closes</p>
                         <p className="font-medium">
                           {new Date(hackathon.registrationClosesAt).toLocaleDateString()}
                         </p>
                       </div>
                     )}
                     {hackathon.submissionClosesAt && (
-                      <div className="p-3 bg-slate-50 rounded-lg">
-                        <p className="text-sm text-slate-600 mb-1">Submission Closes</p>
+                      <div className="p-3 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                        <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Submission Closes</p>
                         <p className="font-medium">
                           {new Date(hackathon.submissionClosesAt).toLocaleDateString()}
                         </p>
@@ -450,7 +450,7 @@ export default function ManageHackathonPage() {
                     <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <p className="text-sm font-medium">Judge Management Ready</p>
-                      <p className="text-sm text-slate-600 mt-1">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
                         Add, remove, and view all judges assigned to this hackathon. Judges can
                         score submissions based on your defined criteria.
                       </p>
@@ -481,7 +481,7 @@ export default function ManageHackathonPage() {
                     <CheckCircle2 className="w-5 h-5 text-primary mt-0.5" />
                     <div>
                       <p className="text-sm font-medium">Mentor Management Ready</p>
-                      <p className="text-sm text-slate-600 mt-1">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">
                         Add, remove, and view all mentors assigned to this hackathon. Mentors can
                         guide participants and provide expertise throughout the event.
                       </p>
@@ -532,23 +532,23 @@ export default function ManageHackathonPage() {
                 <div className="mt-6">
                   <h3 className="text-sm font-semibold mb-3">Recent Announcements</h3>
                   {isLoadingAnnouncements ? (
-                    <div className="text-center py-4 text-slate-500">Loading...</div>
+                    <div className="text-center py-4 text-slate-500 dark:text-slate-300">Loading...</div>
                   ) : announcements.length === 0 ? (
-                    <div className="text-center py-8 text-slate-500">
+                    <div className="text-center py-8 text-slate-500 dark:text-slate-300">
                       <MessageSquare className="w-12 h-12 mx-auto mb-2 text-slate-300" />
                       <p>No announcements yet</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {announcements.map(announcement => (
-                        <div key={announcement.id} className="p-4 border rounded-lg bg-slate-50">
+                        <div key={announcement.id} className="p-4 border rounded-lg bg-slate-50 dark:bg-slate-800">
                           <div className="flex items-start justify-between gap-2">
                             <div className="flex-1">
                               <p className="font-semibold text-sm">{announcement.title}</p>
-                              <p className="text-sm text-slate-600 mt-1 whitespace-pre-line">
+                              <p className="text-sm text-slate-600 dark:text-slate-300 mt-1 whitespace-pre-line">
                                 {announcement.body}
                               </p>
-                              <p className="text-xs text-slate-400 mt-2">
+                              <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">
                                 {new Date(announcement.publishedAt).toLocaleString()}
                               </p>
                             </div>
@@ -578,12 +578,12 @@ export default function ManageHackathonPage() {
                   <CardDescription>Current status and visibility</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="p-4 bg-slate-50 rounded-lg">
-                    <p className="text-sm text-slate-600 mb-1">Status</p>
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Status</p>
                     <Badge className="text-base">{hackathon.status}</Badge>
                   </div>
-                  <div className="p-4 bg-slate-50 rounded-lg">
-                    <p className="text-sm text-slate-600 mb-1">Visibility</p>
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Visibility</p>
                     <Badge className="text-base">
                       {hackathon.isPublished ? 'Published' : 'Unpublished'}
                     </Badge>
@@ -603,12 +603,12 @@ export default function ManageHackathonPage() {
                   <CardDescription>Judging configuration</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="p-4 bg-slate-50 rounded-lg">
-                    <p className="text-sm text-slate-600 mb-1">Challenge Tracks</p>
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Challenge Tracks</p>
                     <p className="text-2xl font-bold">{hackathon.tracks?.length || 0}</p>
                   </div>
-                  <div className="p-4 bg-slate-50 rounded-lg">
-                    <p className="text-sm text-slate-600 mb-1">Judging Criteria</p>
+                  <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Judging Criteria</p>
                     <p className="text-2xl font-bold">{hackathon.criteria?.length || 0}</p>
                   </div>
                   <Link href={`/admin/hackathons/${hackathonId}/edit`} className="block">

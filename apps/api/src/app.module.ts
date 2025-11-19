@@ -17,6 +17,7 @@ import { TeamsModule } from './teams/teams.module';
 import { InvitationsModule } from './invitations/invitations.module';
 import { SubmissionsModule } from './submissions/submissions.module';
 import { JudgingModule } from './judging/judging.module';
+import { ModerationModule } from './moderation/moderation.module';
 import { ChallengesModule } from './challenges/challenges.module';
 import { GamificationModule } from './gamification/gamification.module';
 import { FilesModule } from './files/files.module';
@@ -107,6 +108,7 @@ import { AnalyticsModule } from './analytics/analytics.module';
     InvitationsModule,
     SubmissionsModule,
     JudgingModule,
+    ModerationModule,
     ChallengesModule,
     GamificationModule,
     FilesModule,

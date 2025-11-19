@@ -9,7 +9,10 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { apiFetch } from '@/lib/api';
 import { getInitials } from '@/lib/utils';
-import { Trophy, Award, Users, FileText, Building2, Calendar, ArrowLeft } from 'lucide-react';
+import {
+  Trophy, Award, Users, FileText, Building2, Calendar, ArrowLeft,
+  Target, Swords, ExternalLink, Clock, Star, TrendingUp
+} from 'lucide-react';
 
 interface UserProfile {
   id: string;
@@ -27,9 +30,36 @@ interface UserProfile {
     rank: number;
     streak: number;
   };
-  badges?: unknown[];
-  teams?: unknown[];
-  submissions?: unknown[];
+  badges?: any[];
+  teams?: any[];
+  submissions?: any[];
+}
+
+interface Activity {
+  id: string;
+  type: string;
+  description: string;
+  xpGained: number;
+  createdAt: string;
+}
+
+interface Team {
+  id: string;
+  name: string;
+  hackathonName: string;
+  memberCount: number;
+  createdAt: string;
+}
+
+interface Submission {
+  id: string;
+  title: string;
+  type: 'HACKATHON' | 'CHALLENGE';
+  hackathonName?: string;
+  challengeName?: string;
+  status: string;
+  score?: number;
+  submittedAt: string;
 }
 
 export default function PublicUserProfilePage() {
@@ -41,9 +71,21 @@ export default function PublicUserProfilePage() {
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'overview' | 'teams' | 'submissions'>('overview');
 
+  // Tab data
+  const [activities, setActivities] = useState<Activity[]>([]);
+  const [teams, setTeams] = useState<Team[]>([]);
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [loadingTab, setLoadingTab] = useState(false);
+
   useEffect(() => {
     fetchUserProfile();
   }, [handle]);
+
+  useEffect(() => {
+    if (user) {
+      fetchTabData();
+    }
+  }, [activeTab, user]);
 
   async function fetchUserProfile() {
     try {
@@ -68,7 +110,7 @@ export default function PublicUserProfilePage() {
 
       // Fetch user badges
       try {
-        const badges = await apiFetch<unknown[]>(`/gamification/badges/user/${userData.id}`);
+        const badges = await apiFetch<any[]>(`/gamification/badges/user/${userData.id}`);
         userData.badges = badges;
       } catch (err) {
         console.log('Could not fetch badges');
@@ -83,6 +125,44 @@ export default function PublicUserProfilePage() {
     }
   }
 
+  async function fetchTabData() {
+    if (!user) return;
+
+    setLoadingTab(true);
+    try {
+      if (activeTab === 'overview') {
+        // Fetch recent XP events as activity
+        try {
+          const xpEvents = await apiFetch<Activity[]>(`/gamification/xp-events/${user.id}?limit=10`);
+          setActivities(xpEvents);
+        } catch (err) {
+          console.error('Could not fetch activities:', err);
+          setActivities([]);
+        }
+      } else if (activeTab === 'teams') {
+        // Fetch user's teams
+        try {
+          const userTeams = await apiFetch<Team[]>(`/users/${user.id}/teams`);
+          setTeams(userTeams);
+        } catch (err) {
+          console.error('Could not fetch teams:', err);
+          setTeams([]);
+        }
+      } else if (activeTab === 'submissions') {
+        // Fetch user's submissions
+        try {
+          const userSubmissions = await apiFetch<Submission[]>(`/users/${user.id}/submissions`);
+          setSubmissions(userSubmissions);
+        } catch (err) {
+          console.error('Could not fetch submissions:', err);
+          setSubmissions([]);
+        }
+      }
+    } finally {
+      setLoadingTab(false);
+    }
+  }
+
   function formatJoinDate(dateString: string): string {
     return new Date(dateString).toLocaleDateString('en-US', {
       month: 'long',
@@ -90,13 +170,34 @@ export default function PublicUserProfilePage() {
     });
   }
 
+  function formatActivityDate(dateString: string): string {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffHours < 24) return `${diffHours}h ago`;
+    if (diffDays < 7) return `${diffDays}d ago`;
+    return date.toLocaleDateString();
+  }
+
+  function getActivityIcon(type: string) {
+    if (type.includes('HACKATHON')) return Swords;
+    if (type.includes('CHALLENGE')) return Target;
+    if (type.includes('STREAK')) return TrendingUp;
+    return Star;
+  }
+
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading profile...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading profile...</p>
         </div>
       </div>
     );
@@ -105,17 +206,18 @@ export default function PublicUserProfilePage() {
   // Error State
   if (error || !user) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
-            <CardTitle className="text-red-600">User Not Found</CardTitle>
+            <CardTitle className="text-red-600 dark:text-red-400">Error Loading Profile</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">
-              {error || 'Could not find a user with this handle.'}
-            </p>
-            <Link href="/leaderboard">
-              <Button>Browse Users</Button>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error || 'User not found'}</p>
+            <Link href="/">
+              <Button variant="outline">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to Home
+              </Button>
             </Link>
           </CardContent>
         </Card>
@@ -124,79 +226,49 @@ export default function PublicUserProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-primary to-purple-600 text-white">
-        <div className="container mx-auto px-4 py-8">
-          <Link href="/leaderboard">
-            <Button variant="ghost" size="sm" className="text-white hover:bg-white/20 mb-4">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Leaderboard
-            </Button>
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+      {/* Profile Header */}
+      <div className="bg-gradient-to-r from-primary via-accent to-accent2 py-12">
+        <div className="container mx-auto px-4">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-white/90 hover:text-white mb-6 font-semibold"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            Back to Arena
           </Link>
 
-          <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
-            <Avatar className="w-24 h-24 border-4 border-white shadow-lg">
-              <AvatarImage src={user.avatarUrl || undefined} />
-              <AvatarFallback className="text-2xl bg-primary-600">
+          <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+            <Avatar className="w-24 h-24 border-4 border-white">
+              {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
+              <AvatarFallback className="bg-primary text-white text-3xl font-bold">
                 {getInitials(user.name)}
               </AvatarFallback>
             </Avatar>
 
             <div className="flex-1">
-              <h1 className="text-3xl font-bold mb-1">{user.name}</h1>
-              <p className="text-white/90 mb-2">@{user.handle}</p>
+              <h1 className="text-4xl font-display font-black text-white mb-2">{user.name}</h1>
+              <p className="text-white/90 font-semibold mb-4">@{user.handle}</p>
 
-              <div className="flex flex-wrap gap-2 mb-4">
-                {user.roles.map(role => (
-                  <Badge
-                    key={role}
-                    variant="secondary"
-                    className="bg-white/20 text-white border-white/30"
-                  >
-                    {role}
+              {user.gamificationProfile && (
+                <div className="flex flex-wrap gap-4">
+                  <Badge className="bg-white/20 text-white border-white/40 px-4 py-1">
+                    <Trophy className="w-4 h-4 mr-2" />
+                    Level {user.gamificationProfile.level}
                   </Badge>
-                ))}
-              </div>
-
-              {user.organization && (
-                <p className="flex items-center gap-2 text-white/90">
-                  <Building2 className="w-4 h-4" />
-                  {user.organization}
-                </p>
+                  <Badge className="bg-white/20 text-white border-white/40 px-4 py-1">
+                    <Star className="w-4 h-4 mr-2" />
+                    {user.gamificationProfile.xp.toLocaleString()} XP
+                  </Badge>
+                  {user.gamificationProfile.streak > 0 && (
+                    <Badge className="bg-white/20 text-white border-white/40 px-4 py-1">
+                      <TrendingUp className="w-4 h-4 mr-2" />
+                      {user.gamificationProfile.streak} day streak
+                    </Badge>
+                  )}
+                </div>
               )}
             </div>
-
-            {user.gamificationProfile && (
-              <Card className="bg-white/10 backdrop-blur-sm border-white/20">
-                <CardContent className="p-4">
-                  <div className="grid grid-cols-2 gap-4 text-center">
-                    <div>
-                      <p className="text-sm text-white/70">Level</p>
-                      <p className="text-2xl font-bold text-white">
-                        {user.gamificationProfile.level}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-white/70">XP</p>
-                      <p className="text-2xl font-bold text-white">{user.gamificationProfile.xp}</p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-white/70">Rank</p>
-                      <p className="text-2xl font-bold text-white">
-                        #{user.gamificationProfile.rank}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-white/70">Streak</p>
-                      <p className="text-2xl font-bold text-white">
-                        {user.gamificationProfile.streak}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
       </div>
@@ -212,13 +284,19 @@ export default function PublicUserProfilePage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 {user.bio ? (
-                  <p className="text-slate-600">{user.bio}</p>
+                  <p className="text-slate-600 dark:text-slate-300">{user.bio}</p>
                 ) : (
-                  <p className="text-slate-400 italic">No bio provided</p>
+                  <p className="text-slate-400 dark:text-slate-500 italic">No bio provided</p>
                 )}
 
-                <div className="pt-4 border-t space-y-2">
-                  <p className="flex items-center gap-2 text-sm text-slate-600">
+                <div className="pt-4 border-t border-slate-200 dark:border-slate-700 space-y-2">
+                  {user.organization && (
+                    <p className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
+                      <Building2 className="w-4 h-4" />
+                      {user.organization}
+                    </p>
+                  )}
+                  <p className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
                     <Calendar className="w-4 h-4" />
                     Joined {formatJoinDate(user.createdAt)}
                   </p>
@@ -237,26 +315,29 @@ export default function PublicUserProfilePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-3 gap-3">
-                    {(user.badges as Array<{ id: string; name: string }>).slice(0, 9).map(badge => (
+                    {user.badges.slice(0, 9).map((badge: any) => (
                       <div
                         key={badge.id}
-                        className="flex flex-col items-center p-2 rounded-lg hover:bg-slate-50 transition-colors"
+                        className="flex flex-col items-center p-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                         title={badge.name}
                       >
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mb-1">
-                          <Award className="w-6 h-6 text-white" />
-                        </div>
-                        <p className="text-xs text-center text-slate-600 truncate w-full">
+                        <div className="text-3xl mb-1">{badge.icon || '🏆'}</div>
+                        <p className="text-xs text-center text-slate-600 dark:text-slate-300 truncate w-full">
                           {badge.name}
                         </p>
                       </div>
                     ))}
                   </div>
                   {user.badges.length > 9 && (
-                    <p className="text-sm text-slate-500 text-center mt-3">
+                    <p className="text-sm text-slate-500 dark:text-slate-400 text-center mt-3">
                       +{user.badges.length - 9} more
                     </p>
                   )}
+                  <Link href="/badges" className="block mt-4">
+                    <Button variant="outline" size="sm" className="w-full">
+                      View All Badges
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             )}
@@ -265,13 +346,13 @@ export default function PublicUserProfilePage() {
           {/* Right Column - Activity */}
           <div className="lg:col-span-2 space-y-6">
             {/* Tabs */}
-            <div className="flex gap-2 border-b">
+            <div className="flex gap-2 border-b border-slate-200 dark:border-slate-700">
               <button
                 onClick={() => setActiveTab('overview')}
                 className={`px-4 py-2 font-medium transition-colors ${
                   activeTab === 'overview'
                     ? 'text-primary border-b-2 border-primary'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100'
                 }`}
               >
                 Overview
@@ -281,7 +362,7 @@ export default function PublicUserProfilePage() {
                 className={`px-4 py-2 font-medium transition-colors ${
                   activeTab === 'teams'
                     ? 'text-primary border-b-2 border-primary'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100'
                 }`}
               >
                 Teams
@@ -291,7 +372,7 @@ export default function PublicUserProfilePage() {
                 className={`px-4 py-2 font-medium transition-colors ${
                   activeTab === 'submissions'
                     ? 'text-primary border-b-2 border-primary'
-                    : 'text-slate-600 hover:text-slate-900'
+                    : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100'
                 }`}
               >
                 Submissions
@@ -308,13 +389,50 @@ export default function PublicUserProfilePage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-12">
-                    <Trophy className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                    <p className="text-slate-600 mb-2">Activity coming soon</p>
-                    <p className="text-sm text-slate-500">
-                      Recent hackathons, challenges, and achievements will appear here
-                    </p>
-                  </div>
+                  {loadingTab ? (
+                    <div className="text-center py-8">
+                      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+                    </div>
+                  ) : activities.length > 0 ? (
+                    <div className="space-y-4">
+                      {activities.map((activity) => {
+                        const Icon = getActivityIcon(activity.type);
+                        return (
+                          <div
+                            key={activity.id}
+                            className="flex items-start gap-4 p-4 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors border border-slate-200 dark:border-slate-700"
+                          >
+                            <div className="w-10 h-10 rounded-full bg-primary/10 dark:bg-primary/20 flex items-center justify-center flex-shrink-0">
+                              <Icon className="w-5 h-5 text-primary" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-slate-900 dark:text-slate-100 font-semibold mb-1">
+                                {activity.description}
+                              </p>
+                              <div className="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-400">
+                                <span className="flex items-center gap-1">
+                                  <Star className="w-3 h-3" />
+                                  +{activity.xpGained} XP
+                                </span>
+                                <span className="flex items-center gap-1">
+                                  <Clock className="w-3 h-3" />
+                                  {formatActivityDate(activity.createdAt)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <Trophy className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
+                      <p className="text-slate-600 dark:text-slate-300 mb-2">No activity yet</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Recent hackathons, challenges, and achievements will appear here
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
@@ -329,13 +447,47 @@ export default function PublicUserProfilePage() {
                   <CardDescription>Teams {user.name} is a member of</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-12">
-                    <Users className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                    <p className="text-slate-600 mb-2">No teams yet</p>
-                    <p className="text-sm text-slate-500">
-                      Teams will appear here once {user.name} joins or creates one
-                    </p>
-                  </div>
+                  {loadingTab ? (
+                    <div className="text-center py-8">
+                      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+                    </div>
+                  ) : teams.length > 0 ? (
+                    <div className="grid gap-4">
+                      {teams.map((team) => (
+                        <Link key={team.id} href={`/teams/${team.id}`}>
+                          <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            <div className="flex items-start justify-between mb-2">
+                              <h4 className="font-bold text-lg text-slate-900 dark:text-slate-100">
+                                {team.name}
+                              </h4>
+                              <ExternalLink className="w-4 h-4 text-slate-400" />
+                            </div>
+                            <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                              {team.hackathonName}
+                            </p>
+                            <div className="flex items-center gap-4 text-sm text-slate-600 dark:text-slate-400">
+                              <span className="flex items-center gap-1">
+                                <Users className="w-3 h-3" />
+                                {team.memberCount} members
+                              </span>
+                              <span className="flex items-center gap-1">
+                                <Calendar className="w-3 h-3" />
+                                Created {formatActivityDate(team.createdAt)}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <Users className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
+                      <p className="text-slate-600 dark:text-slate-300 mb-2">No teams yet</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Teams will appear here once {user.name} joins or creates one
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}
@@ -350,13 +502,61 @@ export default function PublicUserProfilePage() {
                   <CardDescription>Projects and solutions submitted by {user.name}</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-center py-12">
-                    <FileText className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-                    <p className="text-slate-600 mb-2">No submissions yet</p>
-                    <p className="text-sm text-slate-500">
-                      Hackathon and challenge submissions will appear here
-                    </p>
-                  </div>
+                  {loadingTab ? (
+                    <div className="text-center py-8">
+                      <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+                    </div>
+                  ) : submissions.length > 0 ? (
+                    <div className="grid gap-4">
+                      {submissions.map((submission) => (
+                        <Link key={submission.id} href={`/submissions/${submission.id}`}>
+                          <div className="p-4 rounded-lg border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            <div className="flex items-start justify-between mb-2">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2 mb-1">
+                                  {submission.type === 'HACKATHON' ? (
+                                    <Swords className="w-4 h-4 text-primary" />
+                                  ) : (
+                                    <Target className="w-4 h-4 text-accent" />
+                                  )}
+                                  <h4 className="font-bold text-lg text-slate-900 dark:text-slate-100">
+                                    {submission.title}
+                                  </h4>
+                                </div>
+                                <p className="text-sm text-slate-600 dark:text-slate-400">
+                                  {submission.hackathonName || submission.challengeName}
+                                </p>
+                              </div>
+                              <ExternalLink className="w-4 h-4 text-slate-400" />
+                            </div>
+                            <div className="flex items-center gap-4 text-sm">
+                              <Badge variant="outline" className="font-semibold">
+                                {submission.status}
+                              </Badge>
+                              {submission.score !== undefined && (
+                                <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                                  <Star className="w-3 h-3" />
+                                  {submission.score}/100
+                                </span>
+                              )}
+                              <span className="text-slate-600 dark:text-slate-400 flex items-center gap-1">
+                                <Clock className="w-3 h-3" />
+                                {formatActivityDate(submission.submittedAt)}
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <FileText className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
+                      <p className="text-slate-600 dark:text-slate-300 mb-2">No submissions yet</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Hackathon and challenge submissions will appear here
+                      </p>
+                    </div>
+                  )}
                 </CardContent>
               </Card>
             )}

@@ -92,7 +92,7 @@ export function ChallengeForm({
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className={cn('space-y-6', className)}>
       {/* Title & Slug */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <div className="space-y-4">
             <div>
@@ -127,17 +127,17 @@ export function ChallengeForm({
                 {...register('slug')}
                 placeholder="real-time-chat-application"
                 readOnly={autoGenerateSlug}
-                className={cn('mt-1', autoGenerateSlug && 'bg-slate-50')}
+                className={cn('mt-1', autoGenerateSlug && 'bg-slate-50 dark:bg-slate-900')}
               />
               {errors.slug && <p className="text-sm text-red-600 mt-1">{errors.slug.message}</p>}
-              <p className="text-xs text-slate-500 mt-1">This will be used in the challenge URL</p>
+              <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">This will be used in the challenge URL</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
       {/* Problem Statement */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <Label htmlFor="problemStatement" className="text-base font-semibold">
             Problem Statement
@@ -152,14 +152,14 @@ export function ChallengeForm({
           {errors.problemStatement && (
             <p className="text-sm text-red-600 mt-1">{errors.problemStatement.message}</p>
           )}
-          <p className="text-xs text-slate-500 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-300 mt-2">
             Minimum 100 characters. Use markdown for formatting.
           </p>
         </CardContent>
       </Card>
 
       {/* Categories & Skills */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
@@ -190,7 +190,7 @@ export function ChallengeForm({
       </Card>
 
       {/* Reward Information */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <h3 className="text-base font-semibold mb-4">Reward Information</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -236,7 +236,7 @@ export function ChallengeForm({
       </Card>
 
       {/* Settings */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <h3 className="text-base font-semibold mb-4">Challenge Settings</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -294,7 +294,7 @@ export function ChallengeForm({
       </Card>
 
       {/* File Attachments */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <Label className="text-base font-semibold mb-3 block">Attachments (Optional)</Label>
           <FileUpload
@@ -308,7 +308,7 @@ export function ChallengeForm({
               setUploadedFiles([...uploadedFiles, ...fileUrls]);
             }}
           />
-          <p className="text-xs text-slate-500 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-300 mt-2">
             Add any supporting documents, diagrams, or resources
           </p>
         </CardContent>

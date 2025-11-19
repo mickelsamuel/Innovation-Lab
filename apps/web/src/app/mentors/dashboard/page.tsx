@@ -52,45 +52,45 @@ export default function MentorDashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-cyan-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-400">Loading...</p>
+          <p className="text-slate-700 dark:text-slate-400">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div className="bg-gradient-to-r from-purple-900/30 via-pink-900/30 to-purple-900/30 border-b border-purple-500/20 py-12">
+    <div className="min-h-screen bg-slate-50 dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+      <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 dark:from-purple-900/30 dark:via-pink-900/30 dark:to-purple-900/30 border-b border-purple-200 dark:border-purple-500/20 py-12">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-3 mb-4">
-            <Users className="w-10 h-10 text-purple-500" />
+            <Users className="w-10 h-10 text-white dark:text-purple-500" />
             <div>
               <h1 className="text-3xl md:text-4xl font-display font-bold text-white">
                 Mentor Dashboard
               </h1>
-              <p className="text-lg text-white/90">Guide and support participants</p>
+              <p className="text-lg text-white/95 dark:text-white/90">Guide and support participants</p>
             </div>
           </div>
 
           {/* Stats */}
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div className="bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <Award className="w-6 h-6 text-white mb-2" />
               <p className="text-2xl font-bold text-white">{totalHackathons}</p>
-              <p className="text-sm text-white/80">Hackathons</p>
+              <p className="text-sm text-white/90 dark:text-white/80">Hackathons</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div className="bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <Calendar className="w-6 h-6 text-white mb-2" />
               <p className="text-2xl font-bold text-white">{upcomingSessions}</p>
-              <p className="text-sm text-white/80">Upcoming Sessions</p>
+              <p className="text-sm text-white/90 dark:text-white/80">Upcoming Sessions</p>
             </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+            <div className="bg-white/20 dark:bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <TrendingUp className="w-6 h-6 text-white mb-2" />
               <p className="text-2xl font-bold text-white">{totalSessions}</p>
-              <p className="text-sm text-white/80">Total Sessions</p>
+              <p className="text-sm text-white/90 dark:text-white/80">Total Sessions</p>
             </div>
           </div>
         </div>
@@ -98,13 +98,13 @@ export default function MentorDashboardPage() {
 
       <div className="container mx-auto px-4 py-8">
         {assignments.length === 0 ? (
-          <Card className="bg-slate-900/50 border-slate-700">
+          <Card className="bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700">
             <CardContent className="pt-16 pb-16 text-center">
-              <Users className="w-16 h-16 text-slate-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-slate-300 mb-2">
+              <Users className="w-16 h-16 text-slate-300 dark:text-slate-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">
                 No Mentor Assignments Yet
               </h3>
-              <p className="text-slate-500">
+              <p className="text-slate-600 dark:text-slate-500">
                 You haven't been assigned to mentor any hackathons yet.
               </p>
             </CardContent>
@@ -113,14 +113,14 @@ export default function MentorDashboardPage() {
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Assignments */}
             <div className="lg:col-span-2 space-y-6">
-              <h2 className="text-2xl font-bold text-cyan-400">Your Hackathons</h2>
+              <h2 className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">Your Hackathons</h2>
               {assignments.map(assignment => (
-                <Card key={assignment.id} className="bg-slate-900/50 border-slate-700">
+                <Card key={assignment.id} className="bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700">
                   <CardHeader>
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <CardTitle className="text-white">{assignment.hackathon.title}</CardTitle>
-                        <p className="text-sm text-slate-400 mt-2">
+                        <CardTitle className="text-slate-900 dark:text-white">{assignment.hackathon.title}</CardTitle>
+                        <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
                           {assignment._count.sessions} total session
                           {assignment._count.sessions !== 1 ? 's' : ''} •{' '}
                           {assignment.sessions.length} upcoming
@@ -148,7 +148,7 @@ export default function MentorDashboardPage() {
                         <Button
                           size="sm"
                           variant="outline"
-                          className="border-slate-700 hover:bg-slate-800"
+                          className="border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800"
                         >
                           View Hackathon
                         </Button>
@@ -161,7 +161,7 @@ export default function MentorDashboardPage() {
 
             {/* Schedule Session */}
             <div>
-              <h2 className="text-2xl font-bold text-cyan-400 mb-4">Schedule Session</h2>
+              <h2 className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 mb-4">Schedule Session</h2>
               {selectedMentorId ? (
                 <SessionBooking
                   mentorId={selectedMentorId}
@@ -171,10 +171,10 @@ export default function MentorDashboardPage() {
                   }}
                 />
               ) : (
-                <Card className="bg-slate-900/50 border-slate-700">
+                <Card className="bg-white dark:bg-slate-900/50 border-slate-200 dark:border-slate-700">
                   <CardContent className="pt-6 text-center">
-                    <Calendar className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-                    <p className="text-slate-400 text-sm">
+                    <Calendar className="w-12 h-12 text-slate-300 dark:text-slate-600 mx-auto mb-3" />
+                    <p className="text-slate-600 dark:text-slate-300 text-sm">
                       Select a hackathon to schedule office hours
                     </p>
                   </CardContent>

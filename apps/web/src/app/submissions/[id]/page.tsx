@@ -49,18 +49,18 @@ function getRankDisplay(rank?: number) {
       <div className="flex items-center gap-2 bg-accent/10 border border-accent rounded-lg px-4 py-3">
         <Trophy className="w-6 h-6 text-accent" />
         <div>
-          <p className="text-sm font-medium text-slate-700">Winner</p>
+          <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Winner</p>
           <p className="text-lg font-bold text-accent">1st Place</p>
         </div>
       </div>
     );
   } else if (rank === 2) {
     return (
-      <div className="flex items-center gap-2 bg-slate-100 border border-slate-300 rounded-lg px-4 py-3">
-        <Medal className="w-6 h-6 text-slate-500" />
+      <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 border border-slate-300 rounded-lg px-4 py-3">
+        <Medal className="w-6 h-6 text-slate-500 dark:text-slate-300" />
         <div>
-          <p className="text-sm font-medium text-slate-700">Runner-up</p>
-          <p className="text-lg font-bold text-slate-700">2nd Place</p>
+          <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Runner-up</p>
+          <p className="text-lg font-bold text-slate-700 dark:text-slate-300">2nd Place</p>
         </div>
       </div>
     );
@@ -69,7 +69,7 @@ function getRankDisplay(rank?: number) {
       <div className="flex items-center gap-2 bg-amber-50 border border-amber-300 rounded-lg px-4 py-3">
         <Medal className="w-6 h-6 text-amber-600" />
         <div>
-          <p className="text-sm font-medium text-slate-700">Third Place</p>
+          <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Third Place</p>
           <p className="text-lg font-bold text-amber-600">3rd Place</p>
         </div>
       </div>
@@ -77,11 +77,11 @@ function getRankDisplay(rank?: number) {
   }
 
   return (
-    <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-4 py-3">
-      <Award className="w-6 h-6 text-slate-500" />
+    <div className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-3">
+      <Award className="w-6 h-6 text-slate-500 dark:text-slate-300" />
       <div>
-        <p className="text-sm font-medium text-slate-700">Ranked</p>
-        <p className="text-lg font-bold text-slate-700">#{rank}</p>
+        <p className="text-sm font-medium text-slate-700 dark:text-slate-300">Ranked</p>
+        <p className="text-lg font-bold text-slate-700 dark:text-slate-300">#{rank}</p>
       </div>
     </div>
   );
@@ -148,10 +148,10 @@ export default function SubmissionDetailPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading submission...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading submission...</p>
         </div>
       </div>
     );
@@ -160,14 +160,14 @@ export default function SubmissionDetailPage() {
   // Error State
   if (error || !submission) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load submission</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">{error || 'Submission not found'}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error || 'Submission not found'}</p>
             <Button onClick={() => router.back()} variant="outline" className="w-full">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
@@ -183,9 +183,9 @@ export default function SubmissionDetailPage() {
   const uniqueJudges = new Set(scores.map(s => s.judgeId)).size;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Button variant="ghost" size="sm" onClick={() => router.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -221,8 +221,8 @@ export default function SubmissionDetailPage() {
             <CardContent className="space-y-6">
               {/* Abstract */}
               <div>
-                <h3 className="text-sm font-semibold text-slate-700 mb-2">About This Project</h3>
-                <p className="text-slate-700 whitespace-pre-line leading-relaxed">
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">About This Project</h3>
+                <p className="text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed">
                   {submission.abstract}
                 </p>
               </div>
@@ -230,12 +230,12 @@ export default function SubmissionDetailPage() {
               {/* Team Members */}
               {submission.team && submission.team.members && (
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-700 mb-3">Team Members</h3>
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Team Members</h3>
                   <div className="flex flex-wrap gap-3">
                     {submission.team.members.map(member => (
                       <div
                         key={member.id}
-                        className="flex items-center gap-2 bg-slate-50 rounded-lg pl-2 pr-4 py-2"
+                        className="flex items-center gap-2 bg-slate-50 dark:bg-slate-900 rounded-lg pl-2 pr-4 py-2"
                       >
                         <Avatar className="w-8 h-8">
                           {member.user.avatarUrl && (
@@ -246,8 +246,8 @@ export default function SubmissionDetailPage() {
                           </AvatarFallback>
                         </Avatar>
                         <div>
-                          <p className="text-sm font-medium text-slate-700">{member.user.name}</p>
-                          <p className="text-xs text-slate-500">@{member.user.handle}</p>
+                          <p className="text-sm font-medium text-slate-700 dark:text-slate-300">{member.user.name}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-300">@{member.user.handle}</p>
                         </div>
                         {member.role === 'LEAD' && (
                           <Badge variant="default" className="text-xs">
@@ -263,7 +263,7 @@ export default function SubmissionDetailPage() {
               {/* Project Links */}
               {hasLinks && (
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-700 mb-3">Project Links</h3>
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Project Links</h3>
                   <div className="flex flex-wrap gap-3">
                     {submission.repoUrl && (
                       <a
@@ -339,9 +339,9 @@ export default function SubmissionDetailPage() {
                 <div className="text-center">
                   <p className="text-6xl font-bold text-primary mb-2">
                     {submission.scoreAggregate.toFixed(1)}
-                    <span className="text-2xl font-normal text-slate-500">/100</span>
+                    <span className="text-2xl font-normal text-slate-500 dark:text-slate-300">/100</span>
                   </p>
-                  <div className="w-full bg-slate-200 rounded-full h-3 mt-4">
+                  <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-3 mt-4">
                     <div
                       className="bg-gradient-to-r from-primary to-accent h-3 rounded-full transition-all"
                       style={{ width: `${submission.scoreAggregate}%` }}
@@ -378,11 +378,11 @@ export default function SubmissionDetailPage() {
                         <div className="border-l-4 border-primary pl-4">
                           <div className="flex items-start justify-between gap-4 mb-2">
                             <div>
-                              <h3 className="font-semibold text-lg text-slate-800">
+                              <h3 className="font-semibold text-lg text-slate-800 dark:text-slate-200">
                                 {criterion.name}
                               </h3>
-                              <p className="text-sm text-slate-600">{criterion.description}</p>
-                              <p className="text-xs text-slate-500 mt-1">
+                              <p className="text-sm text-slate-600 dark:text-slate-300">{criterion.description}</p>
+                              <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">
                                 Weight: {((criterion.weight || 0) * 100).toFixed(0)}% • Max Score:{' '}
                                 {criterion.maxScore}
                               </p>
@@ -390,18 +390,18 @@ export default function SubmissionDetailPage() {
                             <div className="text-right">
                               <p className="text-2xl font-bold text-primary">
                                 {avgScore.toFixed(1)}
-                                <span className="text-sm font-normal text-slate-500">
+                                <span className="text-sm font-normal text-slate-500 dark:text-slate-300">
                                   /{criterion.maxScore}
                                 </span>
                               </p>
-                              <p className="text-xs text-slate-500">
+                              <p className="text-xs text-slate-500 dark:text-slate-300">
                                 {normalizedScore.toFixed(0)}%
                               </p>
                             </div>
                           </div>
 
                           {/* Progress bar */}
-                          <div className="w-full bg-slate-200 rounded-full h-2 mb-4">
+                          <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2 mb-4">
                             <div
                               className="bg-primary h-2 rounded-full transition-all"
                               style={{ width: `${normalizedScore}%` }}
@@ -412,11 +412,11 @@ export default function SubmissionDetailPage() {
                         {/* Individual Judge Scores */}
                         {criterionScores.length > 0 && (
                           <div className="ml-4 space-y-3">
-                            <p className="text-xs font-semibold text-slate-600 uppercase tracking-wide">
+                            <p className="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">
                               Individual Scores
                             </p>
                             {criterionScores.map(score => (
-                              <div key={score.id} className="bg-slate-50 rounded-lg p-4 space-y-2">
+                              <div key={score.id} className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4 space-y-2">
                                 <div className="flex items-start justify-between gap-4">
                                   <div className="flex items-center gap-2">
                                     <Avatar className="w-6 h-6">
@@ -431,18 +431,18 @@ export default function SubmissionDetailPage() {
                                       </AvatarFallback>
                                     </Avatar>
                                     <div>
-                                      <p className="text-sm font-medium text-slate-700">
+                                      <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                                         {score.judge.user.name}
                                       </p>
-                                      <p className="text-xs text-slate-500">
+                                      <p className="text-xs text-slate-500 dark:text-slate-300">
                                         @{score.judge.user.handle}
                                       </p>
                                     </div>
                                   </div>
                                   <div className="text-right">
-                                    <p className="text-lg font-bold text-slate-800">
+                                    <p className="text-lg font-bold text-slate-800 dark:text-slate-200">
                                       {Number(score.value).toFixed(1)}
-                                      <span className="text-sm font-normal text-slate-500">
+                                      <span className="text-sm font-normal text-slate-500 dark:text-slate-300">
                                         /{criterion.maxScore}
                                       </span>
                                     </p>
@@ -450,10 +450,10 @@ export default function SubmissionDetailPage() {
                                 </div>
 
                                 {score.feedback && (
-                                  <div className="border-l-2 border-slate-300 pl-3 mt-2">
+                                  <div className="border-l-2 border-slate-300 dark:border-slate-700 pl-3 mt-2">
                                     <div className="flex items-start gap-2">
                                       <MessageSquare className="w-4 h-4 text-slate-400 mt-0.5 flex-shrink-0" />
-                                      <p className="text-sm text-slate-600 italic">
+                                      <p className="text-sm text-slate-600 dark:text-slate-300 italic">
                                         "{score.feedback}"
                                       </p>
                                     </div>
@@ -486,13 +486,13 @@ export default function SubmissionDetailPage() {
             </Card>
           ) : (
             /* Draft or submitted, not yet judged */
-            <Card className="border-slate-200 bg-slate-50">
+            <Card className="border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
               <CardContent className="pt-6">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-slate-400 mt-0.5" />
                   <div>
-                    <p className="font-medium text-slate-700 mb-1">Not Yet Judged</p>
-                    <p className="text-sm text-slate-600">
+                    <p className="font-medium text-slate-700 dark:text-slate-300 mb-1">Not Yet Judged</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
                       This submission must be finalized before it can be judged.
                     </p>
                   </div>

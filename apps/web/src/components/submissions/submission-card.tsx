@@ -35,7 +35,7 @@ function getRankBadge(rank?: number) {
     );
   } else if (rank === 2) {
     return (
-      <Badge variant="secondary" className="bg-slate-300 text-slate-700">
+      <Badge variant="secondary" className="bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-300">
         <Medal className="w-3 h-3 mr-1" />
         2nd Place
       </Badge>
@@ -90,15 +90,15 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
         )}
 
         {/* Abstract Preview */}
-        <p className="text-sm text-slate-600 line-clamp-3">{submission.abstract}</p>
+        <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3">{submission.abstract}</p>
 
         {/* Score */}
         {submission.scoreAggregate !== null && submission.scoreAggregate !== undefined && (
-          <div className="bg-slate-50 rounded-lg p-3">
-            <p className="text-xs text-slate-600 mb-1">Overall Score</p>
+          <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-3">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-1">Overall Score</p>
             <p className="text-2xl font-bold text-primary">
               {submission.scoreAggregate.toFixed(1)}
-              <span className="text-sm font-normal text-slate-500">/100</span>
+              <span className="text-sm font-normal text-slate-500 dark:text-slate-300">/100</span>
             </p>
           </div>
         )}
@@ -106,12 +106,12 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
         {/* Team Members */}
         {submission.team && submission.team.members && (
           <div>
-            <p className="text-xs font-medium text-slate-700 mb-2">Team Members</p>
+            <p className="text-xs font-medium text-slate-700 dark:text-slate-300 mb-2">Team Members</p>
             <div className="flex items-center -space-x-2">
               {submission.team.members.slice(0, 4).map(member => (
                 <Avatar
                   key={member.id}
-                  className="w-8 h-8 border-2 border-white"
+                  className="w-8 h-8 border-2 border-white dark:border-card"
                   title={`${member.user.name} (@${member.user.handle})`}
                 >
                   {member.user.avatarUrl && (
@@ -123,8 +123,8 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                 </Avatar>
               ))}
               {submission.team.members.length > 4 && (
-                <div className="w-8 h-8 rounded-full bg-slate-100 border-2 border-white flex items-center justify-center">
-                  <span className="text-xs font-medium text-slate-600">
+                <div className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 border-2 border-white dark:border-card flex items-center justify-center">
+                  <span className="text-xs font-medium text-slate-600 dark:text-slate-300">
                     +{submission.team.members.length - 4}
                   </span>
                 </div>
@@ -141,7 +141,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                 href={submission.repoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-slate-600 hover:text-primary flex items-center gap-1"
+                className="text-xs text-slate-600 dark:text-slate-300 hover:text-primary flex items-center gap-1"
               >
                 <Github className="w-3 h-3" />
                 Code
@@ -152,7 +152,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                 href={submission.demoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-slate-600 hover:text-primary flex items-center gap-1"
+                className="text-xs text-slate-600 dark:text-slate-300 hover:text-primary flex items-center gap-1"
               >
                 <Globe className="w-3 h-3" />
                 Demo
@@ -163,7 +163,7 @@ export function SubmissionCard({ submission }: SubmissionCardProps) {
                 href={submission.videoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-slate-600 hover:text-primary flex items-center gap-1"
+                className="text-xs text-slate-600 dark:text-slate-300 hover:text-primary flex items-center gap-1"
               >
                 <Video className="w-3 h-3" />
                 Video

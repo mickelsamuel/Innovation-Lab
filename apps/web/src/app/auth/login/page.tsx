@@ -75,7 +75,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <Link
           href="/"
-          className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-6"
+          className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary mb-6"
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="font-semibold">Back to Arena</span>
@@ -89,18 +89,18 @@ export default function LoginPage() {
             <h1 className="text-3xl font-display font-black mb-2 gradient-text">
               Welcome Back, Champion!
             </h1>
-            <p className="text-slate-600 font-semibold">Sign in to continue your epic journey</p>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold">Sign in to continue your epic journey</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-3 bg-red-50 border-2 border-red-200 rounded-lg text-sm text-red-900 font-semibold">
+              <div className="p-3 bg-red-50 dark:bg-red-950 border-2 border-red-200 dark:border-red-800 rounded-lg text-sm text-red-900 dark:text-red-200 font-semibold">
                 {error}
               </div>
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-bold text-slate-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -114,13 +114,13 @@ export default function LoginPage() {
                   required
                   autoFocus
                   disabled={isSubmitting}
-                  className="flex h-12 w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 pl-10 text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
+                  className="flex h-12 w-full rounded-lg border-2 border-slate-300 dark:border-slate-800 bg-white dark:bg-card px-3 py-2 pl-10 text-sm text-slate-900 dark:text-slate-100 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-bold text-slate-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -133,7 +133,7 @@ export default function LoginPage() {
                   onChange={e => setPassword(e.target.value)}
                   required
                   disabled={isSubmitting}
-                  className="flex h-12 w-full rounded-lg border-2 border-slate-300 bg-white px-3 py-2 pl-10 text-sm text-slate-900 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
+                  className="flex h-12 w-full rounded-lg border-2 border-slate-300 dark:border-slate-800 bg-white dark:bg-card px-3 py-2 pl-10 text-sm text-slate-900 dark:text-slate-100 font-medium placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:opacity-50"
                 />
               </div>
             </div>
@@ -165,7 +165,7 @@ export default function LoginPage() {
               )}
             </button>
 
-            <p className="text-center text-sm text-slate-600 font-semibold">
+            <p className="text-center text-sm text-slate-600 dark:text-slate-300 font-semibold">
               Don't have an account?{' '}
               <Link href="/auth/signup" className="text-primary hover:underline font-bold">
                 Sign Up

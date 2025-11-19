@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,13 +10,13 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { getHackathonBySlug } from '@/lib/hackathons';
 import { createTeam } from '@/lib/teams';
+import { getAuthToken } from '@/lib/api';
 import type { Hackathon } from '@/types/hackathon';
 import { ArrowLeft, Users, Loader2 } from 'lucide-react';
 
 export default function CreateTeamPage() {
   const params = useParams();
   const router = useRouter();
-  const { data: session, status } = useSession();
   const slug = params.slug as string;
 
   const [hackathon, setHackathon] = useState<Hackathon | null>(null);
@@ -31,12 +30,13 @@ export default function CreateTeamPage() {
   const [lookingForMembers, setLookingForMembers] = useState(true);
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push(`/auth/login?callbackUrl=/hackathons/${slug}/teams/create`);
-    } else if (status === 'authenticated') {
-      fetchHackathon();
+    const token = getAuthToken();
+    if (!token) {
+      router.push(`/auth/login?redirect=/hackathons/${slug}/teams/create`);
+      return;
     }
-  }, [slug, status, router]);
+    fetchHackathon();
+  }, [slug, router]);
 
   async function fetchHackathon() {
     try {
@@ -54,8 +54,10 @@ export default function CreateTeamPage() {
     e.preventDefault();
     if (!hackathon) return;
 
-    if (!session?.accessToken) {
+    const token = getAuthToken();
+    if (!token) {
       setError('You must be logged in to create a team');
+      router.push(`/auth/login?redirect=/hackathons/${slug}/teams/create`);
       return;
     }
 
@@ -70,7 +72,7 @@ export default function CreateTeamPage() {
           lookingForMembers,
           hackathonId: hackathon.id,
         },
-        session.accessToken
+        token
       );
 
       // Redirect to teams page
@@ -83,12 +85,12 @@ export default function CreateTeamPage() {
   }
 
   // Loading State
-  if (status === 'loading' || isLoading) {
+  if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading...</p>
         </div>
       </div>
     );
@@ -101,10 +103,10 @@ export default function CreateTeamPage() {
 
   if (!hackathon) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardContent className="pt-6 text-center">
-            <p className="text-slate-600 mb-4">Hackathon not found</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">Hackathon not found</p>
             <Link href="/hackathons">
               <Button variant="outline">Back to Hackathons</Button>
             </Link>
@@ -115,9 +117,9 @@ export default function CreateTeamPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href={`/hackathons/${slug}/teams`}>
             <Button variant="ghost" size="sm">
@@ -172,7 +174,7 @@ export default function CreateTeamPage() {
                     maxLength={50}
                     className="mt-1.5"
                   />
-                  <p className="text-xs text-slate-500 mt-1">
+                  <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">
                     Choose a unique and memorable name for your team
                   </p>
                 </div>
@@ -188,10 +190,10 @@ export default function CreateTeamPage() {
                     maxLength={500}
                     className="mt-1.5"
                   />
-                  <p className="text-xs text-slate-500 mt-1">{bio.length}/500 characters</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">{bio.length}/500 characters</p>
                 </div>
 
-                <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-lg">
+                <div className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-800 rounded-lg">
                   <input
                     type="checkbox"
                     id="lookingForMembers"
@@ -206,7 +208,7 @@ export default function CreateTeamPage() {
                     >
                       Looking for members
                     </Label>
-                    <p className="text-xs text-slate-600">
+                    <p className="text-xs text-slate-600 dark:text-slate-300">
                       Show your team in the "Looking for Members" filter to help others find you
                     </p>
                   </div>

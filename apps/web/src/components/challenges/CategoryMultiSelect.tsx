@@ -90,7 +90,7 @@ export function CategoryMultiSelect({
             </button>
           </Badge>
         ))}
-        {value.length === 0 && <p className="text-sm text-slate-500">No categories selected</p>}
+        {value.length === 0 && <p className="text-sm text-slate-500 dark:text-slate-300">No categories selected</p>}
       </div>
 
       {/* Dropdown Trigger */}
@@ -106,7 +106,7 @@ export function CategoryMultiSelect({
             : 'Select categories'}
         </span>
         {maxSelections && (
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-slate-500 dark:text-slate-300">
             {value.length}/{maxSelections}
           </span>
         )}
@@ -114,7 +114,7 @@ export function CategoryMultiSelect({
 
       {/* Dropdown Content */}
       {isOpen && (
-        <div className="absolute z-50 mt-2 w-full bg-white border border-slate-200 rounded-md shadow-lg max-h-80 overflow-auto">
+        <div className="absolute z-50 mt-2 w-full bg-white dark:bg-card border border-slate-200 dark:border-slate-800 rounded-md shadow-lg max-h-80 overflow-auto">
           <div className="p-2">
             {/* Available Categories */}
             <div className="space-y-1">
@@ -129,8 +129,8 @@ export function CategoryMultiSelect({
                     !value.includes(category)
                   }
                   className={cn(
-                    'w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-slate-100 transition-colors',
-                    value.includes(category) && 'bg-slate-50',
+                    'w-full flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors',
+                    value.includes(category) && 'bg-slate-50 dark:bg-slate-900',
                     maxSelections !== undefined &&
                       value.length >= maxSelections &&
                       !value.includes(category) &&
@@ -140,7 +140,7 @@ export function CategoryMultiSelect({
                   <div
                     className={cn(
                       'w-4 h-4 border-2 rounded flex items-center justify-center',
-                      value.includes(category) ? 'border-primary bg-primary' : 'border-slate-300'
+                      value.includes(category) ? 'border-primary bg-primary' : 'border-slate-300 dark:border-slate-700'
                     )}
                   >
                     {value.includes(category) && <Check className="w-3 h-3 text-white" />}
@@ -151,7 +151,7 @@ export function CategoryMultiSelect({
             </div>
 
             {/* Custom Category Input */}
-            <div className="mt-3 pt-3 border-t border-slate-200">
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
               {!showCustomInput ? (
                 <Button
                   type="button"
@@ -179,7 +179,7 @@ export function CategoryMultiSelect({
                       }
                     }}
                     placeholder="Enter category name"
-                    className="flex-1 px-3 py-2 text-sm border border-slate-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="flex-1 px-3 py-2 text-sm border border-slate-300 dark:border-slate-700 rounded-md focus:outline-none focus:ring-2 focus:ring-primary bg-white dark:bg-card"
                     autoFocus
                   />
                   <Button
@@ -206,7 +206,7 @@ export function CategoryMultiSelect({
             </div>
 
             {/* Close Button */}
-            <div className="mt-3 pt-3 border-t border-slate-200">
+            <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
               <Button
                 type="button"
                 variant="outline"

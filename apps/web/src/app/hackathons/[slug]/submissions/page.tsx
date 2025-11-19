@@ -13,7 +13,7 @@ import { getSubmissions } from '@/lib/submissions';
 import type { Hackathon } from '@/types/hackathon';
 import type { Submission } from '@/types/submission';
 import { SubmissionStatus } from '@/types/submission';
-import { Search, FileText, ArrowLeft, Trophy, Upload, Plus } from 'lucide-react';
+import { Search, FileText, ArrowLeft, Trophy, Upload, Plus, Users } from 'lucide-react';
 
 const STATUS_OPTIONS: { value: SubmissionStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'All Status' },
@@ -104,12 +104,12 @@ export default function HackathonSubmissionsPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center py-16">
             <div className="text-center">
               <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-slate-600">Loading submissions...</p>
+              <p className="text-slate-600 dark:text-slate-300">Loading submissions...</p>
             </div>
           </div>
         </div>
@@ -120,14 +120,14 @@ export default function HackathonSubmissionsPage() {
   // Error State
   if (error || !hackathon) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load submissions</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">{error || 'Hackathon not found'}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error || 'Hackathon not found'}</p>
             <Link href="/hackathons">
               <Button variant="outline" className="w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -143,9 +143,9 @@ export default function HackathonSubmissionsPage() {
   const finalSubmissions = submissions.filter(s => s.status === 'FINAL').length;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href={`/hackathons/${slug}`}>
             <Button variant="ghost" size="sm">
@@ -188,6 +188,49 @@ export default function HackathonSubmissionsPage() {
         </div>
       </div>
 
+      {/* Navigation Tabs */}
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800 sticky top-16 z-40">
+        <div className="container mx-auto px-4">
+          <nav className="flex gap-6 overflow-x-auto">
+            <Link
+              href={`/hackathons/${slug}`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <FileText className="w-4 h-4" />
+              Overview
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/leaderboard`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <Trophy className="w-4 h-4" />
+              Leaderboard
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/teams`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
+              Teams
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/submissions`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-primary text-primary font-semibold text-sm whitespace-nowrap"
+            >
+              <FileText className="w-4 h-4" />
+              Submissions
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/mentors`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
+              Mentors
+            </Link>
+          </nav>
+        </div>
+      </div>
+
       <div className="container mx-auto px-4 py-8">
         {/* Filters */}
         <div className="mb-8 space-y-4">
@@ -205,7 +248,7 @@ export default function HackathonSubmissionsPage() {
 
           {/* Status Filter */}
           <div>
-            <label className="text-sm font-medium text-slate-700 mb-2 block">Status</label>
+            <label className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 block">Status</label>
             <div className="flex flex-wrap gap-2">
               {STATUS_OPTIONS.map(option => (
                 <Badge
@@ -223,7 +266,7 @@ export default function HackathonSubmissionsPage() {
           {/* Track Filter */}
           {hackathon.tracks && hackathon.tracks.length > 0 && (
             <div>
-              <label className="text-sm font-medium text-slate-700 mb-2 block">Track</label>
+              <label className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2 block">Track</label>
               <div className="flex flex-wrap gap-2">
                 <Badge
                   variant={selectedTrack === 'ALL' ? 'default' : 'outline'}
@@ -259,7 +302,7 @@ export default function HackathonSubmissionsPage() {
 
         {/* Results Count */}
         {!isLoading && (
-          <div className="mb-4 text-sm text-slate-600">
+          <div className="mb-4 text-sm text-slate-600 dark:text-slate-300">
             {sortedSubmissions.length === 0 ? (
               'No submissions found'
             ) : (
@@ -285,12 +328,12 @@ export default function HackathonSubmissionsPage() {
           /* Empty State */
           <div className="text-center py-16">
             <Upload className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-slate-700 mb-2">
+            <h3 className="text-xl font-semibold text-slate-700 dark:text-slate-300 mb-2">
               {searchTerm || selectedStatus !== 'ALL' || selectedTrack !== 'ALL'
                 ? 'No submissions match your filters'
                 : 'No submissions yet'}
             </h3>
-            <p className="text-slate-500 mb-6">
+            <p className="text-slate-500 dark:text-slate-300 mb-6">
               {searchTerm || selectedStatus !== 'ALL' || selectedTrack !== 'ALL'
                 ? 'Try adjusting your filters or search term'
                 : 'Be the first to submit a project for this hackathon!'}

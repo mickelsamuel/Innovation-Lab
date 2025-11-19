@@ -46,11 +46,11 @@ export default function CodeOfConductPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Our Pledge */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Heart className="w-7 h-7 text-primary animate-wiggle" />
               Our Warrior's Pledge
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 In the interest of fostering an open and welcoming arena, we pledge to make
                 participation in Innovation Lab a harassment-free experience for every warrior,
@@ -63,17 +63,17 @@ export default function CodeOfConductPage() {
 
           {/* Our Standards */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Users className="w-7 h-7 text-primary animate-wiggle" />
               Honorable Conduct
             </h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-slate-900">
+                <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-slate-900 dark:text-slate-100">
                   <CheckCircle className="w-5 h-5 text-green-500" />
                   Examples of legendary warrior behavior:
                 </h3>
-                <ul className="list-disc pl-6 space-y-2 text-slate-700 font-semibold">
+                <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300 font-semibold">
                   <li>Using welcoming and inclusive language in all guild communications</li>
                   <li>Being respectful of different battle strategies and experiences</li>
                   <li>Gracefully accepting constructive feedback on quests</li>
@@ -85,11 +85,11 @@ export default function CodeOfConductPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-slate-900">
+                <h3 className="text-lg font-bold mb-3 flex items-center gap-2 text-slate-900 dark:text-slate-100">
                   <XCircle className="w-5 h-5 text-red-500" />
                   Examples of dishonorable conduct:
                 </h3>
-                <ul className="list-disc pl-6 space-y-2 text-slate-700 font-semibold">
+                <ul className="list-disc pl-6 space-y-2 text-slate-700 dark:text-slate-300 font-semibold">
                   <li>The use of inappropriate language or imagery and unwelcome advances</li>
                   <li>Trolling, insulting comments, and personal attacks on other warriors</li>
                   <li>Public or private harassment of fellow players</li>
@@ -107,11 +107,11 @@ export default function CodeOfConductPage() {
 
           {/* Our Responsibilities */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Shield className="w-7 h-7 text-primary animate-wiggle" />
               Arena Guardian Responsibilities
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 Arena administrators are responsible for clarifying the standards of honorable
                 conduct and are expected to take appropriate and fair corrective action in response
@@ -128,11 +128,11 @@ export default function CodeOfConductPage() {
 
           {/* Scope */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Shield className="w-7 h-7 text-primary animate-wiggle" />
               Arena Scope
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 This Code of Honor applies to all Innovation Lab arena spaces, including raids, boss
                 challenges, guild forums, and any other warrior interactions. It also applies when a
@@ -143,11 +143,11 @@ export default function CodeOfConductPage() {
 
           {/* Enforcement */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Ban className="w-7 h-7 text-primary animate-wiggle" />
               Disciplinary Actions
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 Instances of dishonorable, harassing, or otherwise unacceptable behavior may be
                 reported by contacting the moderation team at{' '}
@@ -168,28 +168,28 @@ export default function CodeOfConductPage() {
 
           {/* Enforcement Guidelines */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <FileText className="w-7 h-7 text-primary animate-wiggle" />
               Disciplinary Guidelines
             </h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">1. Warning</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">1. Warning</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   For minor violations, a private warning may be issued explaining the nature of the
                   dishonor and why the behavior was inappropriate in the arena.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">2. Temporary Suspension</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">2. Temporary Suspension</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   For more serious violations or repeated minor violations, a temporary suspension
                   from the arena or specific battle features may be imposed.
                 </p>
               </div>
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">3. Permanent Ban</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">3. Permanent Ban</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   For severe violations or repeated serious violations, a permanent ban from the
                   arena may be enforced.
                 </p>
@@ -199,11 +199,11 @@ export default function CodeOfConductPage() {
 
           {/* Attribution */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Shield className="w-7 h-7 text-primary animate-wiggle" />
               Attribution
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 This Code of Honor is adapted from the{' '}
                 <a

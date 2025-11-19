@@ -109,9 +109,9 @@ export default function CreateHackathonPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href="/admin/hackathons">
             <Button variant="ghost" size="sm">
@@ -182,7 +182,7 @@ export default function CreateHackathonPage() {
                 {errors.description && (
                   <p className="text-sm text-red-600 mt-1">{errors.description.message}</p>
                 )}
-                <p className="text-sm text-slate-500 mt-1">Minimum 50 characters</p>
+                <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">Minimum 50 characters</p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -191,7 +191,7 @@ export default function CreateHackathonPage() {
                   <select
                     id="status"
                     {...register('status')}
-                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     <option value={HackathonStatus.DRAFT}>Draft</option>
                     <option value={HackathonStatus.UPCOMING}>Upcoming</option>
@@ -209,7 +209,7 @@ export default function CreateHackathonPage() {
                   <select
                     id="isPublished"
                     {...register('isPublished', { setValueAs: v => v === 'true' })}
-                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   >
                     <option value="false">Unpublished (Draft)</option>
                     <option value="true">Published (Visible to users)</option>
@@ -234,7 +234,7 @@ export default function CreateHackathonPage() {
                 <select
                   id="location"
                   {...register('location')}
-                  className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 >
                   <option value={HackathonLocation.VIRTUAL}>Virtual</option>
                   <option value={HackathonLocation.ONSITE}>Onsite</option>
@@ -473,7 +473,7 @@ export default function CreateHackathonPage() {
                   <Label htmlFor="allowSoloTeams" className="cursor-pointer">
                     Allow Solo Teams
                   </Label>
-                  <p className="text-sm text-slate-500 mt-1">
+                  <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
                     Participants can compete individually
                   </p>
                 </div>
@@ -490,7 +490,7 @@ export default function CreateHackathonPage() {
                   <Label htmlFor="requireApproval" className="cursor-pointer">
                     Require Team Approval
                   </Label>
-                  <p className="text-sm text-slate-500 mt-1">
+                  <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
                     Teams must be approved before participating
                   </p>
                 </div>
@@ -550,7 +550,7 @@ export default function CreateHackathonPage() {
                 {errors.bannerUrl && (
                   <p className="text-sm text-red-600 mt-1">{errors.bannerUrl.message}</p>
                 )}
-                <p className="text-sm text-slate-500 mt-1">
+                <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
                   Recommended size: 1200x400px. Or upload below after creating.
                 </p>
               </div>
@@ -569,7 +569,7 @@ export default function CreateHackathonPage() {
                 {errors.logoUrl && (
                   <p className="text-sm text-red-600 mt-1">{errors.logoUrl.message}</p>
                 )}
-                <p className="text-sm text-slate-500 mt-1">
+                <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
                   Recommended size: 512x512px. Or upload below after creating.
                 </p>
               </div>
@@ -636,7 +636,7 @@ export default function CreateHackathonPage() {
                   </>
                 )}
               </Button>
-              <p className="text-xs text-slate-500 text-center mt-3">
+              <p className="text-xs text-slate-500 dark:text-slate-300 text-center mt-3">
                 You can edit all settings after creating the hackathon
               </p>
             </CardContent>

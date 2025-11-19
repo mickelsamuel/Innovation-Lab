@@ -19,6 +19,8 @@ import {
   AlertCircle,
   CheckCircle2,
   ArrowLeft,
+  Shield,
+  ChevronRight,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -127,7 +129,7 @@ export default function ProfilePage() {
       <div className="min-h-screen hex-grid flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-          <p className="text-lg font-bold text-slate-700">Loading profile...</p>
+          <p className="text-lg font-bold text-slate-700 dark:text-slate-300">Loading profile...</p>
         </div>
       </div>
     );
@@ -137,7 +139,7 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen hex-grid flex items-center justify-center">
         <div className="game-card p-8 max-w-md text-center">
-          <p className="text-red-600 font-bold mb-4">Failed to load profile</p>
+          <p className="text-red-600 dark:text-red-400 font-bold mb-4">Failed to load profile</p>
           <Button onClick={() => window.location.reload()} className="btn-game">
             Try Again
           </Button>
@@ -154,27 +156,47 @@ export default function ProfilePage() {
           <div className="mb-6">
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 text-slate-600 hover:text-primary mb-4 font-semibold"
+              className="inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-primary mb-4 font-semibold"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Dashboard
             </Link>
             <h1 className="text-3xl font-display font-black gradient-text">Profile Settings</h1>
-            <p className="text-slate-600 font-semibold mt-2">Manage your account information</p>
+            <p className="text-slate-600 dark:text-slate-300 font-semibold mt-2">Manage your account information</p>
+          </div>
+
+          {/* Quick Navigation */}
+          <div className="mb-6">
+            <Link href="/profile/security">
+              <div className="game-card p-4 hover:shadow-lg transition-shadow cursor-pointer group">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-12 h-12 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Shield className="w-6 h-6 text-red-600 dark:text-red-400" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-slate-900 dark:text-slate-100">Security Settings</h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">Manage your password and account security</p>
+                    </div>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary transition-colors" />
+                </div>
+              </div>
+            </Link>
           </div>
 
           {/* Success/Error Messages */}
           {success && (
-            <div className="mb-6 p-4 bg-green-50 border-2 border-green-200 rounded-lg flex items-center gap-3">
+            <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/20 border-2 border-green-200 dark:border-green-800 rounded-lg flex items-center gap-3">
               <CheckCircle2 className="w-5 h-5 text-green-600" />
-              <p className="text-sm font-semibold text-green-900">{success}</p>
+              <p className="text-sm font-semibold text-green-900 dark:text-green-100">{success}</p>
             </div>
           )}
 
           {error && (
-            <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-lg flex items-center gap-3">
+            <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border-2 border-red-200 dark:border-red-800 rounded-lg flex items-center gap-3">
               <AlertCircle className="w-5 h-5 text-red-600" />
-              <p className="text-sm font-semibold text-red-900">{error}</p>
+              <p className="text-sm font-semibold text-red-900 dark:text-red-100">{error}</p>
             </div>
           )}
 
@@ -215,9 +237,9 @@ export default function ProfilePage() {
                       type="email"
                       value={user.email}
                       disabled
-                      className="bg-slate-50 cursor-not-allowed"
+                      className="bg-slate-50 dark:bg-slate-900 cursor-not-allowed"
                     />
-                    <p className="text-xs text-slate-500 mt-1 font-medium">
+                    <p className="text-xs text-slate-500 dark:text-slate-300 mt-1 font-medium">
                       Email cannot be changed
                     </p>
                   </div>
@@ -245,7 +267,7 @@ export default function ProfilePage() {
                       Username/Handle
                     </Label>
                     <div className="flex items-center">
-                      <span className="inline-flex items-center px-3 py-2 rounded-l-lg border border-r-0 border-slate-300 bg-slate-50 text-slate-500 font-medium">
+                      <span className="inline-flex items-center px-3 py-2 rounded-l-lg border border-r-0 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-300 font-medium">
                         @
                       </span>
                       <Input
@@ -264,7 +286,7 @@ export default function ProfilePage() {
                         className="rounded-l-none"
                       />
                     </div>
-                    <p className="text-xs text-slate-500 mt-1 font-medium">
+                    <p className="text-xs text-slate-500 dark:text-slate-300 mt-1 font-medium">
                       Lowercase letters, numbers, and underscores only
                     </p>
                   </div>
@@ -299,7 +321,7 @@ export default function ProfilePage() {
                       disabled={saving}
                       maxLength={500}
                     />
-                    <p className="text-xs text-slate-500 mt-1 font-medium text-right">
+                    <p className="text-xs text-slate-500 dark:text-slate-300 mt-1 font-medium text-right">
                       {formData.bio.length}/500 characters
                     </p>
                   </div>
@@ -335,12 +357,12 @@ export default function ProfilePage() {
                 <CardTitle className="font-display">Account Details</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <div className="flex justify-between py-2 border-b border-slate-100">
-                  <span className="text-sm font-semibold text-slate-600">User ID</span>
-                  <span className="text-sm font-mono text-slate-900">{user.id}</span>
+                <div className="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">User ID</span>
+                  <span className="text-sm font-mono text-slate-900 dark:text-slate-100">{user.id}</span>
                 </div>
-                <div className="flex justify-between py-2 border-b border-slate-100">
-                  <span className="text-sm font-semibold text-slate-600">Roles</span>
+                <div className="flex justify-between py-2 border-b border-slate-100 dark:border-slate-800">
+                  <span className="text-sm font-semibold text-slate-600 dark:text-slate-300">Roles</span>
                   <div className="flex gap-2">
                     {user.roles.map(role => (
                       <span

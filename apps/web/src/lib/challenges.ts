@@ -101,8 +101,8 @@ export async function submitSolution(
 /**
  * Get all submissions for a challenge
  */
-export async function getChallengeSubmissions(challengeId: string): Promise<ChallengeSubmission[]> {
-  return apiFetch<ChallengeSubmission[]>(`/challenges/${challengeId}/submissions`);
+export async function getChallengeSubmissions(challengeId: string, token?: string): Promise<ChallengeSubmission[]> {
+  return apiFetch<ChallengeSubmission[]>(`/challenges/${challengeId}/submissions`, { token });
 }
 
 /**

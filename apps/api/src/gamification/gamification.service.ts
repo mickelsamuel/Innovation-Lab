@@ -30,7 +30,7 @@ export const XP_POINTS = {
   FIRST_CHALLENGE: 50,
 } as const;
 
-// Level thresholds
+// Level thresholds - Progressive XP curve
 export const LEVEL_THRESHOLDS = [
   0, // Level 1
   100, // Level 2
@@ -47,7 +47,22 @@ export const LEVEL_THRESHOLDS = [
   26000, // Level 13
   33000, // Level 14
   41000, // Level 15
-  50000, // Level 16+
+  50000, // Level 16
+  60000, // Level 17
+  72000, // Level 18
+  85000, // Level 19
+  100000, // Level 20
+  120000, // Level 21
+  145000, // Level 22
+  175000, // Level 23
+  210000, // Level 24
+  250000, // Level 25
+  300000, // Level 26
+  360000, // Level 27
+  430000, // Level 28
+  510000, // Level 29
+  600000, // Level 30
+  750000, // Level 31+
 ];
 
 export interface UserGamificationProfile {
@@ -84,6 +99,12 @@ export interface LeaderboardEntry {
   xp: number;
   level: number;
   badges: string[];
+  topBadges?: Array<{
+    slug: string;
+    name: string;
+    icon: string;
+    rarity: string;
+  }>;
 }
 
 @Injectable()
@@ -255,18 +276,52 @@ export class GamificationService {
       },
     });
 
-    return profiles.map((profile, index) => ({
-      rank: index + 1,
-      userId: profile.userId,
-      user: {
-        name: profile.user.name || 'Anonymous',
-        handle: profile.user.handle || 'unknown',
-        avatarUrl: profile.user.avatarUrl || undefined,
-      },
-      xp: profile.xp,
-      level: profile.level,
-      badges: profile.badges,
-    }));
+    // Fetch all badges for badge details
+    const allBadges = await this.prisma.badge.findMany();
+    const badgeMap = new Map(allBadges.map(b => [b.slug, b]));
+
+    // Define rarity weights for sorting (higher = better)
+    const rarityWeight: Record<string, number> = {
+      'legendary': 5,
+      'epic': 4,
+      'rare': 3,
+      'uncommon': 2,
+      'common': 1,
+    };
+
+    return profiles.map((profile, index) => {
+      // Get full badge details for user's badges
+      const userBadgeDetails = profile.badges
+        .map(slug => badgeMap.get(slug))
+        .filter((badge): badge is typeof allBadges[0] => badge !== undefined)
+        .sort((a, b) => {
+          // Sort by rarity (highest first)
+          const weightA = rarityWeight[a.rarity.toLowerCase()] || 0;
+          const weightB = rarityWeight[b.rarity.toLowerCase()] || 0;
+          return weightB - weightA;
+        })
+        .slice(0, 3) // Take top 3
+        .map(badge => ({
+          slug: badge.slug,
+          name: badge.name,
+          icon: badge.icon,
+          rarity: badge.rarity,
+        }));
+
+      return {
+        rank: index + 1,
+        userId: profile.userId,
+        user: {
+          name: profile.user.name || 'Anonymous',
+          handle: profile.user.handle || 'unknown',
+          avatarUrl: profile.user.avatarUrl || undefined,
+        },
+        xp: profile.xp,
+        level: profile.level,
+        badges: profile.badges,
+        topBadges: userBadgeDetails,
+      };
+    });
   }
 
   /**

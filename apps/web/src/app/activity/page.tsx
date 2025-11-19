@@ -190,10 +190,10 @@ export default function ActivityFeedPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading activity...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading activity...</p>
         </div>
       </div>
     );
@@ -202,13 +202,13 @@ export default function ActivityFeedPage() {
   // Error State
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error Loading Activity</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">{error}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error}</p>
             <Button onClick={fetchActivity}>Try Again</Button>
           </CardContent>
         </Card>
@@ -217,7 +217,7 @@ export default function ActivityFeedPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="mb-6">
@@ -227,11 +227,11 @@ export default function ActivityFeedPage() {
               Back to Dashboard
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900 mt-4 flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-4 flex items-center gap-2">
             <Activity className="w-8 h-8" />
             Activity Feed
           </h1>
-          <p className="text-slate-600 mt-2">Your recent activity and achievements</p>
+          <p className="text-slate-600 dark:text-slate-300 mt-2">Your recent activity and achievements</p>
         </div>
 
         {/* Filter Buttons */}
@@ -274,8 +274,8 @@ export default function ActivityFeedPage() {
           <Card>
             <CardContent className="py-12 text-center">
               <Activity className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <p className="text-slate-600 mb-2">No activity yet</p>
-              <p className="text-sm text-slate-500">
+              <p className="text-slate-600 dark:text-slate-300 mb-2">No activity yet</p>
+              <p className="text-sm text-slate-500 dark:text-slate-300">
                 Start participating in hackathons and challenges to see your activity here
               </p>
             </CardContent>
@@ -298,10 +298,10 @@ export default function ActivityFeedPage() {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between gap-2">
                           <div>
-                            <h3 className="font-semibold text-slate-900">{activity.title}</h3>
-                            <p className="text-sm text-slate-600 mt-1">{activity.description}</p>
+                            <h3 className="font-semibold text-slate-900 dark:text-slate-100">{activity.title}</h3>
+                            <p className="text-sm text-slate-600 dark:text-slate-300 mt-1">{activity.description}</p>
                           </div>
-                          <span className="text-xs text-slate-500 whitespace-nowrap">
+                          <span className="text-xs text-slate-500 dark:text-slate-300 whitespace-nowrap">
                             {formatRelativeTime(activity.createdAt)}
                           </span>
                         </div>
@@ -328,24 +328,24 @@ export default function ActivityFeedPage() {
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div>
-                  <p className="text-sm text-slate-600">Total Activities</p>
-                  <p className="text-2xl font-bold text-slate-900">{activities.length}</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300">Total Activities</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">{activities.length}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-600">Total XP Earned</p>
-                  <p className="text-2xl font-bold text-slate-900">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">Total XP Earned</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {activities.reduce((sum, a) => sum + (a.points || 0), 0)}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-600">Hackathons Joined</p>
-                  <p className="text-2xl font-bold text-slate-900">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">Hackathons Joined</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {activities.filter(a => a.type === 'JOIN_HACKATHON').length}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-slate-600">Teams Created</p>
-                  <p className="text-2xl font-bold text-slate-900">
+                  <p className="text-sm text-slate-600 dark:text-slate-300">Teams Created</p>
+                  <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                     {activities.filter(a => a.type === 'CREATE_TEAM').length}
                   </p>
                 </div>

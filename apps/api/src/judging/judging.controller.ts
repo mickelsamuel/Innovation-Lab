@@ -155,6 +155,16 @@ export class JudgingController {
     return this.judgingService.getJudgeAssignments(user.id, hackathonId);
   }
 
+  @Get('judging/stats')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.BANK_ADMIN, Role.ORGANIZER)
+  @ApiBearerAuth('JWT')
+  @ApiOperation({ summary: 'Get judging statistics' })
+  @ApiResponse({ status: 200, description: 'Statistics retrieved successfully' })
+  async getJudgingStats() {
+    return this.judgingService.getStats();
+  }
+
   // ==================== Rankings ====================
 
   @Post('hackathons/:hackathonId/calculate-rankings')

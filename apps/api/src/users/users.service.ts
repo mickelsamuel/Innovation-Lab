@@ -264,10 +264,16 @@ export class UsersService {
       },
       select: {
         id: true,
+        email: true,
         name: true,
         handle: true,
         avatarUrl: true,
         organization: true,
+        roles: true,
+        isActive: true,
+        isBanned: true,
+        createdAt: true,
+        lastLoginAt: true,
       },
       take: limit,
     });

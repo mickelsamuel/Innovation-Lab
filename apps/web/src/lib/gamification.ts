@@ -96,10 +96,10 @@ export function getLevelName(level: number): string {
  */
 export function getRarityColor(rarity: string): string {
   const colors: Record<string, string> = {
-    common: 'text-slate-600',
-    uncommon: 'text-green-600',
-    rare: 'text-blue-600',
-    epic: 'text-purple-600',
+    common: 'text-slate-600 dark:text-slate-300',
+    uncommon: 'text-green-600 dark:text-green-400',
+    rare: 'text-blue-600 dark:text-blue-400',
+    epic: 'text-purple-600 dark:text-purple-400',
     legendary: 'text-accent',
   };
   return colors[rarity] || colors.common;
@@ -110,13 +110,13 @@ export function getRarityColor(rarity: string): string {
  */
 export function getRarityBgColor(rarity: string): string {
   const colors: Record<string, string> = {
-    common: 'bg-slate-100 border-slate-300',
-    uncommon: 'bg-green-50 border-green-300',
-    rare: 'bg-blue-50 border-blue-300',
-    epic: 'bg-purple-50 border-purple-300',
-    legendary: 'bg-accent/10 border-accent',
+    common: 'bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700',
+    uncommon: 'bg-green-50 dark:bg-green-900/20 border-green-300 dark:border-green-700',
+    rare: 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-700',
+    epic: 'bg-purple-50 dark:bg-purple-900/20 border-purple-300 dark:border-purple-700',
+    legendary: 'bg-yellow-50 dark:bg-yellow-900/30 border-yellow-400 dark:border-yellow-700',
   };
-  return colors[rarity] || colors.common;
+  return colors[rarity.toLowerCase()] || colors.common;
 }
 
 /**

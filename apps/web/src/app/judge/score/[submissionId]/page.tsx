@@ -243,10 +243,10 @@ export default function ScoreSubmissionPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading submission...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading submission...</p>
         </div>
       </div>
     );
@@ -255,14 +255,14 @@ export default function ScoreSubmissionPage() {
   // Error State
   if (error && !submission) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load submission</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">{error}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error}</p>
             <Link href="/judge">
               <Button variant="outline" className="w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -282,9 +282,9 @@ export default function ScoreSubmissionPage() {
   const hasLinks = submission.repoUrl || submission.demoUrl || submission.videoUrl;
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href="/judge">
             <Button variant="ghost" size="sm">
@@ -345,17 +345,17 @@ export default function ScoreSubmissionPage() {
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-slate-700 mb-4 whitespace-pre-line">{submission.abstract}</p>
+              <p className="text-slate-700 dark:text-slate-300 mb-4 whitespace-pre-line">{submission.abstract}</p>
 
               {/* Team Members */}
               {submission.team && submission.team.members && (
                 <div className="mb-4">
-                  <p className="text-sm font-medium text-slate-700 mb-2">Team Members</p>
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Team Members</p>
                   <div className="flex items-center gap-2">
                     {submission.team.members.map(member => (
                       <div
                         key={member.id}
-                        className="flex items-center gap-2 bg-slate-100 rounded-full pl-1 pr-3 py-1"
+                        className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-full pl-1 pr-3 py-1"
                       >
                         <Avatar className="w-6 h-6">
                           {member.user.avatarUrl && (
@@ -442,7 +442,7 @@ export default function ScoreSubmissionPage() {
                   return (
                     <div
                       key={criterion.id}
-                      className="border border-slate-200 rounded-lg p-4 space-y-4"
+                      className="border border-slate-200 dark:border-slate-800 rounded-lg p-4 space-y-4"
                     >
                       <div className="flex items-start justify-between gap-4">
                         <div className="flex-1">
@@ -455,8 +455,8 @@ export default function ScoreSubmissionPage() {
                               </Badge>
                             )}
                           </div>
-                          <p className="text-sm text-slate-600 mb-2">{criterion.description}</p>
-                          <p className="text-xs text-slate-500">
+                          <p className="text-sm text-slate-600 dark:text-slate-300 mb-2">{criterion.description}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-300">
                             Max Score: {criterion.maxScore} | Weight:{' '}
                             {((criterion.weight || 0) * 100).toFixed(0)}%
                           </p>
@@ -515,7 +515,7 @@ export default function ScoreSubmissionPage() {
                 })}
 
               {/* Submit All Button */}
-              <div className="pt-4 border-t border-slate-200">
+              <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
                 <Button
                   onClick={handleSubmitAll}
                   disabled={isSaving || !isComplete}
@@ -529,7 +529,7 @@ export default function ScoreSubmissionPage() {
                   )}
                   {isComplete ? 'Complete & Return to Dashboard' : 'Score All Criteria to Complete'}
                 </Button>
-                <p className="text-xs text-slate-500 text-center mt-2">
+                <p className="text-xs text-slate-500 dark:text-slate-300 text-center mt-2">
                   {isComplete
                     ? 'You have scored all criteria. You can still update individual scores.'
                     : `Score ${criteriaCount - scoredCount} more ${criteriaCount - scoredCount === 1 ? 'criterion' : 'criteria'} to complete.`}

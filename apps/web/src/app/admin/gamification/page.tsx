@@ -189,17 +189,17 @@ export default function AdminGamificationPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading gamification data...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading gamification data...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 py-8">
       <div className="container mx-auto px-4 max-w-7xl">
         {/* Header */}
         <div className="mb-6">
@@ -209,11 +209,11 @@ export default function AdminGamificationPage() {
               Back to Admin
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900 mt-4 flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-4 flex items-center gap-2">
             <Trophy className="w-8 h-8" />
             Gamification Management
           </h1>
-          <p className="text-slate-600 mt-2">Manage XP, badges, and user progression</p>
+          <p className="text-slate-600 dark:text-slate-300 mt-2">Manage XP, badges, and user progression</p>
         </div>
 
         {/* Stats Overview */}
@@ -223,8 +223,8 @@ export default function AdminGamificationPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">Total XP Awarded</p>
-                    <p className="text-2xl font-bold text-slate-900">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Total XP Awarded</p>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                       {stats.totalXPAwarded.toLocaleString()}
                     </p>
                   </div>
@@ -237,8 +237,8 @@ export default function AdminGamificationPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">Active Users</p>
-                    <p className="text-2xl font-bold text-slate-900">{stats.activeUsers}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Active Users</p>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.activeUsers}</p>
                   </div>
                   <Users className="w-8 h-8 text-blue-500" />
                 </div>
@@ -249,8 +249,8 @@ export default function AdminGamificationPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">Average Level</p>
-                    <p className="text-2xl font-bold text-slate-900">{stats.averageLevel}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Average Level</p>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">{stats.averageLevel}</p>
                   </div>
                   <TrendingUp className="w-8 h-8 text-green-500" />
                 </div>
@@ -261,8 +261,8 @@ export default function AdminGamificationPage() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-slate-600 mb-1">Total Badges</p>
-                    <p className="text-2xl font-bold text-slate-900">{badges.length}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Total Badges</p>
+                    <p className="text-2xl font-bold text-slate-900 dark:text-slate-100">{badges.length}</p>
                   </div>
                   <Award className="w-8 h-8 text-purple-500" />
                 </div>
@@ -293,7 +293,7 @@ export default function AdminGamificationPage() {
               {showCreateBadge && (
                 <form
                   onSubmit={handleCreateBadge}
-                  className="border rounded-lg p-4 space-y-4 bg-slate-50"
+                  className="border rounded-lg p-4 space-y-4 bg-slate-50 dark:bg-slate-800"
                 >
                   <div>
                     <Label htmlFor="badge-name">Badge Name</Label>
@@ -337,20 +337,20 @@ export default function AdminGamificationPage() {
 
               <div className="space-y-2 max-h-96 overflow-y-auto">
                 {badges.length === 0 ? (
-                  <p className="text-sm text-slate-500 text-center py-4">No badges created yet</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-300 text-center py-4">No badges created yet</p>
                 ) : (
                   badges.map(badge => (
                     <div
                       key={badge.id}
-                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50"
+                      className="flex items-center justify-between p-3 border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center">
                           <Award className="w-5 h-5 text-white" />
                         </div>
                         <div>
-                          <p className="font-medium text-slate-900">{badge.name}</p>
-                          <p className="text-sm text-slate-600">{badge.description}</p>
+                          <p className="font-medium text-slate-900 dark:text-slate-100">{badge.name}</p>
+                          <p className="text-sm text-slate-600 dark:text-slate-300">{badge.description}</p>
                         </div>
                       </div>
                       <Button variant="ghost" size="sm" onClick={() => handleDeleteBadge(badge.id)}>
@@ -378,25 +378,25 @@ export default function AdminGamificationPage() {
                   {stats.topUsers.map((user, index) => (
                     <div
                       key={user.id}
-                      className="flex items-center gap-3 p-3 border rounded-lg hover:bg-slate-50"
+                      className="flex items-center gap-3 p-3 border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800"
                     >
                       <div className="flex-shrink-0">
                         {index === 0 && <Trophy className="w-6 h-6 text-yellow-500" />}
                         {index === 1 && <Trophy className="w-6 h-6 text-slate-400" />}
                         {index === 2 && <Trophy className="w-6 h-6 text-amber-600" />}
                         {index > 2 && (
-                          <div className="w-6 h-6 flex items-center justify-center font-bold text-slate-600">
+                          <div className="w-6 h-6 flex items-center justify-center font-bold text-slate-600 dark:text-slate-300">
                             {index + 1}
                           </div>
                         )}
                       </div>
                       <div className="flex-1">
-                        <p className="font-medium text-slate-900">{user.name}</p>
-                        <p className="text-sm text-slate-600">@{user.handle}</p>
+                        <p className="font-medium text-slate-900 dark:text-slate-100">{user.name}</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">@{user.handle}</p>
                       </div>
                       <div className="text-right">
                         <Badge variant="secondary">Level {user.level}</Badge>
-                        <p className="text-xs text-slate-600 mt-1">{user.xp} XP</p>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 mt-1">{user.xp} XP</p>
                       </div>
                     </div>
                   ))}
@@ -424,39 +424,39 @@ export default function AdminGamificationPage() {
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Sign Up</p>
-                <p className="text-xl font-bold text-slate-900">50 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Sign Up</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">50 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Daily Login</p>
-                <p className="text-xl font-bold text-slate-900">10 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Daily Login</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">10 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Join Hackathon</p>
-                <p className="text-xl font-bold text-slate-900">100 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Join Hackathon</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">100 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Submit Project</p>
-                <p className="text-xl font-bold text-slate-900">250 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Submit Project</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">250 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Complete Challenge</p>
-                <p className="text-xl font-bold text-slate-900">100 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Complete Challenge</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">100 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Create Team</p>
-                <p className="text-xl font-bold text-slate-900">50 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Create Team</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">50 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Join Team</p>
-                <p className="text-xl font-bold text-slate-900">25 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Join Team</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">25 XP</p>
               </div>
               <div className="p-3 border rounded-lg">
-                <p className="text-sm text-slate-600 mb-1">Win Hackathon</p>
-                <p className="text-xl font-bold text-slate-900">500 XP</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Win Hackathon</p>
+                <p className="text-xl font-bold text-slate-900 dark:text-slate-100">500 XP</p>
               </div>
             </div>
-            <p className="text-sm text-slate-500 mt-4">
+            <p className="text-sm text-slate-500 dark:text-slate-300 mt-4">
               XP values are configured in the gamification service. Contact development team to
               modify these values.
             </p>

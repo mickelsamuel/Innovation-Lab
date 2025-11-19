@@ -50,17 +50,17 @@ export default function JudgeDashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-          <p className="text-lg text-slate-700 font-semibold">Loading your assignments...</p>
+          <p className="text-lg text-slate-700 dark:text-slate-300 font-semibold">Loading your assignments...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary via-accent to-accent2 py-16">
         <div className="container mx-auto px-4">
@@ -92,8 +92,8 @@ export default function JudgeDashboardPage() {
           <Card className="max-w-2xl mx-auto">
             <CardContent className="pt-6 text-center py-12">
               <Star className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-slate-700 mb-2">No Judge Assignments</h3>
-              <p className="text-slate-600">
+              <h3 className="text-xl font-bold text-slate-700 dark:text-slate-300 mb-2">No Judge Assignments</h3>
+              <p className="text-slate-600 dark:text-slate-300">
                 You haven't been assigned to judge any hackathons yet.
               </p>
             </CardContent>
@@ -135,12 +135,12 @@ export default function JudgeDashboardPage() {
                     {/* Progress */}
                     <div>
                       <div className="flex items-center justify-between text-sm mb-2">
-                        <span className="font-medium text-slate-700">Scoring Progress</span>
-                        <span className="text-slate-600">
+                        <span className="font-medium text-slate-700 dark:text-slate-300">Scoring Progress</span>
+                        <span className="text-slate-600 dark:text-slate-300">
                           {scoredCount}/{totalCount} submissions
                         </span>
                       </div>
-                      <div className="w-full bg-slate-200 rounded-full h-2">
+                      <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
                         <div
                           className="bg-gradient-to-r from-primary to-accent h-2 rounded-full transition-all"
                           style={{ width: `${progress}%` }}
@@ -160,12 +160,12 @@ export default function JudgeDashboardPage() {
                               href={`/judge/score/${submission.id}`}
                               className="block"
                             >
-                              <div className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors group">
+                              <div className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
                                 <div className="flex-1 min-w-0">
-                                  <p className="font-medium text-slate-900 group-hover:text-primary transition-colors truncate">
+                                  <p className="font-medium text-slate-900 dark:text-slate-100 group-hover:text-primary transition-colors truncate">
                                     {submission.title}
                                   </p>
-                                  <p className="text-xs text-slate-500 mt-1">
+                                  <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">
                                     <Users className="w-3 h-3 inline mr-1" />
                                     {submission.team?.name}
                                   </p>
@@ -196,7 +196,7 @@ export default function JudgeDashboardPage() {
                         )}
                       </div>
                     ) : (
-                      <p className="text-sm text-slate-500 text-center py-4">
+                      <p className="text-sm text-slate-500 dark:text-slate-300 text-center py-4">
                         No submissions to score yet
                       </p>
                     )}

@@ -27,8 +27,8 @@ const STATUS_OPTIONS = [
     label: 'Submitted',
     description: 'Initial submission state',
     icon: AlertCircle,
-    color: 'text-slate-500',
-    bgColor: 'bg-slate-50',
+    color: 'text-slate-500 dark:text-slate-300',
+    bgColor: 'bg-slate-50 dark:bg-slate-900',
   },
   {
     value: ChallengeSubmissionStatus.UNDER_REVIEW,
@@ -36,7 +36,7 @@ const STATUS_OPTIONS = [
     description: 'Currently being evaluated',
     icon: AlertCircle,
     color: 'text-yellow-600',
-    bgColor: 'bg-yellow-50',
+    bgColor: 'bg-yellow-50 dark:bg-yellow-950',
   },
   {
     value: ChallengeSubmissionStatus.ACCEPTED,
@@ -99,7 +99,7 @@ export function SubmissionReviewForm({
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} className={cn('space-y-6', className)}>
       {/* Status Selection */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <Label className="text-base font-semibold mb-4 block">Review Status</Label>
 
@@ -117,13 +117,13 @@ export function SubmissionReviewForm({
                     'flex items-start gap-3 p-4 rounded-lg border-2 transition-all text-left',
                     isSelected
                       ? 'border-primary bg-primary/5'
-                      : 'border-slate-200 hover:border-slate-300'
+                      : 'border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700'
                   )}
                 >
                   <div
                     className={cn(
                       'w-10 h-10 rounded-full flex items-center justify-center',
-                      isSelected ? option.bgColor : 'bg-slate-100'
+                      isSelected ? option.bgColor : 'bg-slate-100 dark:bg-slate-800'
                     )}
                   >
                     <Icon className={cn('w-5 h-5', isSelected ? option.color : 'text-slate-400')} />
@@ -131,10 +131,10 @@ export function SubmissionReviewForm({
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-slate-900">{option.label}</h4>
+                      <h4 className="font-semibold text-slate-900 dark:text-slate-100">{option.label}</h4>
                       {isSelected && <CheckCircle2 className="w-4 h-4 text-primary" />}
                     </div>
-                    <p className="text-sm text-slate-500 mt-0.5">{option.description}</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-300 mt-0.5">{option.description}</p>
                   </div>
                 </button>
               );
@@ -146,13 +146,13 @@ export function SubmissionReviewForm({
       </Card>
 
       {/* Score */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <div className="flex items-center justify-between mb-4">
             <Label className="text-base font-semibold">Score (Optional)</Label>
             <div className="flex items-center gap-2">
               <span className="text-3xl font-bold text-primary">{scoreValue}</span>
-              <span className="text-slate-500">/100</span>
+              <span className="text-slate-500 dark:text-slate-300">/100</span>
             </div>
           </div>
 
@@ -169,7 +169,7 @@ export function SubmissionReviewForm({
             className="mb-4"
           />
 
-          <div className="flex justify-between text-xs text-slate-500">
+          <div className="flex justify-between text-xs text-slate-500 dark:text-slate-300">
             <span>0 - Poor</span>
             <span>25 - Below Average</span>
             <span>50 - Average</span>
@@ -182,7 +182,7 @@ export function SubmissionReviewForm({
       </Card>
 
       {/* Feedback */}
-      <Card className="border-2 border-slate-200">
+      <Card className="border-2 border-slate-200 dark:border-slate-800">
         <CardContent className="pt-6">
           <Label htmlFor="feedback" className="text-base font-semibold">
             Feedback (Optional)
@@ -197,7 +197,7 @@ export function SubmissionReviewForm({
           {errors.feedback && (
             <p className="text-sm text-red-600 mt-1">{errors.feedback.message}</p>
           )}
-          <p className="text-xs text-slate-500 mt-2">
+          <p className="text-xs text-slate-500 dark:text-slate-300 mt-2">
             This feedback will be visible to the submitter
           </p>
         </CardContent>
@@ -209,20 +209,20 @@ export function SubmissionReviewForm({
           <h3 className="text-base font-semibold mb-3">Review Summary</h3>
           <div className="space-y-2 text-sm">
             <div className="flex justify-between">
-              <span className="text-slate-600">Status:</span>
+              <span className="text-slate-600 dark:text-slate-300">Status:</span>
               <span className={cn('font-semibold', selectedStatus?.color)}>
                 {selectedStatus?.label}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-600">Score:</span>
-              <span className="font-semibold text-slate-900">
+              <span className="text-slate-600 dark:text-slate-300">Score:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">
                 {scoreValue > 0 ? `${scoreValue}/100` : 'Not scored'}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-slate-600">Feedback:</span>
-              <span className="font-semibold text-slate-900">
+              <span className="text-slate-600 dark:text-slate-300">Feedback:</span>
+              <span className="font-semibold text-slate-900 dark:text-slate-100">
                 {watch('feedback') ? 'Provided' : 'None'}
               </span>
             </div>

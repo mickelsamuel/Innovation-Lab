@@ -7,14 +7,14 @@ const badgeVariants = cva(
   {
     variants: {
       variant: {
-        default: 'border-transparent bg-slate-900 text-slate-50 hover:bg-slate-900/80',
-        secondary: 'border-transparent bg-slate-100 text-slate-900 hover:bg-slate-100/80',
+        default: 'border-transparent bg-slate-900 dark:bg-slate-100 text-slate-50 dark:text-slate-900 hover:bg-slate-900/80 dark:hover:bg-slate-100/80',
+        secondary: 'border-transparent bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 hover:bg-slate-100/80 dark:hover:bg-slate-800/80',
         destructive: 'border-transparent bg-red-500 text-slate-50 hover:bg-red-500/80',
-        outline: 'text-slate-900 bg-white border-slate-300 hover:bg-slate-50',
+        outline: 'text-slate-900 dark:text-slate-100 bg-white dark:bg-card border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900',
         success: 'border-transparent bg-green-500 text-white hover:bg-green-500/80',
         warning: 'border-transparent bg-yellow-500 text-slate-900 hover:bg-yellow-500/80',
         info: 'border-transparent bg-accent2 text-white hover:bg-accent2/80',
-        draft: 'border-transparent bg-slate-200 text-slate-700 hover:bg-slate-200/80',
+        draft: 'border-transparent bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200/80 dark:hover:bg-slate-700/80',
         upcoming: 'border-transparent bg-blue-100 text-blue-700 hover:bg-blue-100/80',
         live: 'border-transparent bg-primary text-white hover:bg-primary/80',
         judging: 'border-transparent bg-accent text-white hover:bg-accent/80',

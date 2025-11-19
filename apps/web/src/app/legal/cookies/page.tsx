@@ -49,11 +49,11 @@ export default function CookiesPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           {/* What Are Cookies */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Cookie className="w-7 h-7 text-primary animate-wiggle" />
               What Are Cookie Items?
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 Cookies are small data files that are stored on your device when you enter the
                 arena. They are widely used to make the arena work more efficiently and provide
@@ -64,11 +64,11 @@ export default function CookiesPage() {
 
           {/* How We Use Cookies */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Settings className="w-7 h-7 text-primary animate-wiggle" />
               How We Use Cookies in the Arena
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>Innovation Lab uses cookies to:</p>
               <ul className="space-y-2">
                 <li>Keep you signed in to your player account</li>
@@ -82,14 +82,14 @@ export default function CookiesPage() {
 
           {/* Types of Cookies */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Shield className="w-7 h-7 text-primary animate-wiggle" />
               Types of Cookie Items
             </h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">1. Essential Cookies</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">1. Essential Cookies</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   These cookies are necessary for the arena to function. They enable core
                   functionality such as security, player authentication, and maintaining your battle
                   session. Without these cookies, the arena would not work properly.
@@ -97,16 +97,16 @@ export default function CookiesPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">2. Functional Cookies</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">2. Functional Cookies</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   These cookies enable enhanced functionality and personalization, such as
                   remembering your battle preferences, language settings, and region.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">3. Performance Cookies</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">3. Performance Cookies</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   These cookies help us understand how warriors interact with the arena by
                   collecting and reporting information anonymously. This helps us improve how the
                   arena performs.
@@ -114,8 +114,8 @@ export default function CookiesPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">4. Analytics Cookies</h3>
-                <p className="text-slate-700 font-semibold">
+                <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-slate-100">4. Analytics Cookies</h3>
+                <p className="text-slate-700 dark:text-slate-300 font-semibold">
                   We use analytics cookies to gather statistics about arena usage, including which
                   raids are most popular and if players encounter errors during battle.
                 </p>
@@ -125,11 +125,11 @@ export default function CookiesPage() {
 
           {/* Third-Party Cookies */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Globe className="w-7 h-7 text-primary animate-wiggle" />
               Third-Party Cookie Items
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 In addition to our own cookies, we may use various third-party cookies to report
                 arena usage statistics and deliver content based on your battle interests.
@@ -145,11 +145,11 @@ export default function CookiesPage() {
 
           {/* Managing Cookies */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Eye className="w-7 h-7 text-primary animate-wiggle" />
               Managing Your Cookies
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 You can control and/or delete cookies as you wish. You can delete all cookies that
                 are already stored on your device and you can set most browsers to prevent them from
@@ -160,7 +160,7 @@ export default function CookiesPage() {
                 you enter the arena, and some battle services and functionalities may not work
                 properly.
               </p>
-              <h3 className="font-bold mt-4 mb-2 text-slate-900">Browser Settings:</h3>
+              <h3 className="font-bold mt-4 mb-2 text-slate-900 dark:text-slate-100">Browser Settings:</h3>
               <ul className="space-y-2">
                 <li>
                   <a
@@ -208,11 +208,11 @@ export default function CookiesPage() {
 
           {/* Updates */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <FileText className="w-7 h-7 text-primary animate-wiggle" />
               Updates to This Policy
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 We may update this Cookie Vault policy from time to time to reflect changes in our
                 arena practices or for other operational, legal, or regulatory reasons. Please
@@ -223,11 +223,11 @@ export default function CookiesPage() {
 
           {/* Contact */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Mail className="w-7 h-7 text-primary animate-wiggle" />
               Contact Support HQ
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 If you have questions about our use of cookies in the arena, please contact Support
                 HQ at:

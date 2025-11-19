@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -37,11 +36,12 @@ import {
   FileText,
 } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
+import { getAuthToken } from '@/lib/api';
 
 export default function ChallengeDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
-  const { data: session } = useSession();
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [submissions, setSubmissions] = useState<ChallengeSubmission[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,6 +57,17 @@ export default function ChallengeDetailPage() {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Get current user ID from token
+    const token = getAuthToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setCurrentUserId(payload.id || payload.sub);
+      } catch (err) {
+        console.error('Failed to decode token:', err);
+      }
+    }
+
     fetchChallengeData();
   }, [slug]);
 
@@ -68,7 +79,9 @@ export default function ChallengeDetailPage() {
       const challengeData = await getChallengeBySlug(slug);
       setChallenge(challengeData);
 
-      const submissionsData = await getChallengeSubmissions(challengeData.id);
+      // Get token (might be null if user not logged in)
+      const token = getAuthToken();
+      const submissionsData = await getChallengeSubmissions(challengeData.id, token || undefined);
       setSubmissions(submissionsData);
     } catch (err) {
       console.error('Error fetching challenge:', err);
@@ -81,7 +94,8 @@ export default function ChallengeDetailPage() {
   async function handleSubmitSolution(e: React.FormEvent) {
     e.preventDefault();
 
-    if (!session?.accessToken) {
+    const token = getAuthToken();
+    if (!token) {
       setSubmitError('You must be logged in to submit a solution');
       return;
     }
@@ -99,7 +113,7 @@ export default function ChallengeDetailPage() {
           content: submitContent,
           repoUrl: submitRepoUrl || undefined,
         },
-        session.accessToken
+        token
       );
 
       setSubmitSuccess('Solution submitted successfully!');
@@ -123,10 +137,10 @@ export default function ChallengeDetailPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading challenge...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading challenge...</p>
         </div>
       </div>
     );
@@ -135,7 +149,7 @@ export default function ChallengeDetailPage() {
   // Error State
   if (error || !challenge) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <Card className="max-w-md mx-4 border-red-200 bg-red-50">
           <CardContent className="pt-6">
             <div className="text-center">
@@ -152,10 +166,10 @@ export default function ChallengeDetailPage() {
   }
 
   const canSubmit = isAcceptingSubmissions(challenge);
-  const userSubmission = submissions.find(s => s.userId === session?.user?.id);
+  const userSubmission = submissions.find(s => s.userId === currentUserId);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary via-primary to-accent py-8">
         <div className="container mx-auto px-4">
@@ -259,13 +273,13 @@ export default function ChallengeDetailPage() {
               </CardHeader>
               <CardContent>
                 <div className="prose prose-slate max-w-none">
-                  <p className="whitespace-pre-wrap text-slate-700">{challenge.problemStatement}</p>
+                  <p className="whitespace-pre-wrap text-slate-700 dark:text-slate-300">{challenge.problemStatement}</p>
                 </div>
               </CardContent>
             </Card>
 
             {/* Submit Solution */}
-            {session && canSubmit && !userSubmission && (
+            {currentUserId && canSubmit && !userSubmission && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
@@ -290,7 +304,7 @@ export default function ChallengeDetailPage() {
                       )}
 
                       <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                           Solution Title *
                         </label>
                         <Input
@@ -302,7 +316,7 @@ export default function ChallengeDetailPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                           Repository URL
                         </label>
                         <Input
@@ -314,7 +328,7 @@ export default function ChallengeDetailPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                           Solution Description *
                         </label>
                         <Textarea
@@ -373,21 +387,21 @@ export default function ChallengeDetailPage() {
                         View Repository
                       </a>
                     )}
-                    <p className="text-slate-700 whitespace-pre-wrap">{userSubmission.content}</p>
+                    <p className="text-slate-700 dark:text-slate-300 whitespace-pre-wrap">{userSubmission.content}</p>
                   </div>
                   {userSubmission.score !== null && userSubmission.score !== undefined && (
-                    <div className="pt-4 border-t border-slate-200">
-                      <p className="text-sm text-slate-600 mb-1">Score</p>
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                      <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Score</p>
                       <p className="text-2xl font-bold text-primary">{userSubmission.score}/100</p>
                     </div>
                   )}
                   {userSubmission.feedback && (
-                    <div className="pt-4 border-t border-slate-200">
-                      <p className="text-sm font-medium text-slate-700 mb-2">Feedback</p>
-                      <p className="text-slate-600">{userSubmission.feedback}</p>
+                    <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                      <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Feedback</p>
+                      <p className="text-slate-600 dark:text-slate-300">{userSubmission.feedback}</p>
                     </div>
                   )}
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-300">
                     Submitted {new Date(userSubmission.createdAt).toLocaleDateString()}
                   </p>
                 </CardContent>
@@ -407,15 +421,15 @@ export default function ChallengeDetailPage() {
                 {submissions.length === 0 ? (
                   <div className="text-center py-8">
                     <Code className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                    <p className="text-slate-600">No submissions yet</p>
-                    <p className="text-sm text-slate-500">Be the first to submit a solution!</p>
+                    <p className="text-slate-600 dark:text-slate-300">No submissions yet</p>
+                    <p className="text-sm text-slate-500 dark:text-slate-300">Be the first to submit a solution!</p>
                   </div>
                 ) : (
                   <div className="space-y-4">
                     {submissions.map(submission => (
                       <div
                         key={submission.id}
-                        className="p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors"
+                        className="p-4 border border-slate-200 dark:border-slate-800 rounded-lg hover:border-slate-300 dark:hover:bg-slate-800 transition-colors"
                       >
                         <div className="flex items-start justify-between gap-3 mb-3">
                           <div className="flex items-center gap-2">
@@ -433,10 +447,10 @@ export default function ChallengeDetailPage() {
                                   </AvatarFallback>
                                 </Avatar>
                                 <div>
-                                  <p className="font-medium text-slate-900">
+                                  <p className="font-medium text-slate-900 dark:text-slate-100">
                                     {submission.user.name}
                                   </p>
-                                  <p className="text-xs text-slate-500">
+                                  <p className="text-xs text-slate-500 dark:text-slate-300">
                                     @{submission.user.handle}
                                   </p>
                                 </div>
@@ -460,11 +474,11 @@ export default function ChallengeDetailPage() {
                             View Repository
                           </a>
                         )}
-                        <p className="text-sm text-slate-600 line-clamp-3 mb-3">
+                        <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3 mb-3">
                           {submission.content}
                         </p>
 
-                        <div className="flex items-center justify-between text-xs text-slate-500">
+                        <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-300">
                           <span>{new Date(submission.createdAt).toLocaleDateString()}</span>
                           {submission.score !== null && submission.score !== undefined && (
                             <span className="font-medium text-primary">
@@ -534,26 +548,26 @@ export default function ChallengeDetailPage() {
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 <div>
-                  <p className="text-slate-600 mb-1">Status</p>
+                  <p className="text-slate-600 dark:text-slate-300 mb-1">Status</p>
                   <Badge variant={getStatusVariant(challenge.status)}>{challenge.status}</Badge>
                 </div>
                 {challenge.deadlineAt && (
                   <div>
-                    <p className="text-slate-600 mb-1">Deadline</p>
+                    <p className="text-slate-600 dark:text-slate-300 mb-1">Deadline</p>
                     <p className="font-medium">{formatDeadline(challenge.deadlineAt)}</p>
-                    <p className="text-xs text-slate-500 mt-1">
+                    <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">
                       {new Date(challenge.deadlineAt).toLocaleString()}
                     </p>
                   </div>
                 )}
                 <div>
-                  <p className="text-slate-600 mb-1">Created</p>
+                  <p className="text-slate-600 dark:text-slate-300 mb-1">Created</p>
                   <p className="font-medium">
                     {new Date(challenge.createdAt).toLocaleDateString()}
                   </p>
                 </div>
                 <div>
-                  <p className="text-slate-600 mb-1">Visibility</p>
+                  <p className="text-slate-600 dark:text-slate-300 mb-1">Visibility</p>
                   <p className="font-medium">{challenge.visibility}</p>
                 </div>
               </CardContent>
@@ -574,12 +588,12 @@ export default function ChallengeDetailPage() {
                   </Avatar>
                   <div>
                     <p className="font-medium">{challenge.owner.name}</p>
-                    <p className="text-sm text-slate-600">@{challenge.owner.handle}</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">@{challenge.owner.handle}</p>
                   </div>
                 </div>
                 {challenge.ownerOrg && (
-                  <div className="mt-4 pt-4 border-t border-slate-200">
-                    <p className="text-sm text-slate-600 mb-1">Sponsored by</p>
+                  <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-800">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-1">Sponsored by</p>
                     <p className="font-medium">{challenge.ownerOrg}</p>
                   </div>
                 )}

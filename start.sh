@@ -1,9 +1,13 @@
 #!/bin/bash
 
 # Innovation Lab Startup Script
-# This script starts all services and opens the application
+# Auto-detects Docker or local PostgreSQL setup
 
 set -e
+
+# Detect OS
+OSTYPE_LOCAL="$(uname -s)"
+USE_DOCKER=false
 
 # Add Docker to PATH if it's not already there
 export PATH="/Applications/Docker.app/Contents/Resources/bin:$PATH"
@@ -41,14 +45,50 @@ print_header() {
     echo -e "${PURPLE}=====================================${NC}"
 }
 
-# Check if Docker is running
+# Check if Docker is available and running
 check_docker() {
-    print_status "Checking if Docker is running..."
-    if ! docker info > /dev/null 2>&1; then
-        print_error "Docker is not running. Please start Docker Desktop and try again."
-        exit 1
+    print_status "Checking if Docker is available..."
+    if docker info > /dev/null 2>&1; then
+        print_success "Docker is running"
+        USE_DOCKER=true
+        return 0
+    else
+        print_warning "Docker is not available or not running"
+        return 1
     fi
-    print_success "Docker is running"
+}
+
+# Check if local PostgreSQL is running (Windows/local setup)
+check_local_postgres() {
+    print_status "Checking for local PostgreSQL..."
+
+    # Try PostgreSQL 16 on Windows
+    if [[ "$OSTYPE_LOCAL" == *"MSYS"* ]] || [[ "$OSTYPE_LOCAL" == *"MINGW"* ]]; then
+        PSQL_CMD="/c/Program Files/PostgreSQL/16/bin/psql.exe"
+        if [ -f "$PSQL_CMD" ]; then
+            if PGPASSWORD="Mic13245@nbc" "$PSQL_CMD" -U postgres -d innovationlab -c "SELECT 1" > /dev/null 2>&1; then
+                print_success "Local PostgreSQL is running"
+                return 0
+            elif PGPASSWORD="Mic13245@nbc" "$PSQL_CMD" -U postgres -c "SELECT 1" > /dev/null 2>&1; then
+                print_warning "PostgreSQL running but database 'innovationlab' not found"
+                print_status "Creating database..."
+                PGPASSWORD="Mic13245@nbc" "$PSQL_CMD" -U postgres -c "CREATE DATABASE innovationlab;" 2>/dev/null || true
+                print_success "Database created"
+                return 0
+            fi
+        fi
+    fi
+
+    # Try default psql command (Mac/Linux)
+    if command -v psql > /dev/null 2>&1; then
+        if PGPASSWORD="Mic13245@nbc" psql -U postgres -d innovationlab -h localhost -c "SELECT 1" > /dev/null 2>&1; then
+            print_success "Local PostgreSQL is running"
+            return 0
+        fi
+    fi
+
+    print_error "Local PostgreSQL is not running or cannot connect"
+    return 1
 }
 
 # Start Docker services
@@ -100,9 +140,7 @@ run_migrations() {
     print_header "Running Database Migrations"
     print_status "Running Prisma migrations..."
 
-    cd /Users/mickelsamuel/Innovation-Lab/packages/database
-    DATABASE_URL="postgresql://innovationlab:password@localhost:5432/innovationlab?schema=public" ../../node_modules/.bin/prisma db push --skip-generate > /dev/null 2>&1
-    cd /Users/mickelsamuel/Innovation-Lab
+    pnpm db:push > /dev/null 2>&1 || true
 
     print_success "Database migrations completed"
 }
@@ -142,22 +180,30 @@ open_browser() {
     print_success "✅ All services are running!"
     echo ""
     echo -e "${CYAN}🌐 Web Application:${NC}      http://localhost:3000"
-    echo -e "${CYAN}🔧 Backend API:${NC}           http://localhost:4000"
-    echo -e "${CYAN}🗄️  Database (PostgreSQL):${NC} localhost:5432"
-    echo -e "${CYAN}⚡ Redis:${NC}                 localhost:6379"
-    echo -e "${CYAN}📦 MinIO Console:${NC}         http://localhost:9001"
-    echo -e "${CYAN}📧 Mailhog UI:${NC}            http://localhost:8025"
+    echo -e "${CYAN}🔧 Backend API:${NC}           http://localhost:4000/v1"
+    echo -e "${CYAN}📚 API Documentation:${NC}    http://localhost:4000/api/docs"
+    echo -e "${CYAN}🏥 Health Check:${NC}         http://localhost:4000/health"
+    echo -e "${CYAN}🗄️  Database:${NC}             localhost:5432"
+
+    if [ "$USE_DOCKER" = true ]; then
+        echo -e "${CYAN}⚡ Redis:${NC}                 localhost:6379"
+        echo -e "${CYAN}📦 MinIO Console:${NC}         http://localhost:9001"
+        echo -e "${CYAN}📧 Mailhog UI:${NC}            http://localhost:8025"
+    else
+        echo -e "${YELLOW}⚠️  Redis, MinIO, Mailhog:${NC}  Not available (no Docker)"
+    fi
+
     echo -e "${CYAN}🎨 Prisma Studio:${NC}         Run 'pnpm db:studio' to open"
     echo ""
     print_status "Opening browser..."
 
     # Open browser based on OS
-    if [[ "$OSTYPE" == "darwin"* ]]; then
+    if [[ "$OSTYPE_LOCAL" == "Darwin"* ]]; then
         open http://localhost:3000
-    elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    elif [[ "$OSTYPE_LOCAL" == "Linux"* ]]; then
         xdg-open http://localhost:3000
-    elif [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
-        start http://localhost:3000
+    else
+        start http://localhost:3000 2>/dev/null || true
     fi
 
     echo ""
@@ -178,7 +224,10 @@ cleanup() {
         kill $APP_PID 2>/dev/null || true
     fi
 
-    print_status "Docker services are still running. To stop them, run: pnpm docker:down"
+    if [ "$USE_DOCKER" = true ]; then
+        print_status "Docker services are still running. To stop them, run: pnpm docker:down"
+    fi
+
     print_success "Goodbye! 👋"
     exit 0
 }
@@ -192,13 +241,23 @@ main() {
     print_header "🏆 Innovation Lab Startup Script"
     echo ""
 
-    # Check prerequisites
-    check_docker
-
-    # Start services
-    start_docker_services
-    wait_for_database
-    wait_for_redis
+    # Check what's available (Docker or local PostgreSQL)
+    if check_docker; then
+        print_success "Using Docker mode"
+        # Start Docker services
+        start_docker_services
+        wait_for_database
+        wait_for_redis
+    elif check_local_postgres; then
+        print_success "Using local PostgreSQL mode (no Docker)"
+        print_warning "Redis and MinIO will not be available"
+    else
+        print_error "Neither Docker nor local PostgreSQL is available"
+        print_error "Please either:"
+        print_error "  1. Start Docker Desktop, OR"
+        print_error "  2. Start your local PostgreSQL service"
+        exit 1
+    fi
 
     # Setup database
     run_migrations

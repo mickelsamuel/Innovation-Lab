@@ -63,7 +63,7 @@ export default function RegisterPage() {
             <Trophy className="w-10 h-10 text-primary animate-wiggle" />
             <h1 className="text-4xl font-display font-black">Join Arena</h1>
           </div>
-          <p className="text-slate-700 font-semibold flex items-center gap-2">
+          <p className="text-slate-700 dark:text-slate-300 font-semibold flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-accent animate-sparkle" />
             Create your player profile and begin your legendary journey!
           </p>
@@ -86,7 +86,7 @@ export default function RegisterPage() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="name" className="font-bold text-slate-900">
+              <Label htmlFor="name" className="font-bold text-slate-900 dark:text-slate-100">
                 Full Name
               </Label>
               <Input
@@ -104,7 +104,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="handle" className="font-bold text-slate-900">
+              <Label htmlFor="handle" className="font-bold text-slate-900 dark:text-slate-100">
                 Warrior Handle
               </Label>
               <Input
@@ -119,13 +119,13 @@ export default function RegisterPage() {
               {errors.handle && (
                 <p className="text-sm font-bold text-red-600">{errors.handle.message}</p>
               )}
-              <p className="text-xs text-slate-600 font-semibold">
+              <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold">
                 Only letters, numbers, underscores, and hyphens
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="font-bold text-slate-900">
+              <Label htmlFor="email" className="font-bold text-slate-900 dark:text-slate-100">
                 Player Email
               </Label>
               <Input
@@ -143,7 +143,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="font-bold text-slate-900">
+              <Label htmlFor="password" className="font-bold text-slate-900 dark:text-slate-100">
                 Password
               </Label>
               <Input
@@ -158,13 +158,13 @@ export default function RegisterPage() {
               {errors.password && (
                 <p className="text-sm font-bold text-red-600">{errors.password.message}</p>
               )}
-              <p className="text-xs text-slate-600 font-semibold">
+              <p className="text-xs text-slate-600 dark:text-slate-300 font-semibold">
                 Min 8 characters with uppercase, lowercase, number, and special character
               </p>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword" className="font-bold text-slate-900">
+              <Label htmlFor="confirmPassword" className="font-bold text-slate-900 dark:text-slate-100">
                 Confirm Password
               </Label>
               <Input
@@ -182,7 +182,7 @@ export default function RegisterPage() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="organization" className="font-bold text-slate-900">
+              <Label htmlFor="organization" className="font-bold text-slate-900 dark:text-slate-100">
                 Guild (Optional)
               </Label>
               <Input
@@ -206,7 +206,7 @@ export default function RegisterPage() {
                 disabled={isLoading}
                 {...register('acceptTerms')}
               />
-              <label htmlFor="acceptTerms" className="text-sm text-slate-700 font-semibold">
+              <label htmlFor="acceptTerms" className="text-sm text-slate-700 dark:text-slate-300 font-semibold">
                 I agree to the{' '}
                 <Link href="/legal/terms" className="text-primary font-bold hover:underline">
                   Arena Rules
@@ -236,8 +236,8 @@ export default function RegisterPage() {
             </button>
           </div>
 
-          <div className="mt-6 pt-6 border-t-2 border-slate-200">
-            <p className="text-sm text-center text-slate-700 font-semibold w-full">
+          <div className="mt-6 pt-6 border-t-2 border-slate-200 dark:border-slate-800">
+            <p className="text-sm text-center text-slate-700 dark:text-slate-300 font-semibold w-full">
               Already have a player account?{' '}
               <Link href="/auth/login" className="text-primary font-bold hover:underline">
                 Enter Arena

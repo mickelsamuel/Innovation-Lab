@@ -60,7 +60,7 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
         : 'Hybrid';
 
   return (
-    <Card className="h-full hover:shadow-lg transition-shadow duration-200 border-slate-200 hover:border-primary/50">
+    <Card className="h-full hover:shadow-lg transition-shadow duration-200 border-slate-200 dark:border-slate-800 hover:border-primary/50">
       <CardHeader>
         <div className="flex items-start justify-between gap-2 mb-2">
           <Badge variant={getStatusVariant(hackathon.status)}>
@@ -83,24 +83,24 @@ export function HackathonCard({ hackathon }: HackathonCardProps) {
 
       <CardContent className="space-y-4">
         {hackathon.description && (
-          <p className="text-sm text-slate-600 line-clamp-3">{hackathon.description}</p>
+          <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-3">{hackathon.description}</p>
         )}
 
         <div className="space-y-2">
-          <div className="flex items-center gap-2 text-sm text-slate-600">
+          <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
             <Calendar className="w-4 h-4" />
             <span>
               {formatDate(hackathon.startsAt)} - {formatDate(hackathon.endsAt)}
             </span>
           </div>
 
-          <div className="flex items-center gap-2 text-sm text-slate-600">
+          <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
             <MapPin className="w-4 h-4" />
             <span>{locationLabel}</span>
           </div>
 
           {hackathon._count && (
-            <div className="flex items-center gap-2 text-sm text-slate-600">
+            <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300">
               <Users className="w-4 h-4" />
               <span>
                 {hackathon._count.teams} team{hackathon._count.teams !== 1 ? 's' : ''},{' '}

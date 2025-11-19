@@ -185,10 +185,10 @@ export default function SubmitProjectPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading submission form...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading submission form...</p>
         </div>
       </div>
     );
@@ -197,14 +197,14 @@ export default function SubmitProjectPage() {
   // Error State
   if (!hackathon) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load submission form</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">{error || 'Hackathon not found'}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error || 'Hackathon not found'}</p>
             <Link href="/hackathons">
               <Button variant="outline" className="w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -218,9 +218,9 @@ export default function SubmitProjectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href={`/hackathons/${slug}`}>
             <Button variant="ghost" size="sm">
@@ -335,7 +335,7 @@ export default function SubmitProjectPage() {
                     <select
                       id="teamId"
                       {...register('teamId')}
-                      className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       disabled={!canSubmit || userTeams.length === 1}
                       onChange={e => {
                         setValue('teamId', e.target.value);
@@ -363,7 +363,7 @@ export default function SubmitProjectPage() {
                       <select
                         id="trackId"
                         {...register('trackId')}
-                        className="w-full mt-1.5 h-10 rounded-md border border-slate-200 bg-white px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="w-full mt-1.5 h-10 rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card px-3 text-sm ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         disabled={!canSubmit}
                       >
                         <option value="">No specific track</option>
@@ -374,7 +374,7 @@ export default function SubmitProjectPage() {
                         ))}
                       </select>
                       {selectedTrackId && hackathon.tracks && (
-                        <p className="text-sm text-slate-500 mt-1.5">
+                        <p className="text-sm text-slate-500 dark:text-slate-300 mt-1.5">
                           {hackathon.tracks.find(t => t.id === selectedTrackId)?.description}
                         </p>
                       )}
@@ -420,7 +420,7 @@ export default function SubmitProjectPage() {
                     {errors.abstract && (
                       <p className="text-sm text-red-600 mt-1">{errors.abstract.message}</p>
                     )}
-                    <p className="text-sm text-slate-500 mt-1">
+                    <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
                       Minimum 50 characters. Be detailed and explain your innovation clearly.
                     </p>
                   </div>
@@ -486,7 +486,7 @@ export default function SubmitProjectPage() {
                     {errors.videoUrl && (
                       <p className="text-sm text-red-600 mt-1">{errors.videoUrl.message}</p>
                     )}
-                    <p className="text-sm text-slate-500 mt-1">
+                    <p className="text-sm text-slate-500 dark:text-slate-300 mt-1">
                       YouTube, Vimeo, or similar video hosting platform
                     </p>
                   </div>
@@ -572,7 +572,7 @@ export default function SubmitProjectPage() {
                         Create Submission
                       </Button>
                     </div>
-                    <p className="text-xs text-slate-500 text-center mt-3">
+                    <p className="text-xs text-slate-500 dark:text-slate-300 text-center mt-3">
                       You can edit your submission as a draft. Only the team lead can finalize it.
                     </p>
                   </CardContent>

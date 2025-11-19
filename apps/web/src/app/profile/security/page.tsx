@@ -231,7 +231,7 @@ export default function SecuritySettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 py-8">
       <div className="container mx-auto px-4 max-w-4xl">
         {/* Header */}
         <div className="mb-6">
@@ -241,11 +241,11 @@ export default function SecuritySettingsPage() {
               Back to Profile
             </Button>
           </Link>
-          <h1 className="text-3xl font-bold text-slate-900 mt-4 flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100 mt-4 flex items-center gap-2">
             <Shield className="w-8 h-8" />
             Security Settings
           </h1>
-          <p className="text-slate-600 mt-2">Manage your account security and authentication</p>
+          <p className="text-slate-600 dark:text-slate-300 mt-2">Manage your account security and authentication</p>
         </div>
 
         <div className="space-y-6">
@@ -262,7 +262,7 @@ export default function SecuritySettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Status</p>
-                  <p className="text-sm text-slate-600">
+                  <div className="text-sm text-slate-600 dark:text-slate-300">
                     {is2FAEnabled ? (
                       <Badge variant="default" className="mt-1">
                         <CheckCircle className="w-3 h-3 mr-1" />
@@ -274,7 +274,7 @@ export default function SecuritySettingsPage() {
                         Disabled
                       </Badge>
                     )}
-                  </p>
+                  </div>
                 </div>
                 {!is2FAEnabled && !showQR && <Button onClick={setup2FA}>Enable 2FA</Button>}
                 {is2FAEnabled && (
@@ -288,7 +288,7 @@ export default function SecuritySettingsPage() {
                 <div className="border rounded-lg p-4 space-y-4">
                   <div>
                     <p className="font-medium mb-2">1. Scan QR Code</p>
-                    <p className="text-sm text-slate-600 mb-4">
+                    <p className="text-sm text-slate-600 dark:text-slate-300 mb-4">
                       Scan this QR code with Google Authenticator, Authy, or any TOTP app
                     </p>
                     {qrCode && <img src={qrCode} alt="2FA QR Code" className="max-w-xs mx-auto" />}
@@ -350,7 +350,7 @@ export default function SecuritySettingsPage() {
                     required
                     minLength={8}
                   />
-                  <p className="text-xs text-slate-500 mt-1">Must be at least 8 characters long</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">Must be at least 8 characters long</p>
                 </div>
                 <div>
                   <Label htmlFor="confirm-password">Confirm New Password</Label>
@@ -386,12 +386,12 @@ export default function SecuritySettingsPage() {
                   Delete My Account
                 </Button>
               ) : (
-                <div className="space-y-4 border border-red-200 rounded-lg p-4">
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                    <p className="text-sm text-red-800 font-medium">
+                <div className="space-y-4 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                  <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
+                    <p className="text-sm text-red-800 dark:text-red-200 font-medium">
                       ⚠️ Warning: This action cannot be undone!
                     </p>
-                    <p className="text-xs text-red-700 mt-1">
+                    <p className="text-xs text-red-700 dark:text-red-300 mt-1">
                       All your data, including teams, submissions, and activity will be permanently
                       deleted.
                     </p>

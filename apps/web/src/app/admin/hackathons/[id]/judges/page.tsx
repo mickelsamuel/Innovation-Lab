@@ -116,15 +116,15 @@ export default function ManageJudgesPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <Loader2 className="w-16 h-16 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href={`/admin/hackathons/${hackathonId}/manage`}>
             <Button variant="ghost" size="sm">
@@ -176,7 +176,7 @@ export default function ManageJudgesPage() {
 
               <div className="space-y-3">
                 {judges.length === 0 ? (
-                  <p className="text-center text-slate-500 py-8">
+                  <p className="text-center text-slate-500 dark:text-slate-300 py-8">
                     No judges assigned yet. Add judges using their email address.
                   </p>
                 ) : (
@@ -192,7 +192,7 @@ export default function ManageJudgesPage() {
                         </Avatar>
                         <div>
                           <p className="font-semibold">{judge.user.name}</p>
-                          <p className="text-sm text-slate-600">{judge.user.email}</p>
+                          <p className="text-sm text-slate-600 dark:text-slate-300">{judge.user.email}</p>
                         </div>
                       </div>
                       <Button variant="ghost" size="sm" onClick={() => handleRemoveJudge(judge)}>

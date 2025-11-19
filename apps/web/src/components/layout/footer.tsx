@@ -1,4 +1,7 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 const footerNavigation = {
   platform: [
@@ -28,8 +31,15 @@ const footerNavigation = {
 };
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // Don't show footer on auth or admin pages
+  if (pathname?.startsWith('/auth/') || pathname?.startsWith('/admin')) {
+    return null;
+  }
+
   return (
-    <footer className="border-t border-slate-200 bg-slate-50" aria-labelledby="footer-heading">
+    <footer className="border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900" aria-labelledby="footer-heading">
       <h2 id="footer-heading" className="sr-only">
         Footer
       </h2>
@@ -42,13 +52,13 @@ export function Footer() {
                 <span className="text-white font-bold text-xl">IL</span>
               </div>
               <div>
-                <span className="text-lg font-display font-bold text-slate-900">
+                <span className="text-lg font-display font-bold text-slate-900 dark:text-slate-100">
                   Innovation Lab
                 </span>
-                <span className="block text-xs text-slate-500">NBC + Vaultix</span>
+                <span className="block text-xs text-slate-500 dark:text-slate-300">NBC + Vaultix</span>
               </div>
             </div>
-            <p className="text-sm leading-6 text-slate-600">
+            <p className="text-sm leading-6 text-slate-600 dark:text-slate-300">
               Empowering innovators to build the future of fintech. Join hackathons, solve
               challenges, and compete for amazing prizes.
             </p>
@@ -58,13 +68,13 @@ export function Footer() {
           <div className="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-slate-900">Platform</h3>
+                <h3 className="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">Platform</h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {footerNavigation.platform.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-slate-600 hover:text-slate-900 transition-colors"
+                        className="text-sm leading-6 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -73,13 +83,13 @@ export function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-slate-900">Resources</h3>
+                <h3 className="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">Resources</h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {footerNavigation.resources.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-slate-600 hover:text-slate-900 transition-colors"
+                        className="text-sm leading-6 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -90,13 +100,13 @@ export function Footer() {
             </div>
             <div className="md:grid md:grid-cols-2 md:gap-8">
               <div>
-                <h3 className="text-sm font-semibold leading-6 text-slate-900">Company</h3>
+                <h3 className="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">Company</h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {footerNavigation.company.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-slate-600 hover:text-slate-900 transition-colors"
+                        className="text-sm leading-6 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -105,13 +115,13 @@ export function Footer() {
                 </ul>
               </div>
               <div className="mt-10 md:mt-0">
-                <h3 className="text-sm font-semibold leading-6 text-slate-900">Legal</h3>
+                <h3 className="text-sm font-semibold leading-6 text-slate-900 dark:text-slate-100">Legal</h3>
                 <ul role="list" className="mt-6 space-y-4">
                   {footerNavigation.legal.map(item => (
                     <li key={item.name}>
                       <Link
                         href={item.href}
-                        className="text-sm leading-6 text-slate-600 hover:text-slate-900 transition-colors"
+                        className="text-sm leading-6 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-slate-100 transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -125,7 +135,7 @@ export function Footer() {
 
         {/* Bottom Section */}
         <div className="mt-16 border-t border-slate-900/10 pt-8 sm:mt-20 lg:mt-24">
-          <p className="text-xs leading-5 text-slate-500 text-center">
+          <p className="text-xs leading-5 text-slate-500 dark:text-slate-300 text-center">
             &copy; {new Date().getFullYear()} National Bank of Canada + Vaultix. All rights
             reserved.
           </p>

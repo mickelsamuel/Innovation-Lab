@@ -42,7 +42,7 @@ export default function AboutPage() {
               <Target className="w-8 h-8 text-primary animate-wiggle" />
               <h2 className="text-3xl font-display font-black">Our Quest</h2>
             </div>
-            <p className="text-slate-700 text-lg leading-relaxed">
+            <p className="text-slate-700 dark:text-slate-300 text-lg leading-relaxed">
               Innovation Lab is a platform designed to bring together developers, designers, and
               innovators to collaborate on cutting-edge projects. We host hackathons, coding
               challenges, and provide a space for the tech community to learn, grow, and build
@@ -55,7 +55,7 @@ export default function AboutPage() {
             <div className="game-card p-6">
               <Building2 className="w-12 h-12 text-primary mb-3 animate-wiggle" />
               <h3 className="text-xl font-display font-black mb-3">Innovation First</h3>
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-300">
                 We encourage creative thinking and pushing boundaries to solve real-world problems.
               </p>
             </div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
             <div className="game-card p-6">
               <Users className="w-12 h-12 text-accent2 mb-3 animate-wiggle" />
               <h3 className="text-xl font-display font-black mb-3">Community Driven</h3>
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-300">
                 Our platform thrives on collaboration, knowledge sharing, and supporting each
                 other's growth.
               </p>
@@ -72,7 +72,7 @@ export default function AboutPage() {
             <div className="game-card p-6">
               <Zap className="w-12 h-12 text-accent mb-3 animate-wiggle" />
               <h3 className="text-xl font-display font-black mb-3">Excellence</h3>
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-300">
                 We strive for quality in everything we do, from code to community engagement.
               </p>
             </div>
@@ -84,12 +84,12 @@ export default function AboutPage() {
               Partnership with NBC & Vaultix
             </h2>
             <div className="space-y-4">
-              <p className="text-slate-700 leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 Innovation Lab is proudly built in partnership with the National Bank of Canada
                 (NBC) and Vaultix, bringing together financial technology expertise and innovation
                 platforms to create opportunities for developers worldwide.
               </p>
-              <p className="text-slate-700 leading-relaxed">
+              <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                 This collaboration aims to foster innovation in the fintech space while providing
                 developers with real-world challenges and opportunities to showcase their skills.
               </p>
@@ -99,7 +99,7 @@ export default function AboutPage() {
           {/* Call to Action */}
           <div className="game-card p-8 text-center bg-gradient-to-br from-primary/5 to-accent/5">
             <h3 className="text-2xl font-display font-black mb-4">Join Our Community</h3>
-            <p className="text-slate-700 mb-6 max-w-2xl mx-auto">
+            <p className="text-slate-700 dark:text-slate-300 mb-6 max-w-2xl mx-auto">
               Whether you're a seasoned developer or just starting out, Innovation Lab welcomes you.
               Join hackathons, tackle challenges, and be part of something bigger.
             </p>

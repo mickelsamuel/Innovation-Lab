@@ -212,10 +212,10 @@ export default function HackathonDetailPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading hackathon details...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading hackathon details...</p>
         </div>
       </div>
     );
@@ -224,14 +224,14 @@ export default function HackathonDetailPage() {
   // Error State
   if (error || !hackathon) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardHeader>
             <CardTitle className="text-red-600">Error</CardTitle>
             <CardDescription>Failed to load hackathon details</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-slate-600 mb-4">{error || 'Hackathon not found'}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error || 'Hackathon not found'}</p>
             <Link href="/hackathons">
               <Button variant="outline" className="w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -252,9 +252,9 @@ export default function HackathonDetailPage() {
         : 'Hybrid Event';
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Back Button */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href="/hackathons">
             <Button variant="ghost" size="sm">
@@ -345,6 +345,58 @@ export default function HackathonDetailPage() {
         </div>
       </div>
 
+      {/* Navigation Tabs */}
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800 sticky top-16 z-40">
+        <div className="container mx-auto px-4">
+          <nav className="flex gap-6 overflow-x-auto">
+            <Link
+              href={`/hackathons/${slug}`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-primary text-primary font-semibold text-sm whitespace-nowrap"
+            >
+              <FileText className="w-4 h-4" />
+              Overview
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/leaderboard`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <Trophy className="w-4 h-4" />
+              Leaderboard
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/teams`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
+              Teams
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/submissions`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <FileText className="w-4 h-4" />
+              Submissions
+            </Link>
+            <Link
+              href={`/hackathons/${slug}/mentors`}
+              className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:border-slate-300 font-semibold text-sm whitespace-nowrap"
+            >
+              <Users className="w-4 h-4" />
+              Mentors
+            </Link>
+            {canRegister && (
+              <Link
+                href={`/hackathons/${slug}/submit`}
+                className="inline-flex items-center gap-2 px-1 py-4 border-b-2 border-transparent text-accent hover:text-accent hover:border-accent font-semibold text-sm whitespace-nowrap ml-auto"
+              >
+                <UserPlus className="w-4 h-4" />
+                Submit Project
+              </Link>
+            )}
+          </nav>
+        </div>
+      </div>
+
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -357,7 +409,7 @@ export default function HackathonDetailPage() {
                   <CardTitle>About This Hackathon</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-slate-700 whitespace-pre-line leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed">
                     {hackathon.description}
                   </p>
                 </CardContent>
@@ -390,11 +442,11 @@ export default function HackathonDetailPage() {
                           className={`border rounded-lg p-4 ${
                             announcement.pinned
                               ? 'border-primary bg-primary/5'
-                              : 'border-slate-200 bg-white'
+                              : 'border-slate-200 dark:border-slate-800 bg-white dark:bg-card'
                           }`}
                         >
                           <div className="flex items-start justify-between gap-3 mb-2">
-                            <h3 className="font-semibold text-lg text-slate-900 flex items-center gap-2">
+                            <h3 className="font-semibold text-lg text-slate-900 dark:text-slate-100 flex items-center gap-2">
                               {announcement.pinned && <Pin className="w-4 h-4 text-primary" />}
                               {announcement.title}
                             </h3>
@@ -406,7 +458,7 @@ export default function HackathonDetailPage() {
                               })}
                             </span>
                           </div>
-                          <p className="text-slate-700 whitespace-pre-line leading-relaxed">
+                          <p className="text-slate-700 dark:text-slate-300 whitespace-pre-line leading-relaxed">
                             {announcement.body}
                           </p>
                         </div>
@@ -433,10 +485,10 @@ export default function HackathonDetailPage() {
                       .map(track => (
                         <div
                           key={track.id}
-                          className="border border-slate-200 rounded-lg p-4 hover:border-primary transition-colors"
+                          className="border border-slate-200 dark:border-slate-800 rounded-lg p-4 hover:border-primary transition-colors"
                         >
                           <h3 className="font-semibold text-lg mb-2">{track.title}</h3>
-                          <p className="text-slate-600 text-sm">{track.description}</p>
+                          <p className="text-slate-600 dark:text-slate-300 text-sm">{track.description}</p>
                         </div>
                       ))}
                   </div>
@@ -463,11 +515,11 @@ export default function HackathonDetailPage() {
                       .map(criterion => (
                         <div
                           key={criterion.id}
-                          className="flex items-start justify-between gap-4 pb-3 border-b border-slate-100 last:border-0"
+                          className="flex items-start justify-between gap-4 pb-3 border-b border-slate-100 dark:border-slate-800 last:border-0"
                         >
                           <div className="flex-1">
                             <h4 className="font-medium mb-1">{criterion.name}</h4>
-                            <p className="text-sm text-slate-600">{criterion.description}</p>
+                            <p className="text-sm text-slate-600 dark:text-slate-300">{criterion.description}</p>
                           </div>
                           <div className="text-right">
                             <div className="text-sm font-semibold text-primary">
@@ -519,40 +571,40 @@ export default function HackathonDetailPage() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <p className="text-sm font-medium text-slate-700 mb-1">Starts</p>
-                  <p className="text-sm text-slate-600">{formatDate(hackathon.startsAt)}</p>
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Starts</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300">{formatDate(hackathon.startsAt)}</p>
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-slate-700 mb-1">Ends</p>
-                  <p className="text-sm text-slate-600">{formatDate(hackathon.endsAt)}</p>
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Ends</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300">{formatDate(hackathon.endsAt)}</p>
                 </div>
                 {hackathon.registrationClosesAt && (
                   <div>
-                    <p className="text-sm font-medium text-slate-700 mb-1">Registration Closes</p>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Registration Closes</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
                       {formatDate(hackathon.registrationClosesAt)}
                     </p>
                   </div>
                 )}
                 {hackathon.submissionClosesAt && (
                   <div>
-                    <p className="text-sm font-medium text-slate-700 mb-1">Submission Deadline</p>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Submission Deadline</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">
                       {formatDate(hackathon.submissionClosesAt)}
                     </p>
                   </div>
                 )}
                 <div>
-                  <p className="text-sm font-medium text-slate-700 mb-1">Team Size</p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Team Size</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300">
                     {hackathon.minTeamSize} - {hackathon.maxTeamSize} members
                     {hackathon.allowSoloTeams && ' (Solo teams allowed)'}
                   </p>
                 </div>
                 {hackathon.timezone && (
                   <div>
-                    <p className="text-sm font-medium text-slate-700 mb-1">Timezone</p>
-                    <p className="text-sm text-slate-600">{hackathon.timezone}</p>
+                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Timezone</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-300">{hackathon.timezone}</p>
                   </div>
                 )}
                 {hackathon.virtualUrl && (
@@ -579,27 +631,27 @@ export default function HackathonDetailPage() {
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-600">Teams</span>
+                    <span className="text-sm text-slate-600 dark:text-slate-300">Teams</span>
                     <span className="font-semibold">{hackathon._count.teams}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-sm text-slate-600">Submissions</span>
+                    <span className="text-sm text-slate-600 dark:text-slate-300">Submissions</span>
                     <span className="font-semibold">{hackathon._count.submissions}</span>
                   </div>
                   {hackathon._count.judges > 0 && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Judges</span>
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Judges</span>
                       <span className="font-semibold">{hackathon._count.judges}</span>
                     </div>
                   )}
                   {hackathon._count.mentors > 0 && (
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Mentors</span>
+                      <span className="text-sm text-slate-600 dark:text-slate-300">Mentors</span>
                       <span className="font-semibold">{hackathon._count.mentors}</span>
                     </div>
                   )}
 
-                  <div className="pt-3 border-t border-slate-200 space-y-2">
+                  <div className="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2">
                     {hackathon._count.teams > 0 && (
                       <Link href={`/hackathons/${hackathon.slug}/teams`}>
                         <Button variant="outline" size="sm" className="w-full">
@@ -626,7 +678,7 @@ export default function HackathonDetailPage() {
 
       {/* Mobile CTA */}
       {canRegister && (
-        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 p-4 shadow-lg">
+        <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-card border-t border-slate-200 dark:border-slate-800 p-4 shadow-lg">
           <Button className="w-full" size="lg" onClick={handleRegister} disabled={isRegistering}>
             <UserPlus className="w-5 h-5 mr-2" />
             {isRegistering ? 'Registering...' : 'Register Now'}

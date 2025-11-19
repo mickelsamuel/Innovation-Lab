@@ -83,11 +83,11 @@ export function SelectTrigger({ children, className = '', placeholder }: SelectT
       ref={triggerRef}
       type="button"
       onClick={() => setOpen(!open)}
-      className={`flex h-10 w-full items-center justify-between rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 ring-offset-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+      className={`flex h-10 w-full items-center justify-between rounded-md border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 ring-offset-white focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
       aria-haspopup="listbox"
       aria-expanded={open}
     >
-      <span className={!value && placeholder ? 'text-slate-500' : 'text-slate-900'}>
+      <span className={!value && placeholder ? 'text-slate-500 dark:text-slate-300' : 'text-slate-900 dark:text-slate-100'}>
         {children || placeholder || 'Select...'}
       </span>
       <ChevronDown
@@ -105,11 +105,11 @@ export function SelectValue({ placeholder }: SelectValueProps) {
   const { value } = useSelect();
 
   if (!value && placeholder) {
-    return <span className="text-slate-500">{placeholder}</span>;
+    return <span className="text-slate-500 dark:text-slate-300">{placeholder}</span>;
   }
 
   // The actual value will be rendered by SelectItem when selected
-  return <span className="text-slate-900">{value}</span>;
+  return <span className="text-slate-900 dark:text-slate-100">{value}</span>;
 }
 
 interface SelectContentProps {
@@ -124,7 +124,7 @@ export function SelectContent({ children, className = '' }: SelectContentProps) 
 
   return (
     <div
-      className={`absolute z-50 mt-1 w-full min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white shadow-lg ${className}`}
+      className={`absolute z-50 mt-1 w-full min-w-[8rem] overflow-hidden rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card shadow-lg ${className}`}
     >
       <div className="max-h-96 overflow-auto p-1" role="listbox">
         {children}
@@ -152,8 +152,8 @@ export function SelectItem({
   return (
     <div
       onClick={() => !disabled && onValueChange(itemValue)}
-      className={`relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm text-slate-900 outline-none hover:bg-slate-100 focus:bg-slate-100 ${
-        isSelected ? 'bg-slate-50' : ''
+      className={`relative flex w-full cursor-pointer select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm text-slate-900 dark:text-slate-100 outline-none hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-slate-100 dark:focus:bg-slate-800 ${
+        isSelected ? 'bg-slate-50 dark:bg-slate-900' : ''
       } ${disabled ? 'pointer-events-none opacity-50' : ''} ${className}`}
       role="option"
       aria-selected={isSelected}
@@ -181,7 +181,7 @@ interface SelectLabelProps {
 
 export function SelectLabel({ children, className = '' }: SelectLabelProps) {
   return (
-    <div className={`px-2 py-1.5 text-sm font-semibold text-slate-900 ${className}`}>
+    <div className={`px-2 py-1.5 text-sm font-semibold text-slate-900 dark:text-slate-100 ${className}`}>
       {children}
     </div>
   );
@@ -192,5 +192,5 @@ interface SelectSeparatorProps {
 }
 
 export function SelectSeparator({ className = '' }: SelectSeparatorProps) {
-  return <div className={`-mx-1 my-1 h-px bg-slate-200 ${className}`} />;
+  return <div className={`-mx-1 my-1 h-px bg-slate-200 dark:bg-slate-800 ${className}`} />;
 }

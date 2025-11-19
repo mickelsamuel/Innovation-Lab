@@ -50,11 +50,11 @@ export default function PrivacyPage() {
         <div className="max-w-4xl mx-auto space-y-6">
           {/* Information We Collect */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Eye className="w-7 h-7 text-primary animate-wiggle" />
               1. Information We Collect
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>We collect information you provide when you:</p>
               <ul className="space-y-2">
                 <li>Create your player profile</li>
@@ -71,11 +71,11 @@ export default function PrivacyPage() {
 
           {/* How We Use Information */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <ShieldCheck className="w-7 h-7 text-primary animate-wiggle" />
               2. How We Use Your Information
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>We use the information we collect to:</p>
               <ul className="space-y-2">
                 <li>Provide, maintain, and improve the arena experience</li>
@@ -90,11 +90,11 @@ export default function PrivacyPage() {
 
           {/* Information Sharing */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Users className="w-7 h-7 text-primary animate-wiggle" />
               3. Information Sharing and Disclosure
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>We may share your information in the following circumstances:</p>
               <ul className="space-y-2">
                 <li>
@@ -118,11 +118,11 @@ export default function PrivacyPage() {
 
           {/* Data Security */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Lock className="w-7 h-7 text-primary animate-wiggle" />
               4. Data Protection
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 We take legendary measures to protect your information from unauthorized access,
                 alteration, disclosure, or destruction. However, no internet transmission is
@@ -133,11 +133,11 @@ export default function PrivacyPage() {
 
           {/* Rights and Choices */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <ShieldCheck className="w-7 h-7 text-primary animate-wiggle" />
               5. Your Rights and Choices
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>You have the right to:</p>
               <ul className="space-y-2">
                 <li>Access and update your player profile at any time</li>
@@ -150,11 +150,11 @@ export default function PrivacyPage() {
 
           {/* Cookies */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Cookie className="w-7 h-7 text-primary animate-wiggle" />
               6. Cookies and Tracking
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 We use cookies and similar technologies to provide, secure, and improve our arena
                 services. You can control cookies through your browser settings. See our{' '}
@@ -168,11 +168,11 @@ export default function PrivacyPage() {
 
           {/* Changes */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <FileText className="w-7 h-7 text-primary animate-wiggle" />
               7. Changes to This Policy
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>
                 We may update this Privacy Shield from time to time. We will notify you of any
                 changes by posting the new policy on this page and updating the "Last updated" date.
@@ -182,11 +182,11 @@ export default function PrivacyPage() {
 
           {/* Contact */}
           <div className="game-card p-8">
-            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3">
+            <h2 className="text-2xl font-display font-black mb-6 flex items-center gap-3 text-slate-900 dark:text-slate-100">
               <Mail className="w-7 h-7 text-primary animate-wiggle" />
               8. Contact Support HQ
             </h2>
-            <div className="prose prose-slate max-w-none text-slate-700 font-semibold">
+            <div className="prose prose-slate max-w-none text-slate-700 dark:text-slate-300 font-semibold">
               <p>If you have questions about this Privacy Shield, please contact Support HQ at:</p>
               <p>
                 <strong>Email:</strong>{' '}

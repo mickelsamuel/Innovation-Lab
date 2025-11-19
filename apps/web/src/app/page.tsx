@@ -115,7 +115,7 @@ export default function HomePage() {
               </span>
             </h1>
 
-            <p className="text-xl md:text-2xl text-slate-700 font-semibold max-w-3xl mx-auto leading-relaxed animate-fade-in">
+            <p className="text-xl md:text-2xl text-slate-700 dark:text-slate-300 font-semibold max-w-3xl mx-auto leading-relaxed animate-fade-in">
               <Rocket className="inline w-6 h-6 mr-2 animate-float" />
               National Bank of Canada's{' '}
               <span className="text-primary font-bold">innovation hub</span> for{' '}
@@ -177,7 +177,7 @@ export default function HomePage() {
                 <div className="text-4xl md:text-5xl font-display font-black stat-counter gradient-text">
                   {stat.value}
                 </div>
-                <div className="text-sm font-semibold text-slate-600 mt-2 uppercase tracking-wide">
+                <div className="text-sm font-semibold text-slate-600 dark:text-slate-300 mt-2 uppercase tracking-wide">
                   {stat.label}
                 </div>
               </div>
@@ -197,7 +197,7 @@ export default function HomePage() {
             <h2 className="text-5xl md:text-6xl font-display font-black mb-6">
               Choose Your <span className="gradient-text">Battle Arena</span>
             </h2>
-            <p className="text-xl text-slate-600 font-semibold max-w-2xl mx-auto">
+            <p className="text-xl text-slate-600 dark:text-slate-300 font-semibold max-w-2xl mx-auto">
               Three epic game modes. Endless opportunities to prove your skills.
             </p>
           </div>
@@ -254,7 +254,7 @@ export default function HomePage() {
                 <h3 className="text-2xl font-display font-bold mb-3 group-hover:text-primary transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-slate-600 font-medium leading-relaxed">{feature.description}</p>
+                <p className="text-slate-600 dark:text-slate-300 font-medium leading-relaxed">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -283,7 +283,7 @@ export default function HomePage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href={isLoggedIn ? '/hackathons' : '/auth/register'}
-              className="inline-flex items-center gap-3 px-10 py-5 bg-white text-primary rounded-xl font-black text-lg hover:bg-slate-100 transition-all hover:scale-110 shadow-3d-lg group"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-white dark:bg-card text-primary rounded-xl font-black text-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-all hover:scale-110 shadow-3d-lg group"
             >
               <Rocket className="w-6 h-6 group-hover:animate-wiggle" />
               {isLoggedIn ? 'Explore Hackathons' : 'Start Your Journey'}

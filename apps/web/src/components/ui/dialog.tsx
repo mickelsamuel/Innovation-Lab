@@ -102,7 +102,7 @@ export function DialogContent({ children, className = '', showClose = true }: Di
       {/* Dialog */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
         <div
-          className={`relative w-full max-w-lg bg-white rounded-lg shadow-xl border border-slate-200 ${className}`}
+          className={`relative w-full max-w-lg bg-white dark:bg-card rounded-lg shadow-xl border border-slate-200 dark:border-slate-800 ${className}`}
           onClick={e => e.stopPropagation()}
           role="dialog"
           aria-modal="true"
@@ -110,7 +110,7 @@ export function DialogContent({ children, className = '', showClose = true }: Di
           {showClose && (
             <button
               onClick={() => setOpen(false)}
-              className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none text-slate-900"
+              className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none text-slate-900 dark:text-slate-100"
               aria-label="Close dialog"
             >
               <X className="h-4 w-4" />
@@ -130,7 +130,7 @@ interface DialogHeaderProps {
 
 export function DialogHeader({ children, className = '' }: DialogHeaderProps) {
   return (
-    <div className={`flex flex-col space-y-1.5 px-6 py-4 border-b border-slate-200 ${className}`}>
+    <div className={`flex flex-col space-y-1.5 px-6 py-4 border-b border-slate-200 dark:border-slate-800 ${className}`}>
       {children}
     </div>
   );
@@ -153,7 +153,7 @@ interface DialogDescriptionProps {
 }
 
 export function DialogDescription({ children, className = '' }: DialogDescriptionProps) {
-  return <p className={`text-sm text-slate-500 ${className}`}>{children}</p>;
+  return <p className={`text-sm text-slate-500 dark:text-slate-300 ${className}`}>{children}</p>;
 }
 
 interface DialogBodyProps {
@@ -173,7 +173,7 @@ interface DialogFooterProps {
 export function DialogFooter({ children, className = '' }: DialogFooterProps) {
   return (
     <div
-      className={`flex items-center justify-end gap-2 px-6 py-4 border-t border-slate-200 ${className}`}
+      className={`flex items-center justify-end gap-2 px-6 py-4 border-t border-slate-200 dark:border-slate-800 ${className}`}
     >
       {children}
     </div>

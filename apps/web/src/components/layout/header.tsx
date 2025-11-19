@@ -87,13 +87,13 @@ export function Header() {
     router.push('/');
   }
 
-  // Don't show header on auth pages
-  if (pathname?.startsWith('/auth/')) {
+  // Don't show header on auth or admin pages
+  if (pathname?.startsWith('/auth/') || pathname?.startsWith('/admin')) {
     return null;
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/95 dark:bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-card/60">
       <nav className="container mx-auto px-4" aria-label="Global">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
@@ -103,10 +103,10 @@ export function Header() {
                 <span className="text-white font-bold text-xl">IL</span>
               </div>
               <div className="hidden sm:block">
-                <span className="text-lg font-display font-bold text-slate-900">
+                <span className="text-lg font-display font-bold text-slate-900 dark:text-slate-100">
                   Innovation Lab
                 </span>
-                <span className="block text-xs text-slate-500">NBC + Vaultix</span>
+                <span className="block text-xs text-slate-500 dark:text-slate-300">NBC + Vaultix</span>
               </div>
             </Link>
           </div>
@@ -115,7 +115,7 @@ export function Header() {
           <div className="flex lg:hidden items-center gap-2">
             <button
               type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700 dark:text-slate-300"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <span className="sr-only">Toggle menu</span>
@@ -138,10 +138,10 @@ export function Header() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    'inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-primary',
+                    'inline-flex items-center gap-2 text-sm font-bold transition-colors',
                     isActive
-                      ? 'text-primary border-b-2 border-primary'
-                      : 'text-slate-700 border-b-2 border-transparent'
+                      ? 'text-slate-900 dark:text-white border-b-2 border-primary'
+                      : 'text-slate-600 dark:text-slate-400 border-b-2 border-transparent hover:text-slate-900 dark:hover:text-slate-200'
                   )}
                 >
                   {Icon && <Icon className="w-4 h-4" />}
@@ -160,7 +160,7 @@ export function Header() {
                   {gamification && (
                     <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/30">
                       <Zap className="w-4 h-4 text-accent" />
-                      <span className="text-sm font-bold text-slate-900">
+                      <span className="text-sm font-bold text-slate-900 dark:text-slate-100">
                         {gamification.vaultKeys}
                       </span>
                     </div>
@@ -172,7 +172,7 @@ export function Header() {
                   {/* User Menu */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                      <button className="flex items-center gap-3 rounded-full hover:bg-slate-100 transition-colors p-1 pr-3">
+                      <button className="flex items-center gap-3 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors p-1 pr-3">
                         <Avatar className="w-9 h-9 border-2 border-primary">
                           {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
                           <AvatarFallback className="bg-primary text-white font-bold text-sm">
@@ -180,11 +180,11 @@ export function Header() {
                           </AvatarFallback>
                         </Avatar>
                         <div className="text-left hidden xl:block">
-                          <p className="text-sm font-bold text-slate-900">
+                          <p className="text-sm font-bold text-slate-900 dark:text-slate-100">
                             {user.name.split(' ')[0]}
                           </p>
                           {gamification && (
-                            <p className="text-xs text-slate-500">Level {gamification.level}</p>
+                            <p className="text-xs text-slate-500 dark:text-slate-300">Level {gamification.level}</p>
                           )}
                         </div>
                       </button>
@@ -193,7 +193,7 @@ export function Header() {
                       <DropdownMenuLabel>
                         <div>
                           <p className="font-bold">{user.name}</p>
-                          <p className="text-xs text-slate-500 font-normal">@{user.handle}</p>
+                          <p className="text-xs text-slate-500 dark:text-slate-300 font-normal">@{user.handle}</p>
                         </div>
                       </DropdownMenuLabel>
                       <DropdownMenuSeparator />
@@ -212,7 +212,7 @@ export function Header() {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         onClick={handleLogout}
-                        className="cursor-pointer text-red-600"
+                        className="cursor-pointer text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-950"
                       >
                         <LogOut className="w-4 h-4 mr-2" />
                         Logout
@@ -242,7 +242,7 @@ export function Header() {
             <div className="space-y-2 pb-3 pt-2">
               {/* User Info (Mobile) */}
               {user && (
-                <div className="px-3 py-4 border-b border-slate-200">
+                <div className="px-3 py-4 border-b border-slate-200 dark:border-slate-800">
                   <div className="flex items-center gap-3 mb-3">
                     <Avatar className="w-12 h-12 border-2 border-primary">
                       {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt={user.name} />}
@@ -251,8 +251,8 @@ export function Header() {
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <p className="font-bold text-slate-900">{user.name}</p>
-                      <p className="text-sm text-slate-500">@{user.handle}</p>
+                      <p className="font-bold text-slate-900 dark:text-slate-100">{user.name}</p>
+                      <p className="text-sm text-slate-500 dark:text-slate-300">@{user.handle}</p>
                     </div>
                   </div>
                   {gamification && (
@@ -280,8 +280,8 @@ export function Header() {
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      'flex items-center gap-3 rounded-lg px-3 py-2 text-base font-medium transition-colors',
-                      isActive ? 'bg-primary/10 text-primary' : 'text-slate-700 hover:bg-slate-50'
+                      'flex items-center gap-3 rounded-lg px-3 py-2 text-base font-bold transition-colors',
+                      isActive ? 'bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white border-l-4 border-primary' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-900 border-l-4 border-transparent'
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
@@ -292,7 +292,7 @@ export function Header() {
               })}
 
               {/* Auth Actions (Mobile) */}
-              <div className="border-t border-slate-200 mt-4 pt-4 space-y-2">
+              <div className="border-t border-slate-200 dark:border-slate-800 mt-4 pt-4 space-y-2">
                 {user ? (
                   <>
                     <Link
@@ -307,7 +307,7 @@ export function Header() {
                     </Link>
                     <Button
                       variant="outline"
-                      className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                      className="w-full justify-start text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 hover:bg-red-50 dark:hover:bg-red-950"
                       size="lg"
                       onClick={() => {
                         handleLogout();

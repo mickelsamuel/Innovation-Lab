@@ -174,7 +174,7 @@ export default function FAQPage() {
               <div key={idx} className="game-card p-8">
                 <div className="flex items-center gap-3 mb-6">
                   <IconComponent className="w-8 h-8 text-primary animate-wiggle" />
-                  <h2 className="text-3xl font-display font-black">{category.category}</h2>
+                  <h2 className="text-3xl font-display font-black text-slate-900 dark:text-slate-100">{category.category}</h2>
                 </div>
                 <div className="space-y-6">
                   {category.questions.map((faq, qIdx) => (
@@ -182,8 +182,8 @@ export default function FAQPage() {
                       key={qIdx}
                       className="border-l-4 border-primary pl-4 hover:border-accent transition-colors"
                     >
-                      <h3 className="font-bold text-lg mb-2 text-slate-900">{faq.q}</h3>
-                      <p className="text-slate-700 font-semibold leading-relaxed">{faq.a}</p>
+                      <h3 className="font-bold text-lg mb-2 text-slate-900 dark:text-slate-100">{faq.q}</h3>
+                      <p className="text-slate-700 dark:text-slate-300 font-semibold leading-relaxed">{faq.a}</p>
                     </div>
                   ))}
                 </div>
@@ -194,8 +194,8 @@ export default function FAQPage() {
           {/* Support CTA */}
           <div className="game-card p-8 text-center group">
             <Shield className="w-16 h-16 text-primary mx-auto mb-4 group-hover:animate-wiggle" />
-            <h3 className="text-2xl font-display font-black mb-3">Still Need Backup?</h3>
-            <p className="text-slate-700 font-semibold mb-6 max-w-2xl mx-auto">
+            <h3 className="text-2xl font-display font-black mb-3 text-slate-900 dark:text-slate-100">Still Need Backup?</h3>
+            <p className="text-slate-700 dark:text-slate-300 font-semibold mb-6 max-w-2xl mx-auto">
               Can't find what you're looking for? Our Support HQ is standing by to assist you!
             </p>
             <Link href="/support">

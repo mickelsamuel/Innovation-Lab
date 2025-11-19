@@ -29,6 +29,30 @@
     --ring: 348 100% 45%;
     --radius: 0.5rem;
   }
+
+  .dark {
+    /* Dark Mode - Gaming Aesthetic with Deep Backgrounds */
+    --background: 222 47% 4%;
+    --foreground: 210 20% 98%;
+    --card: 222 47% 7%;
+    --card-foreground: 210 20% 98%;
+    --popover: 222 47% 6%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 348 100% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 222 47% 12%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 222 47% 10%;
+    --muted-foreground: 215 20% 70%;
+    --accent: 41 42% 62%;
+    --accent-foreground: 222 47% 5%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 222 47% 16%;
+    --input: 222 47% 16%;
+    --ring: 348 100% 55%;
+    --radius: 0.5rem;
+  }
 }
 
 @layer base {
@@ -76,20 +100,20 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-slate-100;
+    @apply bg-slate-100 dark:bg-slate-900;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-slate-300 rounded-full;
+    @apply bg-slate-300 dark:bg-slate-700 rounded-full;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-400;
+    @apply bg-slate-400 dark:bg-slate-600;
   }
 
   /* Glass effect */
   .glass {
-    @apply bg-white/80 backdrop-blur-xl;
+    @apply bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl;
   }
 
   /* Gradient text */
@@ -160,7 +184,7 @@
 
 /* Loading skeleton */
 .skeleton {
-  @apply animate-pulse bg-slate-200 rounded;
+  @apply animate-pulse bg-slate-200 dark:bg-slate-800 rounded;
 }
 
 /* Link underline animation */
@@ -179,7 +203,7 @@
 
 /* Hero gradient background */
 .hero-gradient {
-  @apply bg-gradient-to-br from-primary/5 via-accent/5 to-accent2/5;
+  @apply bg-gradient-to-br from-primary/5 via-accent/5 to-accent2/5 dark:from-primary/10 dark:via-accent/10 dark:to-accent2/10;
 }
 
 /* Spotlight effect */
@@ -215,7 +239,7 @@
 
 /* Gaming UI Elements */
 .game-card {
-  @apply relative overflow-hidden rounded-xl border-2 border-slate-200 bg-white transition-all duration-300;
+  @apply relative overflow-hidden rounded-xl border-2 border-slate-200 dark:border-slate-800 bg-white dark:bg-card transition-all duration-300;
   transform-style: preserve-3d;
 }
 
@@ -242,7 +266,7 @@
 
 /* XP Bar / Progress Bar with Glow */
 .xp-bar {
-  @apply relative h-3 bg-slate-200 rounded-full overflow-hidden;
+  @apply relative h-3 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden;
 }
 
 .xp-bar-fill {
@@ -331,11 +355,25 @@
 .rank-2 {
   background: linear-gradient(135deg, #C0C0C0 0%, #E8E8E8 50%, #C0C0C0 100%);
   box-shadow: 0 0 20px rgba(192, 192, 192, 0.6);
+  @apply text-slate-900;
+}
+
+.dark .rank-2 {
+  background: linear-gradient(135deg, #A8A8A8 0%, #D0D0D0 50%, #A8A8A8 100%);
+  box-shadow: 0 0 25px rgba(200, 200, 200, 0.8);
+  @apply text-slate-900;
 }
 
 .rank-3 {
   background: linear-gradient(135deg, #CD7F32 0%, #E8A87C 50%, #CD7F32 100%);
   box-shadow: 0 0 20px rgba(205, 127, 50, 0.6);
+  @apply text-slate-900;
+}
+
+.dark .rank-3 {
+  background: linear-gradient(135deg, #D4874F 0%, #F4B88C 50%, #D4874F 100%);
+  box-shadow: 0 0 25px rgba(220, 140, 80, 0.8);
+  @apply text-slate-900;
 }
 
 /* Particle/Confetti Background */
@@ -370,7 +408,7 @@
 
 /* Glass Morphism Game Style */
 .glass-game {
-  @apply backdrop-blur-xl bg-white/90 border border-slate-200/50 text-slate-900;
+  @apply backdrop-blur-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200/50 dark:border-slate-700/50 text-slate-900 dark:text-slate-100;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
@@ -417,10 +455,18 @@
   background-position: 0 0, 0 0, 40px 70px, 40px 70px;
 }
 
+.dark .hex-grid {
+  background-image:
+    linear-gradient(30deg, #1f2937 12%, transparent 12.5%, transparent 87%, #1f2937 87.5%, #1f2937),
+    linear-gradient(150deg, #1f2937 12%, transparent 12.5%, transparent 87%, #1f2937 87.5%, #1f2937),
+    linear-gradient(30deg, #1f2937 12%, transparent 12.5%, transparent 87%, #1f2937 87.5%, #1f2937),
+    linear-gradient(150deg, #1f2937 12%, transparent 12.5%, transparent 87%, #1f2937 87.5%, #1f2937);
+}
+
 /* Fix text visibility issues */
 /* Ensure XP bar text is visible */
 .xp-bar {
-  @apply bg-slate-200/90;
+  @apply bg-slate-200/90 dark:bg-slate-800/90;
 }
 
 /* Ensure stat numbers are always visible */
@@ -432,26 +478,26 @@
 /* Fix search input visibility */
 input[type="search"],
 input[type="text"] {
-  @apply text-slate-900 placeholder:text-slate-500 bg-white;
+  @apply text-slate-900 dark:text-slate-100 placeholder:text-slate-500 dark:placeholder:text-slate-400 bg-white dark:bg-slate-900;
 }
 
 /* Ensure filter buttons are visible */
 button[role="combobox"],
 select {
-  @apply text-slate-900 bg-white;
+  @apply text-slate-900 dark:text-slate-100 bg-white dark:bg-slate-900;
 }
 
 /* Fix stats with 0 values visibility */
 .game-card .text-3xl,
 .game-card .text-4xl {
-  @apply text-slate-900;
+  @apply text-slate-900 dark:text-slate-100;
 }
 
 /* Ensure all text in cards is readable - using specific selectors */
 .game-card > p,
 .game-card > div > p,
 .game-card label {
-  @apply text-slate-700;
+  @apply text-slate-700 dark:text-slate-300;
 }
 
 .game-card h1,
@@ -459,7 +505,7 @@ select {
 .game-card h3,
 .game-card h4,
 .game-card .font-display {
-  @apply text-slate-900;
+  @apply text-slate-900 dark:text-slate-100;
 }
 
 /* Ensure badges are interactive and visible */

@@ -102,14 +102,14 @@ export default function ChallengeManagementPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
+        <Card className="bg-gradient-to-br from-purple-50 to-purple-50/50 border-purple-200">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-slate-600 font-medium">Total Challenges</p>
                 <p className="text-3xl font-bold text-slate-900 mt-1">{challenges.length}</p>
               </div>
-              <Target className="w-10 h-10 text-primary opacity-50" />
+              <Target className="w-10 h-10 text-purple-500 opacity-50" />
             </div>
           </CardContent>
         </Card>

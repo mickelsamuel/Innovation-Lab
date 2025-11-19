@@ -1,0 +1,13 @@
+import { Module } from '@nestjs/common';
+import { ModerationController } from './moderation.controller';
+import { ModerationService } from './moderation.service';
+import { AuthModule } from '../auth/auth.module';
+import { PrismaModule } from '../common/prisma/prisma.module';
+
+@Module({
+  imports: [AuthModule, PrismaModule],
+  controllers: [ModerationController],
+  providers: [ModerationService],
+  exports: [ModerationService],
+})
+export class ModerationModule {}

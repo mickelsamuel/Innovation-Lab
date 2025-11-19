@@ -141,7 +141,7 @@ export function DropdownMenuContent({
       <div
         ref={contentRef}
         className={cn(
-          'absolute z-50 min-w-[8rem] overflow-hidden rounded-md border border-slate-200 bg-white p-1 text-slate-950 shadow-md animate-in fade-in-0 zoom-in-95',
+          'absolute z-50 min-w-[8rem] overflow-hidden rounded-md border border-slate-200 dark:border-slate-800 bg-white dark:bg-card p-1 text-slate-950 dark:text-slate-100 shadow-md animate-in fade-in-0 zoom-in-95',
           alignmentClasses[align],
           className
         )}
@@ -188,7 +188,7 @@ export function DropdownMenuItem({
   if (asChild && React.isValidElement(children)) {
     return React.cloneElement(children, {
       className: cn(
-        'relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-slate-100 focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
+        'relative flex w-full cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-slate-100 dark:focus:bg-slate-800 data-[disabled]:pointer-events-none data-[disabled]:opacity-50',
         disabled && 'pointer-events-none opacity-50',
         className
       ),
@@ -200,7 +200,7 @@ export function DropdownMenuItem({
   return (
     <div
       className={cn(
-        'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-slate-100 focus:bg-slate-100',
+        'relative flex cursor-pointer select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-slate-100 dark:hover:bg-slate-800 focus:bg-slate-100 dark:focus:bg-slate-800',
         disabled && 'pointer-events-none opacity-50',
         className
       )}
@@ -234,7 +234,7 @@ interface DropdownMenuSeparatorProps {
 }
 
 export function DropdownMenuSeparator({ className }: DropdownMenuSeparatorProps) {
-  return <div className={cn('-mx-1 my-1 h-px bg-slate-100', className)} role="separator" />;
+  return <div className={cn('-mx-1 my-1 h-px bg-slate-100 dark:bg-slate-800', className)} role="separator" />;
 }
 
 interface DropdownMenuGroupProps {

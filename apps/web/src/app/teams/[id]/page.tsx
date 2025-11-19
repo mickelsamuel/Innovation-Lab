@@ -47,10 +47,10 @@ export default function TeamDetailPage() {
   // Loading State
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-slate-600">Loading team...</p>
+          <p className="text-slate-600 dark:text-slate-300">Loading team...</p>
         </div>
       </div>
     );
@@ -59,10 +59,10 @@ export default function TeamDetailPage() {
   // Error State
   if (error || !team) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center p-4">
         <Card className="max-w-md w-full">
           <CardContent className="pt-6 text-center">
-            <p className="text-slate-600 mb-4">{error || 'Team not found'}</p>
+            <p className="text-slate-600 dark:text-slate-300 mb-4">{error || 'Team not found'}</p>
             <Button onClick={() => router.back()} variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Go Back
@@ -82,9 +82,9 @@ export default function TeamDetailPage() {
   const canInvite = isTeamLead && team.members.length < (team.hackathon?.maxTeamSize || 4);
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       {/* Header */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Button variant="ghost" size="sm" onClick={() => router.back()}>
             <ArrowLeft className="w-4 h-4 mr-2" />
@@ -160,7 +160,7 @@ export default function TeamDetailPage() {
                 <CardTitle>About the Team</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-slate-700 whitespace-pre-line">{team.bio}</p>
+                <p className="text-slate-700 dark:text-slate-300 whitespace-pre-line">{team.bio}</p>
               </CardContent>
             </Card>
           )}
@@ -191,7 +191,7 @@ export default function TeamDetailPage() {
                 {team.members.map(member => (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between p-4 border border-slate-200 rounded-lg hover:border-slate-300 transition-colors"
+                    className="flex items-center justify-between p-4 border border-slate-200 dark:border-slate-800 rounded-lg hover:border-slate-300 transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <Avatar className="w-12 h-12">
@@ -201,8 +201,8 @@ export default function TeamDetailPage() {
                         <AvatarFallback>{getInitials(member.user.name)}</AvatarFallback>
                       </Avatar>
                       <div>
-                        <p className="font-semibold text-slate-900">{member.user.name}</p>
-                        <p className="text-sm text-slate-600">@{member.user.handle}</p>
+                        <p className="font-semibold text-slate-900 dark:text-slate-100">{member.user.name}</p>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">@{member.user.handle}</p>
                       </div>
                     </div>
                     <Badge variant={member.role === 'LEAD' ? 'default' : 'secondary'}>
@@ -268,7 +268,7 @@ export default function TeamDetailPage() {
             <Card className="border-primary/20 bg-gradient-to-r from-primary/5 to-accent/5">
               <CardContent className="pt-6 text-center">
                 <h3 className="text-xl font-bold mb-2">Interested in joining?</h3>
-                <p className="text-slate-700 mb-4">
+                <p className="text-slate-700 dark:text-slate-300 mb-4">
                   This team is looking for new members to join their hackathon project.
                 </p>
                 <Button

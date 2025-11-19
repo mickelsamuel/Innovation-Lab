@@ -19,9 +19,15 @@ import {
   ChevronRight,
   Plus,
   Loader2,
+  Activity,
+  Bell,
+  Mail,
+  Settings,
 } from 'lucide-react';
 import { getInitials } from '@/lib/utils';
 import { getAuthToken, apiFetch, ApiError } from '@/lib/api';
+import { getAllBadges, getRarityBgColor } from '@/lib/gamification';
+import type { Badge as BadgeType } from '@/types/gamification';
 
 interface User {
   id: string;
@@ -100,6 +106,7 @@ export default function DashboardPage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [challengesCompleted, setChallengesCompleted] = useState(0);
+  const [allBadges, setAllBadges] = useState<BadgeType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -144,6 +151,10 @@ export default function DashboardPage() {
           token,
         });
         setChallengesCompleted(completedData.count);
+
+        // Fetch all badges for trophy case
+        const badgesData = await getAllBadges();
+        setAllBadges(badgesData);
       } catch (err) {
         console.error('Dashboard error:', err);
         if (err instanceof ApiError && err.status === 401) {
@@ -166,7 +177,7 @@ export default function DashboardPage() {
       <div className="min-h-screen hex-grid flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-          <p className="text-lg font-bold text-slate-700">Loading your dashboard...</p>
+          <p className="text-lg font-bold text-slate-700 dark:text-slate-300">Loading your dashboard...</p>
         </div>
       </div>
     );
@@ -266,8 +277,8 @@ export default function DashboardPage() {
                     <p className="text-4xl font-black font-display gradient-text">
                       {gamification.vaultKeys}
                     </p>
-                    <p className="text-sm font-bold text-slate-700 uppercase mt-1">Vault Keys</p>
-                    <p className="text-xs text-slate-500 mt-1">Premium Currency</p>
+                    <p className="text-sm font-bold text-slate-700 dark:text-slate-300 uppercase mt-1">Vault Keys</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-300 mt-1">Premium Currency</p>
                   </div>
                 </div>
               </div>
@@ -286,10 +297,10 @@ export default function DashboardPage() {
                   <Star className="w-6 h-6 text-accent" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-display font-black text-slate-800">
+                  <h3 className="text-lg font-display font-black text-slate-800 dark:text-slate-100">
                     You're viewing a Demo Dashboard
                   </h3>
-                  <p className="text-sm text-slate-600 font-semibold">
+                  <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold">
                     Sign up to track your real progress, earn XP, and join hackathons!
                   </p>
                 </div>
@@ -338,7 +349,7 @@ export default function DashboardPage() {
                   value: stats.challengesCompleted,
                   label: 'Bosses Defeated',
                   color: 'text-green-500',
-                  bg: 'bg-green-100',
+                  bg: 'bg-green-100 dark:bg-green-900/20',
                 },
               ].map((stat, index) => (
                 <div
@@ -355,7 +366,7 @@ export default function DashboardPage() {
                     <p className="text-3xl font-black font-display stat-counter gradient-text">
                       {stat.value}
                     </p>
-                    <p className="text-xs text-slate-600 font-bold uppercase mt-1 tracking-wide">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 font-bold uppercase mt-1 tracking-wide">
                       {stat.label}
                     </p>
                   </div>
@@ -371,7 +382,7 @@ export default function DashboardPage() {
                     <Trophy className="w-6 h-6 text-primary animate-wiggle" />
                     Active Raids
                   </h3>
-                  <p className="text-sm text-slate-600 font-semibold mt-1">Your ongoing missions</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold mt-1">Your ongoing missions</p>
                 </div>
 
                 <Link href="/hackathons">
@@ -396,7 +407,7 @@ export default function DashboardPage() {
                             >
                               {hackathon.title}
                             </h4>
-                            <div className="flex items-center gap-2 text-sm text-slate-600 font-semibold">
+                            <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 font-semibold">
                               <Calendar className="w-4 h-4" />
                               <span>
                                 {hackathon.status === 'LIVE' || hackathon.status === 'ONGOING'
@@ -438,7 +449,7 @@ export default function DashboardPage() {
               ) : (
                 <div className="text-center py-10">
                   <Calendar className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-float" />
-                  <p className="text-slate-600 font-bold mb-4">No active raids found</p>
+                  <p className="text-slate-600 dark:text-slate-300 font-bold mb-4">No active raids found</p>
                   <Link href="/hackathons">
                     <button className="btn-game">
                       <Plus className="w-4 h-4 inline mr-2" />
@@ -456,7 +467,7 @@ export default function DashboardPage() {
                   <Users className="w-6 h-6 text-accent2 animate-wiggle" />
                   My Guilds
                 </h3>
-                <p className="text-sm text-slate-600 font-semibold mt-1">Your party members</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold mt-1">Your party members</p>
               </div>
               <div>
                 {teams.length > 0 ? (
@@ -473,7 +484,7 @@ export default function DashboardPage() {
                               >
                                 {team.name}
                               </h4>
-                              <p className="text-sm text-slate-600 font-semibold">
+                              <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold">
                                 {team.hackathon.title}
                               </p>
                               <div className="flex items-center gap-1 mt-2 text-xs text-slate-500">
@@ -512,7 +523,7 @@ export default function DashboardPage() {
                 ) : (
                   <div className="text-center py-10">
                     <Users className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-float" />
-                    <p className="text-slate-600 font-bold mb-4">No guilds joined yet</p>
+                    <p className="text-slate-600 dark:text-slate-300 font-bold mb-4">No guilds joined yet</p>
                     <Link href="/hackathons">
                       <button className="btn-game-secondary">Find a Guild</button>
                     </Link>
@@ -528,7 +539,7 @@ export default function DashboardPage() {
                   <FileText className="w-6 h-6 text-accent animate-wiggle" />
                   Completed Quests
                 </h3>
-                <p className="text-sm text-slate-600 font-semibold mt-1">Your submissions</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold mt-1">Your submissions</p>
               </div>
               <div>
                 {submissions.length > 0 ? (
@@ -548,7 +559,7 @@ export default function DashboardPage() {
                               >
                                 {submission.title}
                               </h4>
-                              <p className="text-sm text-slate-600 font-semibold">
+                              <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold">
                                 {submission.hackathon.title}
                               </p>
                             </div>
@@ -579,7 +590,7 @@ export default function DashboardPage() {
                 ) : (
                   <div className="text-center py-10">
                     <FileText className="w-16 h-16 text-slate-300 mx-auto mb-4 animate-float" />
-                    <p className="text-slate-600 font-bold mb-4">No completed quests yet</p>
+                    <p className="text-slate-600 dark:text-slate-300 font-bold mb-4">No completed quests yet</p>
                     <Link href="/hackathons">
                       <button className="btn-game">Start a Quest</button>
                     </Link>
@@ -591,6 +602,64 @@ export default function DashboardPage() {
 
           {/* Sidebar - Right 1/3 */}
           <div className="space-y-6">
+            {/* Quick Links */}
+            <div className="game-card p-6">
+              <h3 className="text-xl font-display font-black mb-4 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-primary" />
+                Quick Access
+              </h3>
+              <div className="space-y-2">
+                <Link href="/activity">
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all group">
+                    <div className="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Activity className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <div className="text-left flex-1">
+                      <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Activity Feed</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-400">View recent actions</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary" />
+                  </button>
+                </Link>
+                <Link href="/notifications">
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all group">
+                    <div className="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Bell className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <div className="text-left flex-1">
+                      <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Notifications</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-400">Important updates</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary" />
+                  </button>
+                </Link>
+                <Link href="/invitations">
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all group">
+                    <div className="w-10 h-10 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Mail className="w-5 h-5 text-green-600 dark:text-green-400" />
+                    </div>
+                    <div className="text-left flex-1">
+                      <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Invitations</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-400">Team invites</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary" />
+                  </button>
+                </Link>
+                <Link href="/profile">
+                  <button className="w-full flex items-center gap-3 p-3 rounded-lg border-2 border-slate-200 dark:border-slate-700 hover:border-primary hover:bg-primary/5 transition-all group">
+                    <div className="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <Settings className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                    </div>
+                    <div className="text-left flex-1">
+                      <p className="font-bold text-sm text-slate-900 dark:text-slate-100">Profile Settings</p>
+                      <p className="text-xs text-slate-600 dark:text-slate-400">Manage your account</p>
+                    </div>
+                    <ChevronRight className="w-5 h-5 text-slate-400 group-hover:text-primary" />
+                  </button>
+                </Link>
+              </div>
+            </div>
+
             {/* Badges - "Trophy Case" */}
             <div className="game-card p-6 shadow-glow-accent">
               <div className="mb-6">
@@ -598,26 +667,31 @@ export default function DashboardPage() {
                   <Award className="w-6 h-6 text-accent animate-wiggle" />
                   Trophy Case
                 </h3>
-                <p className="text-sm text-slate-600 font-semibold mt-1">Legendary achievements</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold mt-1">Legendary achievements</p>
               </div>
 
               <div className="grid grid-cols-3 gap-3 mb-6">
-                {gamification.badges.slice(0, 6).map((badge, index) => (
-                  <div
-                    key={badge}
-                    className={`aspect-square rounded-xl flex items-center justify-center group cursor-pointer ${
-                      index === 0 ? 'badge-legendary' : index === 1 ? 'badge-epic' : 'badge-rare'
-                    }`}
-                    title={badge.replace(/_/g, ' ')}
-                  >
-                    <Award className="w-10 h-10 text-white group-hover:scale-125 transition-transform" />
-                  </div>
-                ))}
+                {gamification.badges.slice(0, 6).map((badgeSlug) => {
+                  const badgeDetails = allBadges.find(b => b.slug === badgeSlug);
+                  if (!badgeDetails) return null;
+
+                  return (
+                    <div
+                      key={badgeSlug}
+                      className={`aspect-square rounded-xl flex items-center justify-center group cursor-pointer border-2 ${getRarityBgColor(badgeDetails.rarity)}`}
+                      title={`${badgeDetails.name} (${badgeDetails.rarity.toUpperCase()})`}
+                    >
+                      <span className="text-5xl group-hover:scale-125 transition-transform">
+                        {badgeDetails.icon}
+                      </span>
+                    </div>
+                  );
+                })}
                 {/* Empty slots */}
                 {[...Array(Math.max(0, 6 - gamification.badges.length))].map((_, i) => (
                   <div
                     key={`empty-${i}`}
-                    className="aspect-square bg-slate-100 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-300"
+                    className="aspect-square bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-300 dark:border-slate-700"
                   >
                     <Award className="w-10 h-10 text-slate-300" />
                   </div>
@@ -642,7 +716,7 @@ export default function DashboardPage() {
                   <TrendingUp className="w-6 h-6 text-green-500 animate-wiggle" />
                   XP Log
                 </h3>
-                <p className="text-sm text-slate-600 font-semibold mt-1">Recent gains</p>
+                <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold mt-1">Recent gains</p>
               </div>
 
               {gamification.recentXpEvents && gamification.recentXpEvents.length > 0 ? (
@@ -659,14 +733,14 @@ export default function DashboardPage() {
                       key={activity.id}
                       className="border-l-4 border-accent pl-4 group hover:border-primary transition-colors"
                     >
-                      <p className="text-sm text-slate-700 font-semibold group-hover:text-primary transition-colors">
+                      <p className="text-sm text-slate-700 dark:text-slate-300 font-semibold group-hover:text-primary transition-colors">
                         {String(activity.eventType).replace(/_/g, ' ')}
                       </p>
                       <div className="flex items-center gap-2 mt-2">
                         <span className="text-xs font-black px-3 py-1 bg-green-100 text-green-700 rounded-full">
                           +{activity.points} XP
                         </span>
-                        <span className="text-xs text-slate-500 font-semibold">
+                        <span className="text-xs text-slate-500 dark:text-slate-300 font-semibold">
                           {new Date(activity.createdAt).toLocaleDateString()}
                         </span>
                       </div>
@@ -676,7 +750,7 @@ export default function DashboardPage() {
               ) : (
                 <div className="text-center py-8">
                   <TrendingUp className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-                  <p className="text-sm text-slate-500 font-semibold">No recent activity</p>
+                  <p className="text-sm text-slate-500 dark:text-slate-300 font-semibold">No recent activity</p>
                 </div>
               )}
             </div>

@@ -148,15 +148,15 @@ export default function AnnounceWinnersPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
         <Loader2 className="w-16 h-16 animate-spin text-primary" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <div className="bg-white border-b">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
+      <div className="bg-white dark:bg-card border-b border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-4 py-4">
           <Link href={`/admin/hackathons/${hackathonId}/manage`}>
             <Button variant="ghost" size="sm">
@@ -188,7 +188,7 @@ export default function AnnounceWinnersPage() {
               {submissions.length === 0 && (
                 <div className="text-center py-8">
                   <Trophy className="w-16 h-16 text-slate-300 mx-auto mb-3" />
-                  <p className="text-slate-500 mb-4">
+                  <p className="text-slate-500 dark:text-slate-300 mb-4">
                     No ranked submissions found. Please calculate rankings first.
                   </p>
                   <Link href={`/admin/hackathons/${hackathonId}/manage`}>
@@ -234,10 +234,10 @@ export default function AnnounceWinnersPage() {
                             {submission ? (
                               <div>
                                 <p className="font-medium text-sm mb-1">{submission.title}</p>
-                                <p className="text-xs text-slate-600">{submission.team.name}</p>
+                                <p className="text-xs text-slate-600 dark:text-slate-300">{submission.team.name}</p>
                               </div>
                             ) : (
-                              <p className="text-sm text-slate-400">Not selected</p>
+                              <p className="text-sm text-slate-400 dark:text-slate-500">Not selected</p>
                             )}
                           </CardContent>
                         </Card>
@@ -285,7 +285,7 @@ export default function AnnounceWinnersPage() {
                                   )}
                                 </div>
                                 <p className="font-semibold">{submission.title}</p>
-                                <p className="text-sm text-slate-600">{submission.team.name}</p>
+                                <p className="text-sm text-slate-600 dark:text-slate-300">{submission.team.name}</p>
 
                                 {selected && (
                                   <div className="mt-3">
